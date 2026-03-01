@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Konsultasi - RuangPulih</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3>RuangPulih</h3>
+                <p>Klien</p>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard-user.html"><span>📊</span> Dashboard</a></li>
+                <li class="active"><a href="form-konsultasi.html"><span>📝</span> Konsultasi Baru</a></li>
+                <li><a href="tabel-jadwal.html"><span>📅</span> Jadwal Saya</a></li>
+                <li><a href="#"><span>💬</span> Riwayat Konsultasi</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h2>Form Konsultasi Baru</h2>
+            </header>
+
+            <div class="form-container">
+                <form>
+                    <!-- PILIH PSIKOLOG -->
+                    <div class="form-section">
+                        <h3>Pilih Psikolog</h3>
+                        <select class="form-input" required>
+                            <option value="">-- Pilih Psikolog --</option>
+                            <option value="1">dr. Sarah Wijaya (Kecemasan)</option>
+                            <option value="2">dr. Budi Santoso (Depresi)</option>
+                            <option value="3">dr. Dewi Lestari (Trauma)</option>
+                        </select>
+                    </div>
+
+                    <!-- JADWAL -->
+                    <div class="form-row">
+                        <div class="form-section">
+                            <h3>Tanggal</h3>
+                            <input type="date" class="form-input" required>
+                        </div>
+                        <div class="form-section">
+                            <h3>Jam</h3>
+                            <select class="form-input" required>
+                                <option value="">Pilih Jam</option>
+                                <option value="09:00">09:00 WIB</option>
+                                <option value="10:00">10:00 WIB</option>
+                                <option value="13:00">13:00 WIB</option>
+                                <option value="15:00">15:00 WIB</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- TEXT INPUT -->
+                    <div class="form-section">
+                        <h3>Keluhan Utama</h3>
+                        <textarea class="form-input textarea" rows="4" placeholder="Jelaskan keluhan yang Anda alami..."></textarea>
+                    </div>
+
+                    <!-- TEXT INPUT LAINNYA -->
+                    <div class="form-section">
+                        <h3>Riwayat Konsultasi Sebelumnya</h3>
+                        <input type="text" class="form-input" placeholder="Jika pernah, sebutkan dengan siapa">
+                    </div>
+
+                    <!-- FILE UPLOAD -->
+                    <div class="form-section">
+                        <h3>Upload Dokumen Pendukung (Opsional)</h3>
+                        <div class="file-upload">
+                            <input type="file" id="file" multiple>
+                            <label for="file" class="file-label">
+                                <span class="file-icon">📎</span>
+                                <span>Pilih file atau seret ke sini</span>
+                                <span class="file-info">Maksimal 10MB (PDF, JPG, PNG)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- RADIO BUTTON -->
+                    <div class="form-section">
+                        <h3>Tipe Konsultasi</h3>
+                        <div class="radio-group">
+                            <label>
+                                <input type="radio" name="tipe" value="online"> Online (Video Call)
+                            </label>
+                            <label>
+                                <input type="radio" name="tipe" value="offline"> Offline (Tatap Muka)
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- CHECKBOX -->
+                    <div class="form-section">
+                        <label class="checkbox-label">
+                            <input type="checkbox"> Saya menyetujui syarat dan ketentuan yang berlaku
+                        </label>
+                    </div>
+
+                    <!-- SUBMIT BUTTON -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Ajukan Konsultasi</button>
+                        <button type="reset" class="btn-secondary">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
