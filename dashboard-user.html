@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Klien - RuangPulih</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3>RuangPulih</h3>
+                <p>Klien</p>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="active"><a href="#"><span>📊</span> Dashboard</a></li>
+                <li><a href="form-konsultasi.html"><span>📝</span> Konsultasi Baru</a></li>
+                <li><a href="tabel-jadwal.html"><span>📅</span> Jadwal Saya</a></li>
+                <li><a href="#"><span>💬</span> Riwayat Konsultasi</a></li>
+                <li><a href="#"><span>👤</span> Profil</a></li>
+                <li><a href="login.html"><span>🚪</span> Logout</a></li>
+            </ul>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h2>Dashboard Klien</h2>
+                <div class="user-info">
+                    <span>Halo, Andi</span>
+                    <div class="avatar">👤</div>
+                </div>
+            </header>
+
+            <!-- STATS CARDS -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>3</h3>
+                    <p>Konsultasi Aktif</p>
+                </div>
+                <div class="stat-card">
+                    <h3>5</h3>
+                    <p>Riwayat Konsultasi</p>
+                </div>
+                <div class="stat-card">
+                    <h3>2</h3>
+                    <p>Psikolog Favorit</p>
+                </div>
+            </div>
+
+            <!-- JADWAL MENDATANG -->
+            <section class="dashboard-section">
+                <h3>Jadwal Mendatang</h3>
+                <table class="simple-table">
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Psikolog</th>
+                            <th>Waktu</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>10 Mar 2026</td>
+                            <td>dr. Sarah Wijaya</td>
+                            <td>14:00 WIB</td>
+                            <td><span class="badge pending">Menunggu</span></td>
+                        </tr>
+                        <tr>
+                            <td>12 Mar 2026</td>
+                            <td>dr. Budi Santoso</td>
+                            <td>10:30 WIB</td>
+                            <td><span class="badge confirmed">Dikonfirmasi</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
