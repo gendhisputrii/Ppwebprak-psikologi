@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Psikolog - RuangPulih</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3>RuangPulih</h3>
+                <p>Psikolog</p>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="active"><a href="#"><span>📊</span> Dashboard</a></li>
+                <li><a href="tabel-jadwal.html"><span>📅</span> Jadwal Konsultasi</a></li>
+                <li><a href="#"><span>👥</span> Daftar Klien</a></li>
+                <li><a href="#"><span>💰</span> Laporan Keuangan</a></li>
+                <li><a href="#"><span>👤</span> Profil</a></li>
+                <li><a href="login.html"><span>🚪</span> Logout</a></li>
+            </ul>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h2>Dashboard Psikolog</h2>
+                <div class="user-info">
+                    <span>Halo, Dr. Sarah</span>
+                    <div class="avatar">👩‍⚕️</div>
+                </div>
+            </header>
+
+            <!-- STATS CARDS -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>8</h3>
+                    <p>Konsultasi Hari Ini</p>
+                </div>
+                <div class="stat-card">
+                    <h3>12</h3>
+                    <p>Klien Aktif</p>
+                </div>
+                <div class="stat-card">
+                    <h3>4.9</h3>
+                    <p>Rating</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Rp 2.5jt</h3>
+                    <p>Pendapatan Bulan Ini</p>
+                </div>
+            </div>
+
+            <!-- JADWAL HARI INI -->
+            <section class="dashboard-section">
+                <h3>Jadwal Hari Ini</h3>
+                <table class="simple-table">
+                    <thead>
+                        <tr>
+                            <th>Waktu</th>
+                            <th>Klien</th>
+                            <th>Tipe</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>09:00</td>
+                            <td>Andi Pratama</td>
+                            <td>Online</td>
+                            <td><button class="btn-small">Mulai</button></td>
+                        </tr>
+                        <tr>
+                            <td>10:30</td>
+                            <td>Budi Santoso</td>
+                            <td>Offline</td>
+                            <td><button class="btn-small">Mulai</button></td>
+                        </tr>
+                        <tr>
+                            <td>13:00</td>
+                            <td>Citra Dewi</td>
+                            <td>Online</td>
+                            <td><button class="btn-small">Mulai</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
