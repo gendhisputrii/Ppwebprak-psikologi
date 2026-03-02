@@ -9,7 +9,9 @@
 <body>
     <!-- NAVBAR -->
     <nav class="navbar">
-        <div class="logo">RuangPulih</div>
+        <div class="logo">
+            <img src="logo1.png" alt="RuangPulih" class="logo-img">
+        </div>
         <ul class="nav-menu">
             <li><a href="index.html">Beranda</a></li>
             <li><a href="#layanan">Layanan</a></li>
@@ -23,65 +25,153 @@
     <!-- HERO SECTION -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Temukan Ketenangan Jiwa<br>Bersama Psikolog Profesional</h1>
-            <p>Konsultasi online & offline dengan psikolog berpengalaman. Aman, nyaman, dan terpercaya.</p>
+            <h1>Disinilah Tempatmu<br>Sembuh dan Bertumbuh</h1>
+            <p>Pernah merasa semuanya di luar kendali?
+                Situasi baru, tekanan kerja, atau ekspektasi yang menumpuk...
+                 semua itu bisa bikin stres.
+                Stres itu sebenarnya wajar—tanda kalau kamu sedang bertumbuh.
+                Tapi kalau rasanya makin berat dan berkepanjangan, jangan dipendam sendiri.
+                Kamu tidak perlu menghilangkan stres, cukup belajar mengelolanya.
+                Dan jika butuh arah, psikolog bisa jadi teman diskusi yang tepat.</p>
             <div class="hero-buttons">
-                <a href="form-konsultasi.html" class="btn-primary">Mulai Konsultasi</a>
+                <a href="form-konsul.html" class="btn-primary">Mulai Konsultasi</a>
                 <a href="#layanan" class="btn-secondary">Pelajari Layanan</a>
             </div>
         </div>
-        <div class="hero-image"></div>
-    </section>
-
-    <!-- LAYANAN SECTION -->
-    <section id="layanan" class="layanan">
-        <h2>Layanan Kami</h2>
-        <div class="layanan-grid">
-            <div class="layanan-card">
-                <div class="card-icon">💬</div>
-                <h3>Konseling Individu</h3>
-                <p>Sesi one-onone dengan psikolog untuk membahas masalah pribadi</p>
-            </div>
-            <div class="layanan-card">
-                <div class="card-icon">👥</div>
-                <h3>Konseling Pasangan</h3>
-                <p>Membangun komunikasi dan keharmonisan hubungan</p>
-            </div>
-            <div class="layanan-card">
-                <div class="card-icon">📊</div>
-                <h3>Tes Psikologi</h3>
-                <p>Asesmen minat, bakat, dan kepribadian</p>
-            </div>
-            <div class="layanan-card">
-                <div class="card-icon">🌙</div>
-                <h3>Konseling Online</h3>
-                <p>Konsultasi via video call dari rumah</p>
-            </div>
+        <div class="hero-image">
+            <img src="background1.jpeg" alt="Konseling">
         </div>
     </section>
 
-    <!-- STATISTIK -->
-    <section class="statistik">
-        <div class="stat-container">
-            <div class="stat-item">
-                <h3>50+</h3>
-                <p>Psikolog</p>
+ <!-- LAYANAN SECTION -->
+<section id="layanan" class="layanan">
+    <h2>Layanan Kami</h2>
+    <div class="layanan-card">
+    <div class="card-icon">
+        <img src="offline (2).jpg" 
+             alt="Konseling Offline">
+    </div>
+    <h3>Konseling Offline</h3>
+    <p>Buat janji tatap muka</p>
+ </div>
+
+        <!-- Tes Depresi -->
+        <div class="layanan-card">
+            <div class="card-icon">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" 
+                     alt="Tes Depresi" 
+                     class="gambar-icon">
             </div>
-            <div class="stat-item">
-                <h3>1000+</h3>
-                <p>Klien Puas</p>
+            <h3>Tes Depresi</h3>
+            <p>Hasil adaptasi tes PHQ-9 untuk mengecek & mengukur gejala depresi</p>
+        </div>
+
+        <!-- Konseling Online -->
+        <div class="layanan-card">
+            <div class="card-icon">
+                <img src="https://cdn-icons-png.flaticon.com/512/724/724664.png" 
+                     alt="Konseling Online" 
+                     class="gambar-icon">
             </div>
-            <div class="stat-item">
-                <h3>20+</h3>
-                <p>Kota</p>
-            </div>
-            <div class="stat-item">
-                <h3>1000+</h3>
-                <p>Sesi Konseling</p>
+            <h3>Konseling Online</h3>
+            <p>Konsultasi via video call dari rumah</p>
+        </div>
+    </div>
+</section>
+
+ <!-- ARTIKEL SECTION (seperti gambar) -->
+    <section id="artikel" class="artikel">
+        <div class="artikel-header">
+            <div>
+                <h2>Baca Tentang Kesehatan Mental</h2>
+                <p>Tips & info untuk menjaga kesehatan mental.</p>
             </div>
         </div>
-    </section>
 
+        <!-- Tab Kategori -->
+        <div class="artikel-tabs">
+            <span class="tab-item active">Kesehatan Mental</span>
+            <span class="tab-item">Stres</span>
+            <span class="tab-item">Kecemasan</span>
+            <span class="tab-item">Depresi</span>
+            <span class="tab-item">Gangguan Kepribadian</span>
+            <span class="tab-item">Gangguan Tidur</span>
+        </div>
+
+        <!-- Grid Artikel -->
+        <div class="artikel-grid">
+            <!-- Artikel Utama (besar) -->
+            <div class="artikel-card-large">
+                <div class="artikel-img">
+                    <span class="artikel-category">Kesehatan Mental</span>
+                </div>
+                <div class="artikel-content">
+                    <h3>Anxiety Menyerang, Bagaimana Cara untuk Meredakannya?</h3>
+                    <p>“Anxiety bisa diredakan dengan cara menarik napas dalam dan fokus terhadap diri sendiri.”</p>
+                    <div class="artikel-meta">
+                        <span>📅 2 Mar 2026</span>
+                        <span>👁️ 2.5k dibaca</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Side Artikel -->
+            <div class="artikel-side">
+                <!-- Artikel 1 -->
+                <div class="artikel-card-small">
+                    <div class="artikel-img-small"></div>
+                    <div class="artikel-content-small">
+                        <div class="artikel-category-small">Kesehatan Mental</div>
+                        <h4>Pentingnya Kesehatan Mental bagi Remaja & Cara Menghadapinya</h4>
+                        <div class="artikel-meta">
+                            <span>📅 1 Mar 2026</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Artikel 2 -->
+                <div class="artikel-card-small">
+                    <div class="artikel-img-small"></div>
+                    <div class="artikel-content-small">
+                        <div class="artikel-category-small">Kesehatan Mental</div>
+                        <h4> Kesehatan Mental & Kesejahteraan Hidup</h4>
+                        <div class="artikel-meta">
+                            <span>📅 28 Feb 2026</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Artikel 3 -->
+                <div class="artikel-card-small">
+                    <div class="artikel-img-small"></div>
+                    <div class="artikel-content-small">
+                        <div class="artikel-category-small">Kecemasan</div>
+                        <h4>Kenali Gejala Anxiety Disorder pada Remaja</h4>
+                        <div class="artikel-meta">
+                            <span>📅 27 Feb 2026</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Artikel 4 -->
+                <div class="artikel-card-small">
+                    <div class="artikel-img-small"></div>
+                    <div class="artikel-content-small">
+                        <div class="artikel-category-small">Depresi</div>
+                        <h4>Tanda Depresi yang Sering Diabaikan</h4>
+                        <div class="artikel-meta">
+                            <span>📅 26 Feb 2026</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tombol Lihat Semua -->
+        <div class="lihat-semua">
+            <a href="#" class="btn-lihat">Lihat Semua</a>
+        </div>
+    </section>
     <!-- FOOTER -->
     <footer>
         <div class="footer-content">

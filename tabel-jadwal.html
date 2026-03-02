@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadwal Konsultasi - RuangPulih</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3>RuangPulih</h3>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard-user.html"><span>📊</span> Dashboard</a></li>
+                <li><a href="form-konsultasi.html"><span>📝</span> Konsultasi Baru</a></li>
+                <li class="active"><a href="tabel-jadwal.html"><span>📅</span> Jadwal Saya</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h2>Jadwal Konsultasi</h2>
+                <div class="table-controls">
+                    <input type="text" placeholder="Cari jadwal..." class="search-input">
+                    <select class="filter-select">
+                        <option>Semua Status</option>
+                        <option>Menunggu</option>
+                        <option>Dikonfirmasi</option>
+                        <option>Selesai</option>
+                    </select>
+                </div>
+            </header>
+
+            <!-- TABEL JADWAL -->
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Tanggal</th>
+                            <th>Psikolog/Klien</th>
+                            <th>Tipe</th>
+                            <th>Waktu</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>10 Mar 2026</td>
+                            <td>dr. Sarah Wijaya</td>
+                            <td><span class="badge-online">Online</span></td>
+                            <td>14:00 WIB</td>
+                            <td><span class="badge-pending">Menunggu</span></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>12 Mar 2026</td>
+                            <td>dr. Budi Santoso</td>
+                            <td><span class="badge-offline">Offline</span></td>
+                            <td>10:30 WIB</td>
+                            <td><span class="badge-confirmed">Dikonfirmasi</span></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>15 Mar 2026</td>
+                            <td>dr. Dewi Lestari</td>
+                            <td><span class="badge-online">Online</span></td>
+                            <td>09:00 WIB</td>
+                            <td><span class="badge-completed">Selesai</span></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- PAGINATION -->
+            <div class="pagination">
+                <button class="page-btn">«</button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">»</button>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
