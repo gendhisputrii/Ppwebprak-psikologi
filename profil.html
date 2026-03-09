@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - RuangPulih</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h3>RuangPulih</h3>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="dashboard-user.html">Dashboard</a></li>
+            <li><a href="form-konsultasi.html">Konsultasi Baru</a></li>
+            <li><a href="tabel-jadwal.html">Jadwal Saya</a></li>
+            <li><a href="#">Riwayat Konsultasi</a></li>
+            <li class="active"><a href="profil.html">Profil</a></li>
+            <li><a href="login.html">Logout</a></li>
+        </ul>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <header class="dashboard-header">
+            <h2>Profil Saya</h2>
+        </header>
+
+        <div class="profile-container">
+
+            <!-- FOTO PROFIL -->
+            <div class="profile-card">
+                <div class="profile-avatar">
+                    👤
+                </div>
+
+                <h3>Andi Pratama</h3>
+                <p class="profile-role">Klien</p>
+
+                <button class="btn-primary">Ubah Foto</button>
+            </div>
+
+            <!-- DATA PROFIL -->
+            <div class="profile-info">
+
+                <div class="profile-section">
+                    <h3>Informasi Pribadi</h3>
+
+                    <div class="profile-row">
+                        <label>Nama Lengkap</label>
+                        <input type="text" value="Andi Pratama">
+                    </div>
+
+                    <div class="profile-row">
+                        <label>Email</label>
+                        <input type="email" value="andi@email.com">
+                    </div>
+
+                    <div class="profile-row">
+                        <label>Nomor Telepon</label>
+                        <input type="text" value="081234567890">
+                    </div>
+
+                    <div class="profile-row">
+                        <label>Tanggal Lahir</label>
+                        <input type="date">
+                    </div>
+
+                </div>
+
+                <div class="profile-section">
+                    <h3>Bio</h3>
+                    <textarea rows="4" placeholder="Ceritakan sedikit tentang diri Anda..."></textarea>
+                </div>
+
+                <div class="profile-actions">
+                    <button class="btn-primary">Simpan Perubahan</button>
+                    <button class="btn-secondary">Batal</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>
