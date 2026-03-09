@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Riwayat Konsultasi - RuangPulih</title>
+    <title>Profil - RuangPulih</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
-<div class="dashboard">
+<div class="wrapper">
 
     <!-- SIDEBAR -->
     <aside class="sidebar">
@@ -21,98 +19,46 @@
             <li><a href="dashboard-user.html">Dashboard</a></li>
             <li><a href="form-konsultasi.html">Konsultasi Baru</a></li>
             <li><a href="tabel-jadwal.html">Jadwal Saya</a></li>
-            <li class="active"><a href="riwayat-konsultasi.html">Riwayat Konsultasi</a></li>
-            <li><a href="profil.html">Profil</a></li>
+            <li><a href="riwayat-konsultasi.html">Riwayat Konsultasi</a></li>
+            <li class="active"><a href="profil.html">Profil</a></li>
             <li><a href="login.html">Logout</a></li>
         </ul>
     </aside>
 
+
     <!-- MAIN CONTENT -->
-    <main class="main-content">
+    <div class="main-content">
 
-        <header class="dashboard-header">
-            <h2>Riwayat Konsultasi</h2>
+        <div class="card">
 
-            <div class="table-controls">
-                <input type="text" placeholder="Cari riwayat..." class="search-input">
+            <h1>Riwayat Konsultasi</h1>
 
-                <select class="filter-select">
-                    <option>Semua</option>
-                    <option>Online</option>
-                    <option>Offline</option>
-                </select>
-            </div>
-
-        </header>
-
-        <!-- TABEL RIWAYAT -->
-        <div class="table-responsive">
-
-            <table class="data-table">
-
+            <table>
                 <thead>
                     <tr>
-                        <th>No</th>
                         <th>Tanggal</th>
                         <th>Psikolog</th>
-                        <th>Tipe</th>
-                        <th>Waktu</th>
+                        <th>Topik</th>
                         <th>Status</th>
-                        <th>Catatan</th>
+                        <th>Detail</th>
                     </tr>
                 </thead>
 
                 <tbody>
-
                     <tr>
-                        <td>1</td>
-                        <td>20 Feb 2026</td>
-                        <td>dr. Sarah Wijaya</td>
-                        <td><span class="badge-online">Online</span></td>
-                        <td>14:00 WIB</td>
-                        <td><span class="badge-completed">Selesai</span></td>
-                        <td><button class="btn-small">Lihat</button></td>
+                        <td>10 Mei 2025</td>
+                        <td>Dr. Budi Santoso</td>
+                        <td>Kecemasan</td>
+                        <td class="selesai">Selesai</td>
+                        <td><button>Lihat</button></td>
                     </tr>
-
-                    <tr>
-                        <td>2</td>
-                        <td>15 Feb 2026</td>
-                        <td>dr. Budi Santoso</td>
-                        <td><span class="badge-offline">Offline</span></td>
-                        <td>10:30 WIB</td>
-                        <td><span class="badge-completed">Selesai</span></td>
-                        <td><button class="btn-small">Lihat</button></td>
-                    </tr>
-
-                    <tr>
-                        <td>3</td>
-                        <td>10 Feb 2026</td>
-                        <td>dr. Dewi Lestari</td>
-                        <td><span class="badge-online">Online</span></td>
-                        <td>09:00 WIB</td>
-                        <td><span class="badge-completed">Selesai</span></td>
-                        <td><button class="btn-small">Lihat</button></td>
-                    </tr>
-
                 </tbody>
 
             </table>
 
         </div>
 
-        <!-- PAGINATION -->
-
-        <div class="pagination">
-            <button class="page-btn">«</button>
-            <button class="page-btn active">1</button>
-            <button class="page-btn">2</button>
-            <button class="page-btn">3</button>
-            <button class="page-btn">»</button>
-        </div>
-
-    </main>
+    </div>
 
 </div>
-
 </body>
-</html>

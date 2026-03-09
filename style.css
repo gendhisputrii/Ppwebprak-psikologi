@@ -2305,3 +2305,116 @@ select.form-input {
 .btn-secondary:hover{
     background: #d1d5db;
 }
+
+/* riwayat konsultasi */
+/* RESET */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* WRAPPER LAYOUT */
+.wrapper{
+    display:flex;
+    min-height:100vh;
+    background:#f5f7fb;
+}
+
+/* SIDEBAR */
+.sidebar{
+    width:250px;
+    background:linear-gradient(180deg,#4a7bdc,#5fa2ff);
+    color:white;
+    padding:20px 0;
+}
+
+.sidebar-header{
+    padding:0 20px 20px 20px;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.sidebar-menu{
+    list-style:none;
+}
+
+.sidebar-menu li{
+    padding:12px 20px;
+}
+
+.sidebar-menu li a{
+    color:white;
+    text-decoration:none;
+    display:block;
+}
+
+.sidebar-menu li:hover{
+    background:rgba(255,255,255,0.2);
+}
+
+.sidebar-menu li.active{
+    background:rgba(255,255,255,0.25);
+    border-left:4px solid white;
+}
+
+/* MAIN CONTENT */
+.main-content{
+    flex:1;
+    padding:40px;
+}
+
+/* CARD */
+.card{
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.08);
+}
+
+/* TITLE */
+.card h1{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+/* TABLE */
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+thead{
+    background:linear-gradient(90deg,#4a6cf7,#5f7cff);
+    color:white;
+}
+
+th, td{
+    padding:14px;
+    text-align:center;
+}
+
+tbody tr:nth-child(even){
+    background:#f2f4f8;
+}
+
+/* STATUS */
+.selesai{
+    color:green;
+    font-weight:bold;
+}
+
+/* BUTTON */
+button{
+    padding:7px 15px;
+    border:none;
+    background:#4a6cf7;
+    color:white;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#324ecf;
+}
