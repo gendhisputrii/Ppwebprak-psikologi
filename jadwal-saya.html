@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Riwayat Konsultasi - RuangPulih</title>
+<title>Jadwal Saya - RuangPulih</title>
 
 <link rel="stylesheet" href="style2.css">
 </head>
@@ -36,11 +36,11 @@
             <span class="nav-icon">📝</span> Konsultasi Baru
         </a>
 
-        <a href="jadwal-saya.html" class="nav-item">
+        <a href="jadwal-saya.html" class="nav-item active">
             <span class="nav-icon">📅</span> Jadwal Saya
         </a>
 
-        <a href="riwayat-konsultasi.html" class="nav-item active">
+        <a href="riwayat-konsultasi.html" class="nav-item">
             <span class="nav-icon">📖</span> Riwayat Konsultasi
         </a>
 
@@ -57,11 +57,12 @@
         </a>
     </div>
 </aside>
+
 <!-- MAIN -->
 <main class="main">
 
 <div class="topbar">
-    <h3>Riwayat Konsultasi</h3>
+    <h3>Jadwal Saya</h3>
     <div class="user-avatar">GV</div>
 </div>
 
@@ -69,13 +70,14 @@
 
     <div class="section">
 
-        <h3>Daftar Riwayat</h3>
+        <h3>Jadwal Konsultasi Mendatang</h3>
 
         <table>
             <thead>
                 <tr>
                     <th>Tanggal</th>
                     <th>Psikolog</th>
+                    <th>Waktu</th>
                     <th>Tipe</th>
                     <th>Status</th>
                     <th>Aksi</th>
@@ -85,27 +87,30 @@
             <tbody>
 
                 <tr>
-                    <td>01 Mar 2026</td>
+                    <td>10 Mar 2026</td>
                     <td>dr. Sarah Wijaya</td>
+                    <td>14:00 WIB</td>
                     <td>Online</td>
-                    <td><span class="badge selesai">Selesai</span></td>
-                    <td><button class="btn">Detail</button></td>
+                    <td><span class="badge pending">Menunggu</span></td>
+                    <td><button class="btn">Gabung</button></td>
                 </tr>
 
                 <tr>
-                    <td>20 Feb 2026</td>
+                    <td>12 Mar 2026</td>
                     <td>dr. Andi Kusuma</td>
+                    <td>10:00 WIB</td>
                     <td>Offline</td>
-                    <td><span class="badge dibatalkan">Dibatalkan</span></td>
+                    <td><span class="badge selesai">Dikonfirmasi</span></td>
                     <td><button class="btn">Detail</button></td>
                 </tr>
 
                 <tr>
-                    <td>15 Feb 2026</td>
+                    <td>15 Mar 2026</td>
                     <td>dr. Budi Santoso</td>
+                    <td>09:00 WIB</td>
                     <td>Online</td>
-                    <td><span class="badge selesai">Selesai</span></td>
-                    <td><button class="btn">Detail</button></td>
+                    <td><span class="badge pending">Menunggu</span></td>
+                    <td><button class="btn">Batalkan</button></td>
                 </tr>
 
             </tbody>
