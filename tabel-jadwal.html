@@ -1,96 +1,348 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jadwal Konsultasi - RuangPulih</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Jadwal Konsultasi - RuangPulih</title>
+
+<style>
+
+*, *::before, *::after {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+:root {
+--primary:#6352c7;
+--primary-dark:#2d1f6e;
+--primary-light:#ede9fb;
+--accent:#4a90d9;
+--success:#16a34a;
+--text-dark:#1a1145;
+--text-mid:#4a4570;
+--text-muted:#8b88a8;
+--bg:#f8f7ff;
+--border:rgba(99,82,199,0.12);
+--radius-sm:8px;
+--radius-md:14px;
+}
+
+body{
+font-family:'Plus Jakarta Sans',sans-serif;
+background:var(--bg);
+display:flex;
+}
+
+
+ /* SIDEBAR */
+        .sidebar {
+            width: 240px;
+            background: var(--primary-dark);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0; left: 0;
+            height: 100vh;
+            z-index: 50;
+        }
+
+        .sidebar-logo {
+            padding: 24px 24px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .sidebar-logo span {
+            font-size: 18px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .sidebar-logo small {
+            display: block;
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 2px;
+        }
+
+        .sidebar-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .user-avatar {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; font-weight: 700; color: white;
+        }
+
+        .user-name { font-size: 13px; font-weight: 600; color: white; }
+        .user-role { font-size: 11px; color: rgba(255,255,255,0.5); }
+
+        .sidebar-nav { flex: 1; padding: 8px 12px; }
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            padding: 12px 12px 6px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: rgba(255,255,255,0.65);
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .nav-item:hover { background: rgba(255,255,255,0.08); color: white; }
+        .nav-item.active { background: rgba(255,255,255,0.12); color: white; }
+        .nav-icon { font-size: 16px; width: 20px; text-align: center; }
+
+        .sidebar-footer {
+            padding: 16px 12px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            color: rgba(255,255,255,0.5);
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .logout-btn:hover { color: #f87171; background: rgba(248,113,113,0.1); }
+
+
+
+/* MAIN */
+
+.main{
+margin-left:240px;
+width:100%;
+}
+
+
+/* TOPBAR */
+
+.topbar{
+background:white;
+padding:20px;
+border-bottom:1px solid var(--border);
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.content{
+padding:25px;
+}
+
+
+/* TABLE */
+
+.section{
+background:white;
+padding:20px;
+border-radius:12px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:12px;
+font-size:14px;
+text-align:left;
+}
+
+th{
+border-bottom:1px solid var(--border);
+color:var(--text-muted);
+}
+
+td{
+border-bottom:1px solid var(--border);
+}
+
+.status{
+padding:4px 10px;
+border-radius:6px;
+font-size:12px;
+}
+
+.online{
+background:#e0f2fe;
+color:#0369a1;
+}
+
+.offline{
+background:#dcfce7;
+color:#166534;
+}
+
+.btn{
+padding:6px 12px;
+background:var(--primary-light);
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+.btn:hover{
+background:var(--primary);
+color:white;
+}
+
+</style>
+
 </head>
 
 <body>
-    <div class="dashboard">
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h3>RuangPulih</h3>
-                <p>Psikolog</p>
-            </div>
-            <ul class="sidebar-menu">
-                <li><a href="dashboard-psikolog.html"><span></span> Dashboard</a></li>
-                <li class="active"><a href="tabel-jadwal.html"><span></span> Jadwal Konsultasi</a></li>
-                <li><a href="#"><span></span> Daftar Klien</a></li>
-                <li><a href="#"><span></span> Laporan Keuangan</a></li>
-                <li><a href="profil.html"><span></span> Profil</a></li>
-                <li><a href="login.html"><span></span> Logout</a></li>
-            </ul>
-        </aside>
-        <main class="main-content">
-            <header class="dashboard-header">
-                <h2>Jadwal Konsultasi</h2>
-                <div class="table-controls">
-                    <input type="text" placeholder="Cari jadwal..." class="search-input">
-                    <select class="filter-select">
-                        <option>Semua Status</option>
-                        <option>Menunggu</option>
-                        <option>Dikonfirmasi</option>
-                        <option>Selesai</option>
-                    </select>
-                </div>
-            </header>
 
-            <!-- TABEL JADWAL -->
-            <div class="table-responsive">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Tanggal</th>
-                            <th>Psikolog/Klien</th>
-                            <th>Tipe</th>
-                            <th>Waktu</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>10 Mar 2026</td>
-                            <td>dr. Sarah Wijaya</td>
-                            <td><span class="badge-online">Online</span></td>
-                            <td>14:00 WIB</td>
-                            <td><span class="badge-pending">Menunggu</span></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>12 Mar 2026</td>
-                            <td>dr. Budi Santoso</td>
-                            <td><span class="badge-offline">Offline</span></td>
-                            <td>10:30 WIB</td>
-                            <td><span class="badge-confirmed">Dikonfirmasi</span></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>15 Mar 2026</td>
-                            <td>dr. Dewi Lestari</td>
-                            <td><span class="badge-online">Online</span></td>
-                            <td>09:00 WIB</td>
-                            <td><span class="badge-completed">Selesai</span></td>
+<!-- SIDEBAR -->
 
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- PAGINATION -->
-            <div class="pagination">
-                <button class="page-btn">«</button>
-                <button class="page-btn active">1</button>
-                <button class="page-btn">2</button>
-                <button class="page-btn">3</button>
-                <button class="page-btn">»</button>
-            </div>
-        </main>
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="sidebar-logo">
+        <span>RuangPulih</span>
+        <small>Psikolog</small>
     </div>
-</body>
 
+    <div class="sidebar-user">
+        <div class="user-avatar">DS</div>
+        <div>
+            <div class="user-name">Dr. Sarah Amelia</div>
+            <div class="user-role">Psikolog Klinis</div>
+        </div>
+    </div>
+
+    <nav class="sidebar-nav">
+        <div class="nav-label">Menu Utama</div>
+
+        <a href="dashboard-psikolog.html" class="nav-item">
+            <span class="nav-icon">🏠</span> Dashboard
+        </a>
+
+        <a href="tabel-jadwal.html" class="nav-item active">
+            <span class="nav-icon">📅</span> Jadwal Konsultasi
+        </a>
+
+        <a href="daftar-pasien.html" class="nav-item">
+            <span class="nav-icon">👥</span> Daftar Pasien
+        </a>
+
+        <a href="#" class="nav-item">
+            <span class="nav-icon">💰</span> Laporan Keuangan
+        </a>
+
+        <div class="nav-label">Akun</div>
+
+        <a href="profil.html" class="nav-item">
+            <span class="nav-icon">👤</span> Profil
+        </a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <a href="login.html" class="logout-btn">
+            <span>🚪</span> Keluar
+        </a>
+    </div>
+</aside>
+
+
+
+<!-- MAIN -->
+
+<div class="main">
+
+<div class="topbar">
+<h3>Jadwal Konsultasi</h3>
+<div class="user-avatar">DS</div>
+</div>
+
+
+<div class="content">
+
+<div class="section">
+
+<h3>Jadwal Konsultasi</h3>
+
+<table>
+
+<thead>
+<tr>
+<th>Tanggal</th>
+<th>Waktu</th>
+<th>Pasien</th>
+<th>Tipe</th>
+<th>Status</th>
+<th>Aksi</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>12 Juni 2026</td>
+<td>09:00</td>
+<td>Andi Pratama</td>
+<td>Online</td>
+<td><span class="status online">Terjadwal</span></td>
+<td><button class="btn">Mulai</button></td>
+</tr>
+
+<tr>
+<td>12 Juni 2026</td>
+<td>11:00</td>
+<td>Budi Santoso</td>
+<td>Offline</td>
+<td><span class="status offline">Terjadwal</span></td>
+<td><button class="btn">Detail</button></td>
+</tr>
+
+<tr>
+<td>13 Juni 2026</td>
+<td>13:00</td>
+<td>Citra Dewi</td>
+<td>Online</td>
+<td><span class="status online">Terjadwal</span></td>
+<td><button class="btn">Mulai</button></td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
 </html>
