@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Pasien - RuangPulih</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --primary:       #6352c7;
+            --primary-dark:  #2d1f6e;
+            --primary-light: #ede9fb;
+            --accent:        #4a90d9;
+            --success:       #16a34a;
+            --success-light: #f0fdf4;
+            --warning:       #d97706;
+            --warning-light: #fffbeb;
+            --danger:        #dc2626;
+            --danger-light:  #fef2f2;
+            --text-dark:     #1a1145;
+            --text-mid:      #4a4570;
+            --text-muted:    #8b88a8;
+            --bg:            #f8f7ff;
+            --border:        rgba(99,82,199,0.12);
+            --radius-sm:     8px;
+            --radius-md:     14px;
+            --radius-lg:     20px;
+            --shadow-sm:     0 2px 8px rgba(45,31,110,0.06);
+            --shadow-md:     0 8px 32px rgba(45,31,110,0.10);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text-dark);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 240px;
+            background: var(--primary-dark);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0; left: 0;
+            height: 100vh;
+            z-index: 50;
+        }
+
+        .sidebar-logo {
+            padding: 24px 24px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .sidebar-logo span {
+            font-size: 18px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .sidebar-logo small {
+            display: block;
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 2px;
+        }
+
+        .sidebar-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .user-avatar {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; font-weight: 700; color: white;
+        }
+
+        .user-name { font-size: 13px; font-weight: 600; color: white; }
+        .user-role { font-size: 11px; color: rgba(255,255,255,0.5); }
+
+        .sidebar-nav { flex: 1; padding: 8px 12px; }
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            padding: 12px 12px 6px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: rgba(255,255,255,0.65);
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .nav-item:hover { background: rgba(255,255,255,0.08); color: white; }
+        .nav-item.active { background: rgba(255,255,255,0.12); color: white; }
+        .nav-icon { font-size: 16px; width: 20px; text-align: center; }
+
+        .sidebar-footer {
+            padding: 16px 12px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            color: rgba(255,255,255,0.5);
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .logout-btn:hover { color: #f87171; background: rgba(248,113,113,0.1); }
+
+        /* MAIN */
+        .main {
+            margin-left: 240px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            height: 64px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+
+        .topbar-title { font-size: 16px; font-weight: 700; color: var(--text-dark); }
+
+        .topbar-right { display: flex; align-items: center; gap: 12px; }
+
+        .notif-btn {
+            width: 36px; height: 36px;
+            border-radius: var(--radius-sm);
+            background: var(--bg);
+            border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-size: 16px; position: relative;
+        }
+
+        .notif-dot {
+            position: absolute; top: 6px; right: 6px;
+            width: 7px; height: 7px;
+            border-radius: 50%; background: #ef4444;
+            border: 1.5px solid white;
+        }
+
+        .content { padding: 28px 32px; }
+
+        /* PAGE HEADER */
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .page-header h2 { font-size: 20px; font-weight: 800; color: var(--text-dark); }
+        .page-header p { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+        /* STATS */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 20px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .stat-icon {
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+        }
+
+        .stat-val { font-size: 22px; font-weight: 800; color: var(--text-dark); letter-spacing: -0.5px; }
+        .stat-lbl { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+
+        /* FILTER BAR */
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-wrap {
+            position: relative;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-wrap .search-icon {
+            position: absolute;
+            left: 12px; top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        .search-wrap input {
+            width: 100%;
+            padding: 10px 14px 10px 36px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            color: var(--text-dark);
+            background: white;
+            outline: none;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+
+        .search-wrap input:focus { border-color: var(--primary); }
+
+        .filter-select {
+            padding: 10px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            color: var(--text-dark);
+            background: white;
+            outline: none;
+            cursor: pointer;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        .filter-select:focus { border-color: var(--primary); }
+
+        /* PASIEN GRID */
+        .pasien-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .pasien-card {
+            background: white;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            padding: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .pasien-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            border-color: rgba(99,82,199,0.3);
+        }
+
+        .pasien-card-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .pasien-avatar {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; font-weight: 700; color: white;
+            flex-shrink: 0;
+        }
+
+        .pasien-name { font-size: 14px; font-weight: 700; color: var(--text-dark); }
+        .pasien-nim { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+        .pasien-status {
+            margin-left: auto;
+            padding: 4px 10px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .status-aktif { background: var(--success-light); color: var(--success); }
+        .status-selesai { background: var(--bg); color: var(--text-muted); }
+
+        .pasien-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+        }
+
+        .info-item .info-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 3px;
+        }
+
+        .info-item .info-val {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .pasien-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .btn-detail {
+            flex: 1;
+            padding: 8px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-detail:hover { background: var(--primary); color: white; }
+
+        .btn-jadwal {
+            flex: 1;
+            padding: 8px;
+            background: white;
+            color: var(--text-mid);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-jadwal:hover { border-color: var(--primary); color: var(--primary); }
+
+        /* PAGINATION */
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .page-btn {
+            width: 36px; height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1.5px solid var(--border);
+            background: white;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-mid);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .page-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .page-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <span>RuangPulih</span>
+            <small>Psikolog</small>
+        </div>
+        <div class="sidebar-user">
+            <div class="user-avatar">DS</div>
+            <div>
+                <div class="user-name">Dr. Sarah Amelia</div>
+                <div class="user-role">Psikolog Klinis</div>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-label">Menu Utama</div>
+            <a href="dashboard-psikolog.html" class="nav-item">
+                <span class="nav-icon">🏠</span> Dashboard
+            </a>
+            <a href="tabel-jadwal.html" class="nav-item">
+                <span class="nav-icon">📅</span> Jadwal Konsultasi
+            </a>
+            <a href="daftar-pasien.html" class="nav-item active">
+                <span class="nav-icon">👥</span> Daftar Pasien
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">💰</span> Laporan Keuangan
+            </a>
+            <div class="nav-label">Akun</div>
+            <a href="profil.html" class="nav-item">
+                <span class="nav-icon">👤</span> Profil
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="login.html" class="logout-btn">
+                <span>🚪</span> Keluar
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+        <div class="topbar">
+            <div class="topbar-title">Daftar Pasien</div>
+            <div class="topbar-right">
+                <div class="notif-btn">🔔<span class="notif-dot"></span></div>
+                <div class="user-avatar" style="width:32px;height:32px;font-size:12px;">DS</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="page-header">
+                <div>
+                    <h2>Daftar Pasien</h2>
+                    <p>Total 12 pasien aktif terdaftar</p>
+                </div>
+            </div>
+
+            <!-- STATS -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background:#ede9fb;">👥</div>
+                    <div>
+                        <div class="stat-val">12</div>
+                        <div class="stat-lbl">Total Pasien</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background:#f0fdf4;">✅</div>
+                    <div>
+                        <div class="stat-val">8</div>
+                        <div class="stat-lbl">Pasien Aktif</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background:#e8f2fc;">📅</div>
+                    <div>
+                        <div class="stat-val">4</div>
+                        <div class="stat-lbl">Sesi Bulan Ini</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FILTER -->
+            <div class="filter-bar">
+                <div class="search-wrap">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" placeholder="Cari nama pasien atau NIM..." oninput="filterPasien(this.value)">
+                </div>
+                <select class="filter-select" onchange="filterStatus(this.value)">
+                    <option value="">Semua Status</option>
+                    <option value="aktif">Aktif</option>
+                    <option value="selesai">Selesai</option>
+                </select>
+            </div>
+
+            <!-- PASIEN GRID -->
+            <div class="pasien-grid" id="pasien-grid">
+
+                <div class="pasien-card" data-name="andi pratama" data-status="aktif">
+                    <div class="pasien-card-top">
+                        <div class="pasien-avatar" style="background:linear-gradient(135deg,#6352c7,#4a90d9)">AP</div>
+                        <div>
+                            <div class="pasien-name">Andi Pratama</div>
+                            <div class="pasien-nim">NIM: 2021001001</div>
+                        </div>
+                        <span class="pasien-status status-aktif">Aktif</span>
+                    </div>
+                    <div class="pasien-info">
+                        <div class="info-item">
+                            <div class="info-label">Total Sesi</div>
+                            <div class="info-val">5 sesi</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Sesi Terakhir</div>
+                            <div class="info-val">20 Mar 2026</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Tipe</div>
+                            <div class="info-val">Online</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Keluhan</div>
+                            <div class="info-val">Kecemasan</div>
+                        </div>
+                    </div>
+                    <div class="pasien-actions">
+                        <button class="btn-detail">Lihat Detail</button>
+                        <button class="btn-jadwal">Buat Jadwal</button>
+                    </div>
+                </div>
+
+                <div class="pasien-card" data-name="budi santoso" data-status="aktif">
+                    <div class="pasien-card-top">
+                        <div class="pasien-avatar" style="background:linear-gradient(135deg,#0f6e56,#1d9e75)">BS</div>
+                        <div>
+                            <div class="pasien-name">Budi Santoso</div>
+                            <div class="pasien-nim">NIM: 2021001234</div>
+                        </div>
+                        <span class="pasien-status status-aktif">Aktif</span>
+                    </div>
+                    <div class="pasien-info">
+                        <div class="info-item">
+                            <div class="info-label">Total Sesi</div>
+                            <div class="info-val">3 sesi</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Sesi Terakhir</div>
+                            <div class="info-val">15 Mar 2026</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Tipe</div>
+                            <div class="info-val">Offline</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Keluhan</div>
+                            <div class="info-val">Stres Akademik</div>
+                        </div>
+                    </div>
+                    <div class="pasien-actions">
+                        <button class="btn-detail">Lihat Detail</button>
+                        <button class="btn-jadwal">Buat Jadwal</button>
+                    </div>
+                </div>
+
+                <div class="pasien-card" data-name="citra dewi" data-status="aktif">
+                    <div class="pasien-card-top">
+                        <div class="pasien-avatar" style="background:linear-gradient(135deg,#993556,#d4537e)">CD</div>
+                        <div>
+                            <div class="pasien-name">Citra Dewi</div>
+                            <div class="pasien-nim">NIM: 2022002345</div>
+                        </div>
+                        <span class="pasien-status status-aktif">Aktif</span>
+                    </div>
+                    <div class="pasien-info">
+                        <div class="info-item">
+                            <div class="info-label">Total Sesi</div>
+                            <div class="info-val">7 sesi</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Sesi Terakhir</div>
+                            <div class="info-val">22 Mar 2026</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Tipe</div>
+                            <div class="info-val">Online</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Keluhan</div>
+                            <div class="info-val">Depresi Ringan</div>
+                        </div>
+                    </div>
+                    <div class="pasien-actions">
+                        <button class="btn-detail">Lihat Detail</button>
+                        <button class="btn-jadwal">Buat Jadwal</button>
+                    </div>
+                </div>
+
+                <div class="pasien-card" data-name="dian rahma" data-status="aktif">
+                    <div class="pasien-card-top">
+                        <div class="pasien-avatar" style="background:linear-gradient(135deg,#854f0b,#ba7517)">DR</div>
+                        <div>
+                            <div class="pasien-name">Dian Rahma</div>
+                            <div class="pasien-nim">NIM: 2020003456</div>
+                        </div>
+                        <span class="pasien-status status-aktif">Aktif</span>
+                    </div>
+                    <div class="pasien-info">
+                        <div class="info-item">
+                            <div class="info-label">Total Sesi</div>
+                            <div class="info-val">2 sesi</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Sesi Terakhir</div>
+                            <div class="info-val">18 Mar 2026</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Tipe</div>
+                            <div class="info-val">Offline</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Keluhan</div>
+                            <div class="info-val">Burnout</div>
+                        </div>
+                    </div>
+                    <div class="pasien-actions">
+                        <button class="btn-detail">Lihat Detail</button>
+                        <button class="btn-jadwal">Buat Jadwal</button>
+                    </div>
+                </div>
+
+                <div class="pasien-card" data-name="eka putra" data-status="selesai">
+                    <div class="pasien-card-top">
+                        <div class="pasien-avatar" style="background:linear-gradient(135deg,#185fa5,#378add)">EP</div>
+                        <div>
+                            <div class="pasien-name">Eka Putra</div>
+                            <div class="pasien-nim">NIM: 2019004567</div>
+                        </div>
+                        <span class="pasien-status status-selesai">Selesai</span>
+                    </div>
+                    <div class="pasien-info">
+                        <div class="info-item">
+                            <div class="info-label">Total Sesi</div>
+                            <div class="info-val">10 sesi</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Sesi Terakhir</div>
+                            <div class="info-val">01 Feb 2026</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Tipe</div>
+                            <div class="info-val">Online</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Keluhan</div>
+                            <div class="info-val">Trauma</div>
+                        </div>
+                    </div>
+                    <div class="pasien-actions">
+                        <button class="btn-detail">Lihat Detail</button>
+                        <button class="btn-jadwal">Buat Jadwal</button>
+                    </div>
+                </div>
+
+                <div class="pasien-card" data-name="fira ananda" data-status="selesai">
+                    <div class="pasien-card-top">
+                        <div class="pasien-avatar" style="background:linear-gradient(135deg,#3b6d11,#639922)">FA</div>
+                        <div>
+                            <div class="pasien-name">Fira Ananda</div>
+                            <div class="pasien-nim">NIM: 2022005678</div>
+                        </div>
+                        <span class="pasien-status status-selesai">Selesai</span>
+                    </div>
+                    <div class="pasien-info">
+                        <div class="info-item">
+                            <div class="info-label">Total Sesi</div>
+                            <div class="info-val">4 sesi</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Sesi Terakhir</div>
+                            <div class="info-val">10 Jan 2026</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Tipe</div>
+                            <div class="info-val">Offline</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Keluhan</div>
+                            <div class="info-val">Insomnia</div>
+                        </div>
+                    </div>
+                    <div class="pasien-actions">
+                        <button class="btn-detail">Lihat Detail</button>
+                        <button class="btn-jadwal">Buat Jadwal</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- PAGINATION -->
+            <div class="pagination">
+                <button class="page-btn">«</button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">»</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function filterPasien(val) {
+            const cards = document.querySelectorAll('.pasien-card');
+            cards.forEach(card => {
+                const name = card.dataset.name;
+                card.style.display = name.includes(val.toLowerCase()) ? '' : 'none';
+            });
+        }
+
+        function filterStatus(val) {
+            const cards = document.querySelectorAll('.pasien-card');
+            cards.forEach(card => {
+                if (!val || card.dataset.status === val) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
