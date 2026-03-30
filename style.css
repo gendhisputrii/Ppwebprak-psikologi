@@ -160,7 +160,7 @@ a {
 }
 
 .layanan h2 {
-    text-align: left;
+    text-align: center;
     color: var(--primary-dark);
     margin-bottom: 30px;
     font-size: 28px;
@@ -175,7 +175,6 @@ a {
     margin: 0 auto;      /* GRID DI TENGAH */
 }
 
-/* Card styling - HAPUS width:50%  */
 .layanan-card {
     background: rgba(150, 182, 234, 0.358);
     backdrop-filter: blur(10px);
@@ -184,9 +183,8 @@ a {
     padding: 20px 12px;
     transition: transform 0.3s;
     text-align: center;
-    width: 50%;        
-    margin: 0;           /* Hapus margin */
-    box-sizing: border-box; /* Biar padding nggak nambah lebar */
+    box-sizing: border-box;
+    /* width: 50% ← sudah dihapus */
 }
 
 /* Icon container */
