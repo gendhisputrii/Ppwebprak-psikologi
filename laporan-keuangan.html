@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laporan Keuangan - RuangPulih</title>
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --primary:#6352c7;
+    --primary-dark:#2d1f6e;
+    --primary-light:#ede9fb;
+    --success:#16a34a;
+    --success-light:#f0fdf4;
+    --danger:#dc2626;
+    --danger-light:#fef2f2;
+    --text-dark:#1a1145;
+    --text-muted:#8b88a8;
+    --bg:#f8f7ff;
+    --border:rgba(99,82,199,0.12);
+    --radius-sm:8px;
+    --radius-md:14px;
+}
+
+body { font-family:sans-serif; background:var(--bg); display:flex; }
+
+/* SIDEBAR (TIDAK DIUBAH) */
+.sidebar {
+    width:240px; background:var(--primary-dark);
+    position:fixed; height:100vh; color:white;
+}
+.sidebar-logo { padding:20px; }
+.sidebar-user { padding:16px; }
+.sidebar-nav { padding:10px; }
+.nav-item { display:block; padding:10px; color:white; text-decoration:none; }
+
+/* MAIN */
+.main { margin-left:240px; width:100%; }
+
+.topbar {
+    height:60px; background:white;
+    display:flex; align-items:center;
+    justify-content:space-between;
+    padding:0 20px;
+}
+
+.content { padding:20px; }
+
+/* STATS */
+.stats-row {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.stat-card {
+    background:white;
+    padding:20px;
+    border-radius:var(--radius-md);
+    border:1px solid var(--border);
+}
+
+.stat-val { font-weight:bold; font-size:20px; }
+
+/* GRID */
+.pasien-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.pasien-card {
+    background:white;
+    padding:15px;
+    border-radius:var(--radius-md);
+    border:1px solid var(--border);
+}
+
+.pasien-avatar {
+    width:40px;height:40px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    color:white;
+}
+
+.status-masuk { background:var(--success-light); color:var(--success); padding:3px 8px; border-radius:20px; }
+.status-keluar { background:var(--danger-light); color:var(--danger); padding:3px 8px; border-radius:20px; }
+
+.filter-bar { margin:20px 0; display:flex; gap:10px; }
+input, select { padding:8px; border:1px solid var(--border); border-radius:6px; }
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="sidebar-logo">
+        <span>RuangPulih</span>
+        <small>Psikolog</small>
+    </div>
+
+    <div class="sidebar-user">
+        <div class="user-avatar">DS</div>
+        <div>
+            <div class="user-name">Dr. Sarah Amelia</div>
+            <div class="user-role">Psikolog Klinis</div>
+        </div>
+    </div>
+
+    <nav class="sidebar-nav">
+        <div class="nav-label">Menu Utama</div>
+
+        <a href="dashboard-psikolog.html" class="nav-item">
+            <span class="nav-icon">🏠</span> Dashboard
+        </a>
+
+        <a href="tabel-jadwal.html" class="nav-item">
+            <span class="nav-icon">📅</span> Jadwal Konsultasi
+        </a>
+
+        <a href="daftar-pasien.html" class="nav-item">
+            <span class="nav-icon">👥</span> Daftar Pasien
+        </a>
+
+        <!-- ACTIVE DI SINI -->
+        <a href="laporan-keuangan.html" class="nav-item active">
+            <span class="nav-icon">💰</span> Laporan Keuangan
+        </a>
+
+        <div class="nav-label">Akun</div>
+
+        <a href="profil.html" class="nav-item">
+            <span class="nav-icon">👤</span> Profil
+        </a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <a href="login.html" class="logout-btn">
+            <span>🚪</span> Keluar
+        </a>
+    </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+
+<div class="topbar">
+    <h3>Laporan Keuangan</h3>
+</div>
+
+<div class="content">
+
+<!-- STATS -->
+<div class="stats-row">
+    <div class="stat-card">
+        <div class="stat-val">Rp 5.200.000</div>
+        <div>Total Pemasukan</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-val">Rp 1.800.000</div>
+        <div>Total Pengeluaran</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-val">Rp 3.400.000</div>
+        <div>Keuntungan</div>
+    </div>
+</div>
+
+<!-- FILTER -->
+<div class="filter-bar">
+    <input type="text" placeholder="Cari transaksi..." oninput="filterTransaksi(this.value)">
+    <select onchange="filterJenis(this.value)">
+        <option value="">Semua</option>
+        <option value="pemasukan">Pemasukan</option>
+        <option value="pengeluaran">Pengeluaran</option>
+    </select>
+</div>
+
+<!-- TRANSAKSI -->
+<div class="pasien-grid">
+
+<div class="pasien-card" data-name="andi" data-jenis="pemasukan">
+    <div style="display:flex;justify-content:space-between;">
+        <div>Konsultasi Andi</div>
+        <span class="status-masuk">Masuk</span>
+    </div>
+    <p>Rp 300.000</p>
+    <small>20 Mar 2026</small>
+</div>
+
+<div class="pasien-card" data-name="operasional" data-jenis="pengeluaran">
+    <div style="display:flex;justify-content:space-between;">
+        <div>Biaya Operasional</div>
+        <span class="status-keluar">Keluar</span>
+    </div>
+    <p>Rp 500.000</p>
+    <small>18 Mar 2026</small>
+</div>
+
+<div class="pasien-card" data-name="citra" data-jenis="pemasukan">
+    <div style="display:flex;justify-content:space-between;">
+        <div>Konsultasi Citra</div>
+        <span class="status-masuk">Masuk</span>
+    </div>
+    <p>Rp 400.000</p>
+    <small>22 Mar 2026</small>
+</div>
+
+</div>
+
+</div>
+</div>
+
+<script>
+function filterTransaksi(val){
+    document.querySelectorAll('.pasien-card').forEach(card=>{
+        card.style.display = card.dataset.name.includes(val.toLowerCase()) ? '' : 'none';
+    });
+}
+
+function filterJenis(val){
+    document.querySelectorAll('.pasien-card').forEach(card=>{
+        card.style.display = (!val || card.dataset.jenis===val) ? '' : 'none';
+    });
+}
+</script>
+
+</body>
+</html>
