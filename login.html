@@ -14,19 +14,26 @@
                 <p>Silakan login ke akun Anda</p>
             </div>
             
-            <form class="login-form">
+            <!-- FORM -->
+            <form class="login-form" onsubmit="return loginUser(event)">
+                
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" placeholder="Masukkan email">
+                    <input type="email" id="email" placeholder="Masukkan email">
+                    <small id="errorEmail" style="color:red;"></small>
                 </div>
+
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" placeholder="Masukkan password">
+                    <input type="password" id="password" placeholder="Masukkan password">
+                    <small id="errorPassword" style="color:red;"></small>
                 </div>
+
                 <div class="form-checkbox">
                     <input type="checkbox" id="remember">
                     <label for="remember">Ingat saya</label>
                 </div>
+
                 <button type="submit" class="btn-login-submit">Login</button>
             </form>
 
@@ -40,5 +47,52 @@
             <p class="register-link">Belum punya akun? <a href="#">Daftar</a></p>
         </div>
     </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        function loginUser(event) {
+            event.preventDefault();
+
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+
+            let valid = true;
+
+            // reset error
+            document.getElementById("errorEmail").innerText = "";
+            document.getElementById("errorPassword").innerText = "";
+
+            // VALIDASI EMAIL
+            if (email === "") {
+                document.getElementById("errorEmail").innerText = "Email wajib diisi";
+                valid = false;
+            } else if (!email.includes("@")) {
+                document.getElementById("errorEmail").innerText = "Format email tidak valid";
+                valid = false;
+            }
+
+            // VALIDASI PASSWORD
+            if (password === "") {
+                document.getElementById("errorPassword").innerText = "Password wajib diisi";
+                valid = false;
+            } else if (password.length < 6) {
+                document.getElementById("errorPassword").innerText = "Minimal 6 karakter";
+                valid = false;
+            }
+
+            // KALAU VALID → LOGIN
+            if (valid) {
+                // contoh login sederhana
+                if (email === "psikolog@gmail.com" && password === "123456") {
+                    window.location.href = "dashboard-psikolog.html";
+                } else {
+                    alert("Email atau password salah!");
+                }
+            }
+
+            return false;
+        }
+    </script>
+
 </body>
 </html>
