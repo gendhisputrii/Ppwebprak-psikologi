@@ -153,302 +153,370 @@ a {
 }
 
 
-##LAYANAN GRID 
+/* ===== LAYANAN SECTION - REDESIGN ===== */
 .layanan {
-    padding: 50px 20px;
-    background:white ;
+    padding: 72px 60px;
+    background: #f8f7ff;
+    width: 100%;
+    display: block;
+    clear: both;
 }
 
-.layanan h2 {
-    text-align: center;
-    color: var(--primary-dark);
-    margin-bottom: 30px;
+.layanan-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    gap: 24px;
+}
+
+.layanan-header > div { max-width: 560px; }
+
+.layanan-label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--primary);
+    background: rgba(99,82,199,0.1);
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 12px;
+}
+
+.layanan-header h2 {
     font-size: 28px;
+    font-weight: 800;
+    color: #1a1145;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+    line-height: 1.2;
 }
 
-/* Grid dengan lebar terbatas */
+.layanan-header p {
+    font-size: 14px;
+    color: #8b88a8;
+    line-height: 1.6;
+}
+
 .layanan-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);  /* 3 kolom */
-    gap: 20px;
-    max-width: 400px;   /* Grid maksimal 600px */
-    margin: 0 auto;      /* GRID DI TENGAH */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 100%;
+    margin: 0;
 }
 
 .layanan-card {
-    background: rgba(150, 182, 234, 0.358);
-    backdrop-filter: blur(10px);
-    border: 1px solid white;
-    border-radius: 12px;
-    padding: 20px 12px;
-    transition: transform 0.3s;
+    background: white;
+    border: 1px solid rgba(99,82,199,0.1);
+    border-radius: 16px;
+    padding: 32px 24px;
     text-align: center;
-    box-sizing: border-box;
-    /* width: 50% ← sudah dihapus */
+    transition: all 0.3s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Icon container */
+.layanan-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 48px rgba(45,31,110,0.12);
+    border-color: rgba(99,82,199,0.25);
+}
+
 .card-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 70%;
+    width: 64px; height: 64px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #6352c7, #4a90d9);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 10px;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    margin: 0 auto 20px;
 }
 
-.card-icon img {
-    width: 70px;
-    height: 25px;
+.gambar-icon {
+    width: 32px; height: 32px;
     object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 
-/* Judul */
 .layanan-card h3 {
-    font-size: 30px;
-    color: var(--primary-dark);
-    margin-bottom: 6px;
-    font-weight: 600;
+    font-size: 17px;
+    font-weight: 700;
+    color: #1a1145;
+    margin-bottom: 10px;
 }
 
-/* Deskripsi */
 .layanan-card p {
-    font-size: 15px;
-    color: black;
-    line-height: 1.4;
-    margin: 0;
-}
-/* ===== STATISTIK ===== */
-.statistik {
-    background: var(--primary);
-    padding: 60px 20px;
+    font-size: 13px;
+    color: #8b88a8;
+    line-height: 1.6;
+    margin-bottom: 20px;
 }
 
-.stat-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 30px;
+.card-link {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.2s;
 }
 
-.stat-item {
-    text-align: center;
-    color: var(--white);
+.card-link:hover { color: #2d1f6e; }
+
+@media (max-width: 900px) {
+    .layanan { padding: 48px 24px; }
+    .layanan-grid { grid-template-columns: 1fr; }
+    .layanan-header { flex-direction: column; align-items: flex-start; }
 }
 
-.stat-item h3 {
-    font-size: 40px;
-    margin-bottom: 5px;
-}
-
-.stat-item p {
-    font-size: 18px;
-    opacity: 0.9;
-}
-
-/* ARTIKEL SECTION  */
+/* ===== ARTIKEL SECTION - REDESIGN ===== */
 .artikel {
-    padding: 80px 20px;
-    background-color: #f8fafc;
-    max-width: 1200px;
-    margin: 0 auto;
+    padding: 72px 60px;
+    background: white;
 }
 
 .artikel-header {
     display: flex;
+    align-items: flex-end;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
+    margin-bottom: 28px;
+    gap: 24px;
+}
+
+.artikel-header > div { max-width: 560px; }
+
+.artikel-label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--primary);
+    background: rgba(99,82,199,0.1);
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 12px;
 }
 
 .artikel-header h2 {
-    font-size: 32px;
-    color: var(--primary-dark);
-    margin: 0 0 10px 0;
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1145;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+    line-height: 1.2;
 }
 
 .artikel-header p {
-    color: var(--text-light);
-    font-size: 16px;
-    margin: 0;
+    font-size: 14px;
+    color: #8b88a8;
+    line-height: 1.6;
 }
 
+.btn-lihat-artikel {
+    padding: 11px 24px;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.25s;
+    flex-shrink: 0;
+}
+
+.btn-lihat-artikel:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* Tab */
 .artikel-tabs {
     display: flex;
-    gap: 15px;
-    margin-bottom: 30px;
-    border-bottom: 1px solid #e0e0e0;
-    padding-bottom: 10px;
+    gap: 8px;
     flex-wrap: wrap;
+    margin-bottom: 28px;
+    border-bottom: 2px solid rgba(99,82,199,0.08);
+    padding-bottom: 0;
 }
 
 .tab-item {
-    color: var(--text-light);
-    font-weight: 500;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #8b88a8;
     cursor: pointer;
-    padding: 5px 0;
-    transition: color 0.3s;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+    border-radius: 0;
+    background: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
 }
 
-.tab-item:hover {
-    color: var(--primary);
-}
+.tab-item:hover { color: var(--primary); }
 
 .tab-item.active {
     color: var(--primary);
     border-bottom: 2px solid var(--primary);
 }
 
+/* Grid */
 .artikel-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 25px;
-    margin-top: 30px;
+    gap: 24px;
+    margin-bottom: 36px;
 }
 
+/* Card besar */
 .artikel-card-large {
     background: white;
-    border-radius: 12px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    transition: transform 0.3s;
-    height: fit-content;
+    border: 1px solid rgba(99,82,199,0.1);
+    transition: all 0.3s;
+    cursor: pointer;
 }
 
 .artikel-card-large:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(45,31,110,0.10);
+    border-color: rgba(99,82,199,0.25);
 }
 
 .artikel-img {
-    height: 200px;
-    background: linear-gradient(135deg, #b8d8e3, #8bb9c9);
+    height: 220px;
+    background: linear-gradient(135deg, #a89de8, #7ba8d9);
     position: relative;
+    display: flex;
+    align-items: flex-start;
+    padding: 16px;
 }
 
 .artikel-category {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    background: rgba(255,255,255,0.9);
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
+    background: white;
     color: var(--primary);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 100px;
 }
 
-.artikel-content {
-    padding: 20px;
-}
+.artikel-content { padding: 24px; }
 
 .artikel-content h3 {
-    font-size: 18px;
-    color: var(--primary-dark);
+    font-size: 17px;
+    font-weight: 700;
+    color: #1a1145;
     margin-bottom: 10px;
     line-height: 1.4;
 }
 
 .artikel-content p {
-    color: var(--text-light);
-    font-size: 14px;
-    margin-bottom: 15px;
+    font-size: 13px;
+    color: #8b88a8;
+    line-height: 1.6;
+    margin-bottom: 16px;
 }
 
 .artikel-meta {
     display: flex;
-    align-items: center;
-    gap: 15px;
-    color: #8a9aa5;
-    font-size: 13px;
+    gap: 16px;
+    font-size: 12px;
+    color: #8b88a8;
 }
 
-.artikel-meta span {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
+/* Side cards */
 .artikel-side {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 12px;
 }
 
 .artikel-card-small {
-    background: white;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.03);
     display: flex;
-    gap: 15px;
+    gap: 14px;
     align-items: center;
-    transition: transform 0.3s;
+    padding: 14px;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid rgba(99,82,199,0.1);
+    transition: all 0.25s;
+    cursor: pointer;
 }
 
 .artikel-card-small:hover {
-    transform: translateX(5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    border-color: rgba(99,82,199,0.3);
+    box-shadow: 0 4px 16px rgba(45,31,110,0.08);
+    transform: translateX(4px);
 }
 
 .artikel-img-small {
-    width: 80px;
-    height: 80px;
-    border-radius: 8px;
-    background: linear-gradient(135deg, #d1e2e8, #b0d0db);
+    width: 72px;
+    height: 72px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #c5bef4, #9dbfe8);
     flex-shrink: 0;
 }
 
-.artikel-content-small {
-    flex: 1;
+.artikel-content-small { flex: 1; }
+
+.artikel-category-small {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 5px;
 }
 
 .artikel-content-small h4 {
-    font-size: 15px;
-    color: var(--primary-dark);
-    margin-bottom: 5px;
-    line-height: 1.4;
-}
-
-.artikel-category-small {
-    font-size: 11px;
-    color: var(--primary);
+    font-size: 13px;
     font-weight: 600;
-    margin-bottom: 3px;
-    text-transform: uppercase;
+    color: #1a1145;
+    line-height: 1.4;
+    margin-bottom: 6px;
 }
 
-.artikel-content-small .artikel-meta {
-    gap: 10px;
+.artikel-date {
     font-size: 11px;
+    color: #8b88a8;
 }
 
-.lihat-semua {
-    text-align: center;
-    margin-top: 40px;
-}
+/* Lihat semua */
+.lihat-semua { text-align: center; }
 
 .btn-lihat {
     display: inline-block;
-    padding: 12px 40px;
+    padding: 13px 36px;
     border: 2px solid var(--primary);
     color: var(--primary);
-    border-radius: 50px;
-    font-weight: 600;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
     text-decoration: none;
-    transition: all 0.3s;
+    transition: all 0.25s;
 }
 
 .btn-lihat:hover {
     background: var(--primary);
     color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99,82,199,0.3);
 }
 
+@media (max-width: 900px) {
+    .artikel { padding: 48px 24px; }
+    .artikel-grid { grid-template-columns: 1fr; }
+    .artikel-header { flex-direction: column; align-items: flex-start; }
+}
 /*  FOOTER  */
 footer {
     background:#3f85d1ac ;
@@ -2415,4 +2483,159 @@ button{
 
 button:hover{
     background:#324ecf;
+}
+/* ===== VIDEO EDUKASI - REDESIGN ===== */
+.video-edukasi {
+    padding: 72px 60px;
+    background: #f8f7ff;
+}
+
+.video-section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    gap: 24px;
+}
+
+.video-header-left { max-width: 560px; }
+
+.video-label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--primary);
+    background: rgba(99,82,199,0.1);
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 12px;
+}
+
+.video-section-header h2 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1145;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
+
+.video-section-header p {
+    font-size: 14px;
+    color: #8b88a8;
+    line-height: 1.6;
+}
+
+.btn-lihat-video {
+    padding: 11px 24px;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.25s;
+    flex-shrink: 0;
+}
+
+.btn-lihat-video:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.video-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(99,82,199,0.1);
+    transition: all 0.3s;
+}
+
+.video-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 48px rgba(45,31,110,0.12);
+    border-color: rgba(99,82,199,0.25);
+}
+
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    background: #1a1145;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+}
+
+.video-info {
+    padding: 20px;
+}
+
+.video-channel {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--primary);
+    background: rgba(99,82,199,0.08);
+    padding: 4px 10px;
+    border-radius: 100px;
+    margin-bottom: 10px;
+}
+
+.video-info h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1145;
+    line-height: 1.4;
+    margin-bottom: 8px;
+}
+
+.video-info p {
+    font-size: 13px;
+    color: #8b88a8;
+    line-height: 1.6;
+    margin-bottom: 14px;
+}
+
+.video-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.video-tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: #4a90d9;
+    background: #e8f2fc;
+    padding: 3px 10px;
+    border-radius: 100px;
+}
+
+.video-duration {
+    font-size: 11px;
+    color: #8b88a8;
+    font-weight: 500;
+}
+
+@media (max-width: 900px) {
+    .video-edukasi { padding: 48px 24px; }
+    .video-grid { grid-template-columns: 1fr; }
+    .video-section-header { flex-direction: column; align-items: flex-start; }
 }
