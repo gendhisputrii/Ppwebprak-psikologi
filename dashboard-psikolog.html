@@ -1,94 +1,393 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Psikolog - RuangPulih</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard Psikolog - RuangPulih</title>
+
+<style>
+
+*, *::before, *::after {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+:root {
+--primary:#6352c7;
+--primary-dark:#2d1f6e;
+--primary-light:#ede9fb;
+--accent:#4a90d9;
+--success:#16a34a;
+--text-dark:#1a1145;
+--text-mid:#4a4570;
+--text-muted:#8b88a8;
+--bg:#f8f7ff;
+--border:rgba(99,82,199,0.12);
+--radius-sm:8px;
+--radius-md:14px;
+--radius-lg:20px;
+--shadow-sm:0 2px 8px rgba(45,31,110,0.06);
+--shadow-md:0 8px 32px rgba(45,31,110,0.10);
+}
+
+body{
+font-family:'Plus Jakarta Sans',sans-serif;
+background:var(--bg);
+color:var(--text-dark);
+display:flex;
+min-height:100vh;
+}
+
+
+/* SIDEBAR */
+        .sidebar {
+            width: 240px;
+            background: var(--primary-dark);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0; left: 0;
+            height: 100vh;
+            z-index: 50;
+        }
+
+        .sidebar-logo {
+            padding: 24px 24px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .sidebar-logo span {
+            font-size: 18px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .sidebar-logo small {
+            display: block;
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 2px;
+        }
+
+        .sidebar-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .user-avatar {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; font-weight: 700; color: white;
+        }
+
+        .user-name { font-size: 13px; font-weight: 600; color: white; }
+        .user-role { font-size: 11px; color: rgba(255,255,255,0.5); }
+
+        .sidebar-nav { flex: 1; padding: 8px 12px; }
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            padding: 12px 12px 6px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: rgba(255,255,255,0.65);
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .nav-item:hover { background: rgba(255,255,255,0.08); color: white; }
+        .nav-item.active { background: rgba(255,255,255,0.12); color: white; }
+        .nav-icon { font-size: 16px; width: 20px; text-align: center; }
+
+        .sidebar-footer {
+            padding: 16px 12px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            color: rgba(255,255,255,0.5);
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+/* MAIN */
+
+.main{
+margin-left:240px;
+width:100%;
+display:flex;
+flex-direction:column;
+}
+
+
+/* TOPBAR */
+
+.topbar{
+height:70px;
+background:white;
+border-bottom:1px solid var(--border);
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 24px;
+position:sticky;
+top:0;
+z-index:10;
+}
+
+.topbar h3{
+font-size:18px;
+}
+
+
+/* CONTENT */
+
+.content{
+padding:24px;
+}
+
+
+/* STATS */
+
+.stats-row{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:16px;
+margin-bottom:24px;
+}
+
+.stat-card{
+background:white;
+padding:20px;
+border-radius:14px;
+border:1px solid var(--border);
+}
+
+.stat-card h3{
+font-size:24px;
+margin-bottom:5px;
+}
+
+.stat-card p{
+font-size:13px;
+color:var(--text-muted);
+}
+
+
+/* SECTION */
+
+.section{
+background:white;
+border-radius:14px;
+padding:20px;
+border:1px solid var(--border);
+}
+
+.section h3{
+margin-bottom:15px;
+}
+
+
+/* TABLE */
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:12px;
+text-align:left;
+font-size:13px;
+}
+
+th{
+color:var(--text-muted);
+border-bottom:1px solid var(--border);
+}
+
+td{
+border-bottom:1px solid var(--border);
+}
+
+
+.btn{
+padding:6px 12px;
+background:var(--primary-light);
+color:var(--primary);
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-size:12px;
+}
+
+.btn:hover{
+background:var(--primary);
+color:white;
+}
+
+</style>
+
 </head>
+
 <body>
-    <div class="dashboard">
-        <!-- SIDEBAR -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h3>RuangPulih</h3>
-                <p>Psikolog</p>
+
+
+ <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <span>RuangPulih</span>
+            <small>Psikolog</small>
+        </div>
+        <div class="sidebar-user">
+            <div class="user-avatar">DS</div>
+            <div>
+                <div class="user-name">Dr. Sarah Amelia</div>
+                <div class="user-role">Psikolog Klinis</div>
             </div>
-            <ul class="sidebar-menu">
-                <li class="active"><a href="#"><span></span> Dashboard</a></li>
-                <li><a href="tabel-jadwal.html"><span></span> Jadwal Konsultasi</a></li>
-                <li><a href="daftar-pasien.html"><span></span> Daftar Pasien</a></li>
-                <li><a href="laporan-keuangan.html"><span></span> Laporan Keuangan</a></li>
-                <li><a href="profil.html"><span></span> Profil</a></li>
-                <li><a href="login.html"><span></span> Logout</a></li>
-            </ul>
-        </aside>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-label">Menu Utama</div>
+            <a href="dashboard-psikolog.html" class="nav-item active">
+                <span class="nav-icon">🏠</span> Dashboard
+            </a>
+            <a href="tabel-jadwal.html" class="nav-item">
+                <span class="nav-icon">📅</span> Jadwal Konsultasi
+            </a>
+            <a href="daftar-pasien.html" class="nav-item">
+                <span class="nav-icon">👥</span> Daftar Pasien
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">💰</span> Laporan Keuangan
+            </a>
+            <div class="nav-label">Akun</div>
+            <a href="profil.html" class="nav-item">
+                <span class="nav-icon">👤</span> Profil
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="login.html" class="logout-btn">
+                <span>🚪</span> Keluar
+            </a>
+        </div>
+    </aside>
 
-        <!-- MAIN CONTENT -->
-        <main class="main-content">
-            <header class="dashboard-header">
-                <h2>Dashboard Psikolog</h2>
-                <div class="user-info">
-                    <span>Halo, Dr. Sarah</span>
-                    <div class="avatar">👩‍⚕️</div>
-                </div>
-            </header>
+<!-- MAIN -->
 
-            <!-- STATS CARDS -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h3>3</h3>
-                    <p>Konsultasi Hari Ini</p>
-                </div>
-                <div class="stat-card">
-                    <h3>12</h3>
-                    <p>Klien Aktif</p>
-                </div>
-                <div class="stat-card">
-                    <h3>4.9</h3>
-                    <p>Rating</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Rp 2.5jt</h3>
-                    <p>Pendapatan Bulan Ini</p>
-                </div>
-            </div>
+<main class="main">
 
-            <!-- JADWAL HARI INI -->
-            <section class="dashboard-section">
-                <h3>Jadwal Hari Ini</h3>
-                <table class="simple-table">
-                    <thead>
-                        <tr>
-                            <th>Waktu</th>
-                            <th>Klien</th>
-                            <th>Tipe</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>09:00</td>
-                            <td>Andi Pratama</td>
-                            <td>Online</td>
-                            <td><button class="btn-small">Mulai</button></td>
-                        </tr>
-                        <tr>
-                            <td>10:30</td>
-                            <td>Budi Santoso</td>
-                            <td>Offline</td>
-                            <td><button class="btn-small">Mulai</button></td>
-                        </tr>
-                        <tr>
-                            <td>13:00</td>
-                            <td>Citra Dewi</td>
-                            <td>Online</td>
-                            <td><button class="btn-small">Mulai</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-        </main>
-    </div>
+<div class="topbar">
+<h3>Dashboard Psikolog</h3>
+<div class="user-avatar">DS</div>
+</div>
+
+<div class="content">
+
+
+<!-- STATS -->
+
+<div class="stats-row">
+
+<div class="stat-card">
+<h3>3</h3>
+<p>Konsultasi Hari Ini</p>
+</div>
+
+<div class="stat-card">
+<h3>12</h3>
+<p>Pasien Aktif</p>
+</div>
+
+<div class="stat-card">
+<h3>4.9</h3>
+<p>Rating</p>
+</div>
+
+<div class="stat-card">
+<h3>Rp 2.5jt</h3>
+<p>Pendapatan</p>
+</div>
+
+</div>
+
+
+
+<!-- JADWAL -->
+
+<div class="section">
+
+<h3>Jadwal Hari Ini</h3>
+
+<table>
+
+<thead>
+<tr>
+<th>Waktu</th>
+<th>Pasien</th>
+<th>Tipe</th>
+<th>Aksi</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>09:00</td>
+<td>Andi Pratama</td>
+<td>Online</td>
+<td><button class="btn">Mulai</button></td>
+</tr>
+
+<tr>
+<td>10:30</td>
+<td>Budi Santoso</td>
+<td>Offline</td>
+<td><button class="btn">Mulai</button></td>
+</tr>
+
+<tr>
+<td>13:00</td>
+<td>Citra Dewi</td>
+<td>Online</td>
+<td><button class="btn">Mulai</button></td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</main>
+
 </body>
 </html>
