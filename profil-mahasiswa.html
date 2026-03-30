@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profil Mahasiswa - RuangPulih</title>
+
+<link rel="stylesheet" href="style2.css">
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="sidebar-logo">
+        <span>RuangPulih</span>
+        <small>Mahasiswa</small>
+    </div>
+
+    <div class="sidebar-user">
+        <div class="user-avatar">GV</div>
+        <div>
+            <div class="user-name">Gendhis Vienna</div>
+            <div class="user-role">Mahasiswa Universitas Airlangga</div>
+        </div>
+    </div>
+
+    <nav class="sidebar-nav">
+        <div class="nav-label">Menu Utama</div>
+
+        <a href="dashboard-user.html" class="nav-item">
+            <span class="nav-icon">🏠</span> Dashboard
+        </a>
+
+        <a href="form-konsultasi.html" class="nav-item">
+            <span class="nav-icon">📝</span> Konsultasi Baru
+        </a>
+
+        <a href="jadwal-saya.html" class="nav-item">
+            <span class="nav-icon">📅</span> Jadwal Saya
+        </a>
+
+        <a href="riwayat-konsultasi.html" class="nav-item">
+            <span class="nav-icon">📖</span> Riwayat Konsultasi
+        </a>
+
+        <div class="nav-label">Akun</div>
+
+        <a href="profil-mahasiswa.html" class="nav-item active">
+            <span class="nav-icon">👤</span> Profil
+        </a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <a href="login.html" class="logout-btn">
+            <span>🚪</span> Logout
+        </a>
+    </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+    <div class="topbar">
+        <h3>Profil Saya</h3>
+        <div class="user-avatar">GV</div>
+    </div>
+
+    <div class="content">
+
+        <div class="profile-container">
+
+            <!-- FOTO -->
+            <div class="profile-card">
+                <div class="profile-avatar">👤</div>
+                <h3>Gendhis Vienna</h3>
+                <p class="profile-role">Mahasiswa</p>
+                <button class="btn-primary">Ubah Foto</button>
+            </div>
+
+            <!-- DATA -->
+            <div class="profile-info">
+
+                <div class="profile-section">
+                    <h3>Informasi Pribadi</h3>
+
+                    <div class="profile-row">
+                        <label>Nama Lengkap</label>
+                        <input type="text" value="Gendhis Vienna">
+                    </div>
+
+                    <div class="profile-row">
+                        <label>Email</label>
+                        <input type="email" value="gendhis@email.com">
+                    </div>
+
+                    <div class="profile-row">
+                        <label>Nomor Telepon</label>
+                        <input type="text" value="081234567890">
+                    </div>
+
+                    <div class="profile-row">
+                        <label>Tanggal Lahir</label>
+                        <input type="date">
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h3>Bio</h3>
+                    <textarea rows="4" placeholder="Ceritakan tentang diri Anda..."></textarea>
+                </div>
+
+                <div class="profile-actions">
+                    <button class="btn-primary">Simpan</button>
+                    <button class="btn-secondary">Batal</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>
