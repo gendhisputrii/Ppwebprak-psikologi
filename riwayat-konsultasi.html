@@ -1,64 +1,121 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil - RuangPulih</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Riwayat Konsultasi - RuangPulih</title>
+
+<link rel="stylesheet" href="style2.css">
 </head>
+
 <body>
-<div class="wrapper">
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <div class="sidebar-header">
-            <h3>RuangPulih</h3>
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="sidebar-logo">
+        <span>RuangPulih</span>
+        <small>Mahasiswa</small>
+    </div>
+
+    <div class="sidebar-user">
+        <div class="user-avatar">GV</div>
+        <div>
+            <div class="user-name">Gendhis Vienna</div>
+            <div class="user-role">Mahasiswa Universitas Airlangga</div>
         </div>
+    </div>
 
-        <ul class="sidebar-menu">
-            <li><a href="dashboard-user.html">Dashboard</a></li>
-            <li><a href="form-konsultasi.html">Konsultasi Baru</a></li>
-            <li><a href="tabel-jadwal.html">Jadwal Saya</a></li>
-            <li class="active"><a href="riwayat-konsultasi.html">Riwayat Konsultasi</a></li>
-            <li><a href="profil.html">Profil</a></li>
-            <li><a href="login.html">Logout</a></li>
-        </ul>
-    </aside>
+    <nav class="sidebar-nav">
+        <div class="nav-label">Menu Utama</div>
 
+        <a href="dashboard-user.html" class="nav-item">
+            <span class="nav-icon">🏠</span> Dashboard
+        </a>
 
-    <!-- MAIN CONTENT -->
-    <div class="main-content">
+        <a href="form-konsul.html" class="nav-item">
+            <span class="nav-icon">📝</span> Konsultasi Baru
+        </a>
 
-        <div class="card">
+        <a href="#" class="nav-item">
+            <span class="nav-icon">📅</span> Jadwal Saya
+        </a>
 
-            <h1>Riwayat Konsultasi</h1>
+        <a href="riwayat-konsultasi.html" class="nav-item active">
+            <span class="nav-icon">📖</span> Riwayat Konsultasi
+        </a>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Tanggal</th>
-                        <th>Psikolog</th>
-                        <th>Topik</th>
-                        <th>Status</th>
-                        <th>Detail</th>
-                    </tr>
-                </thead>
+        <div class="nav-label">Akun</div>
 
-                <tbody>
-                    <tr>
-                        <td>10 Mei 2025</td>
-                        <td>Dr. Budi Santoso</td>
-                        <td>Kecemasan</td>
-                        <td class="selesai">Selesai</td>
-                        <td><button>Lihat</button></td>
-                    </tr>
-                </tbody>
+        <a href="#" class="nav-item">
+            <span class="nav-icon">👤</span> Profil
+        </a>
+    </nav>
 
-            </table>
+    <div class="sidebar-footer">
+        <a href="login.html" class="logout-btn">
+            <span>🚪</span> Logout
+        </a>
+    </div>
+</aside>
+<!-- MAIN -->
+<main class="main">
 
-        </div>
+<div class="topbar">
+    <h3>Riwayat Konsultasi</h3>
+    <div class="user-avatar">GV</div>
+</div>
+
+<div class="content">
+
+    <div class="section">
+
+        <h3>Daftar Riwayat</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Tanggal</th>
+                    <th>Psikolog</th>
+                    <th>Tipe</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>01 Mar 2026</td>
+                    <td>dr. Sarah Wijaya</td>
+                    <td>Online</td>
+                    <td><span class="badge selesai">Selesai</span></td>
+                    <td><button class="btn">Detail</button></td>
+                </tr>
+
+                <tr>
+                    <td>20 Feb 2026</td>
+                    <td>dr. Andi Kusuma</td>
+                    <td>Offline</td>
+                    <td><span class="badge dibatalkan">Dibatalkan</span></td>
+                    <td><button class="btn">Detail</button></td>
+                </tr>
+
+                <tr>
+                    <td>15 Feb 2026</td>
+                    <td>dr. Budi Santoso</td>
+                    <td>Online</td>
+                    <td><span class="badge selesai">Selesai</span></td>
+                    <td><button class="btn">Detail</button></td>
+                </tr>
+
+            </tbody>
+        </table>
 
     </div>
 
 </div>
+
+</main>
+
 </body>
+</html>

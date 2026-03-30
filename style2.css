@@ -324,3 +324,57 @@ color:white;
 .btn-secondary:hover {
     background: #d1d5db;
 }
+
+/* ===== BADGE STATUS (tambahan riwayat konsultasi)===== */
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* selesai */
+.badge.selesai {
+    background: #dcfce7;
+    color: #166534;
+}
+
+/* dibatalkan */
+.badge.dibatalkan {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* pending */
+.badge.pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+
+/* ===== TABLE IMPROVEMENT ===== */
+
+table tr:hover {
+    background: var(--primary-light);
+    transition: 0.2s;
+}
+
+
+/* ===== BUTTON DETAIL ===== */
+
+.btn {
+    padding: 6px 12px;
+    background: var(--primary-light);
+    color: var(--primary);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    background: var(--primary);
+    color: white;
+}
