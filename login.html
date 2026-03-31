@@ -1,92 +1,446 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - RuangPulih</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #6352c7;
+            --primary-dark: #2d1f6e;
+            --primary-light: #ede9fb;
+            --accent: #4a90d9;
+            --text-dark: #1a1145;
+            --text-mid: #4a4570;
+            --text-muted: #8b88a8;
+            --bg: #f8f7ff;
+            --border: rgba(99, 82, 199, 0.12);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background decorative circles */
+        body::before {
+            content: '';
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(99, 82, 199, 0.1) 0%, transparent 70%);
+            top: -150px;
+            right: -100px;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(74, 144, 217, 0.08) 0%, transparent 70%);
+            bottom: -100px;
+            left: -80px;
+            pointer-events: none;
+        }
+
+        /* Back to home */
+        .back-home {
+            position: fixed;
+            top: 24px;
+            left: 32px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-mid);
+            font-size: 13px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .back-home:hover {
+            color: var(--primary);
+        }
+
+        /* Logo area */
+        .login-logo {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .login-logo img {
+            height: 60px;
+            width: auto;
+            max-width: 200px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .login-logo-text {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            letter-spacing: -0.5px;
+        }
+
+        /* Card */
+        .login-card {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 60px rgba(45, 31, 110, 0.10);
+            position: relative;
+            z-index: 1;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .login-header h2 {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .login-header p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Role selector */
+        .role-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 24px;
+            background: var(--bg);
+            padding: 5px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .role-btn {
+            padding: 10px;
+            border: none;
+            border-radius: 9px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            text-align: center;
+            display: block;
+        }
+
+        .role-btn:hover {
+            color: var(--primary);
+        }
+
+        .role-btn.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 2px 8px rgba(99, 82, 199, 0.12);
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-mid);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 7px;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 15px;
+            pointer-events: none;
+        }
+
+        .form-group input[type="email"],
+        .form-group input[type="password"],
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 11px 13px 11px 40px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            color: var(--text-dark);
+            background: var(--bg);
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(99, 82, 199, 0.08);
+        }
+
+        .form-group input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .toggle-pass {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            color: var(--text-muted);
+            padding: 0;
+        }
+
+        .error-msg {
+            font-size: 12px;
+            color: #dc2626;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .form-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 13px;
+            color: var(--text-mid);
+            cursor: pointer;
+        }
+
+        .remember-me input[type="checkbox"] {
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+
+        .forgot-link {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+
+        .btn-login-submit {
+            width: 100%;
+            padding: 13px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: 0 4px 16px rgba(99, 82, 199, 0.35);
+            margin-bottom: 20px;
+        }
+
+        .btn-login-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(99, 82, 199, 0.4);
+        }
+
+        .register-link {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .register-link a {
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        .alert-error {
+            display: none;
+            padding: 11px 15px;
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+    </style>
 </head>
+
 <body>
-    <div class="login-container">
-        <div class="login-card">
-            <div class="login-header">
-                <h2>Selamat Datang </h2>
-                <p>Silakan login ke akun Anda</p>
-            </div>
-            
-            <!-- FORM -->
-            <form class="login-form" onsubmit="return loginUser(event)">
-                
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="email" placeholder="Masukkan email">
-                    <small id="errorEmail" style="color:red;"></small>
-                </div>
 
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="password" placeholder="Masukkan password">
-                    <small id="errorPassword" style="color:red;"></small>
-                </div>
+    <a href="index.html" class="back-home">← Kembali ke Beranda</a>
 
-                <div class="form-checkbox">
-                    <input type="checkbox" id="remember">
-                    <label for="remember">Ingat saya</label>
-                </div>
+    <div class="login-card">
 
-                <button type="submit" class="btn-login-submit">Login</button>
-            </form>
-
-            <div class="login-divider">atau login sebagai</div>
-            
-            <div class="login-role">
-                <a href="dashboard-user.html" class="role-btn user">👤 Mahasiswa</a>
-                <a href="dashboard-psikolog.html" class="role-btn psikolog">👨‍⚕️ Psikolog</a>
-            </div>
-
-            <p class="register-link">Belum punya akun? <a href="#">Daftar</a></p>
+        <!-- Logo -->
+        <div class="login-logo">
+            <img src="logo2.png" alt="RuangPulih"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+            <div class="login-logo-text" style="display:none">RuangPulih</div>
         </div>
+
+        <div class="login-header">
+            <h2>Selamat Datang 👋</h2>
+            <p>Silakan masuk ke akun kamu</p>
+        </div>
+
+        <!-- Role selector -->
+        <div class="role-selector">
+            <a href="dashboard-user.html" class="role-btn active">👤 Mahasiswa</a>
+            <a href="dashboard-psikolog.html" class="role-btn">👨‍⚕️ Psikolog</a>
+        </div>
+
+        <!-- Alert error -->
+        <div class="alert-error" id="alert-error">Email atau password salah. Silakan coba lagi.</div>
+
+        <!-- Form -->
+        <form onsubmit="return loginUser(event)">
+            <div class="form-group">
+                <label>Email</label>
+                <div class="input-wrap">
+                    <span class="input-icon">✉️</span>
+                    <input type="email" id="email" placeholder="nama@email.com">
+                </div>
+                <small class="error-msg" id="errorEmail"></small>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <div class="input-wrap">
+                    <span class="input-icon">🔑</span>
+                    <input type="password" id="password" placeholder="Masukkan password">
+                    <button type="button" class="toggle-pass" onclick="togglePass()">👁️</button>
+                </div>
+                <small class="error-msg" id="errorPassword"></small>
+            </div>
+
+            <div class="form-footer">
+                <label class="remember-me">
+                    <input type="checkbox" id="remember"> Ingat saya
+                </label>
+                <a href="#" class="forgot-link">Lupa password?</a>
+            </div>
+
+            <button type="submit" class="btn-login-submit">Masuk</button>
+        </form>
+
+        <p class="register-link">Belum punya akun? <a href="register.html">Daftar sekarang</a></p>
     </div>
 
-    <!-- JAVASCRIPT -->
     <script>
+        function togglePass() {
+            const input = document.getElementById('password');
+            const btn = document.querySelector('.toggle-pass');
+            if (input.type === 'password') {
+                input.type = 'text';
+                btn.textContent = '🙈';
+            } else {
+                input.type = 'password';
+                btn.textContent = '👁️';
+            }
+        }
+
         function loginUser(event) {
             event.preventDefault();
 
-            let email = document.getElementById("email").value;
-            let password = document.getElementById("password").value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const alertEl = document.getElementById('alert-error');
+
+            document.getElementById('errorEmail').innerText = '';
+            document.getElementById('errorPassword').innerText = '';
+            alertEl.style.display = 'none';
 
             let valid = true;
 
-            // reset error
-            document.getElementById("errorEmail").innerText = "";
-            document.getElementById("errorPassword").innerText = "";
-
-            // VALIDASI EMAIL
-            if (email === "") {
-                document.getElementById("errorEmail").innerText = "Email wajib diisi";
+            if (!email) {
+                document.getElementById('errorEmail').innerText = 'Email wajib diisi';
                 valid = false;
-            } else if (!email.includes("@")) {
-                document.getElementById("errorEmail").innerText = "Format email tidak valid";
+            } else if (!email.includes('@')) {
+                document.getElementById('errorEmail').innerText = 'Format email tidak valid';
                 valid = false;
             }
 
-            // VALIDASI PASSWORD
-            if (password === "") {
-                document.getElementById("errorPassword").innerText = "Password wajib diisi";
+            if (!password) {
+                document.getElementById('errorPassword').innerText = 'Password wajib diisi';
                 valid = false;
             } else if (password.length < 6) {
-                document.getElementById("errorPassword").innerText = "Minimal 6 karakter";
+                document.getElementById('errorPassword').innerText = 'Minimal 6 karakter';
                 valid = false;
             }
 
-            // KALAU VALID → LOGIN
             if (valid) {
-                // contoh login sederhana
-                if (email === "psikolog@gmail.com" && password === "123456") {
-                    window.location.href = "dashboard-psikolog.html";
+                if (email === 'psikolog@gmail.com' && password === '123456') {
+                    window.location.href = 'dashboard-psikolog.html';
+                } else if (email === 'mahasiswa@gmail.com' && password === '123456') {
+                    window.location.href = 'dashboard-user.html';
                 } else {
-                    alert("Email atau password salah!");
+                    alertEl.style.display = 'block';
                 }
             }
 
@@ -95,4 +449,5 @@
     </script>
 
 </body>
+
 </html>
