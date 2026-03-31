@@ -4,477 +4,161 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jadwal Konsultasi - RuangPulih</title>
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <link rel="stylesheet" href="style2.css">
 
-        :root {
-            --primary:       #6352c7;
-            --primary-dark:  #2d1f6e;
-            --primary-light: #ede9fb;
-            --accent:        #4a90d9;
-            --success:       #16a34a;
-            --success-light: #f0fdf4;
-            --warning:       #d97706;
-            --warning-light: #fffbeb;
-            --danger:        #dc2626;
-            --danger-light:  #fef2f2;
-            --text-dark:     #1a1145;
-            --text-mid:      #4a4570;
-            --text-muted:    #8b88a8;
-            --bg:            #f8f7ff;
-            --border:        rgba(99,82,199,0.12);
-            --radius-sm:     8px;
-            --radius-md:     14px;
-            --radius-lg:     20px;
-            --shadow-sm:     0 2px 8px rgba(45,31,110,0.06);
-            --shadow-md:     0 8px 32px rgba(45,31,110,0.10);
-        }
-
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--bg);
-            color: var(--text-dark);
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* SIDEBAR */
-        .sidebar {
-            width: 240px;
-            background: var(--primary-dark);
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            top: 0; left: 0;
-            height: 100vh;
-            z-index: 50;
-        }
-
-        .sidebar-logo {
-            padding: 24px 24px 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .sidebar-logo span {
-            font-size: 18px;
-            font-weight: 800;
-            color: white;
-        }
-
-        .sidebar-logo small {
-            display: block;
-            font-size: 11px;
-            color: rgba(255,255,255,0.5);
-            margin-top: 2px;
-        }
-
-        .sidebar-user {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 16px 24px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .user-avatar {
-            width: 36px; height: 36px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            display: flex; align-items: center; justify-content: center;
-            font-size: 13px; font-weight: 700; color: white;
-        }
-
-        .user-name { font-size: 13px; font-weight: 600; color: white; }
-        .user-role { font-size: 11px; color: rgba(255,255,255,0.5); }
-
-        .sidebar-nav { flex: 1; padding: 8px 12px; }
-
-        .nav-label {
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.35);
-            padding: 12px 12px 6px;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
-            color: rgba(255,255,255,0.65);
-            font-size: 13px;
-            font-weight: 500;
-            margin-bottom: 2px;
-        }
-
-        .nav-item:hover { background: rgba(255,255,255,0.08); color: white; }
-        .nav-item.active { background: rgba(255,255,255,0.12); color: white; }
-        .nav-icon { font-size: 16px; width: 20px; text-align: center; }
-
-        .sidebar-footer {
-            padding: 16px 12px;
-            border-top: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .logout-btn {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            border-radius: var(--radius-sm);
-            color: rgba(255,255,255,0.5);
-            font-size: 13px;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-
-        .logout-btn:hover { color: #f87171; background: rgba(248,113,113,0.1); }
-
-        /* MAIN */
-        .main {
-            margin-left: 240px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .topbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 32px;
-            height: 64px;
-            background: white;
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 40;
-        }
-
-        .topbar-title { font-size: 16px; font-weight: 700; color: var(--text-dark); }
-
-        .topbar-right { display: flex; align-items: center; gap: 12px; }
-
-        .notif-btn {
-            width: 36px; height: 36px;
-            border-radius: var(--radius-sm);
-            background: var(--bg);
-            border: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; font-size: 16px; position: relative;
-        }
-
-        .notif-dot {
-            position: absolute; top: 6px; right: 6px;
-            width: 7px; height: 7px;
-            border-radius: 50%; background: #ef4444;
-            border: 1.5px solid white;
-        }
-
-        .content { padding: 28px 32px; }
-
-        /* PAGE HEADER */
-        .page-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 24px;
-        }
-
-        .page-header h2 { font-size: 20px; font-weight: 800; color: var(--text-dark); }
-        .page-header p { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
-
-        /* FILTER BAR */
-        .filter-bar {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .filter-select {
-            padding: 10px 14px;
-            border: 1.5px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-size: 13px;
-            color: var(--text-dark);
-            background: white;
-            outline: none;
-            cursor: pointer;
-            font-family: inherit;
-            transition: border-color 0.2s;
-            min-width: 160px;
-        }
-
-        .filter-select:focus { border-color: var(--primary); }
-
-        /* TABLE CONTAINER */
-        .table-container {
-            background: white;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border);
-            overflow: hidden;
-            margin-bottom: 24px;
-        }
-
-        .table-header {
-            padding: 20px 24px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .table-title { font-size: 16px; font-weight: 700; color: var(--text-dark); }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 16px 24px;
-            text-align: left;
-            font-size: 13px;
-        }
-
-        th {
-            background: #faf9ff;
-            font-weight: 700;
-            color: var(--text-mid);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: 11px;
-        }
-
-        tr {
-            border-bottom: 1px solid var(--border);
-            transition: background 0.2s;
-        }
-
-        tr:hover { background: var(--primary-light); }
-
-        .status-badge {
-            padding: 4px 12px;
-            border-radius: 100px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        .status-terjadwal { 
-            background: var(--success-light); 
-            color: var(--success); 
-        }
-
-        .status-selesai { 
-            background: var(--warning-light); 
-            color: var(--warning); 
-        }
-
-        .btn {
-            padding: 8px 16px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: var(--radius-sm);
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: inherit;
-        }
-
-        .btn:hover { 
-            background: var(--primary-dark); 
-            transform: translateY(-1px);
-        }
-
-        .btn-detail {
-            background: var(--accent);
-        }
-
-        .btn-detail:hover {
-            background: #357abd;
-        }
-
-        /* PAGINATION */
-        .pagination {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            padding: 20px;
-            background: white;
-            border-top: 1px solid var(--border);
-            border-radius: 0 0 var(--radius-md) var(--radius-md);
-        }
-
-        .page-btn {
-            width: 36px; height: 36px;
-            border-radius: var(--radius-sm);
-            border: 1.5px solid var(--border);
-            background: white;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-mid);
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: inherit;
-        }
-
-        .page-btn:hover { border-color: var(--primary); color: var(--primary); }
-        .page-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
-
-        @media (max-width: 768px) {
-            .main { margin-left: 0; }
-            .sidebar { transform: translateX(-100%); }
-            .content { padding: 20px; }
-        }
-    </style>
 </head>
 <body>
-
 <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <div class="sidebar-logo">
-            <span>RuangPulih</span>
-            <small>Psikolog</small>
-        </div>
-        <div class="sidebar-user">
-            <div class="user-avatar">DS</div>
-            <div>
-                <div class="user-name">Dr. Sarah Amelia</div>
-                <div class="user-role">Psikolog Klinis</div>
-            </div>
-        </div>
-        <nav class="sidebar-nav">
-            <div class="nav-label">Menu Utama</div>
-            <a href="dashboard-psikolog.html" class="nav-item">
-                <span class="nav-icon">🏠</span> Dashboard
-            </a>
-            <a href="tabel-jadwal.html" class="nav-item active">
-                <span class="nav-icon">📅</span> Jadwal Konsultasi
-            </a>
-            <a href="daftar-pasien.html" class="nav-item">
-                <span class="nav-icon">👥</span> Daftar Pasien
-            </a>
-            <a href="laporan-keuangan.html" class="nav-item">
-                <span class="nav-icon">💰</span> Laporan Keuangan
-            </a>
-            <div class="nav-label">Akun</div>
-            <a href="profil.html" class="nav-item">
-                <span class="nav-icon">👤</span> Profil
-            </a>
-        </nav>
-        <div class="sidebar-footer">
-            <a href="login.html" class="logout-btn">
-                <span>🚪</span> Keluar
-            </a>
-        </div>
-    </aside>
+<aside class="sidebar">
+    <div class="sidebar-logo">
+        <span>RuangPulih</span>
+        <small>Psikolog</small>
+    </div>
 
-    <!-- MAIN -->
-    <main class="main">
-        <div class="topbar">
-            <div class="topbar-title">Jadwal Konsultasi</div>
-            <div class="topbar-right">
-                <div class="notif-btn">🔔<span class="notif-dot"></span></div>
-                <div class="user-avatar" style="width:32px;height:32px;font-size:12px;">DS</div>
-            </div>
+    <div class="sidebar-user">
+        <div class="user-avatar">DS</div>
+        <div>
+            <div class="user-name">Dr. Sarah Amelia</div>
+            <div class="user-role">Psikolog Klinis</div>
+        </div>
+    </div>
+
+    <nav class="sidebar-nav">
+        <div class="nav-label">Menu Utama</div>
+
+        <a href="dashboard-psikolog.html" class="nav-item">
+            <span class="nav-icon">🏠</span> Dashboard
+        </a>
+
+        <a href="tabel-jadwal.html" class="nav-item active">
+            <span class="nav-icon">📅</span> Jadwal Konsultasi
+        </a>
+
+        <a href="daftar-pasien.html" class="nav-item">
+            <span class="nav-icon">👥</span> Daftar Pasien
+        </a>
+
+        <a href="laporan-keuangan.html" class="nav-item">
+            <span class="nav-icon">💰</span> Laporan Keuangan
+        </a>
+
+        <div class="nav-label">Akun</div>
+
+        <a href="profil.html" class="nav-item">
+            <span class="nav-icon">👤</span> Profil
+        </a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <a href="login.html" class="logout-btn">
+            <span>🚪</span> Keluar
+        </a>
+    </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+    <!-- TOPBAR (DISERAGAMKAN) -->
+    <div class="topbar">
+        <h3>Jadwal Konsultasi</h3>
+        <div class="user-avatar">DS</div>
+    </div>
+
+    <div class="content">
+
+        <!-- HEADER -->
+        <div class="page-header">
+            <h2>Jadwal Konsultasi</h2>
+            <p>Daftar jadwal konsultasi hari ini dan minggu ini</p>
         </div>
 
-        <div class="content">
-            <div class="page-header">
-                <div>
-                    <h2>Jadwal Konsultasi</h2>
-                    <p>Daftar jadwal konsultasi hari ini dan minggu ini</p>
-                </div>
-            </div>
-
-            <!-- FILTER BAR -->
-            <div class="filter-bar">
-                <select class="filter-select" onchange="filterJadwal(this.value)">
-                    <option value="">Semua Hari</option>
-                    <option value="hari-ini">Hari Ini</option>
-                    <option value="minggu-ini" selected>Minggu Ini</option>
-                    <option value="bulan-ini">Bulan Ini</option>
-                </select>
-            </div>
-
-            <!-- TABLE -->
-            <div class="table-container">
-                <div class="table-header">
-                    <div class="table-title">Daftar Jadwal</div>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Tanggal</th>
-                            <th>Waktu</th>
-                            <th>Pasien</th>
-                            <th>Tipe</th>
-                            <th>Status</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>12 Juni 2026</td>
-                            <td>09:00</td>
-                            <td><strong>Andi Pratama</strong></td>
-                            <td>Online</td>
-                            <td><span class="status-badge status-terjadwal">Terjadwal</span></td>
-                            <td><button class="btn">Mulai</button></td>
-                        </tr>
-                        <tr>
-                            <td>12 Juni 2026</td>
-                            <td>11:00</td>
-                            <td><strong>Budi Santoso</strong></td>
-                            <td>Offline</td>
-                            <td><span class="status-badge status-terjadwal">Terjadwal</span></td>
-                            <td><button class="btn btn-detail">Detail</button></td>
-                        </tr>
-                        <tr>
-                            <td>13 Juni 2026</td>
-                            <td>13:00</td>
-                            <td><strong>Citra Dewi</strong></td>
-                            <td>Online</td>
-                            <td><span class="status-badge status-selesai">Selesai</span></td>
-                            <td><button class="btn btn-detail">Detail</button></td>
-                        </tr>
-                        <tr>
-                            <td>14 Juni 2026</td>
-                            <td>15:00</td>
-                            <td><strong>Doni Wijaya</strong></td>
-                            <td>Offline</td>
-                            <td><span class="status-badge status-terjadwal">Terjadwal</span></td>
-                            <td><button class="btn">Mulai</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="pagination">
-                    <button class="page-btn">‹</button>
-                    <button class="page-btn">1</button>
-                    <button class="page-btn active">2</button>
-                    <button class="page-btn">3</button>
-                    <button class="page-btn">›</button>
-                </div>
-            </div>
+        <!-- FILTER -->
+        <div class="filter-bar">
+            <select class="filter-select" onchange="filterJadwal(this.value)">
+                <option value="">Semua Hari</option>
+                <option value="hari-ini">Hari Ini</option>
+                <option value="minggu-ini" selected>Minggu Ini</option>
+                <option value="bulan-ini">Bulan Ini</option>
+            </select>
         </div>
-    </main>
 
-    <script>
-        function filterJadwal(value) {
-            console.log('Filter jadwal:', value);
-        }
-    </script>
+        <!-- TABLE -->
+        <div class="table-container">
+
+            <div class="table-header">
+                Daftar Jadwal
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Waktu</th>
+                        <th>Pasien</th>
+                        <th>Tipe</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>12 Juni 2026</td>
+                        <td>09:00</td>
+                        <td><strong>Andi Pratama</strong></td>
+                        <td>Online</td>
+                        <td><span class="status-badge status-terjadwal">Terjadwal</span></td>
+                        <td><button class="btn">Mulai</button></td>
+                    </tr>
+
+                    <tr>
+                        <td>12 Juni 2026</td>
+                        <td>11:00</td>
+                        <td><strong>Budi Santoso</strong></td>
+                        <td>Offline</td>
+                        <td><span class="status-badge status-terjadwal">Terjadwal</span></td>
+                        <td><button class="btn btn-detail">Detail</button></td>
+                    </tr>
+
+                    <tr>
+                        <td>13 Juni 2026</td>
+                        <td>13:00</td>
+                        <td><strong>Citra Dewi</strong></td>
+                        <td>Online</td>
+                        <td><span class="status-badge status-selesai">Selesai</span></td>
+                        <td><button class="btn btn-detail">Detail</button></td>
+                    </tr>
+
+                    <tr>
+                        <td>14 Juni 2026</td>
+                        <td>15:00</td>
+                        <td><strong>Doni Wijaya</strong></td>
+                        <td>Offline</td>
+                        <td><span class="status-badge status-terjadwal">Terjadwal</span></td>
+                        <td><button class="btn">Mulai</button></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="pagination">
+                <button class="page-btn">‹</button>
+                <button class="page-btn">1</button>
+                <button class="page-btn active">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">›</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+<script>
+function filterJadwal(value){
+    console.log("Filter:", value);
+}
+</script>
 </body>
 </html>
