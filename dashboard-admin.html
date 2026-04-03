@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - RuangPulih</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="sidebar-logo">
+        <span>RuangPulih</span>
+        <small>Admin</small>
+    </div>
+
+    <div class="sidebar-user">
+        <div class="user-avatar">AD</div>
+        <div>
+            <div class="user-name">Admin</div>
+            <div class="user-role">Super Admin</div>
+        </div>
+    </div>
+
+    <nav class="sidebar-nav">
+        <div class="nav-label">Manajemen</div>
+
+        <a href="#" class="nav-item active">
+            <span class="nav-icon">📊</span> Dashboard
+        </a>
+
+        <a href="#" class="nav-item">
+            <span class="nav-icon">📅</span> Kelola Jadwal
+        </a>
+
+        <a href="#" class="nav-item">
+            <span class="nav-icon">👨‍⚕️</span> Kelola Psikolog
+        </a>
+
+        <a href="#" class="nav-item">
+            <span class="nav-icon">👥</span> Kelola Mahasiswa
+        </a>
+
+        <a href="#" class="nav-item">
+            <span class="nav-icon">🎥</span> Kelola Konten
+        </a>
+
+        <div class="nav-label">Akun</div>
+
+        <a href="#" class="nav-item">
+            <span class="nav-icon">👤</span> Profil
+        </a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <a href="#" class="logout-btn" onclick="logout()">
+            <span>🚪</span> Keluar
+        </a>
+    </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+        <div class="topbar-title">Dashboard Admin</div>
+        <div class="topbar-right">
+            <div class="notif-btn">🔔<span class="notif-dot"></span></div>
+            <div class="user-avatar" style="width:32px;height:32px;font-size:12px;">AD</div>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <div class="page-header">
+            <div>
+                <h2>Dashboard Admin</h2>
+                <p>Ringkasan sistem RuangPulih</p>
+            </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-icon" style="background:#ede9fb;">👨‍⚕️</div>
+                <div>
+                    <div class="stat-val">6</div>
+                    <div class="stat-lbl">Total Psikolog</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon" style="background:#f0fdf4;">👥</div>
+                <div>
+                    <div class="stat-val">120</div>
+                    <div class="stat-lbl">Mahasiswa</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon" style="background:#fffbeb;">📅</div>
+                <div>
+                    <div class="stat-val">32</div>
+                    <div class="stat-lbl">Jadwal Aktif</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUICK MENU -->
+        <div class="admin-grid">
+
+            <div class="admin-card">
+                <div class="admin-icon">📅</div>
+                <h3>Kelola Jadwal</h3>
+                <p>Atur jadwal konsultasi</p>
+            </div>
+
+            <div class="admin-card">
+                <div class="admin-icon">👨‍⚕️</div>
+                <h3>Psikolog</h3>
+                <p>Kelola data psikolog</p>
+            </div>
+
+            <div class="admin-card">
+                <div class="admin-icon">👥</div>
+                <h3>Mahasiswa</h3>
+                <p>Kelola data mahasiswa</p>
+            </div>
+
+            <div class="admin-card">
+                <div class="admin-icon">🎥</div>
+                <h3>Konten</h3>
+                <p>Video & artikel</p>
+            </div>
+
+        </div>
+
+    </div>
+</main>
+
+<script>
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!user || user.role !== "admin") {
+        window.location.href = "login.html";
+    }
+
+    function logout() {
+        localStorage.removeItem("user");
+        window.location.href = "login.html";
+    }
+</script>
+
+</body>
+</html>

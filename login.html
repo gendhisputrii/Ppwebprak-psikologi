@@ -349,12 +349,6 @@
             <p>Silakan masuk ke akun kamu</p>
         </div>
 
-        <!-- Role selector -->
-        <div class="role-selector">
-            <a href="dashboard-user.html" class="role-btn active">👤 Mahasiswa</a>
-            <a href="dashboard-psikolog.html" class="role-btn">👨‍⚕️ Psikolog</a>
-        </div>
-
         <!-- Alert error -->
         <div class="alert-error" id="alert-error">Email atau password salah. Silakan coba lagi.</div>
 
@@ -393,59 +387,89 @@
     </div>
 
     <script>
-        function togglePass() {
-            const input = document.getElementById('password');
-            const btn = document.querySelector('.toggle-pass');
-            if (input.type === 'password') {
-                input.type = 'text';
-                btn.textContent = '🙈';
-            } else {
-                input.type = 'password';
-                btn.textContent = '👁️';
-            }
+    function togglePass() {
+        const input = document.getElementById('password');
+        const btn = document.querySelector('.toggle-pass');
+        if (input.type === 'password') {
+            input.type = 'text';
+            btn.textContent = '🙈';
+        } else {
+            input.type = 'password';
+            btn.textContent = '👁️';
+        }
+    }
+
+    // SIMPAN DATA USER (simulasi database)
+    const users = [
+        {
+            email: "admin@gmail.com",
+            password: "123456",
+            role: "admin"
+        },
+        {
+            email: "psikolog@gmail.com",
+            password: "123456",
+            role: "psikolog"
+        },
+        {
+            email: "mahasiswa@gmail.com",
+            password: "123456",
+            role: "mahasiswa"
+        }
+    ];
+
+    function loginUser(event) {
+        event.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const alertEl = document.getElementById('alert-error');
+
+        document.getElementById('errorEmail').innerText = '';
+        document.getElementById('errorPassword').innerText = '';
+        alertEl.style.display = 'none';
+
+        let valid = true;
+
+        if (!email) {
+            document.getElementById('errorEmail').innerText = 'Email wajib diisi';
+            valid = false;
+        } else if (!email.includes('@')) {
+            document.getElementById('errorEmail').innerText = 'Format email tidak valid';
+            valid = false;
         }
 
-        function loginUser(event) {
-            event.preventDefault();
-
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const alertEl = document.getElementById('alert-error');
-
-            document.getElementById('errorEmail').innerText = '';
-            document.getElementById('errorPassword').innerText = '';
-            alertEl.style.display = 'none';
-
-            let valid = true;
-
-            if (!email) {
-                document.getElementById('errorEmail').innerText = 'Email wajib diisi';
-                valid = false;
-            } else if (!email.includes('@')) {
-                document.getElementById('errorEmail').innerText = 'Format email tidak valid';
-                valid = false;
-            }
-
-            if (!password) {
-                document.getElementById('errorPassword').innerText = 'Password wajib diisi';
-                valid = false;
-            } else if (password.length < 6) {
-                document.getElementById('errorPassword').innerText = 'Minimal 6 karakter';
-                valid = false;
-            }
-
-            if (valid) {
-                if (email === 'psikolog@gmail.com' && password === '123456') {
-                    window.location.href = 'dashboard-psikolog.html';
-                } else if (email === 'mahasiswa@gmail.com' && password === '123456') {
-                    window.location.href = 'dashboard-user.html';
-                } else {
-                    alertEl.style.display = 'block';
-                }
-            }
-
-            return false;
+        if (!password) {
+            document.getElementById('errorPassword').innerText = 'Password wajib diisi';
+            valid = false;
+        } else if (password.length < 6) {
+            document.getElementById('errorPassword').innerText = 'Minimal 6 karakter';
+            valid = false;
         }
+
+        if (!valid) return false;
+
+        // CARI USER
+        const user = users.find(u => u.email === email && u.password === password);
+
+        if (user) {
+            // SIMPAN KE LOCAL STORAGE
+            localStorage.setItem("user", JSON.stringify(user));
+
+            // REDIRECT BERDASARKAN ROLE
+            if (user.role === "admin") {
+                window.location.href = "dashboard-admin.html";
+            } else if (user.role === "psikolog") {
+                window.location.href = "dashboard-psikolog.html";
+            } else if (user.role === "mahasiswa") {
+                window.location.href = "dashboard-user.html";
+            }
+        } else {
+            alertEl.style.display = 'block';
+        }
+
+        return false;
+    }
     </script>
 
 </body>
