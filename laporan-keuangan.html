@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laporan Keuangan - RuangPulih</title>
     <link rel="stylesheet" href="style2.css">
     <style>
-
-        /* MAIN */
         .main {
             margin-left: 240px;
             flex: 1;
@@ -28,29 +27,47 @@
             z-index: 40;
         }
 
-        .topbar-title { font-size: 16px; font-weight: 700; color: var(--text-dark); }
+        .topbar-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
 
-        .topbar-right { display: flex; align-items: center; gap: 12px; }
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
         .notif-btn {
-            width: 36px; height: 36px;
+            width: 36px;
+            height: 36px;
             border-radius: var(--radius-sm);
             background: var(--bg);
             border: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; font-size: 16px; position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            position: relative;
         }
 
         .notif-dot {
-            position: absolute; top: 6px; right: 6px;
-            width: 7px; height: 7px;
-            border-radius: 50%; background: #ef4444;
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #ef4444;
             border: 1.5px solid white;
         }
 
-        .content { padding: 28px 32px; }
+        .content {
+            padding: 28px 32px;
+        }
 
-        /* PAGE HEADER */
         .page-header {
             display: flex;
             align-items: center;
@@ -58,10 +75,18 @@
             margin-bottom: 24px;
         }
 
-        .page-header h2 { font-size: 20px; font-weight: 800; color: var(--text-dark); }
-        .page-header p { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+        .page-header h2 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
 
-        /* STATS */
+        .page-header p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
         .stats-row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -80,16 +105,28 @@
         }
 
         .stat-icon {
-            width: 44px; height: 44px;
+            width: 44px;
+            height: 44px;
             border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 20px;
         }
 
-        .stat-val { font-size: 22px; font-weight: 800; color: var(--text-dark); letter-spacing: -0.5px; }
-        .stat-lbl { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+        .stat-val {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+        }
 
-        /* FILTER BAR */
+        .stat-lbl {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
         .filter-bar {
             display: flex;
             gap: 12px;
@@ -98,22 +135,7 @@
             align-items: center;
         }
 
-        .date-picker {
-            padding: 10px 14px;
-            border: 1.5px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-size: 13px;
-            color: var(--text-dark);
-            background: white;
-            outline: none;
-            cursor: pointer;
-            font-family: inherit;
-            transition: border-color 0.2s;
-            min-width: 160px;
-        }
-
-        .date-picker:focus { border-color: var(--primary); }
-
+        .date-picker,
         .filter-select {
             padding: 10px 14px;
             border: 1.5px solid var(--border);
@@ -127,7 +149,14 @@
             transition: border-color 0.2s;
         }
 
-        .filter-select:focus { border-color: var(--primary); }
+        .date-picker {
+            min-width: 160px;
+        }
+
+        .date-picker:focus,
+        .filter-select:focus {
+            border-color: var(--primary);
+        }
 
         .btn-export {
             padding: 10px 20px;
@@ -145,9 +174,11 @@
             gap: 6px;
         }
 
-        .btn-export:hover { background: var(--primary-dark); transform: translateY(-1px); }
+        .btn-export:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
 
-        /* SUMMARY CARDS */
         .summary-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -155,26 +186,7 @@
             margin-bottom: 24px;
         }
 
-        /* CHART CONTAINER */
-        .chart-container {
-            background: white;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border);
-            padding: 24px;
-            margin-bottom: 24px;
-            height: 320px;
-        }
-
-        .chart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .chart-title { font-size: 16px; font-weight: 700; color: var(--text-dark); }
-
-        /* TRANSAKSI TABLE */
+        /* TABLE */
         .table-container {
             background: white;
             border-radius: var(--radius-md);
@@ -188,18 +200,28 @@
             border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
-            gap: 12px;
+            justify-content: space-between;
         }
 
-        .table-title { font-size: 16px; font-weight: 700; color: var(--text-dark); }
+        .table-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .table-count {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
 
         table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        th, td {
-            padding: 16px 24px;
+        th,
+        td {
+            padding: 14px 24px;
             text-align: left;
             font-size: 13px;
         }
@@ -211,6 +233,7 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             font-size: 11px;
+            border-bottom: 1px solid var(--border);
         }
 
         tr {
@@ -218,7 +241,13 @@
             transition: background 0.2s;
         }
 
-        tr:hover { background: var(--primary-light); }
+        tr:last-child {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: #faf9ff;
+        }
 
         .status-badge {
             padding: 4px 12px;
@@ -227,29 +256,51 @@
             font-weight: 600;
         }
 
-        .status-lunas { background: var(--success-light); color: var(--success); }
-        .status-belum { background: var(--warning-light); color: var(--warning); }
+        .status-lunas {
+            background: #f0fdf4;
+            color: #16a34a;
+        }
+
+        .status-belum {
+            background: #fffbeb;
+            color: #d97706;
+        }
+
+        .tipe-online {
+            background: #e8f2fc;
+            color: #185fa5;
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .tipe-offline {
+            background: #ede9fb;
+            color: #6352c7;
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+        }
 
         .amount {
             font-weight: 700;
-            color: var(--success);
-            font-size: 14px;
+            color: #16a34a;
         }
 
-        /* PAGINATION */
         .pagination {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
             padding: 20px;
-            background: white;
             border-top: 1px solid var(--border);
-            border-radius: 0 0 var(--radius-md) var(--radius-md);
         }
 
         .page-btn {
-            width: 36px; height: 36px;
+            width: 36px;
+            height: 36px;
             border-radius: var(--radius-sm);
             border: 1.5px solid var(--border);
             background: white;
@@ -261,27 +312,32 @@
             font-family: inherit;
         }
 
-        .page-btn:hover { border-color: var(--primary); color: var(--primary); }
-        .page-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
-
-        @media (max-width: 1200px) {
-            .summary-grid { grid-template-columns: repeat(2, 1fr); }
+        .page-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
         }
 
-        @media (max-width: 768px) {
-            .summary-grid { grid-template-columns: 1fr; }
-            .stats-row { grid-template-columns: 1fr; }
+        .page-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .empty-row td {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 40px;
+            font-size: 13px;
         }
     </style>
+    <!-- SheetJS untuk export Excel -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
+
 <body>
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
-        <div class="sidebar-logo">
-            <span>RuangPulih</span>
-            <small>Psikolog</small>
-        </div>
+        <div class="sidebar-logo"><span>RuangPulih</span><small>Psikolog</small></div>
         <div class="sidebar-user">
             <div class="user-avatar">DS</div>
             <div>
@@ -291,31 +347,19 @@
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Menu Utama</div>
-            <a href="dashboard-psikolog.html" class="nav-item">
-                <span class="nav-icon">🏠</span> Dashboard
-            </a>
-            <a href="tabel-jadwal.html" class="nav-item">
-                <span class="nav-icon">📅</span> Jadwal Konsultasi
-            </a>
-            <a href="daftar-pasien.html" class="nav-item">
-                <span class="nav-icon">👥</span> Daftar Pasien
-            </a>
-            <a href="laporan-keuangan.html" class="nav-item active">
-                <span class="nav-icon">💰</span> Laporan Keuangan
-            </a>
+            <a href="dashboard-psikolog.html" class="nav-item"><span class="nav-icon">🏠</span> Dashboard</a>
+            <a href="tabel-jadwal.html" class="nav-item"><span class="nav-icon">📅</span> Jadwal Konsultasi</a>
+            <a href="daftar-pasien.html" class="nav-item"><span class="nav-icon">👥</span> Daftar Pasien</a>
+            <a href="laporan-keuangan.html" class="nav-item active"><span class="nav-icon">💰</span> Laporan
+                Keuangan</a>
             <div class="nav-label">Akun</div>
-            <a href="profil.html" class="nav-item">
-                <span class="nav-icon">👤</span> Profil
-            </a>
+            <a href="profil.html" class="nav-item"><span class="nav-icon">👤</span> Profil</a>
         </nav>
         <div class="sidebar-footer">
-            <a href="login.html" class="logout-btn">
-                <span>🚪</span> Keluar
-            </a>
+            <a href="login.html" class="logout-btn"><span>🚪</span> Keluar</a>
         </div>
     </aside>
 
-    <!-- MAIN -->
     <main class="main">
         <div class="topbar">
             <div class="topbar-title">Laporan Keuangan</div>
@@ -338,40 +382,48 @@
                 <div class="stat-card">
                     <div class="stat-icon" style="background:#ede9fb;">💰</div>
                     <div>
-                        <div class="stat-val">Rp 12,5M</div>
+                        <div class="stat-val" id="total-pendapatan">Rp 12.500.000</div>
                         <div class="stat-lbl">Pendapatan Bulan Ini</div>
                     </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon" style="background:#f0fdf4;">✅</div>
                     <div>
-                        <div class="stat-val">24</div>
+                        <div class="stat-val" id="total-lunas">0</div>
                         <div class="stat-lbl">Transaksi Lunas</div>
                     </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon" style="background:#fffbeb;">⏳</div>
                     <div>
-                        <div class="stat-val">3</div>
-                        <div class="stat-lbl">Belum Dibayar</div>
+                        <div class="stat-val" id="total-belum">0</div>
+                        <div class="stat-lbl">Menunggu</div>
                     </div>
                 </div>
             </div>
 
-            <!-- FILTER BAR -->
+            <!-- FILTER -->
             <div class="filter-bar">
-                <select class="filter-select" onchange="filterTransaksi(this.value)">
+                <select class="filter-select" id="filter-bulan" onchange="applyFilter()">
                     <option value="">Semua Bulan</option>
-                    <option value="januari">Januari 2026</option>
-                    <option value="februari">Februari 2026</option>
-                    <option value="maret" selected>Maret 2026</option>
+                    <option value="Januari 2026">Januari 2026</option>
+                    <option value="Februari 2026">Februari 2026</option>
+                    <option value="Maret 2026" selected>Maret 2026</option>
                 </select>
-                <input type="date" class="date-picker" onchange="filterDate(this.value)">
-                <input type="date" class="date-picker" onchange="filterDateEnd(this.value)">
-                <button class="btn-export" onclick="exportLaporan()">📥 Ekspor Excel</button>
+                <select class="filter-select" id="filter-status" onchange="applyFilter()">
+                    <option value="">Semua Status</option>
+                    <option value="Lunas">Lunas</option>
+                    <option value="Menunggu">Menunggu</option>
+                </select>
+                <select class="filter-select" id="filter-tipe" onchange="applyFilter()">
+                    <option value="">Semua Tipe</option>
+                    <option value="Online">Online</option>
+                    <option value="Offline">Offline</option>
+                </select>
+                <button class="btn-export" onclick="exportExcel()">📥 Ekspor Excel</button>
             </div>
 
-            <!-- SUMMARY GRID -->
+            <!-- SUMMARY -->
             <div class="summary-grid">
                 <div class="stat-card">
                     <div class="stat-icon" style="background:#e8f2fc;">📊</div>
@@ -384,4 +436,153 @@
                     <div class="stat-icon" style="background:#fef2f2;">🏠</div>
                     <div>
                         <div class="stat-val">Rp 8,3M</div>
-                        <div class
+                        <div class="stat-lbl">Offline</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background:#f0fdf4;">📈</div>
+                    <div>
+                        <div class="stat-val">+12%</div>
+                        <div class="stat-lbl">vs Bulan Lalu</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background:#ede9fb;">⭐</div>
+                    <div>
+                        <div class="stat-val">4.9</div>
+                        <div class="stat-lbl">Rating Rata-rata</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABLE -->
+            <div class="table-container">
+                <div class="table-header">
+                    <span class="table-title">Detail Transaksi</span>
+                    <span class="table-count" id="row-count">27 transaksi</span>
+                </div>
+                <table id="tabel-transaksi">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Tanggal</th>
+                            <th>Nama Pasien</th>
+                            <th>Tipe Sesi</th>
+                            <th>Durasi</th>
+                            <th>Jumlah</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-transaksi"></tbody>
+                </table>
+                <div class="pagination">
+                    <button class="page-btn">«</button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">»</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const semuaData = [
+            { tanggal: '01 Mar 2026', pasien: 'Andi Pratama', tipe: 'Online', durasi: '60 menit', jumlah: 150000, status: 'Lunas', bulan: 'Maret 2026' },
+            { tanggal: '02 Mar 2026', pasien: 'Budi Santoso', tipe: 'Offline', durasi: '60 menit', jumlah: 200000, status: 'Lunas', bulan: 'Maret 2026' },
+            { tanggal: '03 Mar 2026', pasien: 'Citra Dewi', tipe: 'Online', durasi: '60 menit', jumlah: 150000, status: 'Lunas', bulan: 'Maret 2026' },
+            { tanggal: '05 Mar 2026', pasien: 'Dian Rahma', tipe: 'Offline', durasi: '90 menit', jumlah: 300000, status: 'Menunggu', bulan: 'Maret 2026' },
+            { tanggal: '07 Mar 2026', pasien: 'Eka Putra', tipe: 'Online', durasi: '60 menit', jumlah: 150000, status: 'Lunas', bulan: 'Maret 2026' },
+            { tanggal: '08 Mar 2026', pasien: 'Fira Ananda', tipe: 'Offline', durasi: '60 menit', jumlah: 200000, status: 'Lunas', bulan: 'Maret 2026' },
+            { tanggal: '10 Mar 2026', pasien: 'Gilang Ramadhan', tipe: 'Online', durasi: '60 menit', jumlah: 150000, status: 'Lunas', bulan: 'Maret 2026' },
+            { tanggal: '12 Mar 2026', pasien: 'Hana Putri', tipe: 'Offline', durasi: '90 menit', jumlah: 300000, status: 'Menunggu', bulan: 'Maret 2026' },
+            { tanggal: '14 Mar 2026', pasien: 'Ivan Kurniawan', tipe: 'Online', durasi: '60 menit', jumlah: 150000, status: 'Lunas', bulan: 'Maret 2026' },
+            { tanggal: '15 Mar 2026', pasien: 'Julia Sari', tipe: 'Offline', durasi: '60 menit', jumlah: 200000, status: 'Lunas', bulan: 'Maret 2026' },
+            { tanggal: '05 Feb 2026', pasien: 'Andi Pratama', tipe: 'Online', durasi: '60 menit', jumlah: 150000, status: 'Lunas', bulan: 'Februari 2026' },
+            { tanggal: '10 Feb 2026', pasien: 'Budi Santoso', tipe: 'Offline', durasi: '60 menit', jumlah: 200000, status: 'Lunas', bulan: 'Februari 2026' },
+            { tanggal: '15 Feb 2026', pasien: 'Citra Dewi', tipe: 'Online', durasi: '90 menit', jumlah: 225000, status: 'Menunggu', bulan: 'Februari 2026' },
+            { tanggal: '08 Jan 2026', pasien: 'Dian Rahma', tipe: 'Online', durasi: '60 menit', jumlah: 150000, status: 'Lunas', bulan: 'Januari 2026' },
+            { tanggal: '20 Jan 2026', pasien: 'Eka Putra', tipe: 'Offline', durasi: '60 menit', jumlah: 200000, status: 'Lunas', bulan: 'Januari 2026' },
+        ];
+
+        let dataFiltered = [...semuaData];
+
+        function formatRupiah(angka) {
+            return 'Rp ' + angka.toLocaleString('id-ID');
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById('tbody-transaksi');
+            document.getElementById('row-count').textContent = data.length + ' transaksi';
+
+            let lunas = data.filter(d => d.status === 'Lunas').length;
+            let belum = data.filter(d => d.status === 'Menunggu').length;
+            document.getElementById('total-lunas').textContent = lunas;
+            document.getElementById('total-belum').textContent = belum;
+
+            if (data.length === 0) {
+                tbody.innerHTML = '<tr class="empty-row"><td colspan="7">Tidak ada data transaksi</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = data.map((d, i) => `
+                <tr>
+                    <td>${i + 1}</td>
+                    <td>${d.tanggal}</td>
+                    <td style="font-weight:600">${d.pasien}</td>
+                    <td><span class="tipe-${d.tipe.toLowerCase()}">${d.tipe}</span></td>
+                    <td>${d.durasi}</td>
+                    <td class="amount">${formatRupiah(d.jumlah)}</td>
+                    <td><span class="status-badge ${d.status === 'Lunas' ? 'status-lunas' : 'status-belum'}">${d.status}</span></td>
+                </tr>
+            `).join('');
+        }
+
+        function applyFilter() {
+            const bulan = document.getElementById('filter-bulan').value;
+            const status = document.getElementById('filter-status').value;
+            const tipe = document.getElementById('filter-tipe').value;
+
+            dataFiltered = semuaData.filter(d => {
+                return (!bulan || d.bulan === bulan) &&
+                    (!status || d.status === status) &&
+                    (!tipe || d.tipe === tipe);
+            });
+
+            renderTable(dataFiltered);
+        }
+
+        function exportExcel() {
+            const bulan = document.getElementById('filter-bulan').value || 'Semua Bulan';
+
+            const exportData = dataFiltered.map((d, i) => ({
+                'No': i + 1,
+                'Tanggal': d.tanggal,
+                'Nama Pasien': d.pasien,
+                'Tipe Sesi': d.tipe,
+                'Durasi': d.durasi,
+                'Jumlah (Rp)': d.jumlah,
+                'Status': d.status
+            }));
+
+            const ws = XLSX.utils.json_to_sheet(exportData);
+
+            // Style lebar kolom
+            ws['!cols'] = [
+                { wch: 5 }, { wch: 15 }, { wch: 20 },
+                { wch: 12 }, { wch: 12 }, { wch: 15 }, { wch: 15 }
+            ];
+
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Laporan Keuangan');
+
+            const fileName = `Laporan_Keuangan_${bulan.replace(' ', '_')}_Dr_Sarah.xlsx`;
+            XLSX.writeFile(wb, fileName);
+        }
+
+        // Load awal
+        applyFilter();
+    </script>
+</body>
+
+</html>
