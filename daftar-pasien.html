@@ -1,149 +1,18 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Pasien - RuangPulih</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        :root {
-            --primary:       #6352c7;
-            --primary-dark:  #2d1f6e;
-            --primary-light: #ede9fb;
-            --accent:        #4a90d9;
-            --success:       #16a34a;
-            --success-light: #f0fdf4;
-            --warning:       #d97706;
-            --warning-light: #fffbeb;
-            --danger:        #dc2626;
-            --danger-light:  #fef2f2;
-            --text-dark:     #1a1145;
-            --text-mid:      #4a4570;
-            --text-muted:    #8b88a8;
-            --bg:            #f8f7ff;
-            --border:        rgba(99,82,199,0.12);
-            --radius-sm:     8px;
-            --radius-md:     14px;
-            --radius-lg:     20px;
-            --shadow-sm:     0 2px 8px rgba(45,31,110,0.06);
-            --shadow-md:     0 8px 32px rgba(45,31,110,0.10);
-        }
-
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--bg);
-            color: var(--text-dark);
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* SIDEBAR */
-        .sidebar {
-            width: 240px;
-            background: var(--primary-dark);
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            top: 0; left: 0;
-            height: 100vh;
-            z-index: 50;
-        }
-
-        .sidebar-logo {
-            padding: 24px 24px 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .sidebar-logo span {
-            font-size: 18px;
-            font-weight: 800;
-            color: white;
-        }
-
-        .sidebar-logo small {
-            display: block;
-            font-size: 11px;
-            color: rgba(255,255,255,0.5);
-            margin-top: 2px;
-        }
-
-        .sidebar-user {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 16px 24px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .user-avatar {
-            width: 36px; height: 36px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            display: flex; align-items: center; justify-content: center;
-            font-size: 13px; font-weight: 700; color: white;
-        }
-
-        .user-name { font-size: 13px; font-weight: 600; color: white; }
-        .user-role { font-size: 11px; color: rgba(255,255,255,0.5); }
-
-        .sidebar-nav { flex: 1; padding: 8px 12px; }
-
-        .nav-label {
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.35);
-            padding: 12px 12px 6px;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
-            color: rgba(255,255,255,0.65);
-            font-size: 13px;
-            font-weight: 500;
-            margin-bottom: 2px;
-        }
-
-        .nav-item:hover { background: rgba(255,255,255,0.08); color: white; }
-        .nav-item.active { background: rgba(255,255,255,0.12); color: white; }
-        .nav-icon { font-size: 16px; width: 20px; text-align: center; }
-
-        .sidebar-footer {
-            padding: 16px 12px;
-            border-top: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .logout-btn {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            border-radius: var(--radius-sm);
-            color: rgba(255,255,255,0.5);
-            font-size: 13px;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-
-        .logout-btn:hover { color: #f87171; background: rgba(248,113,113,0.1); }
-
-        /* MAIN */
         .main {
             margin-left: 240px;
             flex: 1;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
         }
 
         .topbar {
@@ -157,31 +26,52 @@
             position: sticky;
             top: 0;
             z-index: 40;
+            margin: 0;
+            border-radius: 0;
+            box-shadow: none;
         }
 
-        .topbar-title { font-size: 16px; font-weight: 700; color: var(--text-dark); }
+        .topbar-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
 
-        .topbar-right { display: flex; align-items: center; gap: 12px; }
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
         .notif-btn {
-            width: 36px; height: 36px;
+            width: 36px;
+            height: 36px;
             border-radius: var(--radius-sm);
             background: var(--bg);
             border: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; font-size: 16px; position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            position: relative;
         }
 
         .notif-dot {
-            position: absolute; top: 6px; right: 6px;
-            width: 7px; height: 7px;
-            border-radius: 50%; background: #ef4444;
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #ef4444;
             border: 1.5px solid white;
         }
 
-        .content { padding: 28px 32px; }
+        .content {
+            padding: 28px 32px;
+        }
 
-        /* PAGE HEADER */
         .page-header {
             display: flex;
             align-items: center;
@@ -189,10 +79,18 @@
             margin-bottom: 24px;
         }
 
-        .page-header h2 { font-size: 20px; font-weight: 800; color: var(--text-dark); }
-        .page-header p { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+        .page-header h2 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
 
-        /* STATS */
+        .page-header p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
         .stats-row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -211,16 +109,28 @@
         }
 
         .stat-icon {
-            width: 44px; height: 44px;
+            width: 44px;
+            height: 44px;
             border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 20px;
         }
 
-        .stat-val { font-size: 22px; font-weight: 800; color: var(--text-dark); letter-spacing: -0.5px; }
-        .stat-lbl { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+        .stat-val {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+        }
 
-        /* FILTER BAR */
+        .stat-lbl {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
         .filter-bar {
             display: flex;
             gap: 12px;
@@ -237,7 +147,8 @@
 
         .search-wrap .search-icon {
             position: absolute;
-            left: 12px; top: 50%;
+            left: 12px;
+            top: 50%;
             transform: translateY(-50%);
             font-size: 14px;
             pointer-events: none;
@@ -256,7 +167,9 @@
             font-family: inherit;
         }
 
-        .search-wrap input:focus { border-color: var(--primary); }
+        .search-wrap input:focus {
+            border-color: var(--primary);
+        }
 
         .filter-select {
             padding: 10px 14px;
@@ -271,9 +184,10 @@
             transition: border-color 0.2s;
         }
 
-        .filter-select:focus { border-color: var(--primary); }
+        .filter-select:focus {
+            border-color: var(--primary);
+        }
 
-        /* PASIEN GRID */
         .pasien-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -293,7 +207,7 @@
         .pasien-card:hover {
             transform: translateY(-3px);
             box-shadow: var(--shadow-md);
-            border-color: rgba(99,82,199,0.3);
+            border-color: rgba(99, 82, 199, 0.3);
         }
 
         .pasien-card-top {
@@ -304,15 +218,29 @@
         }
 
         .pasien-avatar {
-            width: 48px; height: 48px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 16px; font-weight: 700; color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
             flex-shrink: 0;
         }
 
-        .pasien-name { font-size: 14px; font-weight: 700; color: var(--text-dark); }
-        .pasien-nim { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+        .pasien-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .pasien-nim {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
 
         .pasien-status {
             margin-left: auto;
@@ -322,8 +250,15 @@
             font-weight: 600;
         }
 
-        .status-aktif { background: var(--success-light); color: var(--success); }
-        .status-selesai { background: var(--bg); color: var(--text-muted); }
+        .status-aktif {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .status-selesai {
+            background: var(--bg);
+            color: var(--text-muted);
+        }
 
         .pasien-info {
             display: grid;
@@ -368,7 +303,10 @@
             font-family: inherit;
         }
 
-        .btn-detail:hover { background: var(--primary); color: white; }
+        .btn-detail:hover {
+            background: var(--primary);
+            color: white;
+        }
 
         .btn-jadwal {
             flex: 1;
@@ -384,9 +322,11 @@
             font-family: inherit;
         }
 
-        .btn-jadwal:hover { border-color: var(--primary); color: var(--primary); }
+        .btn-jadwal:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
 
-        /* PAGINATION */
         .pagination {
             display: flex;
             align-items: center;
@@ -395,7 +335,8 @@
         }
 
         .page-btn {
-            width: 36px; height: 36px;
+            width: 36px;
+            height: 36px;
             border-radius: var(--radius-sm);
             border: 1.5px solid var(--border);
             background: white;
@@ -407,18 +348,23 @@
             font-family: inherit;
         }
 
-        .page-btn:hover { border-color: var(--primary); color: var(--primary); }
-        .page-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
+        .page-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .page-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
     </style>
 </head>
+
 <body>
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
-        <div class="sidebar-logo">
-            <span>RuangPulih</span>
-            <small>Psikolog</small>
-        </div>
+        <div class="sidebar-logo"><span>RuangPulih</span><small>Psikolog</small></div>
         <div class="sidebar-user">
             <div class="user-avatar">DS</div>
             <div>
@@ -428,31 +374,18 @@
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Menu Utama</div>
-            <a href="dashboard-psikolog.html" class="nav-item">
-                <span class="nav-icon">🏠</span> Dashboard
-            </a>
-            <a href="tabel-jadwal.html" class="nav-item">
-                <span class="nav-icon">📅</span> Jadwal Konsultasi
-            </a>
-            <a href="daftar-pasien.html" class="nav-item active">
-                <span class="nav-icon">👥</span> Daftar Pasien
-            </a>
-            <a href="laporan-keuangan.html" class="nav-item">
-                <span class="nav-icon">💰</span> Laporan Keuangan
-            </a>
+            <a href="dashboard-psikolog.html" class="nav-item"><span class="nav-icon">🏠</span> Dashboard</a>
+            <a href="tabel-jadwal.html" class="nav-item"><span class="nav-icon">📅</span> Jadwal Konsultasi</a>
+            <a href="daftar-pasien.html" class="nav-item active"><span class="nav-icon">👥</span> Daftar Pasien</a>
+            <a href="laporan-keuangan.html" class="nav-item"><span class="nav-icon">💰</span> Laporan Keuangan</a>
             <div class="nav-label">Akun</div>
-            <a href="profil.html" class="nav-item">
-                <span class="nav-icon">👤</span> Profil
-            </a>
+            <a href="profil.html" class="nav-item"><span class="nav-icon">👤</span> Profil</a>
         </nav>
         <div class="sidebar-footer">
-            <a href="login.html" class="logout-btn">
-                <span>🚪</span> Keluar
-            </a>
+            <a href="login.html" class="logout-btn"><span>🚪</span> Keluar</a>
         </div>
     </aside>
 
-    <!-- MAIN -->
     <main class="main">
         <div class="topbar">
             <div class="topbar-title">Daftar Pasien</div>
@@ -470,7 +403,6 @@
                 </div>
             </div>
 
-            <!-- STATS -->
             <div class="stats-row">
                 <div class="stat-card">
                     <div class="stat-icon" style="background:#ede9fb;">👥</div>
@@ -495,7 +427,6 @@
                 </div>
             </div>
 
-            <!-- FILTER -->
             <div class="filter-bar">
                 <div class="search-wrap">
                     <span class="search-icon">🔍</span>
@@ -508,9 +439,7 @@
                 </select>
             </div>
 
-            <!-- PASIEN GRID -->
             <div class="pasien-grid" id="pasien-grid">
-
                 <div class="pasien-card" data-name="andi pratama" data-status="aktif">
                     <div class="pasien-card-top">
                         <div class="pasien-avatar" style="background:linear-gradient(135deg,#6352c7,#4a90d9)">AP</div>
@@ -538,10 +467,8 @@
                             <div class="info-val">Kecemasan</div>
                         </div>
                     </div>
-                    <div class="pasien-actions">
-                        <button class="btn-detail">Lihat Detail</button>
-                        <button class="btn-jadwal">Buat Jadwal</button>
-                    </div>
+                    <div class="pasien-actions"><button class="btn-detail">Lihat Detail</button><button
+                            class="btn-jadwal">Buat Jadwal</button></div>
                 </div>
 
                 <div class="pasien-card" data-name="budi santoso" data-status="aktif">
@@ -571,10 +498,8 @@
                             <div class="info-val">Stres Akademik</div>
                         </div>
                     </div>
-                    <div class="pasien-actions">
-                        <button class="btn-detail">Lihat Detail</button>
-                        <button class="btn-jadwal">Buat Jadwal</button>
-                    </div>
+                    <div class="pasien-actions"><button class="btn-detail">Lihat Detail</button><button
+                            class="btn-jadwal">Buat Jadwal</button></div>
                 </div>
 
                 <div class="pasien-card" data-name="citra dewi" data-status="aktif">
@@ -604,10 +529,8 @@
                             <div class="info-val">Depresi Ringan</div>
                         </div>
                     </div>
-                    <div class="pasien-actions">
-                        <button class="btn-detail">Lihat Detail</button>
-                        <button class="btn-jadwal">Buat Jadwal</button>
-                    </div>
+                    <div class="pasien-actions"><button class="btn-detail">Lihat Detail</button><button
+                            class="btn-jadwal">Buat Jadwal</button></div>
                 </div>
 
                 <div class="pasien-card" data-name="dian rahma" data-status="aktif">
@@ -637,10 +560,8 @@
                             <div class="info-val">Burnout</div>
                         </div>
                     </div>
-                    <div class="pasien-actions">
-                        <button class="btn-detail">Lihat Detail</button>
-                        <button class="btn-jadwal">Buat Jadwal</button>
-                    </div>
+                    <div class="pasien-actions"><button class="btn-detail">Lihat Detail</button><button
+                            class="btn-jadwal">Buat Jadwal</button></div>
                 </div>
 
                 <div class="pasien-card" data-name="eka putra" data-status="selesai">
@@ -670,10 +591,8 @@
                             <div class="info-val">Trauma</div>
                         </div>
                     </div>
-                    <div class="pasien-actions">
-                        <button class="btn-detail">Lihat Detail</button>
-                        <button class="btn-jadwal">Buat Jadwal</button>
-                    </div>
+                    <div class="pasien-actions"><button class="btn-detail">Lihat Detail</button><button
+                            class="btn-jadwal">Buat Jadwal</button></div>
                 </div>
 
                 <div class="pasien-card" data-name="fira ananda" data-status="selesai">
@@ -703,15 +622,11 @@
                             <div class="info-val">Insomnia</div>
                         </div>
                     </div>
-                    <div class="pasien-actions">
-                        <button class="btn-detail">Lihat Detail</button>
-                        <button class="btn-jadwal">Buat Jadwal</button>
-                    </div>
+                    <div class="pasien-actions"><button class="btn-detail">Lihat Detail</button><button
+                            class="btn-jadwal">Buat Jadwal</button></div>
                 </div>
-
             </div>
 
-            <!-- PAGINATION -->
             <div class="pagination">
                 <button class="page-btn">«</button>
                 <button class="page-btn active">1</button>
@@ -723,24 +638,16 @@
 
     <script>
         function filterPasien(val) {
-            const cards = document.querySelectorAll('.pasien-card');
-            cards.forEach(card => {
-                const name = card.dataset.name;
-                card.style.display = name.includes(val.toLowerCase()) ? '' : 'none';
+            document.querySelectorAll('.pasien-card').forEach(card => {
+                card.style.display = card.dataset.name.includes(val.toLowerCase()) ? '' : 'none';
             });
         }
-
         function filterStatus(val) {
-            const cards = document.querySelectorAll('.pasien-card');
-            cards.forEach(card => {
-                if (!val || card.dataset.status === val) {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
-                }
+            document.querySelectorAll('.pasien-card').forEach(card => {
+                card.style.display = (!val || card.dataset.status === val) ? '' : 'none';
             });
         }
     </script>
-
 </body>
+
 </html>
