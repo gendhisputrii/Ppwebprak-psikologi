@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tes Depresi - RuangPulih</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #6352c7;
+            --primary-dark: #2d1f6e;
+            --primary-light: #ede9fb;
+            --accent: #4a90d9;
+            --accent-light: #e8f2fc;
+            --text-dark: #1a1145;
+            --text-mid: #4a4570;
+            --text-muted: #8b88a8;
+            --bg: #f8f7ff;
+            --bg-card: #ffffff;
+            --border: rgba(99, 82, 199, 0.12);
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --shadow-sm: 0 2px 8px rgba(45, 31, 110, 0.06);
+            --shadow-md: 0 8px 32px rgba(45, 31, 110, 0.10);
+            --shadow-lg: 0 20px 60px rgba(45, 31, 110, 0.14);
+            --green: #16a34a;
+            --green-light: #f0fdf4;
+            --yellow: #d97706;
+            --yellow-light: #fffbeb;
+            --orange: #ea580c;
+            --orange-light: #fff7ed;
+            --red: #dc2626;
+            --red-light: #fef2f2;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo img {
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 36px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-mid);
+            transition: color 0.2s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+
+        .btn-login {
+            padding: 10px 24px !important;
+            background: var(--primary-dark) !important;
+            color: white !important;
+            border-radius: var(--radius-sm) !important;
+            font-weight: 600 !important;
+        }
+
+        /* HERO BANNER */
+        .test-hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, #7c6fd4 100%);
+            padding: 56px 60px 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .test-hero::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.04);
+            right: -80px;
+            top: -100px;
+        }
+
+        .test-hero::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            left: 5%;
+            bottom: -50px;
+        }
+
+        .hero-inner {
+            max-width: 640px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 100px;
+            background: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            margin-bottom: 20px;
+        }
+
+        .badge-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #a3e635;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: scale(0.85);
+            }
+        }
+
+        .test-hero h1 {
+            font-size: clamp(28px, 3vw, 42px);
+            font-weight: 800;
+            color: white;
+            letter-spacing: -1px;
+            line-height: 1.15;
+            margin-bottom: 14px;
+        }
+
+        .test-hero p {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.7;
+            max-width: 520px;
+        }
+
+        .hero-chips {
+            display: flex;
+            gap: 10px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        .chip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+        }
+
+        /* MAIN WRAPPER */
+        .main-wrap {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 48px 24px 80px;
+        }
+
+        /* PROGRESS */
+        .progress-section {
+            margin-bottom: 32px;
+        }
+
+        .progress-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .progress-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-mid);
+        }
+
+        .progress-count {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .progress-bar-outer {
+            height: 8px;
+            background: var(--primary-light);
+            border-radius: 100px;
+            overflow: hidden;
+        }
+
+        .progress-bar-inner {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 100px;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 0%;
+        }
+
+        /* QUESTION CARD */
+        .question-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            border: 1.5px solid var(--border);
+            padding: 36px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 20px;
+            animation: fadeSlideIn 0.4s ease;
+        }
+
+        @keyframes fadeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-number {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 5px 12px;
+            border-radius: 100px;
+            margin-bottom: 18px;
+            letter-spacing: 0.3px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.5;
+            margin-bottom: 28px;
+        }
+
+        /* OPTIONS */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .option-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            border-radius: var(--radius-md);
+            border: 2px solid var(--border);
+            background: var(--bg);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            font-family: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--primary-light), transparent);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .option-btn:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .option-btn:hover::before {
+            opacity: 1;
+        }
+
+        .option-btn.selected {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(99, 82, 199, 0.15);
+        }
+
+        .option-btn.selected .option-circle {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .option-btn.selected .option-circle::after {
+            content: '✓';
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .option-circle {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            background: white;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            position: relative;
+            z-index: 1;
+        }
+
+        .option-text {
+            position: relative;
+            z-index: 1;
+        }
+
+        .option-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+            display: block;
+        }
+
+        .option-score {
+            font-size: 11px;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 2px;
+        }
+
+        /* INFO NOTE */
+        .info-note {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 14px 18px;
+            background: var(--accent-light);
+            border-radius: var(--radius-md);
+            border-left: 3px solid var(--accent);
+            margin-bottom: 28px;
+            font-size: 13px;
+            color: var(--text-mid);
+            line-height: 1.6;
+        }
+
+        .info-note span:first-child {
+            font-size: 18px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* NAV BUTTONS */
+        .nav-btns {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-prev {
+            padding: 13px 28px;
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .btn-prev:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .btn-prev:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .btn-next {
+            padding: 13px 32px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+            box-shadow: 0 4px 16px rgba(99, 82, 199, 0.35);
+        }
+
+        .btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(99, 82, 199, 0.4);
+        }
+
+        .btn-next:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ===== RESULT PAGE ===== */
+        .result-section {
+            display: none;
+            animation: fadeSlideIn 0.5s ease;
+        }
+
+        .result-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            border: 1.5px solid var(--border);
+            padding: 40px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .result-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+        }
+
+        .result-category {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .result-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -0.8px;
+            margin-bottom: 12px;
+        }
+
+        .result-desc {
+            font-size: 15px;
+            color: var(--text-mid);
+            line-height: 1.75;
+            max-width: 520px;
+            margin: 0 auto 28px;
+        }
+
+        /* SCORE GAUGE */
+        .score-wrap {
+            margin: 28px 0;
+        }
+
+        .score-number {
+            font-size: 52px;
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .score-sub {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .gauge-bar {
+            position: relative;
+            height: 16px;
+            border-radius: 100px;
+            background: linear-gradient(90deg, #16a34a 0%, #84cc16 25%, #d97706 50%, #ea580c 75%, #dc2626 100%);
+            margin: 0 auto 10px;
+            max-width: 480px;
+            overflow: visible;
+        }
+
+        .gauge-thumb {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid var(--text-dark);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gauge-labels {
+            display: flex;
+            justify-content: space-between;
+            max-width: 480px;
+            margin: 6px auto 0;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* RESULT LEVELS */
+        .result-levels {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin: 28px 0;
+            text-align: center;
+        }
+
+        .level-item {
+            padding: 14px 10px;
+            border-radius: var(--radius-md);
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .level-item.active {
+            border-color: currentColor;
+        }
+
+        .level-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin: 0 auto 8px;
+        }
+
+        .level-name {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .level-range {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* ACTION BUTTONS */
+        .result-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .btn-consult {
+            padding: 14px 32px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+            box-shadow: 0 4px 16px rgba(99, 82, 199, 0.35);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-consult:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(99, 82, 199, 0.4);
+        }
+
+        .btn-retake {
+            padding: 14px 28px;
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .btn-retake:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        /* RECOMMENDATIONS */
+        .reco-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            border: 1.5px solid var(--border);
+            padding: 28px 32px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .reco-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 18px;
+        }
+
+        .reco-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .reco-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 16px;
+            background: var(--bg);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+        }
+
+        .reco-emoji {
+            font-size: 20px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .reco-item h5 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 3px;
+        }
+
+        .reco-item p {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* DISCLAIMER */
+        .disclaimer {
+            margin-top: 24px;
+            padding: 14px 18px;
+            background: var(--primary-light);
+            border-radius: var(--radius-md);
+            font-size: 12px;
+            color: var(--text-mid);
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .test-hero {
+                padding: 40px 20px 36px;
+            }
+
+            .main-wrap {
+                padding: 32px 16px 60px;
+            }
+
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result-levels {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .question-card {
+                padding: 24px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo1.png" alt="RuangPulih">
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="index.html#layanan">Layanan</a></li>
+            <li><a href="index.html#tentang">Tentang</a></li>
+            <li><a href="index.html#artikel">Artikel</a></li>
+            <li><a href="login.html" class="btn-login">Login</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <div class="test-hero">
+        <div class="hero-inner">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                Tes Kesehatan Mental Gratis
+            </div>
+            <h1>Tes Depresi PHQ-9</h1>
+            <p>Tes ini diadaptasi dari kuesioner PHQ-9 yang telah tervalidasi secara klinis untuk membantu mengenali
+                gejala depresi. Jawablah dengan jujur sesuai perasaanmu dalam 2 minggu terakhir.</p>
+            <div class="hero-chips">
+                <div class="chip">🕐 Hanya 3 menit</div>
+                <div class="chip">🔒 Rahasia & Aman</div>
+                <div class="chip">📋 9 Pertanyaan</div>
+                <div class="chip">🏥 Berdasarkan PHQ-9</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QUIZ SECTION -->
+    <div class="main-wrap">
+        <div id="quiz-section">
+            <!-- Progress -->
+            <div class="progress-section">
+                <div class="progress-top">
+                    <span class="progress-label">Progress Tes</span>
+                    <span class="progress-count" id="progress-text">Pertanyaan 1 dari 9</span>
+                </div>
+                <div class="progress-bar-outer">
+                    <div class="progress-bar-inner" id="progress-bar"></div>
+                </div>
+            </div>
+
+            <!-- Info note -->
+            <div class="info-note">
+                <span>💡</span>
+                <span>Selama <strong>2 minggu terakhir</strong>, seberapa sering kamu merasa terganggu oleh masalah
+                    berikut? Pilih jawaban yang paling sesuai dengan kondisimu.</span>
+            </div>
+
+            <!-- Question Card -->
+            <div class="question-card" id="question-card">
+                <div class="question-number" id="q-number">Pertanyaan 1 dari 9</div>
+                <div class="question-text" id="q-text"></div>
+                <div class="options-grid" id="options-container"></div>
+            </div>
+
+            <!-- Nav buttons -->
+            <div class="nav-btns">
+                <button class="btn-next" id="btn-next" onclick="nextQuestion()" disabled>Selanjutnya →</button>
+            </div>
+        </div>
+
+        <!-- RESULT SECTION -->
+        <div class="result-section" id="result-section">
+            <div class="result-card">
+                <div class="result-icon" id="result-icon"></div>
+                <div class="result-category" id="result-category"></div>
+                <div class="result-title" id="result-title"></div>
+
+                <div class="score-wrap">
+                    <div class="score-number" id="result-score"></div>
+                    <div class="score-sub">Skor kamu dari maksimal 27</div>
+                    <div class="gauge-bar">
+                        <div class="gauge-thumb" id="gauge-thumb"></div>
+                    </div>
+                    <div class="gauge-labels">
+                        <span>Minimal</span>
+                        <span>Ringan</span>
+                        <span>Sedang</span>
+                        <span>Berat</span>
+                        <span>Sangat Berat</span>
+                    </div>
+                </div>
+
+                <div class="result-levels">
+                    <div class="level-item" style="color:#16a34a;background:#f0fdf4;" id="lv0">
+                        <div class="level-dot" style="background:#16a34a;"></div>
+                        <div class="level-name">Minimal</div>
+                        <div class="level-range">0–4</div>
+                    </div>
+                    <div class="level-item" style="color:#d97706;background:#fffbeb;" id="lv1">
+                        <div class="level-dot" style="background:#d97706;"></div>
+                        <div class="level-name">Ringan</div>
+                        <div class="level-range">5–9</div>
+                    </div>
+                    <div class="level-item" style="color:#ea580c;background:#fff7ed;" id="lv2">
+                        <div class="level-dot" style="background:#ea580c;"></div>
+                        <div class="level-name">Sedang</div>
+                        <div class="level-range">10–14</div>
+                    </div>
+                    <div class="level-item" style="color:#dc2626;background:#fef2f2;" id="lv3">
+                        <div class="level-dot" style="background:#dc2626;"></div>
+                        <div class="level-name">Berat</div>
+                        <div class="level-range">15–27</div>
+                    </div>
+                </div>
+
+                <p class="result-desc" id="result-desc"></p>
+
+                <div class="result-actions">
+                    <a href="login.html" class="btn-consult">🧑‍⚕️ Konsultasi dengan Psikolog</a>
+                    <button class="btn-retake" onclick="retakeTest()">🔄 Ulangi Tes</button>
+                </div>
+            </div>
+
+            <!-- Recommendations -->
+            <div class="reco-card" id="reco-card">
+                <div class="reco-title"> Rekomendasi untuk Kamu</div>
+                <div class="reco-list" id="reco-list"></div>
+            </div>
+
+            <div class="disclaimer">
+                ⚠️ <strong>Catatan Penting:</strong> Hasil tes ini bukan diagnosis medis. Untuk penilaian yang akurat,
+                konsultasikan kondisimu dengan psikolog atau psikiater profesional.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            "Kurang minat atau kesenangan dalam melakukan sesuatu?",
+            "Merasa sedih, murung, atau putus asa?",
+            "Sulit tidur, sering terbangun, atau malah terlalu banyak tidur?",
+            "Merasa lelah atau kurang energi?",
+            "Kurang nafsu makan atau makan berlebihan?",
+            "Merasa buruk tentang diri sendiri — merasa gagal atau mengecewakan keluarga?",
+            "Sulit berkonsentrasi saat membaca koran atau menonton TV?",
+            "Bergerak atau berbicara terlalu lambat hingga orang lain menyadarinya? Atau sebaliknya, gelisah dan bergerak lebih banyak dari biasanya?",
+            "Muncul pikiran bahwa lebih baik mati, atau ingin menyakiti diri sendiri?"
+        ];
+
+        const options = [
+            { label: "Tidak sama sekali", score: 0 },
+            { label: "Beberapa hari", score: 1 },
+            { label: "Lebih dari separuh waktu", score: 2 },
+            { label: "Hampir setiap hari", score: 3 }
+        ];
+
+        const results = [
+            {
+                range: [0, 4],
+                icon: "😊",
+                iconBg: "#f0fdf4",
+                category: "Tidak Ada Gejala Depresi",
+                categoryColor: "#16a34a",
+                title: "Kamu Baik-Baik Saja!",
+                desc: "Skor kamu menunjukkan tidak ada gejala depresi yang signifikan. Pertahankan pola hidup sehat dan terus jaga kesehatan mentalmu. Tetap semangat!",
+                gaugePos: "7%",
+                reco: [
+                    { emoji: "🧘", title: "Pertahankan Rutinitas Sehat", desc: "Olahraga rutin, tidur cukup, dan makan bergizi untuk menjaga kesehatan mental." },
+                    { emoji: "🤝", title: "Jaga Koneksi Sosial", desc: "Habiskan waktu berkualitas bersama orang-orang yang kamu sayangi." },
+                    { emoji: "📝", title: "Journaling Harian", desc: "Mencatat perasaan dan rasa syukur tiap hari membantu menjaga keseimbangan emosi." }
+                ]
+            },
+            {
+                range: [5, 9],
+                icon: "🌤️",
+                iconBg: "#fffbeb",
+                category: "Gejala Depresi Ringan",
+                categoryColor: "#d97706",
+                title: "Ada Tanda-Tanda Ringan",
+                desc: "Skor kamu menunjukkan gejala depresi ringan. Ini wajar terjadi, tapi penting untuk diperhatikan. Mulailah dengan langkah-langkah kecil untuk menjaga kesehatan mentalmu.",
+                gaugePos: "33%",
+                reco: [
+                    { emoji: "🏃", title: "Aktif Bergerak", desc: "Olahraga 30 menit per hari terbukti efektif membantu meringankan gejala depresi ringan." },
+                    { emoji: "🌿", title: "Mindfulness & Meditasi", desc: "Latihan pernapasan dan meditasi dapat membantu menenangkan pikiran yang gelisah." },
+                    { emoji: "💬", title: "Ceritakan Perasaanmu", desc: "Berbagi dengan teman atau keluarga yang dipercaya bisa sangat membantu." },
+                    { emoji: "🧑‍⚕️", title: "Pertimbangkan Konsultasi", desc: "Jika gejala berlanjut lebih dari 2 minggu, segera konsultasi dengan psikolog." }
+                ]
+            },
+            {
+                range: [10, 14],
+                icon: "⛅",
+                iconBg: "#fff7ed",
+                category: "Gejala Depresi Sedang",
+                categoryColor: "#ea580c",
+                title: "Kamu Perlu Bantuan",
+                desc: "Skor kamu menunjukkan gejala depresi sedang. Sangat disarankan untuk berkonsultasi dengan psikolog profesional. Kamu tidak perlu menanggung ini sendiri.",
+                gaugePos: "60%",
+                reco: [
+                    { emoji: "🧑‍⚕️", title: "Konsultasi Segera", desc: "Hubungi psikolog atau konselor untuk mendapat penanganan yang tepat." },
+                    { emoji: "💊", title: "Pertimbangkan Terapi", desc: "Cognitive Behavioral Therapy (CBT) sangat efektif untuk depresi sedang." },
+                    { emoji: "👨‍👩‍👧", title: "Dukungan Keluarga", desc: "Beritahu orang terdekatmu agar mereka bisa memberikan dukungan yang kamu butuhkan." },
+                    { emoji: "📵", title: "Kurangi Pemicu Stres", desc: "Identifikasi dan kurangi sumber stres utama dalam hidupmu sementara waktu." }
+                ]
+            },
+            {
+                range: [15, 27],
+                icon: "🌧️",
+                iconBg: "#fef2f2",
+                category: "Gejala Depresi Berat",
+                categoryColor: "#dc2626",
+                title: "Segera Cari Pertolongan",
+                desc: "Skor kamu menunjukkan gejala depresi yang cukup berat. Tolong jangan hadapi ini sendirian. Segera hubungi profesional kesehatan mental. Kamu layak mendapat pertolongan dan pemulihan.",
+                gaugePos: "85%",
+                reco: [
+                    { emoji: "🚨", title: "Cari Bantuan Sekarang", desc: "Segera hubungi psikolog atau psikiater. Ini bukan kelemahan, ini keberanian." },
+                    { emoji: "📞", title: "Hotline Kesehatan Mental", desc: "Hubungi Into The Light Indonesia: 119 ext 8 untuk crisis support 24 jam." },
+                    { emoji: "🏥", title: "Evaluasi Medis", desc: "Pertimbangkan evaluasi oleh psikiater untuk pilihan penanganan yang komprehensif." },
+                    { emoji: "💜", title: "Kamu Tidak Sendirian", desc: "Jutaan orang mengalami hal yang sama dan berhasil pulih. Ada harapan selalu." }
+                ]
+            }
+        ];
+
+        let currentQ = 0;
+        let answers = new Array(9).fill(null);
+
+        function renderQuestion() {
+            const q = questions[currentQ];
+            const progress = ((currentQ + 1) / 9) * 100;
+
+            document.getElementById('progress-bar').style.width = progress + '%';
+            document.getElementById('progress-text').textContent = `Pertanyaan ${currentQ + 1} dari 9`;
+            document.getElementById('q-number').textContent = `Pertanyaan ${currentQ + 1} dari 9`;
+            document.getElementById('q-text').textContent = q;
+
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            options.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn' + (answers[currentQ] === i ? ' selected' : '');
+                btn.innerHTML = `
+            <div class="option-circle">${answers[currentQ] === i ? '✓' : ''}</div>
+            <div class="option-text">
+                <span class="option-label">${opt.label}</span>
+            </div>`;
+                btn.onclick = () => selectOption(i);
+                container.appendChild(btn);
+            });
+
+            const isAnswered = answers[currentQ] !== null;
+
+            document.getElementById('btn-next').disabled = !isAnswered;
+
+            const isLast = currentQ === questions.length - 1;
+            document.getElementById('btn-next').textContent = isLast ? 'Lihat Hasil →' : 'Selanjutnya →';
+
+            const card = document.getElementById('question-card');
+            card.style.animation = 'none';
+            card.offsetHeight;
+            card.style.animation = 'fadeSlideIn 0.4s ease';
+        }
+
+        function selectOption(i) {
+            answers[currentQ] = i;
+            renderQuestion();
+        }
+
+        function nextQuestion() {
+            if (answers[currentQ] === null) return;
+            if (currentQ < questions.length - 1) {
+                currentQ++;
+                renderQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function prevQuestion() {
+            if (answers[currentQ] !== null) return;
+
+            if (currentQ > 0) {
+                currentQ--;
+                renderQuestion();
+            }
+        }
+
+
+        function showResult() {
+            const total = answers.reduce((sum, a, i) => sum + (a !== null ? options[a].score : 0), 0);
+
+            const level = results.find(r => total >= r.range[0] && total <= r.range[1]);
+
+            document.getElementById('quiz-section').style.display = 'none';
+            const resultSec = document.getElementById('result-section');
+            resultSec.style.display = 'block';
+
+            // Icon
+            const iconEl = document.getElementById('result-icon');
+            iconEl.textContent = level.icon;
+            iconEl.style.background = level.iconBg;
+
+            // Texts
+            document.getElementById('result-category').textContent = level.category;
+            document.getElementById('result-category').style.color = level.categoryColor;
+            document.getElementById('result-title').textContent = level.title;
+            document.getElementById('result-score').textContent = total;
+            document.getElementById('result-score').style.color = level.categoryColor;
+            document.getElementById('result-desc').textContent = level.desc;
+
+            // Gauge thumb
+            setTimeout(() => {
+                document.getElementById('gauge-thumb').style.left = level.gaugePos;
+            }, 100);
+
+            // Highlight active level
+            ['lv0', 'lv1', 'lv2', 'lv3'].forEach((id, idx) => {
+                const el = document.getElementById(id);
+                const ranges = [[0, 4], [5, 9], [10, 14], [15, 27]];
+                const inRange = total >= ranges[idx][0] && total <= ranges[idx][1];
+                el.style.border = inRange ? `2px solid ${['#16a34a', '#d97706', '#ea580c', '#dc2626'][idx]}` : '2px solid transparent';
+                el.style.boxShadow = inRange ? `0 0 0 3px ${['rgba(22,163,74,0.1)', 'rgba(217,119,6,0.1)', 'rgba(234,88,12,0.1)', 'rgba(220,38,38,0.1)'][idx]}` : '';
+            });
+
+            // Recommendations
+            const recoList = document.getElementById('reco-list');
+            recoList.innerHTML = level.reco.map(r => `
+            <div class="reco-item">
+                <span class="reco-emoji">${r.emoji}</span>
+                <div>
+                    <h5>${r.title}</h5>
+                    <p>${r.desc}</p>
+                </div>
+            </div>`).join('');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function retakeTest() {
+            currentQ = 0;
+            answers = new Array(9).fill(null);
+            document.getElementById('result-section').style.display = 'none';
+            document.getElementById('quiz-section').style.display = 'block';
+            renderQuestion();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Init
+        renderQuestion();
+    </script>
+</body>
+
+</html>
