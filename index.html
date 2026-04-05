@@ -878,15 +878,33 @@
             padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
+            cursor: pointer;
+        }
+
+        .video-thumbnail {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 40px;
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            padding: 10px 18px;
         }
 
         .video-wrapper iframe {
             position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
-            border: none;
+            display: none;
         }
 
         .video-info {
@@ -912,6 +930,14 @@
             color: var(--text-dark);
             line-height: 1.4;
             margin-bottom: 8px;
+        }
+
+        .video-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            /* 3 kolom */
+            gap: 24px;
+            /* jarak antar card */
         }
 
         .video-info p {
@@ -1130,18 +1156,19 @@
             <h2>Video Edukasi Kesehatan Mental</h2>
             <p class="section-desc">Kumpulan video pilihan untuk membantu kamu memahami kesehatan mental.</p>
         </div>
-        <div class="video-grid">
+
+        <div class="video-container">
 
             <!-- Video 1 -->
             <div class="video-card">
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/0xV-gpKYv3k" title="Apa Itu Anxiety?" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
-                </div>
+                <a href="https://www.youtube.com/watch?v=0xV-gpKYv3k" target="_blank">
+                    <div class="video-wrapper">
+                        <img src="https://img.youtube.com/vi/0xV-gpKYv3k/hqdefault.jpg" class="video-thumbnail">
+                        <div class="play-button">▶</div>
+                    </div>
+                </a>
                 <div class="video-info">
-                    <span class="video-channel">Mitra Keluarga</span>
+                    <span class="video-channel">Into The Light Indonesia</span>
                     <h4>Apa Itu Anxiety dan Bagaimana Menghadapinya?</h4>
                     <p>Penjelasan lengkap tentang anxiety disorder dan cara mengelolanya sehari-hari.</p>
                 </div>
@@ -1149,35 +1176,36 @@
 
             <!-- Video 2 -->
             <div class="video-card">
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/z-IR48Mb3W0" title="Cara Mengatasi Stres" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
-                </div>
+                <a href="https://www.youtube.com/watch?v=Btpwu4EHhGA" target="_blank">
+                    <div class="video-wrapper">
+                        <img src="https://img.youtube.com/vi/Btpwu4EHhGA/hqdefault.jpg" class="video-thumbnail">
+                        <div class="play-button">▶</div>
+                    </div>
+                </a>
                 <div class="video-info">
-                    <span class="video-channel">Satu Persen</span>
-                    <h4>Cara Mengatasi Stres yang Efektif untuk Mahasiswa</h4>
-                    <p>Tips praktis mengelola stres akademik agar tetap produktif dan sehat mental.</p>
+                    <span class="video-channel">Maudy Ayunda</span>
+                    <h4>Cara Menangani Stress</h4>
+                    <p>Tips praktis mengelola stres agar tetap produktif dan sehat mental.</p>
                 </div>
             </div>
 
             <!-- Video 3 -->
             <div class="video-card">
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/WQbzCkc5hI4" title="Mengenal Depresi" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
-                </div>
+                <a href="https://www.youtube.com/watch?v=bGYhibeAhB4" target="_blank">
+                    <div class="video-wrapper">
+                        <img src="https://img.youtube.com/vi/bGYhibeAhB4/hqdefault.jpg" class="video-thumbnail">
+                        <div class="play-button">▶</div>
+                    </div>
+                </a>
                 <div class="video-info">
-                    <span class="video-channel">Psych2Go Indonesia</span>
-                    <h4>Mengenal Tanda-Tanda Depresi Sejak Dini</h4>
-                    <p>Kenali gejala depresi lebih awal agar bisa segera mendapat pertolongan yang tepat.</p>
+                    <span class="video-channel">Siloam Hospitals</span>
+                    <h4>Tanda-Tanda Kamu Terkena Depresi!</h4>
+                    <p>Kenali fakta tentang depresi hingga kapan bantuan profesional dibutuhkan.</p>
                 </div>
             </div>
 
         </div>
+
         <div class="lihat-semua">
             <a href="#" class="btn-lihat">Lihat Semua Video</a>
         </div>
