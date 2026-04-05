@@ -48,7 +48,6 @@
             min-height: 100vh;
         }
 
-        /* SIDEBAR */
         .sidebar {
             width: 240px;
             background: var(--primary-dark);
@@ -181,7 +180,6 @@
             background: rgba(248, 113, 113, 0.1);
         }
 
-        /* MAIN */
         .main {
             margin-left: 240px;
             flex: 1;
@@ -253,7 +251,6 @@
             display: block;
         }
 
-        /* CARDS */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -338,7 +335,6 @@
             text-decoration: none;
         }
 
-        /* TABLE */
         .table-wrap {
             background: white;
             border-radius: var(--radius-md);
@@ -393,7 +389,6 @@
             background: #faf9ff;
         }
 
-        /* BADGES */
         .badge {
             padding: 3px 10px;
             border-radius: 100px;
@@ -426,7 +421,6 @@
             color: var(--text-muted);
         }
 
-        /* FILTER BAR */
         .filter-bar {
             display: flex;
             gap: 12px;
@@ -479,7 +473,6 @@
             font-family: inherit;
         }
 
-        /* BUTTONS */
         .btn-primary {
             padding: 9px 18px;
             background: var(--primary);
@@ -542,7 +535,6 @@
             gap: 6px;
         }
 
-        /* PAGE HEADER */
         .page-header {
             display: flex;
             align-items: center;
@@ -562,7 +554,6 @@
             margin-top: 2px;
         }
 
-        /* AVATAR */
         .psikolog-avatar {
             width: 36px;
             height: 36px;
@@ -582,7 +573,6 @@
             gap: 10px;
         }
 
-        /* WELCOME */
         .welcome-banner {
             background: linear-gradient(135deg, var(--primary-dark), var(--primary));
             border-radius: var(--radius-lg);
@@ -618,7 +608,6 @@
             color: rgba(255, 255, 255, 0.7);
         }
 
-        /* KONTEN CARD */
         .konten-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -639,6 +628,10 @@
             transform: translateY(-2px);
         }
 
+        .konten-card.has-link {
+            cursor: pointer;
+        }
+
         .konten-img {
             height: 120px;
             background: linear-gradient(135deg, #a89de8, #7ba8d9);
@@ -646,6 +639,7 @@
             align-items: center;
             justify-content: center;
             font-size: 36px;
+            position: relative;
         }
 
         .konten-body {
@@ -672,7 +666,6 @@
             justify-content: space-between;
         }
 
-        /* PROFIL */
         .profil-header {
             background: linear-gradient(135deg, var(--primary-dark), var(--primary));
             border-radius: var(--radius-lg);
@@ -755,7 +748,6 @@
             min-height: 80px;
         }
 
-        /* PAGINATION */
         .pagination {
             display: flex;
             align-items: center;
@@ -790,7 +782,6 @@
             color: white;
         }
 
-        /* MODAL */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -812,6 +803,8 @@
             width: 100%;
             max-width: 480px;
             position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .modal h3 {
@@ -839,7 +832,6 @@
             color: var(--text-muted);
         }
 
-        /* ACTIVITY LIST */
         .activity-item {
             display: flex;
             align-items: flex-start;
@@ -872,12 +864,26 @@
             color: var(--text-muted);
             margin-top: 2px;
         }
+
+        .link-hint {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        .link-tag {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 2px 7px;
+            border-radius: 100px;
+        }
     </style>
 </head>
 
 <body>
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
         <div class="sidebar-logo">
             <span>RuangPulih</span>
@@ -892,32 +898,22 @@
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Menu Utama</div>
-            <a class="nav-item active" onclick="showPage('dashboard',this)">
-                <span class="nav-icon">🏠</span> Dashboard
-            </a>
-            <a class="nav-item" onclick="showPage('jadwal',this)">
-                <span class="nav-icon">📅</span> Kelola Jadwal
-            </a>
-            <a class="nav-item" onclick="showPage('psikolog',this)">
-                <span class="nav-icon">🧑‍⚕️</span> Kelola Psikolog
-            </a>
-            <a class="nav-item" onclick="showPage('mahasiswa',this)">
-                <span class="nav-icon">🎓</span> Kelola Mahasiswa
-            </a>
-            <a class="nav-item" onclick="showPage('konten',this)">
-                <span class="nav-icon">📝</span> Kelola Konten
-            </a>
+            <a class="nav-item active" onclick="showPage('dashboard',this)"><span class="nav-icon">🏠</span>
+                Dashboard</a>
+            <a class="nav-item" onclick="showPage('jadwal',this)"><span class="nav-icon">📅</span> Kelola Jadwal</a>
+            <a class="nav-item" onclick="showPage('psikolog',this)"><span class="nav-icon">🧑‍⚕️</span> Kelola
+                Psikolog</a>
+            <a class="nav-item" onclick="showPage('mahasiswa',this)"><span class="nav-icon">🎓</span> Kelola
+                Mahasiswa</a>
+            <a class="nav-item" onclick="showPage('konten',this)"><span class="nav-icon">📝</span> Kelola Konten</a>
             <div class="nav-label">Akun</div>
-            <a class="nav-item" onclick="showPage('profil',this)">
-                <span class="nav-icon">👤</span> Profil Admin
-            </a>
+            <a class="nav-item" onclick="showPage('profil',this)"><span class="nav-icon">👤</span> Profil Admin</a>
         </nav>
         <div class="sidebar-footer">
             <a href="login.html" class="logout-btn"><span>🚪</span> Keluar</a>
         </div>
     </aside>
 
-    <!-- MAIN -->
     <main class="main">
         <div class="topbar">
             <div class="topbar-title" id="topbar-title">Dashboard Admin</div>
@@ -929,7 +925,7 @@
 
         <div class="content">
 
-            <!-- ===== DASHBOARD ===== -->
+            <!-- DASHBOARD -->
             <div class="page active" id="page-dashboard">
                 <div class="welcome-banner">
                     <div class="welcome-text">
@@ -937,7 +933,6 @@
                         <p>Pantau dan kelola seluruh aktivitas RuangPulih dari sini.</p>
                     </div>
                 </div>
-
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-icon" style="background:#ede9fb;">🧑‍⚕️</div>
@@ -968,7 +963,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="two-col">
                     <div class="card">
                         <div class="card-header">
@@ -1059,7 +1053,7 @@
                 </div>
             </div>
 
-            <!-- ===== KELOLA JADWAL ===== -->
+            <!-- KELOLA JADWAL -->
             <div class="page" id="page-jadwal">
                 <div class="page-header">
                     <div>
@@ -1199,7 +1193,7 @@
                 </div>
             </div>
 
-            <!-- ===== KELOLA PSIKOLOG ===== -->
+            <!-- KELOLA PSIKOLOG -->
             <div class="page" id="page-psikolog">
                 <div class="page-header">
                     <div>
@@ -1334,7 +1328,7 @@
                 </div>
             </div>
 
-            <!-- ===== KELOLA MAHASISWA ===== -->
+            <!-- KELOLA MAHASISWA -->
             <div class="page" id="page-mahasiswa">
                 <div class="page-header">
                     <div>
@@ -1463,7 +1457,7 @@
                 </div>
             </div>
 
-            <!-- ===== KELOLA KONTEN ===== -->
+            <!-- KELOLA KONTEN -->
             <div class="page" id="page-konten">
                 <div class="page-header">
                     <div>
@@ -1473,8 +1467,6 @@
                     <button class="btn-primary"
                         onclick="document.getElementById('modal-konten').classList.add('show')">+ Tambah Konten</button>
                 </div>
-
-                <!-- Tab -->
                 <div
                     style="display:flex;gap:8px;margin-bottom:20px;border-bottom:2px solid var(--border);padding-bottom:0">
                     <button onclick="switchTab('artikel',this)"
@@ -1485,49 +1477,56 @@
                         id="tab-video">🎬 Video YouTube</button>
                 </div>
 
-                <!-- Artikel -->
                 <div id="konten-artikel">
-                    <div class="konten-grid">
-                        <div class="konten-card">
+                    <div class="konten-grid" id="artikel-grid">
+                        <div class="konten-card has-link"
+                            onclick="bukaArtikel('https://hellosehat.com/mental-health/anxiety/')">
                             <div class="konten-img">📰</div>
                             <div class="konten-body">
                                 <h4>Anxiety Menyerang, Bagaimana Cara untuk Meredakannya?</h4>
-                                <p>📅 2 Mar 2026 · 👁️ 2.5k dibaca</p>
+                                <p>📅 2 Mar 2026 · 👁️ 2.5k dibaca · <span class="link-tag">🔗 Buka Artikel</span></p>
                                 <div class="konten-meta">
                                     <span class="badge badge-primary">Kesehatan Mental</span>
-                                    <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
-                                            class="btn-danger btn-sm">Hapus</button></div>
+                                    <div class="action-btns"><button class="btn-outline btn-sm"
+                                            onclick="event.stopPropagation()">Edit</button><button
+                                            class="btn-danger btn-sm"
+                                            onclick="event.stopPropagation();hapusKonten(this)">Hapus</button></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="konten-card">
+                        <div class="konten-card has-link"
+                            onclick="bukaArtikel('https://hellosehat.com/mental-health/kesehatan-mental-remaja/')">
                             <div class="konten-img">📰</div>
                             <div class="konten-body">
                                 <h4>Pentingnya Kesehatan Mental bagi Remaja & Cara Menghadapinya</h4>
-                                <p>📅 1 Mar 2026 · 👁️ 1.8k dibaca</p>
+                                <p>📅 1 Mar 2026 · 👁️ 1.8k dibaca · <span class="link-tag">🔗 Buka Artikel</span></p>
                                 <div class="konten-meta">
                                     <span class="badge badge-primary">Kesehatan Mental</span>
-                                    <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
-                                            class="btn-danger btn-sm">Hapus</button></div>
+                                    <div class="action-btns"><button class="btn-outline btn-sm"
+                                            onclick="event.stopPropagation()">Edit</button><button
+                                            class="btn-danger btn-sm"
+                                            onclick="event.stopPropagation();hapusKonten(this)">Hapus</button></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="konten-card">
+                        <div class="konten-card has-link"
+                            onclick="bukaArtikel('https://www.alodokter.com/anxiety-disorder')">
                             <div class="konten-img">📰</div>
                             <div class="konten-body">
                                 <h4>Kenali Gejala Anxiety Disorder pada Remaja</h4>
-                                <p>📅 27 Feb 2026 · 👁️ 1.2k dibaca</p>
+                                <p>📅 27 Feb 2026 · 👁️ 1.2k dibaca · <span class="link-tag">🔗 Buka Artikel</span></p>
                                 <div class="konten-meta">
                                     <span class="badge badge-warning">Kecemasan</span>
-                                    <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
-                                            class="btn-danger btn-sm">Hapus</button></div>
+                                    <div class="action-btns"><button class="btn-outline btn-sm"
+                                            onclick="event.stopPropagation()">Edit</button><button
+                                            class="btn-danger btn-sm"
+                                            onclick="event.stopPropagation();hapusKonten(this)">Hapus</button></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Video -->
                 <div id="konten-video" style="display:none">
                     <div class="table-wrap">
                         <div class="table-head">
@@ -1583,7 +1582,7 @@
                 </div>
             </div>
 
-            <!-- ===== PROFIL ADMIN ===== -->
+            <!-- PROFIL ADMIN -->
             <div class="page" id="page-profil">
                 <div class="profil-header">
                     <div class="profil-avatar">AD</div>
@@ -1621,7 +1620,7 @@
                 </div>
             </div>
 
-        </div><!-- end content -->
+        </div>
     </main>
 
     <!-- MODAL TAMBAH PSIKOLOG -->
@@ -1666,34 +1665,42 @@
                 </select>
             </div>
             <div id="form-artikel">
-                <div class="form-group"><label>Judul Artikel</label><input type="text" placeholder="Judul artikel...">
-                </div>
-                <div class="form-group"><label>Kategori</label><select>
+                <div class="form-group"><label>Judul Artikel</label><input type="text" id="input-judul-artikel"
+                        placeholder="Judul artikel..."></div>
+                <div class="form-group"><label>Kategori</label>
+                    <select id="input-kategori-artikel">
                         <option>Kesehatan Mental</option>
                         <option>Stres</option>
                         <option>Kecemasan</option>
                         <option>Depresi</option>
-                    </select></div>
-                <div class="form-group"><label>Isi Artikel</label><textarea
-                        placeholder="Tulis isi artikel..."></textarea></div>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Link Artikel</label>
+                    <input type="url" id="input-link-artikel" placeholder="https://contoh.com/artikel...">
+                    <div class="link-hint">🔗 Artikel akan dibuka di tab baru saat pengguna mengkliknya</div>
+                </div>
             </div>
             <div id="form-video" style="display:none">
-                <div class="form-group"><label>Judul Video</label><input type="text" placeholder="Judul video..."></div>
-                <div class="form-group"><label>Channel YouTube</label><input type="text" placeholder="Nama channel...">
-                </div>
-                <div class="form-group"><label>Link YouTube (Embed ID)</label><input type="text"
+                <div class="form-group"><label>Judul Video</label><input type="text" id="input-judul-video"
+                        placeholder="Judul video..."></div>
+                <div class="form-group"><label>Channel YouTube</label><input type="text" id="input-channel-video"
+                        placeholder="Nama channel..."></div>
+                <div class="form-group"><label>Link YouTube (Embed ID)</label><input type="text" id="input-link-video"
                         placeholder="ID video YouTube..."></div>
-                <div class="form-group"><label>Kategori</label><select>
+                <div class="form-group"><label>Kategori</label>
+                    <select id="input-kategori-video">
                         <option>Kesehatan Mental</option>
                         <option>Stres</option>
                         <option>Kecemasan</option>
                         <option>Depresi</option>
-                    </select></div>
+                    </select>
+                </div>
             </div>
             <div class="modal-footer">
                 <button class="btn-outline"
                     onclick="document.getElementById('modal-konten').classList.remove('show')">Batal</button>
-                <button class="btn-primary">Simpan</button>
+                <button class="btn-primary" onclick="simpanKonten()">Simpan</button>
             </div>
         </div>
     </div>
@@ -1725,6 +1732,47 @@
         function toggleKontenForm(val) {
             document.getElementById('form-artikel').style.display = val === 'artikel' ? '' : 'none';
             document.getElementById('form-video').style.display = val === 'video' ? '' : 'none';
+        }
+
+        function bukaArtikel(url) {
+            if (url) window.open(url, '_blank');
+        }
+
+        function hapusKonten(btn) {
+            if (confirm('Hapus konten ini?')) btn.closest('.konten-card').remove();
+        }
+
+        function simpanKonten() {
+            const tipe = document.getElementById('tipe-konten').value;
+            if (tipe === 'artikel') {
+                const judul = document.getElementById('input-judul-artikel').value.trim();
+                const kategori = document.getElementById('input-kategori-artikel').value;
+                const link = document.getElementById('input-link-artikel').value.trim();
+                if (!judul) { alert('Judul artikel wajib diisi!'); return; }
+                if (!link) { alert('Link artikel wajib diisi!'); return; }
+                const badgeClass = { 'Kesehatan Mental': 'badge-primary', 'Stres': 'badge-danger', 'Kecemasan': 'badge-warning', 'Depresi': 'badge-danger' }[kategori] || 'badge-gray';
+                const today = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+                const card = document.createElement('div');
+                card.className = 'konten-card has-link';
+                card.onclick = () => bukaArtikel(link);
+                card.innerHTML = `
+                <div class="konten-img">📰</div>
+                <div class="konten-body">
+                    <h4>${judul}</h4>
+                    <p>📅 ${today} · 👁️ 0 dibaca · <span class="link-tag">🔗 Buka Artikel</span></p>
+                    <div class="konten-meta">
+                        <span class="badge ${badgeClass}">${kategori}</span>
+                        <div class="action-btns">
+                            <button class="btn-outline btn-sm" onclick="event.stopPropagation()">Edit</button>
+                            <button class="btn-danger btn-sm" onclick="event.stopPropagation();hapusKonten(this)">Hapus</button>
+                        </div>
+                    </div>
+                </div>`;
+                document.getElementById('artikel-grid').prepend(card);
+                document.getElementById('input-judul-artikel').value = '';
+                document.getElementById('input-link-artikel').value = '';
+            }
+            document.getElementById('modal-konten').classList.remove('show');
         }
     </script>
 </body>

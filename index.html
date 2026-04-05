@@ -115,7 +115,7 @@ body {
     position: relative;
     overflow: hidden;
     width: 100%;
-    background: var(--bg);
+    background: linear-gradient(135deg, #f3f0ff 0%, #e9e4ff 40%, #ddd6fe 100%);
 }
 
 .hero::before {
@@ -264,15 +264,22 @@ body {
 }
 
 /* Hero image */
-.hero-image { position: relative; z-index: 2; }
+.hero-image {
+    position: relative;
+    z-index: 2;
+    display: flex;
+     right: -40px;
+}
 
 .hero-img-wrapper {
     position: relative;
     border-radius: var(--radius-lg);
     overflow: hidden;
-    background: linear-gradient(135deg, #a89de8 0%, #6b8fcd 50%, #4a6fa5 100%);
+    background: none;
     aspect-ratio: 4/5;
-    max-height: 520px;
+    max-height: 500px;
+    width: 110%;
+    transform: scale(1.1);
 }
 
 .hero-img-wrapper img {
@@ -280,25 +287,10 @@ body {
     height: 100%;
     object-fit: cover;
     display: block;
+    border-radius: 30 px;
+    box-shadow: 0 30px 80px rgba(99,82,199,0.25);
 }
 
-.hero-card-float {
-    position: absolute;
-    bottom: 24px;
-    left: 24px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 18px;
-    background: rgba(255,255,255,0.95);
-    backdrop-filter: blur(12px);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-md);
-}
-
-.float-icon { font-size: 22px; }
-.float-title { font-size: 13px; font-weight: 700; color: var(--text-dark); }
-.float-sub { font-size: 11px; color: var(--text-muted); }
 
 /* ===== SECTION HEADER ===== */
 .section-header {
@@ -851,14 +843,7 @@ footer {
         </div>
         <div class="hero-image">
             <div class="hero-img-wrapper">
-                <img src="hero-img.png" alt="Konseling">
-                <div class="hero-card-float">
-                    <div class="float-icon">💬</div>
-                    <div>
-                        <div class="float-title">Sesi Aktif</div>
-                        <div class="float-sub">Konsultasi berlangsung</div>
-                    </div>
-                </div>
+                <img src="halaman2.png" alt="Konseling">
             </div>
         </div>
     </section>
