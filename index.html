@@ -1,799 +1,937 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RuangPulih - Konsultasi Psikologi Online & Offline</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-    --primary:       #6352c7;
-    --primary-dark:  #2d1f6e;
-    --primary-light: #ede9fb;
-    --accent:        #4a90d9;
-    --accent-light:  #e8f2fc;
-    --text-dark:     #1a1145;
-    --text-mid:      #4a4570;
-    --text-muted:    #8b88a8;
-    --bg:            #f8f7ff;
-    --bg-card:       #ffffff;
-    --border:        rgba(99,82,199,0.12);
-    --radius-sm:     8px;
-    --radius-md:     14px;
-    --radius-lg:     20px;
-    --shadow-sm:     0 2px 8px rgba(45,31,110,0.06);
-    --shadow-md:     0 8px 32px rgba(45,31,110,0.10);
-    --shadow-lg:     0 20px 60px rgba(45,31,110,0.14);
-}
-
-html { scroll-behavior: smooth; }
-
-body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text-dark);
-    line-height: 1.6;
-}
-
-/* ===== NAVBAR ===== */
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 60px;
-    height: 70px;
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    gap: 0;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    min-width: 0;
-}
-
-.logo-img {
-    height: 40px;
-    width: auto;
-    object-fit: contain;
-    display: block;
-}
-
-.nav-menu {
-    display: flex;
-    align-items: center;
-    gap: 36px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.nav-menu a {
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-mid);
-    transition: color 0.2s;
-}
-
-.nav-menu a:hover { color: var(--primary); }
-
-.btn-login {
-    padding: 10px 24px !important;
-    background: var(--primary-dark) !important;
-    color: white !important;
-    border-radius: var(--radius-sm) !important;
-    font-weight: 600 !important;
-    transition: all 0.2s !important;
-}
-
-.btn-login:hover {
-    background: var(--primary) !important;
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-sm);
-}
-
-/* ===== HERO ===== */
-.hero {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    min-height: calc(100vh - 70px);
-    padding: 60px;
-    gap: 60px;
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    background: linear-gradient(135deg, #f3f0ff 0%, #e9e4ff 40%, #ddd6fe 100%);
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    width: 600px; height: 600px;
-    right: -100px; top: -150px;
-    background: radial-gradient(circle, rgba(99,82,199,0.08) 0%, transparent 70%);
-    pointer-events: none;
-}
-
-.hero::after {
-    content: '';
-    position: absolute;
-    width: 300px; height: 300px;
-    left: 10%; bottom: 5%;
-    background: radial-gradient(circle, rgba(74,144,217,0.07) 0%, transparent 70%);
-    pointer-events: none;
-}
-
-.hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 7px 16px;
-    border-radius: 100px;
-    background: var(--primary-light);
-    color: var(--primary);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-    margin-bottom: 24px;
-}
-
-.badge-dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: var(--primary);
-    animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(0.85); }
-}
-
-.hero-content h1 {
-    font-size: clamp(32px, 3.5vw, 54px);
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -1.5px;
-    color: var(--text-dark);
-    margin-bottom: 20px;
-}
-
-.hero-highlight {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.hero-content p {
-    font-size: 15px;
-    color: var(--text-mid);
-    line-height: 1.75;
-    margin-bottom: 36px;
-    max-width: 460px;
-}
-
-.hero-buttons {
-    display: flex;
-    gap: 14px;
-    margin-bottom: 48px;
-    flex-wrap: wrap;
-}
-
-.btn-primary {
-    padding: 14px 30px;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    color: white;
-    border-radius: var(--radius-sm);
-    font-size: 14px;
-    font-weight: 700;
-    text-decoration: none;
-    transition: all 0.25s;
-    box-shadow: 0 4px 16px rgba(99,82,199,0.35);
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(99,82,199,0.4);
-}
-
-.btn-secondary {
-    padding: 14px 30px;
-    background: white;
-    color: var(--primary);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.25s;
-}
-
-.btn-secondary:hover {
-    background: var(--primary-light);
-    border-color: var(--primary);
-    transform: translateY(-2px);
-}
-
-/* Hero stats */
-.hero-stats {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    padding: 20px 24px;
-    background: white;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-sm);
-    max-width: 460px;
-}
-
-.stat-item { text-align: center; }
-
-.stat-number {
-    display: block;
-    font-size: 22px;
-    font-weight: 800;
-    color: var(--primary-dark);
-    letter-spacing: -0.5px;
-}
-
-.stat-label {
-    font-size: 11px;
-    color: var(--text-muted);
-    font-weight: 500;
-}
-
-.stat-divider {
-    width: 1px;
-    height: 36px;
-    background: var(--border);
-}
-
-/* Hero image */
-.hero-image {
-    position: relative;
-    z-index: 2;
-    display: flex;
-     right: -40px;
-}
-
-.hero-img-wrapper {
-    position: relative;
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    background: none;
-    aspect-ratio: 4/5;
-    max-height: 500px;
-    width: 110%;
-    transform: scale(1.1);
-}
-
-.hero-img-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    border-radius: 30 px;
-    box-shadow: 0 30px 80px rgba(99,82,199,0.25);
-}
-
-
-/* ===== SECTION HEADER ===== */
-.section-header {
-    text-align: center;
-    margin-bottom: 48px;
-}
-
-.section-label {
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: var(--primary);
-    background: var(--primary-light);
-    padding: 5px 14px;
-    border-radius: 100px;
-    margin-bottom: 14px;
-}
-
-.section-header h2 {
-    font-size: clamp(24px, 2.5vw, 36px);
-    font-weight: 800;
-    color: var(--text-dark);
-    letter-spacing: -0.8px;
-    margin-bottom: 10px;
-}
-
-.section-desc {
-    font-size: 15px;
-    color: var(--text-muted);
-}
-
-/* ===== LAYANAN ===== */
-.layanan {
-    padding: 80px 60px;
-    background: white;
-    width: 100%;
-    display: block;
-    clear: both;
-}
-
-.layanan-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.layanan-card {
-    position: relative;
-    background: var(--bg);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 36px 28px;
-    text-align: center;
-    transition: all 0.3s;
-    overflow: hidden;
-}
-
-.layanan-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, var(--primary-light), transparent);
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.layanan-card:hover {
-    transform: translateY(-6px);
-    border-color: var(--primary);
-    box-shadow: var(--shadow-lg);
-}
-
-.layanan-card:hover::before { opacity: 1; }
-
-.layanan-card.featured {
-    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-    border-color: transparent;
-    color: white;
-}
-
-.layanan-card.featured h3 { color: white; }
-.layanan-card.featured p { color: rgba(255,255,255,0.8); }
-.layanan-card.featured .card-link { color: rgba(255,255,255,0.9); }
-
-.card-badge {
-    position: absolute;
-    top: 16px; right: 16px;
-    background: rgba(255,255,255,0.2);
-    color: white;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 100px;
-}
-
-.card-icon {
-    width: 100px; height: 80px;
-    border-radius: 18px; /* ini bikin kotak */
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
-    position: relative;
-    z-index: 1;
-}
-
-.gambar-icon {
-    width: 90px; height: 90px;
-    object-fit: contain;
-}
-
-.layanan-card h3 {
-    font-size: 17px;
-    font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 10px;
-    position: relative; z-index: 1;
-}
-
-.layanan-card p {
-    font-size: 13px;
-    color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 20px;
-    position: relative; z-index: 1;
-}
-
-.card-link {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--primary);
-    text-decoration: none;
-    position: relative; z-index: 1;
-    transition: color 0.2s;
-}
-
-.card-link:hover { color: var(--primary-dark); }
-
-/* ===== ARTIKEL ===== */
-.artikel {
-    padding: 80px 60px;
-    background: var(--bg);
-    width: 100%;
-    display: block;
-    clear: both;
-}
-
-.artikel-tabs {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 36px;
-}
-
-.tab-item {
-    padding: 8px 18px;
-    border-radius: 100px;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-muted);
-    background: white;
-    border: 1.5px solid var(--border);
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.tab-item:hover { border-color: var(--primary); color: var(--primary); }
-
-.tab-item.active {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-}
-
-.artikel-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-bottom: 40px;
-}
-
-.artikel-card-large {
-    background: white;
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    border: 1px solid var(--border);
-    transition: all 0.3s;
-    cursor: pointer;
-}
-
-.artikel-card-large:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
-}
-
-.artikel-img {
-    height: 220px;
-    background: linear-gradient(135deg, #a89de8, #7ba8d9);
-    position: relative;
-    display: flex;
-    align-items: flex-start;
-    padding: 16px;
-}
-
-.artikel-category {
-    background: white;
-    color: var(--primary);
-    font-size: 11px;
-    font-weight: 700;
-    padding: 5px 12px;
-    border-radius: 100px;
-}
-
-.artikel-content {
-    padding: 24px;
-}
-
-.artikel-content h3 {
-    font-size: 17px;
-    font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 10px;
-    line-height: 1.4;
-}
-
-.artikel-content p {
-    font-size: 13px;
-    color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 16px;
-}
-
-.artikel-meta {
-    display: flex;
-    gap: 16px;
-    font-size: 12px;
-    color: var(--text-muted);
-}
-
-/* Side articles */
-.artikel-side {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-}
-
-.artikel-card-small {
-    display: flex;
-    gap: 14px;
-    align-items: center;
-    padding: 16px;
-    background: white;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border);
-    transition: all 0.25s;
-    cursor: pointer;
-}
-
-.artikel-card-small:hover {
-    transform: translateX(4px);
-    border-color: var(--primary);
-    box-shadow: var(--shadow-sm);
-}
-
-.artikel-img-small {
-    width: 72px;
-    height: 72px;
-    border-radius: var(--radius-sm);
-    background: linear-gradient(135deg, #c5bef4, #9dbfe8);
-    flex-shrink: 0;
-}
-
-.artikel-content-small { flex: 1; }
-
-.artikel-category-small {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    color: var(--primary);
-    margin-bottom: 5px;
-}
-
-.artikel-content-small h4 {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-dark);
-    line-height: 1.4;
-    margin-bottom: 6px;
-}
-
-.artikel-date {
-    font-size: 11px;
-    color: var(--text-muted);
-}
-
-.lihat-semua { text-align: center; }
-
-.btn-lihat {
-    display: inline-block;
-    padding: 13px 36px;
-    border: 2px solid var(--primary);
-    color: var(--primary);
-    border-radius: var(--radius-sm);
-    font-size: 14px;
-    font-weight: 700;
-    text-decoration: none;
-    transition: all 0.25s;
-}
-
-.btn-lihat:hover {
-    background: var(--primary);
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(99,82,199,0.3);
-}
-
-/* ===== FOOTER ===== */
-footer {
-    background: var(--primary-dark);
-    color: rgba(255,255,255,0.7);
-    padding: 60px 60px 0;
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 48px;
-    padding-bottom: 48px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-.footer-logo {
-    font-size: 22px;
-    font-weight: 800;
-    color: white;
-    letter-spacing: -0.5px;
-    margin-bottom: 12px;
-}
-
-.footer-brand p {
-    font-size: 13px;
-    line-height: 1.7;
-    max-width: 220px;
-    margin-bottom: 20px;
-}
-
-.footer-socials {
-    display: flex;
-    gap: 8px;
-}
-
-.social-btn {
-    width: 34px; height: 34px;
-    border-radius: 8px;
-    background: rgba(255,255,255,0.1);
-    color: white;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    transition: background 0.2s;
-}
-
-.social-btn:hover { background: var(--primary); }
-
-.footer-section h4 {
-    color: white;
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 18px;
-}
-
-.footer-section ul { list-style: none; }
-
-.footer-section ul li { margin-bottom: 10px; }
-
-.footer-section ul a {
-    color: rgba(255,255,255,0.6);
-    text-decoration: none;
-    font-size: 13px;
-    transition: color 0.2s;
-}
-
-.footer-section ul a:hover { color: white; }
-
-.footer-section p {
-    font-size: 13px;
-    margin-bottom: 8px;
-}
-
-.footer-bottom {
-    padding: 20px 0;
-    text-align: center;
-    font-size: 12px;
-    color: rgba(255,255,255,0.4);
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 900px) {
-    .navbar { padding: 0 24px; }
-    .hero { grid-template-columns: 1fr; padding: 48px 24px; text-align: center; }
-    .hero-image { display: none; }
-    .hero-stats { max-width: 100%; }
-    .hero-buttons { justify-content: center; }
-    .layanan { padding: 60px 24px; }
-    .layanan-grid { grid-template-columns: 1fr; max-width: 380px; }
-    .artikel { padding: 60px 24px; }
-    .artikel-grid { grid-template-columns: 1fr; }
-    footer { padding: 48px 24px 0; }
-    .footer-content { grid-template-columns: 1fr 1fr; gap: 32px; }
-}
-
-/* ===== VIDEO EDUKASI ===== */
-.video-edukasi {
-    padding: 80px 60px;
-    background: white;
-    width: 100%;
-    display: block;
-    clear: both;
-}
-
-.video-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-bottom: 40px;
-}
-
-.video-card {
-    background: var(--bg);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    transition: all 0.3s;
-}
-
-.video-card:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-md);
-    border-color: var(--primary);
-}
-
-.video-wrapper {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-}
-
-.video-wrapper iframe {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    border: none;
-}
-
-.video-info {
-    padding: 20px;
-}
-
-.video-channel {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    color: var(--primary);
-    background: var(--primary-light);
-    padding: 4px 10px;
-    border-radius: 100px;
-    margin-bottom: 10px;
-}
-
-.video-info h4 {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text-dark);
-    line-height: 1.4;
-    margin-bottom: 8px;
-}
-
-.video-info p {
-    font-size: 12px;
-    color: var(--text-muted);
-    line-height: 1.6;
-}
-
-@media (max-width: 900px) {
-    .video-edukasi { padding: 60px 24px; }
-    .video-grid { grid-template-columns: 1fr; }
-}
-
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #6352c7;
+            --primary-dark: #2d1f6e;
+            --primary-light: #ede9fb;
+            --accent: #4a90d9;
+            --accent-light: #e8f2fc;
+            --text-dark: #1a1145;
+            --text-mid: #4a4570;
+            --text-muted: #8b88a8;
+            --bg: #f8f7ff;
+            --bg-card: #ffffff;
+            --border: rgba(99, 82, 199, 0.12);
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --shadow-sm: 0 2px 8px rgba(45, 31, 110, 0.06);
+            --shadow-md: 0 8px 32px rgba(45, 31, 110, 0.10);
+            --shadow-lg: 0 20px 60px rgba(45, 31, 110, 0.14);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            gap: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+            min-width: 0;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 36px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-mid);
+            transition: color 0.2s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+
+        .btn-login {
+            padding: 10px 24px !important;
+            background: var(--primary-dark) !important;
+            color: white !important;
+            border-radius: var(--radius-sm) !important;
+            font-weight: 600 !important;
+            transition: all 0.2s !important;
+        }
+
+        .btn-login:hover {
+            background: var(--primary) !important;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            min-height: calc(100vh - 70px);
+            padding: 60px;
+            gap: 60px;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            background: linear-gradient(135deg, #f3f0ff 0%, #e9e4ff 40%, #ddd6fe 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            right: -100px;
+            top: -150px;
+            background: radial-gradient(circle, rgba(99, 82, 199, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            left: 10%;
+            bottom: 5%;
+            background: radial-gradient(circle, rgba(74, 144, 217, 0.07) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 16px;
+            border-radius: 100px;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            margin-bottom: 24px;
+        }
+
+        .badge-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--primary);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: scale(0.85);
+            }
+        }
+
+        .hero-content h1 {
+            font-size: clamp(32px, 3.5vw, 54px);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+
+        .hero-highlight {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            font-size: 15px;
+            color: var(--text-mid);
+            line-height: 1.75;
+            margin-bottom: 36px;
+            max-width: 460px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            padding: 14px 30px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.25s;
+            box-shadow: 0 4px 16px rgba(99, 82, 199, 0.35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(99, 82, 199, 0.4);
+        }
+
+        .btn-secondary {
+            padding: 14px 30px;
+            background: white;
+            color: var(--primary);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Hero stats */
+        .hero-stats {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 20px 24px;
+            background: white;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            max-width: 460px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .stat-divider {
+            width: 1px;
+            height: 36px;
+            background: var(--border);
+        }
+
+        /* Hero image */
+        .hero-image {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            right: -40px;
+        }
+
+        .hero-img-wrapper {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            background: none;
+            aspect-ratio: 4/5;
+            max-height: 500px;
+            width: 110%;
+            transform: scale(1.1);
+        }
+
+        .hero-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 30 px;
+            box-shadow: 0 30px 80px rgba(99, 82, 199, 0.25);
+        }
+
+
+        /* ===== SECTION HEADER ===== */
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 5px 14px;
+            border-radius: 100px;
+            margin-bottom: 14px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(24px, 2.5vw, 36px);
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -0.8px;
+            margin-bottom: 10px;
+        }
+
+        .section-desc {
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        /* ===== LAYANAN ===== */
+        .layanan {
+            padding: 80px 60px;
+            background: white;
+            width: 100%;
+            display: block;
+            clear: both;
+        }
+
+        .layanan-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .layanan-card {
+            position: relative;
+            background: var(--bg);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px 28px;
+            text-align: center;
+            transition: all 0.3s;
+            overflow: hidden;
+        }
+
+        .layanan-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--primary-light), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .layanan-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .layanan-card:hover::before {
+            opacity: 1;
+        }
+
+        .layanan-card.featured {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            border-color: transparent;
+            color: white;
+        }
+
+        .layanan-card.featured h3 {
+            color: white;
+        }
+
+        .layanan-card.featured p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .layanan-card.featured .card-link {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 100px;
+        }
+
+        .card-icon {
+            width: 100px;
+            height: 80px;
+            border-radius: 18px;
+            /* ini bikin kotak */
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .gambar-icon {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+        }
+
+        .layanan-card h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .layanan-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-link {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
+            position: relative;
+            z-index: 1;
+            transition: color 0.2s;
+        }
+
+        .card-link:hover {
+            color: var(--primary-dark);
+        }
+
+        /* ===== ARTIKEL ===== */
+        .artikel {
+            padding: 80px 60px;
+            background: var(--bg);
+            width: 100%;
+            display: block;
+            clear: both;
+        }
+
+        .artikel-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 36px;
+        }
+
+        .tab-item {
+            padding: 8px 18px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: white;
+            border: 1.5px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-item:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .tab-item.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .artikel-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .artikel-card-large {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .artikel-card-large:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .artikel-img {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .artikel-img-real {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .artikel-category {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: white;
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 100px;
+        }
+
+        .artikel-content {
+            padding: 24px;
+        }
+
+        .artikel-content h3 {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .artikel-content p {
+            font-size: 17px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .artikel-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Side articles */
+        .artikel-side {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .artikel-side a {
+            width: 100%;
+        }
+
+
+        .artikel-card-small {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            padding: 16px;
+            background: white;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            transition: all 0.25s;
+            cursor: pointer;
+        }
+
+        .artikel-card-small:hover {
+            transform: translateX(4px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .artikel-img-small {
+            width: 72px;
+            height: 72px;
+            border-radius: 10px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .artikel-img-small img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .artikel-content-small {
+            flex: 1;
+        }
+
+        .artikel-category-small {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .artikel-content-small h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+            line-height: 1.4;
+            margin-bottom: 6px;
+        }
+
+        .artikel-date {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .lihat-semua {
+            text-align: center;
+        }
+
+        .btn-lihat {
+            display: inline-block;
+            padding: 13px 36px;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.25s;
+        }
+
+        .btn-lihat:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 82, 199, 0.3);
+        }
+
+        .artikel-link {
+            text-decoration: none;
+            /* hilangin garis bawah link */
+            color: inherit;
+            /* ikut warna teks normal */
+            display: block;
+            /* biar bisa bungkus card */
+        }
+
+        .artikel-link:hover .artikel-card-small {
+            transform: translateX(4px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--primary-dark);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 60px 60px 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            padding-bottom: 48px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-logo {
+            font-size: 22px;
+            font-weight: 800;
+            color: white;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+        }
+
+        .footer-brand p {
+            font-size: 13px;
+            line-height: 1.7;
+            max-width: 220px;
+            margin-bottom: 20px;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 8px;
+        }
+
+        .social-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: background 0.2s;
+        }
+
+        .social-btn:hover {
+            background: var(--primary);
+        }
+
+        .footer-section h4 {
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s;
+        }
+
+        .footer-section ul a:hover {
+            color: white;
+        }
+
+        .footer-section p {
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .footer-bottom {
+            padding: 20px 0;
+            text-align: center;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .navbar {
+                padding: 0 24px;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 48px 24px;
+                text-align: center;
+            }
+
+            .hero-image {
+                display: none;
+            }
+
+            .hero-stats {
+                max-width: 100%;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .layanan {
+                padding: 60px 24px;
+            }
+
+            .layanan-grid {
+                grid-template-columns: 1fr;
+                max-width: 380px;
+            }
+
+            .artikel {
+                padding: 60px 24px;
+            }
+
+            .artikel-grid {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                padding: 48px 24px 0;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+        }
+
+        /* ===== VIDEO EDUKASI ===== */
+        .video-edukasi {
+            padding: 80px 60px;
+            background: white;
+            width: 100%;
+            display: block;
+            clear: both;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .video-card {
+            background: var(--bg);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .video-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info {
+            padding: 20px;
+        }
+
+        .video-channel {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 4px 10px;
+            border-radius: 100px;
+            margin-bottom: 10px;
+        }
+
+        .video-info h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .video-info p {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 900px) {
+            .video-edukasi {
+                padding: 60px 24px;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <!-- NAVBAR -->
@@ -818,7 +956,9 @@ footer {
                 Layanan Psikologi Terpercaya
             </div>
             <h1>Disinilah Tempatmu <span class="hero-highlight">Sembuh</span> dan Bertumbuh</h1>
-            <p>Pernah merasa semuanya di luar kendali? Tekanan belajar, ekspektasi yang menumpuk — semua itu wajar. Tapi kalau rasanya makin berat, jangan dipendam sendiri. Psikolog kami siap jadi teman diskusi yang tepat.</p>
+            <p>Pernah merasa semuanya di luar kendali? Tekanan belajar, ekspektasi yang menumpuk — semua itu wajar. Tapi
+                kalau rasanya makin berat, jangan dipendam sendiri. Psikolog kami siap jadi teman diskusi yang tepat.
+            </p>
             <div class="hero-buttons">
                 <a href="form-konsul.html" class="btn-primary">Mulai Konsultasi</a>
                 <a href="#layanan" class="btn-secondary">Pelajari Layanan</a>
@@ -901,56 +1041,85 @@ footer {
         </div>
 
         <div class="artikel-grid">
-            <div class="artikel-card-large">
-                <div class="artikel-img">
-                    <span class="artikel-category">Kesehatan Mental</span>
-                </div>
-                <div class="artikel-content">
-                    <h3>Anxiety Menyerang, Bagaimana Cara untuk Meredakannya?</h3>
-                    <p>Anxiety bisa diredakan dengan cara menarik napas dalam dan fokus terhadap diri sendiri.</p>
-                    <div class="artikel-meta">
-                        <span>📅 2 Mar 2026</span>
-                        <span>👁️ 2.5k dibaca</span>
+
+            <!-- KIRI (ARTIKEL BESAR) -->
+            <a href="https://share.google/AdCTQqPyG5dl91vWl" target="_blank" class="artikel-link">
+                <div class="artikel-card-large">
+                    <div class="artikel-img">
+                        <img src="a2.jpg" alt="Anxiety" class="artikel-img-real">
+                        <span class="artikel-category">Kesehatan Mental</span>
+                    </div>
+                    <div class="artikel-content">
+                        <h3>Anxiety Menyerang, Bagaimana Cara untuk Meredakannya?</h3>
+                        <p>Anxiety bisa diredakan dengan cara menarik napas dalam dan fokus terhadap diri sendiri.</p>
+                        <div class="artikel-meta">
+                            <span>📅 2 Mar 2026</span>
+                            <span>👁️ 2.5k dibaca</span>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
+
+            <!-- KANAN (ARTIKEL KECIL) -->
             <div class="artikel-side">
-                <div class="artikel-card-small">
-                    <div class="artikel-img-small"></div>
-                    <div class="artikel-content-small">
-                        <div class="artikel-category-small">Kesehatan Mental</div>
-                        <h4>Pentingnya Kesehatan Mental bagi Remaja & Cara Menghadapinya</h4>
-                        <span class="artikel-date">📅 1 Mar 2026</span>
+
+                <a href="https://share.google/VaQ1UEQJqy0pDdq1w" target="_blank" class="artikel-link">
+                    <div class="artikel-card-small">
+                        <div class="artikel-img-small">
+                            <img src="a3.jpg" alt="Kesehatan Mental Remaja">
+                        </div>
+                        <div class="artikel-content-small">
+                            <div class="artikel-category-small">Kesehatan Mental</div>
+                            <h4>Pentingnya Kesehatan Mental bagi Remaja</h4>
+                            <span class="artikel-date">📅 1 Mar 2026</span>
+                        </div>
                     </div>
-                </div>
-                <div class="artikel-card-small">
-                    <div class="artikel-img-small"></div>
-                    <div class="artikel-content-small">
-                        <div class="artikel-category-small">Kesehatan Mental</div>
-                        <h4>Kesehatan Mental & Kesejahteraan Hidup</h4>
-                        <span class="artikel-date">📅 28 Feb 2026</span>
+                </a>
+
+                <a href="https://share.google/ZFLBWtioUIJZQgB6A" target="_blank" class="artikel-link">
+                    <div class="artikel-card-small">
+                        <div class="artikel-img-small">
+                            <img src="a4.webp" alt="Kesehatan Mental ">
+                        </div>
+                        <div class="artikel-content-small">
+                            <div class="artikel-category-small">Kesehatan Mental</div>
+                            <h4>Kesehatan Mental & Kesejahteraan Hidup</h4>
+                            <span class="artikel-date">📅 28 Feb 2026</span>
+                        </div>
                     </div>
-                </div>
-                <div class="artikel-card-small">
-                    <div class="artikel-img-small"></div>
-                    <div class="artikel-content-small">
-                        <div class="artikel-category-small">Kecemasan</div>
-                        <h4>Kenali Gejala Anxiety Disorder pada Remaja</h4>
-                        <span class="artikel-date">📅 27 Feb 2026</span>
+                </a>
+
+                <a href="https://share.google/2u3CkXKoOcs7BhxJF" target="_blank" class="artikel-link">
+                    <div class="artikel-card-small">
+                        <div class="artikel-img-small">
+                            <img src="a5.avif" alt="Gejala Anxiety">
+                        </div>
+                        <div class="artikel-content-small">
+                            <div class="artikel-category-small">Kecemasan</div>
+                            <h4>Kenali Gejala Anxiety Disorder</h4>
+                            <span class="artikel-date">📅 27 Feb 2026</span>
+                        </div>
                     </div>
-                </div>
-                <div class="artikel-card-small">
-                    <div class="artikel-img-small"></div>
-                    <div class="artikel-content-small">
-                        <div class="artikel-category-small">Depresi</div>
-                        <h4>Tanda Depresi yang Sering Diabaikan</h4>
-                        <span class="artikel-date">📅 26 Feb 2026</span>
+                </a>
+
+                <a href="https://share.google/tAHwRxDdCDMNJdBPj" target="_blank" class="artikel-link">
+                    <div class="artikel-card-small">
+                        <div class="artikel-img-small">
+                            <img src="a6.jpg" alt="Tanda Depresi ">
+                        </div>
+                        <div class="artikel-content-small">
+                            <div class="artikel-category-small">Depresi</div>
+                            <h4>Tanda Depresi yang Sering Diabaikan</h4>
+                            <span class="artikel-date">📅 26 Feb 2026</span>
+                        </div>
                     </div>
-                </div>
+                </a>
+
             </div>
         </div>
+
         <div class="lihat-semua">
-            <a href="#" class="btn-lihat">Lihat Semua Artikel</a>
+            <a href="semua-artikel.html" class="btn-lihat">Lihat Semua Artikel</a>
         </div>
     </section>
 
@@ -966,15 +1135,13 @@ footer {
             <!-- Video 1 -->
             <div class="video-card">
                 <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/3nwwKbM_vJc" 
-                        title="Apa Itu Anxiety?" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    <iframe src="https://www.youtube.com/embed/0xV-gpKYv3k" title="Apa Itu Anxiety?" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen>
                     </iframe>
                 </div>
                 <div class="video-info">
-                    <span class="video-channel">Into The Light Indonesia</span>
+                    <span class="video-channel">Mitra Keluarga</span>
                     <h4>Apa Itu Anxiety dan Bagaimana Menghadapinya?</h4>
                     <p>Penjelasan lengkap tentang anxiety disorder dan cara mengelolanya sehari-hari.</p>
                 </div>
@@ -983,10 +1150,8 @@ footer {
             <!-- Video 2 -->
             <div class="video-card">
                 <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/z-IR48Mb3W0" 
-                        title="Cara Mengatasi Stres" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    <iframe src="https://www.youtube.com/embed/z-IR48Mb3W0" title="Cara Mengatasi Stres" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen>
                     </iframe>
                 </div>
@@ -1000,10 +1165,8 @@ footer {
             <!-- Video 3 -->
             <div class="video-card">
                 <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/WQbzCkc5hI4" 
-                        title="Mengenal Depresi" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    <iframe src="https://www.youtube.com/embed/WQbzCkc5hI4" title="Mengenal Depresi" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen>
                     </iframe>
                 </div>
@@ -1050,7 +1213,8 @@ footer {
             <div class="footer-section">
                 <h4>Kontak</h4>
                 <p>📞 0812-3456-7890</p>
-                <p>📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="650d0009090a251710040b021510090c0d4b060a08">[email&#160;protected]</a></p>
+                <p>📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__"
+                        data-cfemail="650d0009090a251710040b021510090c0d4b060a08">[email&#160;protected]</a></p>
             </div>
         </div>
         <div class=
