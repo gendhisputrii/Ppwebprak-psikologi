@@ -1,159 +1,1732 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - RuangPulih</title>
-    <link rel="stylesheet" href="style2.css">
+    <title>Dashboard Admin - RuangPulih</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #6352c7;
+            --primary-dark: #2d1f6e;
+            --primary-light: #ede9fb;
+            --accent: #4a90d9;
+            --success: #16a34a;
+            --success-light: #f0fdf4;
+            --warning: #d97706;
+            --warning-light: #fffbeb;
+            --danger: #dc2626;
+            --danger-light: #fef2f2;
+            --text-dark: #1a1145;
+            --text-mid: #4a4570;
+            --text-muted: #8b88a8;
+            --bg: #f8f7ff;
+            --border: rgba(99, 82, 199, 0.12);
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --shadow-sm: 0 2px 8px rgba(45, 31, 110, 0.06);
+            --shadow-md: 0 8px 32px rgba(45, 31, 110, 0.10);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text-dark);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 240px;
+            background: var(--primary-dark);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            z-index: 50;
+            overflow-y: auto;
+        }
+
+        .sidebar-logo {
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .sidebar-logo span {
+            font-size: 18px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .sidebar-logo small {
+            display: block;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 2px;
+        }
+
+        .sidebar-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .user-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .user-role {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 8px 12px;
+        }
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.35);
+            padding: 12px 12px 6px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+        }
+
+        .nav-item.active {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+        }
+
+        .nav-icon {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-footer {
+            padding: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .logout-btn:hover {
+            color: #f87171;
+            background: rgba(248, 113, 113, 0.1);
+        }
+
+        /* MAIN */
+        .main {
+            margin-left: 240px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            height: 64px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+
+        .topbar-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .notif-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            background: var(--bg);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            position: relative;
+        }
+
+        .notif-dot {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #ef4444;
+            border: 1.5px solid white;
+        }
+
+        .content {
+            padding: 28px 32px;
+            flex: 1;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* CARDS */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 20px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .stat-val {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .stat-lbl {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .card-body {
+            padding: 16px 20px;
+        }
+
+        .card-action {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: inherit;
+            text-decoration: none;
+        }
+
+        /* TABLE */
+        .table-wrap {
+            background: white;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .table-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .table-head h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px 20px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: #faf9ff;
+            border-bottom: 1px solid var(--border);
+        }
+
+        td {
+            padding: 14px 20px;
+            font-size: 13px;
+            color: var(--text-dark);
+            border-bottom: 1px solid var(--border);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: #faf9ff;
+        }
+
+        /* BADGES */
+        .badge {
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .badge-warning {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .badge-danger {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+
+        .badge-primary {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .badge-gray {
+            background: #f1f0f9;
+            color: var(--text-muted);
+        }
+
+        /* FILTER BAR */
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-wrap {
+            position: relative;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        .search-wrap input {
+            width: 100%;
+            padding: 10px 14px 10px 36px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            color: var(--text-dark);
+            background: white;
+            outline: none;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+
+        .search-wrap input:focus {
+            border-color: var(--primary);
+        }
+
+        .filter-select {
+            padding: 10px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            color: var(--text-dark);
+            background: white;
+            outline: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* BUTTONS */
+        .btn-primary {
+            padding: 9px 18px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-outline {
+            padding: 7px 14px;
+            background: white;
+            color: var(--primary);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+        }
+
+        .btn-danger {
+            padding: 7px 14px;
+            background: white;
+            color: var(--danger);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .btn-danger:hover {
+            background: var(--danger-light);
+            border-color: var(--danger);
+        }
+
+        .btn-sm {
+            padding: 5px 12px;
+            font-size: 11px;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 6px;
+        }
+
+        /* PAGE HEADER */
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .page-header h2 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        .page-header p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* AVATAR */
+        .psikolog-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .name-cell {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* WELCOME */
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            border-radius: var(--radius-lg);
+            padding: 28px 32px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-banner::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            right: -40px;
+            top: -60px;
+        }
+
+        .welcome-text h2 {
+            font-size: 20px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 4px;
+        }
+
+        .welcome-text p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* KONTEN CARD */
+        .konten-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .konten-card {
+            background: white;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .konten-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .konten-img {
+            height: 120px;
+            background: linear-gradient(135deg, #a89de8, #7ba8d9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+        }
+
+        .konten-body {
+            padding: 14px;
+        }
+
+        .konten-body h4 {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+
+        .konten-body p {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .konten-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* PROFIL */
+        .profil-header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            border-radius: var(--radius-lg);
+            padding: 28px 32px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .profil-avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: 3px solid rgba(255, 255, 255, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .profil-header h2 {
+            font-size: 20px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 4px;
+        }
+
+        .profil-header p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .profil-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 13px;
+            color: var(--text-dark);
+            background: var(--bg);
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--primary);
+            background: white;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* PAGINATION */
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .page-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: var(--radius-sm);
+            border: 1.5px solid var(--border);
+            background: white;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-mid);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .page-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .page-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            width: 100%;
+            max-width: 480px;
+            position: relative;
+        }
+
+        .modal h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        /* ACTIVITY LIST */
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary);
+            flex-shrink: 0;
+            margin-top: 5px;
+        }
+
+        .activity-text {
+            font-size: 13px;
+            color: var(--text-dark);
+            line-height: 1.4;
+        }
+
+        .activity-time {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- SIDEBAR -->
-<aside class="sidebar">
-    <div class="sidebar-logo">
-        <span>RuangPulih</span>
-        <small>Admin</small>
-    </div>
-
-    <div class="sidebar-user">
-        <div class="user-avatar">AD</div>
-        <div>
-            <div class="user-name">Admin</div>
-            <div class="user-role">Super Admin</div>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <span>RuangPulih</span>
+            <small>Administrator</small>
         </div>
-    </div>
-
-    <nav class="sidebar-nav">
-        <div class="nav-label">Manajemen</div>
-
-        <a href="#" class="nav-item active">
-            <span class="nav-icon">📊</span> Dashboard
-        </a>
-
-        <a href="#" class="nav-item">
-            <span class="nav-icon">📅</span> Kelola Jadwal
-        </a>
-
-        <a href="#" class="nav-item">
-            <span class="nav-icon">👨‍⚕️</span> Kelola Psikolog
-        </a>
-
-        <a href="#" class="nav-item">
-            <span class="nav-icon">👥</span> Kelola Mahasiswa
-        </a>
-
-        <a href="#" class="nav-item">
-            <span class="nav-icon">🎥</span> Kelola Konten
-        </a>
-
-        <div class="nav-label">Akun</div>
-
-        <a href="#" class="nav-item">
-            <span class="nav-icon">👤</span> Profil
-        </a>
-    </nav>
-
-    <div class="sidebar-footer">
-        <a href="#" class="logout-btn" onclick="logout()">
-            <span>🚪</span> Keluar
-        </a>
-    </div>
-</aside>
-
-<!-- MAIN -->
-<main class="main">
-
-    <!-- TOPBAR -->
-    <div class="topbar">
-        <div class="topbar-title">Dashboard Admin</div>
-        <div class="topbar-right">
-            <div class="notif-btn">🔔<span class="notif-dot"></span></div>
-            <div class="user-avatar" style="width:32px;height:32px;font-size:12px;">AD</div>
-        </div>
-    </div>
-
-    <!-- CONTENT -->
-    <div class="content">
-
-        <div class="page-header">
+        <div class="sidebar-user">
+            <div class="user-avatar">AD</div>
             <div>
-                <h2>Dashboard Admin</h2>
-                <p>Ringkasan sistem RuangPulih</p>
+                <div class="user-name">Admin RuangPulih</div>
+                <div class="user-role">Super Admin</div>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-label">Menu Utama</div>
+            <a class="nav-item active" onclick="showPage('dashboard',this)">
+                <span class="nav-icon">🏠</span> Dashboard
+            </a>
+            <a class="nav-item" onclick="showPage('jadwal',this)">
+                <span class="nav-icon">📅</span> Kelola Jadwal
+            </a>
+            <a class="nav-item" onclick="showPage('psikolog',this)">
+                <span class="nav-icon">🧑‍⚕️</span> Kelola Psikolog
+            </a>
+            <a class="nav-item" onclick="showPage('mahasiswa',this)">
+                <span class="nav-icon">🎓</span> Kelola Mahasiswa
+            </a>
+            <a class="nav-item" onclick="showPage('konten',this)">
+                <span class="nav-icon">📝</span> Kelola Konten
+            </a>
+            <div class="nav-label">Akun</div>
+            <a class="nav-item" onclick="showPage('profil',this)">
+                <span class="nav-icon">👤</span> Profil Admin
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="login.html" class="logout-btn"><span>🚪</span> Keluar</a>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+        <div class="topbar">
+            <div class="topbar-title" id="topbar-title">Dashboard Admin</div>
+            <div class="topbar-right">
+                <div class="notif-btn">🔔<span class="notif-dot"></span></div>
+                <div class="user-avatar" style="width:32px;height:32px;font-size:12px;">AD</div>
             </div>
         </div>
 
-        <!-- STATS -->
-        <div class="stats-row">
-            <div class="stat-card">
-                <div class="stat-icon" style="background:#ede9fb;">👨‍⚕️</div>
-                <div>
-                    <div class="stat-val">6</div>
-                    <div class="stat-lbl">Total Psikolog</div>
+        <div class="content">
+
+            <!-- ===== DASHBOARD ===== -->
+            <div class="page active" id="page-dashboard">
+                <div class="welcome-banner">
+                    <div class="welcome-text">
+                        <h2>Selamat Datang, Admin! 👋</h2>
+                        <p>Pantau dan kelola seluruh aktivitas RuangPulih dari sini.</p>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:#ede9fb;">🧑‍⚕️</div>
+                        <div>
+                            <div class="stat-val">18</div>
+                            <div class="stat-lbl">Total Psikolog</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:#e8f2fc;">🎓</div>
+                        <div>
+                            <div class="stat-val">342</div>
+                            <div class="stat-lbl">Total Mahasiswa</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:#f0fdf4;">📅</div>
+                        <div>
+                            <div class="stat-val">56</div>
+                            <div class="stat-lbl">Jadwal Bulan Ini</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:#fffbeb;">📝</div>
+                        <div>
+                            <div class="stat-val">24</div>
+                            <div class="stat-lbl">Total Konten</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="two-col">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">Jadwal Terbaru</span>
+                            <button class="card-action"
+                                onclick="showPage('jadwal', document.querySelector('[onclick*=jadwal]'))">Lihat
+                                Semua</button>
+                        </div>
+                        <div class="card-body" style="padding:0">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Mahasiswa</th>
+                                        <th>Psikolog</th>
+                                        <th>Tanggal</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Andi Pratama</td>
+                                        <td>Dr. Sarah</td>
+                                        <td>28 Mar 2026</td>
+                                        <td><span class="badge badge-success">Terkonfirmasi</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Budi Santoso</td>
+                                        <td>Reza P.</td>
+                                        <td>29 Mar 2026</td>
+                                        <td><span class="badge badge-warning">Menunggu</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Citra Dewi</td>
+                                        <td>Nadia A.</td>
+                                        <td>30 Mar 2026</td>
+                                        <td><span class="badge badge-success">Terkonfirmasi</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dian Rahma</td>
+                                        <td>Dr. Sarah</td>
+                                        <td>01 Apr 2026</td>
+                                        <td><span class="badge badge-warning">Menunggu</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header"><span class="card-title">Aktivitas Terbaru</span></div>
+                        <div class="card-body">
+                            <div class="activity-item">
+                                <div class="activity-dot"></div>
+                                <div>
+                                    <div class="activity-text">Mahasiswa baru <b>Eka Putra</b> mendaftar</div>
+                                    <div class="activity-time">5 menit lalu</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-dot" style="background:#16a34a"></div>
+                                <div>
+                                    <div class="activity-text">Jadwal konsultasi <b>Andi Pratama</b> dikonfirmasi</div>
+                                    <div class="activity-time">20 menit lalu</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-dot" style="background:#d97706"></div>
+                                <div>
+                                    <div class="activity-text">Artikel baru <b>"Mengatasi Burnout"</b> dipublikasi</div>
+                                    <div class="activity-time">1 jam lalu</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-dot" style="background:#dc2626"></div>
+                                <div>
+                                    <div class="activity-text">Psikolog <b>Dr. Budi</b> memperbarui jadwal</div>
+                                    <div class="activity-time">2 jam lalu</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-dot"></div>
+                                <div>
+                                    <div class="activity-text">Video edukasi baru ditambahkan</div>
+                                    <div class="activity-time">3 jam lalu</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="stat-card">
-                <div class="stat-icon" style="background:#f0fdf4;">👥</div>
-                <div>
-                    <div class="stat-val">120</div>
-                    <div class="stat-lbl">Mahasiswa</div>
+            <!-- ===== KELOLA JADWAL ===== -->
+            <div class="page" id="page-jadwal">
+                <div class="page-header">
+                    <div>
+                        <h2>Kelola Jadwal</h2>
+                        <p>Pantau dan kelola semua jadwal konsultasi</p>
+                    </div>
+                </div>
+                <div class="filter-bar">
+                    <div class="search-wrap"><span class="search-icon">🔍</span><input type="text"
+                            placeholder="Cari mahasiswa atau psikolog..."></div>
+                    <select class="filter-select">
+                        <option>Semua Status</option>
+                        <option>Terkonfirmasi</option>
+                        <option>Menunggu</option>
+                        <option>Dibatalkan</option>
+                        <option>Selesai</option>
+                    </select>
+                    <select class="filter-select">
+                        <option>Semua Tipe</option>
+                        <option>Online</option>
+                        <option>Offline</option>
+                    </select>
+                </div>
+                <div class="table-wrap">
+                    <div class="table-head">
+                        <h3>Daftar Jadwal Konsultasi</h3><span style="font-size:13px;color:var(--text-muted)">56
+                            jadwal</span>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Mahasiswa</th>
+                                <th>Psikolog</th>
+                                <th>Tanggal & Waktu</th>
+                                <th>Tipe</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <div class="name-cell">
+                                        <div class="psikolog-avatar"
+                                            style="background:linear-gradient(135deg,#6352c7,#4a90d9)">AP</div>Andi
+                                        Pratama
+                                    </div>
+                                </td>
+                                <td>Dr. Sarah Amelia</td>
+                                <td>28 Mar 2026 · 10:00</td>
+                                <td><span class="badge badge-primary">Online</span></td>
+                                <td><span class="badge badge-success">Terkonfirmasi</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
+                                            class="btn-danger btn-sm">Hapus</button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>
+                                    <div class="name-cell">
+                                        <div class="psikolog-avatar"
+                                            style="background:linear-gradient(135deg,#0f6e56,#1d9e75)">BS</div>Budi
+                                        Santoso
+                                    </div>
+                                </td>
+                                <td>Reza Pratama</td>
+                                <td>29 Mar 2026 · 14:00</td>
+                                <td><span class="badge badge-warning">Offline</span></td>
+                                <td><span class="badge badge-warning">Menunggu</span></td>
+                                <td>
+                                    <div class="action-btns"><button
+                                            class="btn-outline btn-sm">Konfirmasi</button><button
+                                            class="btn-danger btn-sm">Tolak</button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>
+                                    <div class="name-cell">
+                                        <div class="psikolog-avatar"
+                                            style="background:linear-gradient(135deg,#993556,#d4537e)">CD</div>Citra
+                                        Dewi
+                                    </div>
+                                </td>
+                                <td>Nadia Aulia</td>
+                                <td>30 Mar 2026 · 09:00</td>
+                                <td><span class="badge badge-primary">Online</span></td>
+                                <td><span class="badge badge-success">Terkonfirmasi</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
+                                            class="btn-danger btn-sm">Hapus</button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>
+                                    <div class="name-cell">
+                                        <div class="psikolog-avatar"
+                                            style="background:linear-gradient(135deg,#854f0b,#ba7517)">DR</div>Dian
+                                        Rahma
+                                    </div>
+                                </td>
+                                <td>Dr. Sarah Amelia</td>
+                                <td>01 Apr 2026 · 11:00</td>
+                                <td><span class="badge badge-warning">Offline</span></td>
+                                <td><span class="badge badge-warning">Menunggu</span></td>
+                                <td>
+                                    <div class="action-btns"><button
+                                            class="btn-outline btn-sm">Konfirmasi</button><button
+                                            class="btn-danger btn-sm">Tolak</button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>
+                                    <div class="name-cell">
+                                        <div class="psikolog-avatar"
+                                            style="background:linear-gradient(135deg,#185fa5,#378add)">EP</div>Eka Putra
+                                    </div>
+                                </td>
+                                <td>Bayu Wicaksono</td>
+                                <td>02 Apr 2026 · 13:00</td>
+                                <td><span class="badge badge-primary">Online</span></td>
+                                <td><span class="badge badge-gray">Selesai</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-outline btn-sm">Detail</button></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination"><button class="page-btn">«</button><button
+                            class="page-btn active">1</button><button class="page-btn">2</button><button
+                            class="page-btn">3</button><button class="page-btn">»</button></div>
                 </div>
             </div>
 
-            <div class="stat-card">
-                <div class="stat-icon" style="background:#fffbeb;">📅</div>
-                <div>
-                    <div class="stat-val">32</div>
-                    <div class="stat-lbl">Jadwal Aktif</div>
+            <!-- ===== KELOLA PSIKOLOG ===== -->
+            <div class="page" id="page-psikolog">
+                <div class="page-header">
+                    <div>
+                        <h2>Kelola Psikolog</h2>
+                        <p>Manajemen data psikolog terdaftar</p>
+                    </div>
+                    <button class="btn-primary"
+                        onclick="document.getElementById('modal-psikolog').classList.add('show')">+ Tambah
+                        Psikolog</button>
                 </div>
+                <div class="filter-bar">
+                    <div class="search-wrap"><span class="search-icon">🔍</span><input type="text"
+                            placeholder="Cari nama psikolog..."></div>
+                    <select class="filter-select">
+                        <option>Semua Spesialisasi</option>
+                        <option>Psikologi Klinis</option>
+                        <option>Konseling Remaja</option>
+                        <option>Manajemen Stres</option>
+                        <option>Trauma & PTSD</option>
+                    </select>
+                    <select class="filter-select">
+                        <option>Semua Status</option>
+                        <option>Aktif</option>
+                        <option>Nonaktif</option>
+                    </select>
+                </div>
+                <div class="table-wrap">
+                    <div class="table-head">
+                        <h3>Daftar Psikolog</h3><span style="font-size:13px;color:var(--text-muted)">18 psikolog</span>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>Spesialisasi</th>
+                                <th>Tarif/Sesi</th>
+                                <th>Rating</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="name-cell">
+                                        <div class="psikolog-avatar"
+                                            style="background:linear-gradient(135deg,#6352c7,#4a90d9)">SA</div>
+                                        <div>
+                                            <div style="font-weight:700">Dr. Sarah Amelia</div>
+                                            <div style="font-size:11px;color:var(--text-muted)">sarah@ruangpulih.com
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Psikologi Klinis</td>
+                                <td>Rp 150.000</td>
+                                <td>⭐ 4.9</td>
+                                <td><span class="badge badge-success">Aktif</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
+                                            class="btn-danger btn-sm">Nonaktifkan</button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="name-cell">
+                                        <div class="psikolog-avatar"
+                                            style="background:linear-gradient(135deg,#0f6e56,#1d9e75)">RP</div>
+                                        <div>
+                                            <div style="font-weight:700">Reza Pratama, S.Psi</div>
+                                            <div style="font-size:11px;color:var(--text-muted)">reza@ruangpulih.com
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Konseling Remaja</td>
+                                <td>Rp 100.000</td>
+                                <td>⭐ 4.7</td>
+                                <td><span class="badge badge-success">Aktif</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
+                                            class="btn-danger btn-sm">Nonaktifkan</button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="name-cell">
+                                        <div class="psikolog-avatar"
+                                            style="background:linear-gradient(135deg,#993556,#d4537e)">NA</div>
+                                        <div>
+                                            <div style="font-weight:700">Nadia Aulia, M.Psi</div>
+                                            <div style="font-size:11px;color:var(--text-muted)">nadia@ruangpulih.com
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Manajemen Stres</td>
+                                <td>Rp 120.000</td>
+                                <td>⭐ 4.8</td>
+                                <td><span class="badge badge-success">Aktif</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
+                                            class="btn-danger btn-sm">Nonaktifkan</button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="name-cell">
+                                        <div class="psikolog-avatar"
+                                            style="background:linear-gradient(135deg,#854f0b,#ba7517)">BW</div>
+                                        <div>
+                                            <div style="font-weight:700">Bayu Wicaksono, S.Psi</div>
+                                            <div style="font-size:11px;color:var(--text-muted)">bayu@ruangpulih.com
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Trauma & PTSD</td>
+                                <td>Rp 130.000</td>
+                                <td>⭐ 4.6</td>
+                                <td><span class="badge badge-gray">Nonaktif</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-outline btn-sm">Aktifkan</button><button
+                                            class="btn-danger btn-sm">Hapus</button></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination"><button class="page-btn">«</button><button
+                            class="page-btn active">1</button><button class="page-btn">2</button><button
+                            class="page-btn">»</button></div>
+                </div>
+            </div>
+
+            <!-- ===== KELOLA MAHASISWA ===== -->
+            <div class="page" id="page-mahasiswa">
+                <div class="page-header">
+                    <div>
+                        <h2>Kelola Mahasiswa</h2>
+                        <p>Manajemen akun mahasiswa terdaftar</p>
+                    </div>
+                </div>
+                <div class="filter-bar">
+                    <div class="search-wrap"><span class="search-icon">🔍</span><input type="text"
+                            placeholder="Cari nama atau NIM mahasiswa..."></div>
+                    <select class="filter-select">
+                        <option>Semua Status</option>
+                        <option>Aktif</option>
+                        <option>Menunggu Verifikasi</option>
+                        <option>Nonaktif</option>
+                    </select>
+                </div>
+                <div class="table-wrap">
+                    <div class="table-head">
+                        <h3>Daftar Mahasiswa</h3><span style="font-size:13px;color:var(--text-muted)">342
+                            mahasiswa</span>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>NIM</th>
+                                <th>Email</th>
+                                <th>Total Konsultasi</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="name-cell">
+                                        <div class="psikolog-avatar"
+                                            style="background:linear-gradient(135deg,#6352c7,#4a90d9)">AP</div>Andi
+                                        Pratama
+                                    </div>
+                                </td>
+                                <td>2021001001</td>
+                                <td>andi@mahasiswa.ac.id</td>
+                                <td>5</td>
+                                <td><span class="badge badge-success">Aktif</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-outline btn-sm">Detail</button><button
+                                            class="btn-danger btn-sm">Nonaktifkan</button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="name-cell">
+                                        <div class="psikolog-avatar"
+                                            style="background:linear-gradient(135deg,#0f6e56,#1d9e75)">BS</div>Budi
+                                        Santoso
+                                    </div>
+                                </td>
+                                <td>2021001234</td>
+                                <td>budi@mahasiswa.ac.id</td>
+                                <td>3</td>
+                                <td><span class="badge badge-success">Aktif</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-outline btn-sm">Detail</button><button
+                                            class="btn-danger btn-sm">Nonaktifkan</button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="name-cell">
+                                        <div class="psikolog-avatar"
+                                            style="background:linear-gradient(135deg,#993556,#d4537e)">CD</div>Citra
+                                        Dewi
+                                    </div>
+                                </td>
+                                <td>2022002345</td>
+                                <td>citra@mahasiswa.ac.id</td>
+                                <td>7</td>
+                                <td><span class="badge badge-warning">Menunggu Verifikasi</span></td>
+                                <td>
+                                    <div class="action-btns"><button
+                                            class="btn-primary btn-sm">Verifikasi</button><button
+                                            class="btn-danger btn-sm">Tolak</button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="name-cell">
+                                        <div class="psikolog-avatar"
+                                            style="background:linear-gradient(135deg,#854f0b,#ba7517)">DR</div>Dian
+                                        Rahma
+                                    </div>
+                                </td>
+                                <td>2020003456</td>
+                                <td>dian@mahasiswa.ac.id</td>
+                                <td>2</td>
+                                <td><span class="badge badge-warning">Menunggu Verifikasi</span></td>
+                                <td>
+                                    <div class="action-btns"><button
+                                            class="btn-primary btn-sm">Verifikasi</button><button
+                                            class="btn-danger btn-sm">Tolak</button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="name-cell">
+                                        <div class="psikolog-avatar"
+                                            style="background:linear-gradient(135deg,#185fa5,#378add)">EP</div>Eka Putra
+                                    </div>
+                                </td>
+                                <td>2019004567</td>
+                                <td>eka@mahasiswa.ac.id</td>
+                                <td>10</td>
+                                <td><span class="badge badge-gray">Nonaktif</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-outline btn-sm">Aktifkan</button><button
+                                            class="btn-danger btn-sm">Hapus</button></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination"><button class="page-btn">«</button><button
+                            class="page-btn active">1</button><button class="page-btn">2</button><button
+                            class="page-btn">3</button><button class="page-btn">»</button></div>
+                </div>
+            </div>
+
+            <!-- ===== KELOLA KONTEN ===== -->
+            <div class="page" id="page-konten">
+                <div class="page-header">
+                    <div>
+                        <h2>Kelola Konten</h2>
+                        <p>Manajemen artikel dan video edukasi kesehatan mental</p>
+                    </div>
+                    <button class="btn-primary"
+                        onclick="document.getElementById('modal-konten').classList.add('show')">+ Tambah Konten</button>
+                </div>
+
+                <!-- Tab -->
+                <div
+                    style="display:flex;gap:8px;margin-bottom:20px;border-bottom:2px solid var(--border);padding-bottom:0">
+                    <button onclick="switchTab('artikel',this)"
+                        style="padding:10px 20px;border:none;background:none;font-family:inherit;font-size:13px;font-weight:700;color:var(--primary);border-bottom:2px solid var(--primary);margin-bottom:-2px;cursor:pointer;"
+                        id="tab-artikel">📝 Artikel</button>
+                    <button onclick="switchTab('video',this)"
+                        style="padding:10px 20px;border:none;background:none;font-family:inherit;font-size:13px;font-weight:600;color:var(--text-muted);cursor:pointer;"
+                        id="tab-video">🎬 Video YouTube</button>
+                </div>
+
+                <!-- Artikel -->
+                <div id="konten-artikel">
+                    <div class="konten-grid">
+                        <div class="konten-card">
+                            <div class="konten-img">📰</div>
+                            <div class="konten-body">
+                                <h4>Anxiety Menyerang, Bagaimana Cara untuk Meredakannya?</h4>
+                                <p>📅 2 Mar 2026 · 👁️ 2.5k dibaca</p>
+                                <div class="konten-meta">
+                                    <span class="badge badge-primary">Kesehatan Mental</span>
+                                    <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
+                                            class="btn-danger btn-sm">Hapus</button></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="konten-card">
+                            <div class="konten-img">📰</div>
+                            <div class="konten-body">
+                                <h4>Pentingnya Kesehatan Mental bagi Remaja & Cara Menghadapinya</h4>
+                                <p>📅 1 Mar 2026 · 👁️ 1.8k dibaca</p>
+                                <div class="konten-meta">
+                                    <span class="badge badge-primary">Kesehatan Mental</span>
+                                    <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
+                                            class="btn-danger btn-sm">Hapus</button></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="konten-card">
+                            <div class="konten-img">📰</div>
+                            <div class="konten-body">
+                                <h4>Kenali Gejala Anxiety Disorder pada Remaja</h4>
+                                <p>📅 27 Feb 2026 · 👁️ 1.2k dibaca</p>
+                                <div class="konten-meta">
+                                    <span class="badge badge-warning">Kecemasan</span>
+                                    <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
+                                            class="btn-danger btn-sm">Hapus</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video -->
+                <div id="konten-video" style="display:none">
+                    <div class="table-wrap">
+                        <div class="table-head">
+                            <h3>Daftar Video YouTube</h3>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Judul Video</th>
+                                    <th>Channel</th>
+                                    <th>Kategori</th>
+                                    <th>Link YouTube</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-weight:600">Cara Mengatasi Kecemasan Berlebihan</td>
+                                    <td>Satu Persen</td>
+                                    <td><span class="badge badge-warning">Kecemasan</span></td>
+                                    <td><a href="https://youtube.com/embed/MIr3RsUWrdo" target="_blank"
+                                            style="color:var(--primary);font-size:12px">Lihat Video ↗</a></td>
+                                    <td>
+                                        <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
+                                                class="btn-danger btn-sm">Hapus</button></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight:600">Mengenal Burnout dan Cara Mengatasinya</td>
+                                    <td>Satu Persen</td>
+                                    <td><span class="badge badge-danger">Stres</span></td>
+                                    <td><a href="https://youtube.com/embed/9c_qEnENpF0" target="_blank"
+                                            style="color:var(--primary);font-size:12px">Lihat Video ↗</a></td>
+                                    <td>
+                                        <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
+                                                class="btn-danger btn-sm">Hapus</button></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight:600">Self Love: Cara Mencintai Diri Sendiri</td>
+                                    <td>Satu Persen</td>
+                                    <td><span class="badge badge-primary">Kesehatan Mental</span></td>
+                                    <td><a href="https://youtube.com/embed/s9RPBoCFhbo" target="_blank"
+                                            style="color:var(--primary);font-size:12px">Lihat Video ↗</a></td>
+                                    <td>
+                                        <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
+                                                class="btn-danger btn-sm">Hapus</button></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== PROFIL ADMIN ===== -->
+            <div class="page" id="page-profil">
+                <div class="profil-header">
+                    <div class="profil-avatar">AD</div>
+                    <div>
+                        <h2>Admin RuangPulih</h2>
+                        <p>admin@ruangpulih.com · Super Admin</p>
+                    </div>
+                </div>
+                <div class="profil-grid">
+                    <div class="card">
+                        <div class="card-header"><span class="card-title">Data Admin</span></div>
+                        <div class="card-body">
+                            <div class="form-group"><label>Nama Lengkap</label><input type="text"
+                                    value="Admin RuangPulih"></div>
+                            <div class="form-group"><label>Email</label><input type="email"
+                                    value="admin@ruangpulih.com"></div>
+                            <div class="form-group"><label>Nomor HP</label><input type="tel" value="08123456789"></div>
+                            <div class="form-group"><label>Role</label><input type="text" value="Super Admin" disabled
+                                    style="opacity:0.6"></div>
+                            <button class="btn-primary">Simpan Perubahan</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header"><span class="card-title">Ubah Password</span></div>
+                        <div class="card-body">
+                            <div class="form-group"><label>Password Lama</label><input type="password"
+                                    placeholder="••••••••"></div>
+                            <div class="form-group"><label>Password Baru</label><input type="password"
+                                    placeholder="••••••••"></div>
+                            <div class="form-group"><label>Konfirmasi Password Baru</label><input type="password"
+                                    placeholder="••••••••"></div>
+                            <button class="btn-primary">Update Password</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- end content -->
+    </main>
+
+    <!-- MODAL TAMBAH PSIKOLOG -->
+    <div class="modal-overlay" id="modal-psikolog">
+        <div class="modal">
+            <button class="modal-close"
+                onclick="document.getElementById('modal-psikolog').classList.remove('show')">✕</button>
+            <h3>Tambah Psikolog Baru</h3>
+            <div class="form-group"><label>Nama Lengkap</label><input type="text" placeholder="Dr. Nama Lengkap, M.Psi">
+            </div>
+            <div class="form-group"><label>Email</label><input type="email" placeholder="email@ruangpulih.com"></div>
+            <div class="form-group"><label>Spesialisasi</label>
+                <select>
+                    <option>Psikologi Klinis</option>
+                    <option>Konseling Remaja</option>
+                    <option>Manajemen Stres</option>
+                    <option>Trauma & PTSD</option>
+                    <option>Psikologi Pendidikan</option>
+                </select>
+            </div>
+            <div class="form-group"><label>Tarif per Sesi (Rp)</label><input type="number" placeholder="150000"></div>
+            <div class="form-group"><label>No. STR / Lisensi</label><input type="text"
+                    placeholder="Nomor lisensi psikolog"></div>
+            <div class="modal-footer">
+                <button class="btn-outline"
+                    onclick="document.getElementById('modal-psikolog').classList.remove('show')">Batal</button>
+                <button class="btn-primary">Simpan</button>
             </div>
         </div>
-
-        <!-- QUICK MENU -->
-        <div class="admin-grid">
-
-            <div class="admin-card">
-                <div class="admin-icon">📅</div>
-                <h3>Kelola Jadwal</h3>
-                <p>Atur jadwal konsultasi</p>
-            </div>
-
-            <div class="admin-card">
-                <div class="admin-icon">👨‍⚕️</div>
-                <h3>Psikolog</h3>
-                <p>Kelola data psikolog</p>
-            </div>
-
-            <div class="admin-card">
-                <div class="admin-icon">👥</div>
-                <h3>Mahasiswa</h3>
-                <p>Kelola data mahasiswa</p>
-            </div>
-
-            <div class="admin-card">
-                <div class="admin-icon">🎥</div>
-                <h3>Konten</h3>
-                <p>Video & artikel</p>
-            </div>
-
-        </div>
-
     </div>
-</main>
 
-<script>
-    const user = JSON.parse(localStorage.getItem("user"));
+    <!-- MODAL TAMBAH KONTEN -->
+    <div class="modal-overlay" id="modal-konten">
+        <div class="modal">
+            <button class="modal-close"
+                onclick="document.getElementById('modal-konten').classList.remove('show')">✕</button>
+            <h3>Tambah Konten Baru</h3>
+            <div class="form-group"><label>Tipe Konten</label>
+                <select id="tipe-konten" onchange="toggleKontenForm(this.value)">
+                    <option value="artikel">Artikel</option>
+                    <option value="video">Video YouTube</option>
+                </select>
+            </div>
+            <div id="form-artikel">
+                <div class="form-group"><label>Judul Artikel</label><input type="text" placeholder="Judul artikel...">
+                </div>
+                <div class="form-group"><label>Kategori</label><select>
+                        <option>Kesehatan Mental</option>
+                        <option>Stres</option>
+                        <option>Kecemasan</option>
+                        <option>Depresi</option>
+                    </select></div>
+                <div class="form-group"><label>Isi Artikel</label><textarea
+                        placeholder="Tulis isi artikel..."></textarea></div>
+            </div>
+            <div id="form-video" style="display:none">
+                <div class="form-group"><label>Judul Video</label><input type="text" placeholder="Judul video..."></div>
+                <div class="form-group"><label>Channel YouTube</label><input type="text" placeholder="Nama channel...">
+                </div>
+                <div class="form-group"><label>Link YouTube (Embed ID)</label><input type="text"
+                        placeholder="ID video YouTube..."></div>
+                <div class="form-group"><label>Kategori</label><select>
+                        <option>Kesehatan Mental</option>
+                        <option>Stres</option>
+                        <option>Kecemasan</option>
+                        <option>Depresi</option>
+                    </select></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-outline"
+                    onclick="document.getElementById('modal-konten').classList.remove('show')">Batal</button>
+                <button class="btn-primary">Simpan</button>
+            </div>
+        </div>
+    </div>
 
-    if (!user || user.role !== "admin") {
-        window.location.href = "login.html";
-    }
+    <script>
+        const titles = { dashboard: 'Dashboard Admin', jadwal: 'Kelola Jadwal', psikolog: 'Kelola Psikolog', mahasiswa: 'Kelola Mahasiswa', konten: 'Kelola Konten', profil: 'Profil Admin' };
 
-    function logout() {
-        localStorage.removeItem("user");
-        window.location.href = "login.html";
-    }
-</script>
+        function showPage(page, el) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById('page-' + page).classList.add('active');
+            document.getElementById('topbar-title').textContent = titles[page];
+            if (el) el.classList.add('active');
+        }
 
+        function switchTab(tab, el) {
+            document.getElementById('konten-artikel').style.display = tab === 'artikel' ? '' : 'none';
+            document.getElementById('konten-video').style.display = tab === 'video' ? '' : 'none';
+            document.querySelectorAll('[id^="tab-"]').forEach(t => {
+                t.style.color = 'var(--text-muted)';
+                t.style.borderBottom = 'none';
+                t.style.fontWeight = '600';
+            });
+            el.style.color = 'var(--primary)';
+            el.style.borderBottom = '2px solid var(--primary)';
+            el.style.fontWeight = '700';
+        }
+
+        function toggleKontenForm(val) {
+            document.getElementById('form-artikel').style.display = val === 'artikel' ? '' : 'none';
+            document.getElementById('form-video').style.display = val === 'video' ? '' : 'none';
+        }
+    </script>
 </body>
+
 </html>
