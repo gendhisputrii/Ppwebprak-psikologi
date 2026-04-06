@@ -48,6 +48,7 @@
             min-height: 100vh;
         }
 
+        /* SIDEBAR */
         .sidebar {
             width: 240px;
             background: var(--primary-dark);
@@ -180,6 +181,7 @@
             background: rgba(248, 113, 113, 0.1);
         }
 
+        /* MAIN */
         .main {
             margin-left: 240px;
             flex: 1;
@@ -243,6 +245,7 @@
             flex: 1;
         }
 
+        /* PAGES */
         .page {
             display: none;
         }
@@ -251,6 +254,7 @@
             display: block;
         }
 
+        /* STATS */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -292,6 +296,7 @@
             font-weight: 500;
         }
 
+        /* CARDS */
         .two-col {
             display: grid;
             grid-template-columns: 1.2fr 1fr;
@@ -335,6 +340,7 @@
             text-decoration: none;
         }
 
+        /* TABLE */
         .table-wrap {
             background: white;
             border-radius: var(--radius-md);
@@ -389,6 +395,7 @@
             background: #faf9ff;
         }
 
+        /* BADGES */
         .badge {
             padding: 3px 10px;
             border-radius: 100px;
@@ -421,6 +428,7 @@
             color: var(--text-muted);
         }
 
+        /* FILTER */
         .filter-bar {
             display: flex;
             gap: 12px;
@@ -473,6 +481,7 @@
             font-family: inherit;
         }
 
+        /* BUTTONS */
         .btn-primary {
             padding: 9px 18px;
             background: var(--primary);
@@ -535,6 +544,7 @@
             gap: 6px;
         }
 
+        /* PAGE HEADER */
         .page-header {
             display: flex;
             align-items: center;
@@ -554,6 +564,7 @@
             margin-top: 2px;
         }
 
+        /* NAME CELL */
         .psikolog-avatar {
             width: 36px;
             height: 36px;
@@ -573,6 +584,7 @@
             gap: 10px;
         }
 
+        /* WELCOME BANNER */
         .welcome-banner {
             background: linear-gradient(135deg, var(--primary-dark), var(--primary));
             border-radius: var(--radius-lg);
@@ -608,6 +620,7 @@
             color: rgba(255, 255, 255, 0.7);
         }
 
+        /* KONTEN GRID */
         .konten-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -666,6 +679,22 @@
             justify-content: space-between;
         }
 
+        .link-tag {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 2px 7px;
+            border-radius: 100px;
+        }
+
+        .link-hint {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        /* PROFIL */
         .profil-header {
             background: linear-gradient(135deg, var(--primary-dark), var(--primary));
             border-radius: var(--radius-lg);
@@ -708,6 +737,7 @@
             gap: 20px;
         }
 
+        /* FORM */
         .form-group {
             margin-bottom: 16px;
         }
@@ -748,6 +778,7 @@
             min-height: 80px;
         }
 
+        /* PAGINATION */
         .pagination {
             display: flex;
             align-items: center;
@@ -782,6 +813,7 @@
             color: white;
         }
 
+        /* MODAL */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -832,6 +864,7 @@
             color: var(--text-muted);
         }
 
+        /* ACTIVITY */
         .activity-item {
             display: flex;
             align-items: flex-start;
@@ -865,19 +898,32 @@
             margin-top: 2px;
         }
 
-        .link-hint {
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-top: 5px;
+        /* KONTEN TABS */
+        .konten-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border);
         }
 
-        .link-tag {
-            font-size: 10px;
+        .konten-tab {
+            padding: 10px 20px;
+            border: none;
+            background: none;
+            font-family: inherit;
+            font-size: 13px;
             font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+
+        .konten-tab.active {
             color: var(--primary);
-            background: var(--primary-light);
-            padding: 2px 7px;
-            border-radius: 100px;
+            border-bottom-color: var(--primary);
+            font-weight: 700;
         }
     </style>
 </head>
@@ -925,38 +971,38 @@
 
         <div class="content">
 
-            <!-- DASHBOARD -->
+            <!-- ===== DASHBOARD ===== -->
             <div class="page active" id="page-dashboard">
                 <div class="welcome-banner">
                     <div class="welcome-text">
-                        <h2>Selamat Datang, Admin! </h2>
+                        <h2>Selamat Datang, Admin! 👋</h2>
                         <p>Pantau dan kelola seluruh aktivitas RuangPulih dari sini.</p>
                     </div>
                 </div>
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-icon" style="background:#ede9fb;">🧑‍⚕️</div>
+                        <div class="stat-icon" style="background:#ede9fb">🧑‍⚕️</div>
                         <div>
                             <div class="stat-val">18</div>
                             <div class="stat-lbl">Total Psikolog</div>
                         </div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon" style="background:#e8f2fc;">🎓</div>
+                        <div class="stat-icon" style="background:#e8f2fc">🎓</div>
                         <div>
                             <div class="stat-val">342</div>
                             <div class="stat-lbl">Total Mahasiswa</div>
                         </div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon" style="background:#f0fdf4;">📅</div>
+                        <div class="stat-icon" style="background:#f0fdf4">📅</div>
                         <div>
                             <div class="stat-val">56</div>
                             <div class="stat-lbl">Jadwal Bulan Ini</div>
                         </div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon" style="background:#fffbeb;">📝</div>
+                        <div class="stat-icon" style="background:#fffbeb">📝</div>
                         <div>
                             <div class="stat-val">24</div>
                             <div class="stat-lbl">Total Konten</div>
@@ -968,7 +1014,7 @@
                         <div class="card-header">
                             <span class="card-title">Jadwal Terbaru</span>
                             <button class="card-action"
-                                onclick="showPage('jadwal', document.querySelector('[onclick*=jadwal]'))">Lihat
+                                onclick="showPage('jadwal',document.querySelector('[onclick*=jadwal]'))">Lihat
                                 Semua</button>
                         </div>
                         <div class="card-body" style="padding:0">
@@ -1023,14 +1069,14 @@
                             <div class="activity-item">
                                 <div class="activity-dot" style="background:#16a34a"></div>
                                 <div>
-                                    <div class="activity-text">Jadwal konsultasi <b>Andi Pratama</b> dikonfirmasi</div>
+                                    <div class="activity-text">Jadwal <b>Andi Pratama</b> dikonfirmasi</div>
                                     <div class="activity-time">20 menit lalu</div>
                                 </div>
                             </div>
                             <div class="activity-item">
                                 <div class="activity-dot" style="background:#d97706"></div>
                                 <div>
-                                    <div class="activity-text">Artikel baru <b>"Mengatasi Burnout"</b> dipublikasi</div>
+                                    <div class="activity-text">Artikel <b>"Mengatasi Burnout"</b> dipublikasi</div>
                                     <div class="activity-time">1 jam lalu</div>
                                 </div>
                             </div>
@@ -1053,7 +1099,7 @@
                 </div>
             </div>
 
-            <!-- KELOLA JADWAL -->
+            <!-- ===== KELOLA JADWAL ===== -->
             <div class="page" id="page-jadwal">
                 <div class="page-header">
                     <div>
@@ -1193,14 +1239,13 @@
                 </div>
             </div>
 
-            <!-- KELOLA PSIKOLOG -->
+            <!-- ===== KELOLA PSIKOLOG ===== -->
             <div class="page" id="page-psikolog">
                 <div class="page-header">
                     <div>
                         <h2>Kelola Psikolog</h2>
                         <p>Manajemen data psikolog terdaftar</p>
-                    </div>
-                    <button class="btn-primary"
+                    </div><button class="btn-primary"
                         onclick="document.getElementById('modal-psikolog').classList.add('show')">+ Tambah
                         Psikolog</button>
                 </div>
@@ -1328,7 +1373,7 @@
                 </div>
             </div>
 
-            <!-- KELOLA MAHASISWA -->
+            <!-- ===== KELOLA MAHASISWA ===== -->
             <div class="page" id="page-mahasiswa">
                 <div class="page-header">
                     <div>
@@ -1457,7 +1502,7 @@
                 </div>
             </div>
 
-            <!-- KELOLA KONTEN -->
+            <!-- ===== KELOLA KONTEN ===== -->
             <div class="page" id="page-konten">
                 <div class="page-header">
                     <div>
@@ -1467,115 +1512,97 @@
                     <button class="btn-primary"
                         onclick="document.getElementById('modal-konten').classList.add('show')">+ Tambah Konten</button>
                 </div>
-                <div
-                    style="display:flex;gap:8px;margin-bottom:20px;border-bottom:2px solid var(--border);padding-bottom:0">
-                    <button onclick="switchTab('artikel',this)"
-                        style="padding:10px 20px;border:none;background:none;font-family:inherit;font-size:13px;font-weight:700;color:var(--primary);border-bottom:2px solid var(--primary);margin-bottom:-2px;cursor:pointer;"
-                        id="tab-artikel">📝 Artikel</button>
-                    <button onclick="switchTab('video',this)"
-                        style="padding:10px 20px;border:none;background:none;font-family:inherit;font-size:13px;font-weight:600;color:var(--text-muted);cursor:pointer;"
-                        id="tab-video">🎬 Video YouTube</button>
+
+                <!-- TAB SWITCH -->
+                <div class="konten-tabs">
+                    <button class="konten-tab active" id="tab-artikel" onclick="switchTab('artikel',this)">📝
+                        Artikel</button>
+                    <button class="konten-tab" id="tab-video" onclick="switchTab('video',this)">🎬 Video
+                        YouTube</button>
                 </div>
 
-                <div class="konten-grid" id="artikel-grid">
-
-                    <!-- Artikel 1 -->
-                    <div class="konten-card has-link" onclick="bukaArtikel('https://share.google/AdCTQqPyG5dl91vWl')">
-                        <div class="konten-img" style="padding:0">
-                            <img src="a2.jpg" style="width:100%;height:100%;object-fit:cover;">
+                <!-- ARTIKEL GRID -->
+                <div id="konten-artikel">
+                    <div class="konten-grid" id="artikel-grid">
+                        <div class="konten-card has-link"
+                            onclick="bukaArtikel('https://share.google/AdCTQqPyG5dl91vWl')">
+                            <div class="konten-img" style="padding:0"><img src="a2.jpg"
+                                    style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="konten-body">
+                                <h4>Anxiety Menyerang, Bagaimana Cara untuk Meredakannya?</h4>
+                                <p>📅 2 Mar 2026 · 👁️ 2.5k dibaca · <span class="link-tag">🔗 Buka Artikel</span></p>
+                                <div class="konten-meta"><span class="badge badge-primary">Kesehatan Mental</span>
+                                    <div class="action-btns"><button class="btn-outline btn-sm"
+                                            onclick="event.stopPropagation()">Edit</button><button
+                                            class="btn-danger btn-sm"
+                                            onclick="event.stopPropagation();hapusKonten(this)">Hapus</button></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="konten-body">
-                            <h4>Anxiety Menyerang, Bagaimana Cara untuk Meredakannya?</h4>
-                            <p>📅 2 Mar 2026 · 👁️ 2.5k dibaca · <span class="link-tag">🔗 Buka Artikel</span></p>
-                            <div class="konten-meta">
-                                <span class="badge badge-primary">Kesehatan Mental</span>
-                                <div class="action-btns">
-                                    <button class="btn-outline btn-sm" onclick="event.stopPropagation()">Edit</button>
-                                    <button class="btn-danger btn-sm"
-                                        onclick="event.stopPropagation();hapusKonten(this)">Hapus</button>
+                        <div class="konten-card has-link"
+                            onclick="bukaArtikel('https://share.google/VaQ1UEQJqy0pDdq1w')">
+                            <div class="konten-img" style="padding:0"><img src="a3.jpg"
+                                    style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="konten-body">
+                                <h4>Pentingnya Kesehatan Mental bagi Remaja</h4>
+                                <p>📅 1 Mar 2026 · 👁️ 1.8k dibaca · <span class="link-tag">🔗 Buka Artikel</span></p>
+                                <div class="konten-meta"><span class="badge badge-primary">Kesehatan Mental</span>
+                                    <div class="action-btns"><button class="btn-outline btn-sm"
+                                            onclick="event.stopPropagation()">Edit</button><button
+                                            class="btn-danger btn-sm"
+                                            onclick="event.stopPropagation();hapusKonten(this)">Hapus</button></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="konten-card has-link"
+                            onclick="bukaArtikel('https://share.google/ZFLBWtioUIJZQgB6A')">
+                            <div class="konten-img" style="padding:0"><img src="a4.webp"
+                                    style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="konten-body">
+                                <h4>Kesehatan Mental & Kesejahteraan Hidup</h4>
+                                <p>📅 28 Feb 2026 · 👁️ 0 dibaca · <span class="link-tag">🔗 Buka Artikel</span></p>
+                                <div class="konten-meta"><span class="badge badge-primary">Kesehatan Mental</span>
+                                    <div class="action-btns"><button class="btn-outline btn-sm"
+                                            onclick="event.stopPropagation()">Edit</button><button
+                                            class="btn-danger btn-sm"
+                                            onclick="event.stopPropagation();hapusKonten(this)">Hapus</button></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="konten-card has-link"
+                            onclick="bukaArtikel('https://share.google/2u3CkXKoOcs7BhxJF')">
+                            <div class="konten-img" style="padding:0"><img src="a5.avif"
+                                    style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="konten-body">
+                                <h4>Kenali Gejala Anxiety Disorder</h4>
+                                <p>📅 27 Feb 2026 · 👁️ 1.2k dibaca · <span class="link-tag">🔗 Buka Artikel</span></p>
+                                <div class="konten-meta"><span class="badge badge-warning">Kecemasan</span>
+                                    <div class="action-btns"><button class="btn-outline btn-sm"
+                                            onclick="event.stopPropagation()">Edit</button><button
+                                            class="btn-danger btn-sm"
+                                            onclick="event.stopPropagation();hapusKonten(this)">Hapus</button></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="konten-card has-link"
+                            onclick="bukaArtikel('https://share.google/tAHwRxDdCDMNJdBPj')">
+                            <div class="konten-img" style="padding:0"><img src="a6.jpg"
+                                    style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="konten-body">
+                                <h4>Tanda Depresi yang Sering Diabaikan</h4>
+                                <p>📅 26 Feb 2026 · 👁️ 0 dibaca · <span class="link-tag">🔗 Buka Artikel</span></p>
+                                <div class="konten-meta"><span class="badge badge-danger">Depresi</span>
+                                    <div class="action-btns"><button class="btn-outline btn-sm"
+                                            onclick="event.stopPropagation()">Edit</button><button
+                                            class="btn-danger btn-sm"
+                                            onclick="event.stopPropagation();hapusKonten(this)">Hapus</button></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Artikel 2 -->
-                    <div class="konten-card has-link" onclick="bukaArtikel('https://share.google/VaQ1UEQJqy0pDdq1w')">
-                        <div class="konten-img" style="padding:0">
-                            <img src="a3.jpg" style="width:100%;height:100%;object-fit:cover;">
-                        </div>
-                        <div class="konten-body">
-                            <h4>Pentingnya Kesehatan Mental bagi Remaja</h4>
-                            <p>📅 1 Mar 2026 · 👁️ 1.8k dibaca · <span class="link-tag">🔗 Buka Artikel</span></p>
-                            <div class="konten-meta">
-                                <span class="badge badge-primary">Kesehatan Mental</span>
-                                <div class="action-btns">
-                                    <button class="btn-outline btn-sm" onclick="event.stopPropagation()">Edit</button>
-                                    <button class="btn-danger btn-sm"
-                                        onclick="event.stopPropagation();hapusKonten(this)">Hapus</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Artikel 3 -->
-                    <div class="konten-card has-link" onclick="bukaArtikel('https://share.google/ZFLBWtioUIJZQgB6A')">
-                        <div class="konten-img" style="padding:0">
-                            <img src="a4.webp" style="width:100%;height:100%;object-fit:cover;">
-                        </div>
-                        <div class="konten-body">
-                            <h4>Kesehatan Mental & Kesejahteraan Hidup</h4>
-                            <p>📅 28 Feb 2026 · 👁️ 0 dibaca · <span class="link-tag">🔗 Buka Artikel</span></p>
-                            <div class="konten-meta">
-                                <span class="badge badge-primary">Kesehatan Mental</span>
-                                <div class="action-btns">
-                                    <button class="btn-outline btn-sm" onclick="event.stopPropagation()">Edit</button>
-                                    <button class="btn-danger btn-sm"
-                                        onclick="event.stopPropagation();hapusKonten(this)">Hapus</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Artikel 4 -->
-                    <div class="konten-card has-link" onclick="bukaArtikel('https://share.google/2u3CkXKoOcs7BhxJF')">
-                        <div class="konten-img" style="padding:0">
-                            <img src="a5.avif" style="width:100%;height:100%;object-fit:cover;">
-                        </div>
-                        <div class="konten-body">
-                            <h4>Kenali Gejala Anxiety Disorder</h4>
-                            <p>📅 27 Feb 2026 · 👁️ 1.2k dibaca · <span class="link-tag">🔗 Buka Artikel</span></p>
-                            <div class="konten-meta">
-                                <span class="badge badge-warning">Kecemasan</span>
-                                <div class="action-btns">
-                                    <button class="btn-outline btn-sm" onclick="event.stopPropagation()">Edit</button>
-                                    <button class="btn-danger btn-sm"
-                                        onclick="event.stopPropagation();hapusKonten(this)">Hapus</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Artikel 5 -->
-                    <div class="konten-card has-link" onclick="bukaArtikel('https://share.google/tAHwRxDdCDMNJdBPj')">
-                        <div class="konten-img" style="padding:0">
-                            <img src="a6.jpg" style="width:100%;height:100%;object-fit:cover;">
-                        </div>
-                        <div class="konten-body">
-                            <h4>Tanda Depresi yang Sering Diabaikan</h4>
-                            <p>📅 26 Feb 2026 · 👁️ 0 dibaca · <span class="link-tag">🔗 Buka Artikel</span></p>
-                            <div class="konten-meta">
-                                <span class="badge badge-danger">Depresi</span>
-                                <div class="action-btns">
-                                    <button class="btn-outline btn-sm" onclick="event.stopPropagation()">Edit</button>
-                                    <button class="btn-danger btn-sm"
-                                        onclick="event.stopPropagation();hapusKonten(this)">Hapus</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
 
+                <!-- VIDEO TABLE -->
                 <div id="konten-video" style="display:none">
                     <div class="table-wrap">
                         <div class="table-head">
@@ -1584,50 +1611,110 @@
                         <table>
                             <thead>
                                 <tr>
+                                    <th>Thumbnail</th>
                                     <th>Judul Video</th>
                                     <th>Channel</th>
                                     <th>Kategori</th>
-                                    <th>Link YouTube</th>
+                                    <th>Link</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="video-tbody">
                                 <tr>
+                                    <td><img src="https://img.youtube.com/vi/0xV-gpKYv3k/mqdefault.jpg"
+                                            style="width:80px;height:50px;object-fit:cover;border-radius:6px;"></td>
                                     <td style="font-weight:600">Apa Itu Anxiety dan Bagaimana Menghadapinya?</td>
                                     <td>Into The Light Indonesia</td>
                                     <td><span class="badge badge-warning">Kecemasan</span></td>
                                     <td><a href="https://www.youtube.com/watch?v=0xV-gpKYv3k" target="_blank"
-                                            style="color:var(--primary);font-size:12px">Lihat Video ↗</a></td>
+                                            style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
                                     <td>
-                                        <div class="action-btns">
-                                            <button class="btn-outline btn-sm">Edit</button>
-                                            <button class="btn-danger btn-sm">Hapus</button>
+                                        <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
+                                                class="btn-danger btn-sm" onclick="hapusVideo(this)">Hapus</button>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td><img src="https://img.youtube.com/vi/Btpwu4EHhGA/mqdefault.jpg"
+                                            style="width:80px;height:50px;object-fit:cover;border-radius:6px;"></td>
                                     <td style="font-weight:600">how I manage stress</td>
                                     <td>Maudy Ayunda</td>
                                     <td><span class="badge badge-danger">Stres</span></td>
                                     <td><a href="https://www.youtube.com/watch?v=Btpwu4EHhGA" target="_blank"
-                                            style="color:var(--primary);font-size:12px">Lihat Video ↗</a></td>
+                                            style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
                                     <td>
-                                        <div class="action-btns">
-                                            <button class="btn-outline btn-sm">Edit</button>
-                                            <button class="btn-danger btn-sm">Hapus</button>
+                                        <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
+                                                class="btn-danger btn-sm" onclick="hapusVideo(this)">Hapus</button>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td><img src="https://img.youtube.com/vi/bGYhibeAhB4/mqdefault.jpg"
+                                            style="width:80px;height:50px;object-fit:cover;border-radius:6px;"></td>
                                     <td style="font-weight:600">Tanda-Tanda Kamu Terkena Depresi!</td>
                                     <td>Siloam Hospitals</td>
                                     <td><span class="badge badge-danger">Depresi</span></td>
                                     <td><a href="https://www.youtube.com/watch?v=bGYhibeAhB4" target="_blank"
-                                            style="color:var(--primary);font-size:12px">Lihat Video ↗</a></td>
+                                            style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
                                     <td>
-                                        <div class="action-btns">
-                                            <button class="btn-outline btn-sm">Edit</button>
-                                            <button class="btn-danger btn-sm">Hapus</button>
+                                        <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
+                                                class="btn-danger btn-sm" onclick="hapusVideo(this)">Hapus</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="https://img.youtube.com/vi/_50igeHW7vw/mqdefault.jpg"
+                                            style="width:80px;height:50px;object-fit:cover;border-radius:6px;"></td>
+                                    <td style="font-weight:600">Mental Health and Social Media</td>
+                                    <td>TED</td>
+                                    <td><span class="badge badge-primary">Kesehatan Mental</span></td>
+                                    <td><a href="https://www.youtube.com/watch?v=_50igeHW7vw" target="_blank"
+                                            style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
+                                    <td>
+                                        <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
+                                                class="btn-danger btn-sm" onclick="hapusVideo(this)">Hapus</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="https://img.youtube.com/vi/-QDjx_spkwI/mqdefault.jpg"
+                                            style="width:80px;height:50px;object-fit:cover;border-radius:6px;"></td>
+                                    <td style="font-weight:600">Mental Health Wellness Tips</td>
+                                    <td>Psych2Go</td>
+                                    <td><span class="badge badge-primary">Kesehatan Mental</span></td>
+                                    <td><a href="https://www.youtube.com/watch?v=-QDjx_spkwI" target="_blank"
+                                            style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
+                                    <td>
+                                        <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
+                                                class="btn-danger btn-sm" onclick="hapusVideo(this)">Hapus</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="https://img.youtube.com/vi/NQcYZplTXnQ/mqdefault.jpg"
+                                            style="width:80px;height:50px;object-fit:cover;border-radius:6px;"></td>
+                                    <td style="font-weight:600">Mental Health Wellness Tips</td>
+                                    <td>Mental Health Foundation</td>
+                                    <td><span class="badge badge-primary">Kesehatan Mental</span></td>
+                                    <td><a href="https://www.youtube.com/watch?v=NQcYZplTXnQ" target="_blank"
+                                            style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
+                                    <td>
+                                        <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
+                                                class="btn-danger btn-sm" onclick="hapusVideo(this)">Hapus</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="https://img.youtube.com/vi/k_aFpRPwF3o/mqdefault.jpg"
+                                            style="width:80px;height:50px;object-fit:cover;border-radius:6px;"></td>
+                                    <td style="font-weight:600">How to Cope with Anxiety</td>
+                                    <td>Therapy in a Nutshell</td>
+                                    <td><span class="badge badge-warning">Kecemasan</span></td>
+                                    <td><a href="https://www.youtube.com/watch?v=k_aFpRPwF3o" target="_blank"
+                                            style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
+                                    <td>
+                                        <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
+                                                class="btn-danger btn-sm" onclick="hapusVideo(this)">Hapus</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1635,47 +1722,47 @@
                         </table>
                     </div>
                 </div>
+            </div>
 
-                <!-- PROFIL ADMIN -->
-                <div class="page" id="page-profil">
-                    <div class="profil-header">
-                        <div class="profil-avatar">AD</div>
-                        <div>
-                            <h2>Admin RuangPulih</h2>
-                            <p>admin@ruangpulih.com · Super Admin</p>
+            <!-- ===== PROFIL ADMIN ===== -->
+            <div class="page" id="page-profil">
+                <div class="profil-header">
+                    <div class="profil-avatar">AD</div>
+                    <div>
+                        <h2>Admin RuangPulih</h2>
+                        <p>admin@ruangpulih.com · Super Admin</p>
+                    </div>
+                </div>
+                <div class="profil-grid">
+                    <div class="card">
+                        <div class="card-header"><span class="card-title">Data Admin</span></div>
+                        <div class="card-body">
+                            <div class="form-group"><label>Nama Lengkap</label><input type="text"
+                                    value="Admin RuangPulih"></div>
+                            <div class="form-group"><label>Email</label><input type="email"
+                                    value="admin@ruangpulih.com"></div>
+                            <div class="form-group"><label>Nomor HP</label><input type="tel" value="08123456789"></div>
+                            <div class="form-group"><label>Role</label><input type="text" value="Super Admin" disabled
+                                    style="opacity:0.6"></div>
+                            <button class="btn-primary">Simpan Perubahan</button>
                         </div>
                     </div>
-                    <div class="profil-grid">
-                        <div class="card">
-                            <div class="card-header"><span class="card-title">Data Admin</span></div>
-                            <div class="card-body">
-                                <div class="form-group"><label>Nama Lengkap</label><input type="text"
-                                        value="Admin RuangPulih"></div>
-                                <div class="form-group"><label>Email</label><input type="email"
-                                        value="admin@ruangpulih.com"></div>
-                                <div class="form-group"><label>Nomor HP</label><input type="tel" value="08123456789">
-                                </div>
-                                <div class="form-group"><label>Role</label><input type="text" value="Super Admin"
-                                        disabled style="opacity:0.6"></div>
-                                <button class="btn-primary">Simpan Perubahan</button>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header"><span class="card-title">Ubah Password</span></div>
-                            <div class="card-body">
-                                <div class="form-group"><label>Password Lama</label><input type="password"
-                                        placeholder="••••••••"></div>
-                                <div class="form-group"><label>Password Baru</label><input type="password"
-                                        placeholder="••••••••"></div>
-                                <div class="form-group"><label>Konfirmasi Password Baru</label><input type="password"
-                                        placeholder="••••••••"></div>
-                                <button class="btn-primary">Update Password</button>
-                            </div>
+                    <div class="card">
+                        <div class="card-header"><span class="card-title">Ubah Password</span></div>
+                        <div class="card-body">
+                            <div class="form-group"><label>Password Lama</label><input type="password"
+                                    placeholder="••••••••"></div>
+                            <div class="form-group"><label>Password Baru</label><input type="password"
+                                    placeholder="••••••••"></div>
+                            <div class="form-group"><label>Konfirmasi Password Baru</label><input type="password"
+                                    placeholder="••••••••"></div>
+                            <button class="btn-primary">Update Password</button>
                         </div>
                     </div>
                 </div>
-
             </div>
+
+        </div><!-- end .content -->
     </main>
 
     <!-- MODAL TAMBAH PSIKOLOG -->
@@ -1687,15 +1774,12 @@
             <div class="form-group"><label>Nama Lengkap</label><input type="text" placeholder="Dr. Nama Lengkap, M.Psi">
             </div>
             <div class="form-group"><label>Email</label><input type="email" placeholder="email@ruangpulih.com"></div>
-            <div class="form-group"><label>Spesialisasi</label>
-                <select>
+            <div class="form-group"><label>Spesialisasi</label><select>
                     <option>Psikologi Klinis</option>
                     <option>Konseling Remaja</option>
                     <option>Manajemen Stres</option>
                     <option>Trauma & PTSD</option>
-                    <option>Psikologi Pendidikan</option>
-                </select>
-            </div>
+                </select></div>
             <div class="form-group"><label>Tarif per Sesi (Rp)</label><input type="number" placeholder="150000"></div>
             <div class="form-group"><label>No. STR / Lisensi</label><input type="text"
                     placeholder="Nomor lisensi psikolog"></div>
@@ -1722,39 +1806,38 @@
             <div id="form-artikel">
                 <div class="form-group"><label>Judul Artikel</label><input type="text" id="input-judul-artikel"
                         placeholder="Judul artikel..."></div>
-                <div class="form-group"><label>Kategori</label>
-                    <select id="input-kategori-artikel">
+                <div class="form-group"><label>Kategori</label><select id="input-kategori-artikel">
                         <option>Kesehatan Mental</option>
                         <option>Stres</option>
                         <option>Kecemasan</option>
                         <option>Depresi</option>
-                    </select>
+                        <option>Gangguan Kepribadian</option>
+                        <option>Gangguan Tidur</option>
+                    </select></div>
+                <div class="form-group"><label>Link Artikel</label><input type="url" id="input-link-artikel"
+                        placeholder="https://...">
+                    <div class="link-hint">🔗 Artikel dibuka di tab baru saat diklik</div>
                 </div>
-                <div class="form-group">
-                    <label>Link Artikel</label>
-                    <input type="url" id="input-link-artikel" placeholder="https://contoh.com/artikel...">
-                    <div class="link-hint">🔗 Artikel akan dibuka di tab baru saat pengguna mengkliknya</div>
-                </div>
-                <div class="form-group">
-                    <label>URL / Nama File Gambar</label>
-                    <input type="text" id="input-gambar-artikel" placeholder="a2.jpg atau https://...">
-                </div>
+                <div class="form-group"><label>URL / Nama File Gambar</label><input type="text"
+                        id="input-gambar-artikel" placeholder="a2.jpg atau https://..."></div>
             </div>
             <div id="form-video" style="display:none">
                 <div class="form-group"><label>Judul Video</label><input type="text" id="input-judul-video"
                         placeholder="Judul video..."></div>
                 <div class="form-group"><label>Channel YouTube</label><input type="text" id="input-channel-video"
                         placeholder="Nama channel..."></div>
-                <div class="form-group"><label>Link YouTube (Embed ID)</label><input type="text" id="input-link-video"
-                        placeholder="ID video YouTube..."></div>
-                <div class="form-group"><label>Kategori</label>
-                    <select id="input-kategori-video">
+                <div class="form-group"><label>ID Video YouTube</label><input type="text" id="input-id-video"
+                        placeholder="Contoh: dQw4w9WgXcQ">
+                    <div class="link-hint">💡 Ambil dari URL YouTube: youtube.com/watch?v=<b>ID_INI</b></div>
+                </div>
+                <div class="form-group"><label>Kategori</label><select id="input-kategori-video">
                         <option>Kesehatan Mental</option>
                         <option>Stres</option>
                         <option>Kecemasan</option>
                         <option>Depresi</option>
-                    </select>
-                </div>
+                        <option>Gangguan Kepribadian</option>
+                        <option>Gangguan Tidur</option>
+                    </select></div>
             </div>
             <div class="modal-footer">
                 <button class="btn-outline"
@@ -1778,14 +1861,8 @@
         function switchTab(tab, el) {
             document.getElementById('konten-artikel').style.display = tab === 'artikel' ? '' : 'none';
             document.getElementById('konten-video').style.display = tab === 'video' ? '' : 'none';
-            document.querySelectorAll('[id^="tab-"]').forEach(t => {
-                t.style.color = 'var(--text-muted)';
-                t.style.borderBottom = 'none';
-                t.style.fontWeight = '600';
-            });
-            el.style.color = 'var(--primary)';
-            el.style.borderBottom = '2px solid var(--primary)';
-            el.style.fontWeight = '700';
+            document.querySelectorAll('.konten-tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
         }
 
         function toggleKontenForm(val) {
@@ -1793,12 +1870,14 @@
             document.getElementById('form-video').style.display = val === 'video' ? '' : 'none';
         }
 
-        function bukaArtikel(url) {
-            if (url) window.open(url, '_blank');
-        }
+        function bukaArtikel(url) { if (url) window.open(url, '_blank'); }
 
         function hapusKonten(btn) {
             if (confirm('Hapus konten ini?')) btn.closest('.konten-card').remove();
+        }
+
+        function hapusVideo(btn) {
+            if (confirm('Hapus video ini?')) btn.closest('tr').remove();
         }
 
         function simpanKonten() {
@@ -1810,15 +1889,14 @@
                 const gambar = document.getElementById('input-gambar-artikel').value.trim();
                 if (!judul) { alert('Judul artikel wajib diisi!'); return; }
                 if (!link) { alert('Link artikel wajib diisi!'); return; }
-                const badgeClass = { 'Kesehatan Mental': 'badge-primary', 'Stres': 'badge-danger', 'Kecemasan': 'badge-warning', 'Depresi': 'badge-danger' }[kategori] || 'badge-gray';
+                const badgeMap = { 'Kesehatan Mental': 'badge-primary', 'Stres': 'badge-danger', 'Kecemasan': 'badge-warning', 'Depresi': 'badge-danger', 'Gangguan Kepribadian': 'badge-gray', 'Gangguan Tidur': 'badge-gray' };
+                const badgeClass = badgeMap[kategori] || 'badge-gray';
                 const today = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
                 const card = document.createElement('div');
                 card.className = 'konten-card has-link';
                 card.onclick = () => bukaArtikel(link);
                 card.innerHTML = `
-    <div class="konten-img" style="padding:0">
-        <img src="${gambar || 'a2.jpg'}" style="width:100%;height:100%;object-fit:cover;">
-    </div>
+                <div class="konten-img" style="padding:0"><img src="${gambar || 'a2.jpg'}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<div style=width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px>📄</div>'"></div>
                 <div class="konten-body">
                     <h4>${judul}</h4>
                     <p>📅 ${today} · 👁️ 0 dibaca · <span class="link-tag">🔗 Buka Artikel</span></p>
@@ -1833,6 +1911,29 @@
                 document.getElementById('artikel-grid').prepend(card);
                 document.getElementById('input-judul-artikel').value = '';
                 document.getElementById('input-link-artikel').value = '';
+                document.getElementById('input-gambar-artikel').value = '';
+            } else {
+                const judul = document.getElementById('input-judul-video').value.trim();
+                const channel = document.getElementById('input-channel-video').value.trim();
+                const videoId = document.getElementById('input-id-video').value.trim();
+                const kategori = document.getElementById('input-kategori-video').value;
+                if (!judul) { alert('Judul video wajib diisi!'); return; }
+                if (!videoId) { alert('ID video YouTube wajib diisi!'); return; }
+                const badgeMap = { 'Kesehatan Mental': 'badge-primary', 'Stres': 'badge-danger', 'Kecemasan': 'badge-warning', 'Depresi': 'badge-danger', 'Gangguan Kepribadian': 'badge-gray', 'Gangguan Tidur': 'badge-gray' };
+                const badgeClass = badgeMap[kategori] || 'badge-gray';
+                const youtubeUrl = `https://www.youtube.com/watch?v=${videoId}`;
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                <td><img src="https://img.youtube.com/vi/${videoId}/mqdefault.jpg" style="width:80px;height:50px;object-fit:cover;border-radius:6px;"></td>
+                <td style="font-weight:600">${judul}</td>
+                <td>${channel}</td>
+                <td><span class="badge ${badgeClass}">${kategori}</span></td>
+                <td><a href="${youtubeUrl}" target="_blank" style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
+                <td><div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button class="btn-danger btn-sm" onclick="hapusVideo(this)">Hapus</button></div></td>`;
+                document.getElementById('video-tbody').prepend(row);
+                document.getElementById('input-judul-video').value = '';
+                document.getElementById('input-channel-video').value = '';
+                document.getElementById('input-id-video').value = '';
             }
             document.getElementById('modal-konten').classList.remove('show');
         }
