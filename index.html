@@ -74,7 +74,7 @@
         }
 
         .logo-img {
-            height: 40px;
+            height: 100px;
             width: auto;
             object-fit: contain;
             display: block;
@@ -236,6 +236,66 @@
             box-shadow: 0 8px 24px rgba(99, 82, 199, 0.4);
         }
 
+        .profil-wrapper {
+            position: relative;
+        }
+
+        .btn-profil {
+            padding: 10px 20px;
+            background: var(--primary-dark);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-profil:hover {
+            background: var(--primary);
+        }
+
+        .profil-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: calc(100% + 8px);
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            min-width: 180px;
+            overflow: hidden;
+            z-index: 999;
+        }
+
+        .profil-dropdown.show {
+            display: block;
+        }
+
+        .profil-dropdown a {
+            display: block;
+            padding: 12px 16px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .profil-dropdown a:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .profil-dropdown hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 0;
+        }
+
         .btn-secondary {
             padding: 14px 30px;
             background: white;
@@ -296,15 +356,15 @@
             position: relative;
             z-index: 2;
             display: flex;
-            right: -40px;
+            right: -20px;
         }
 
         .hero-img-wrapper {
             position: relative;
-            border-radius: var(--radius-lg);
+            border-radius: 50%;
             overflow: hidden;
             background: none;
-            aspect-ratio: 4/5;
+            aspect-ratio: 1/1;
             max-height: 500px;
             width: 110%;
             transform: scale(1.1);
@@ -963,7 +1023,7 @@
     <!-- NAVBAR -->
     <nav class="navbar">
         <div class="logo">
-            <img src="logo1.png" alt="RuangPulih" class="logo-img">
+            <img src="logorp.png" alt="RuangPulih" class="logo-img">
         </div>
         <ul class="nav-menu">
             <li><a href="index.html">Beranda</a></li>
@@ -982,7 +1042,7 @@
                 Layanan Psikologi Terpercaya
             </div>
             <h1>Disinilah Tempatmu <span class="hero-highlight">Sembuh</span> dan Bertumbuh</h1>
-            <p>Pernah merasa semuanya di luar kendali? Tekanan belajar, ekspektasi yang menumpuk — semua itu wajar. Tapi
+            <p>Pernah merasa semuanya di luar kendali? Tekanan belajar, ekspektasi yang menumpuk semua itu wajar. Tapi
                 kalau rasanya makin berat, jangan dipendam sendiri. Psikolog kami siap jadi teman diskusi yang tepat.
             </p>
             <div class="hero-buttons">
@@ -1245,115 +1305,115 @@
                         data-cfemail="650d0009090a251710040b021510090c0d4b060a08">[email&#160;protected]</a></p>
             </div>
         </div>
-        </footer>
-        <script>
-  const artikelData = [
-    {
-      kategori: "Kesehatan Mental",
-      tipe: "large",
-      href: "https://share.google/AdCTQqPyG5dl91vWl",
-      img: "a2.jpg",
-      alt: "Anxiety",
-      judul: "Anxiety Menyerang, Bagaimana Cara untuk Meredakannya?",
-      desc: "Anxiety bisa diredakan dengan cara menarik napas dalam dan fokus terhadap diri sendiri.",
-      date: "2 Mar 2026",
-      reads: "2.5k dibaca"
-    },
-    {
-      kategori: "Kesehatan Mental",
-      tipe: "small",
-      href: "https://share.google/VaQ1UEQJqy0pDdq1w",
-      img: "a3.jpg",
-      alt: "Kesehatan Mental Remaja",
-      katLabel: "Kesehatan Mental",
-      judul: "Pentingnya Kesehatan Mental bagi Remaja",
-      date: "1 Mar 2026"
-    },
-    {
-      kategori: "Kesehatan Mental",
-      tipe: "small",
-      href: "https://share.google/ZFLBWtioUIJZQgB6A",
-      img: "a4.webp",
-      alt: "Kesehatan Mental",
-      katLabel: "Kesehatan Mental",
-      judul: "Kesehatan Mental & Kesejahteraan Hidup",
-      date: "28 Feb 2026"
-    },
-    {
-      kategori: "Kecemasan",
-      tipe: "small",
-      href: "https://share.google/2u3CkXKoOcs7BhxJF",
-      img: "a5.avif",
-      alt: "Gejala Anxiety",
-      katLabel: "Kecemasan",
-      judul: "Kenali Gejala Anxiety Disorder",
-      date: "27 Feb 2026"
-    },
-    {
-      kategori: "Depresi",
-      tipe: "small",
-      href: "https://share.google/tAHwRxDdCDMNJdBPj",
-      img: "a6.jpg",
-      alt: "Tanda Depresi",
-      katLabel: "Depresi",
-      judul: "Tanda Depresi yang Sering Diabaikan",
-      date: "26 Feb 2026"
-    },
-    {
-        kategori: "Stres",
-        tipe: "large",
-        href: "https://www.alodokter.com/stres-pada-remaja-ketahui-tanda-dan-cara-mengatasinya",
-        img: "a7.avif",
-        alt: "Stres pada Remaja",
-        judul: "Stres pada Remaja, Ketahui Tanda dan Cara Mengatasinya",
-        desc: "Stres pada remaja sering kali terabaikan karena dianggap sebagai hal yang wajar terjadi di masa pendewasaan. Padahal, jika diabaikan, stres bisa berdampak buruk pada kesehatan fisik dan mentalnya.",
-        date: "12 Sept 2024"
-    },
-    {
-        kategori: "Gangguan Kepribadian",
-        tipe: "large",
-        href: "https://www.halodoc.com/artikel/ini-gejala-gangguan-kepribadian-yang-bisa-muncul-sejak-remaja?srsltid=AfmBOoqSByriMfNxzKIQ3s6WLT9p80ASsEp0W4JpL8KidnfazMh7lE9L%3F_single%3Dtrue&utm_campaign=articles&utm_campaign=articles&utm_medium=app&utm_medium=app_sharing&utm_source=deeplink%3F_single%3Dtrue&utm_source=app",
-        img: "a8.jpg",
-        alt: "Gangguan kepribadian",
-        judul: "Ini Gejala Gangguan Kepribadian yang Bisa Muncul sejak Remaja",
-        desc: "Gangguan kepribadian termasuk penyakit mental yang menyebabkan pengidap memiliki pola pikir dan perilaku tidak normal. Salah satu gejalanya ditandai dengan emosional berlebihan",
-        date: "20 Sept 2022"
-    },
-    {
-        kategori: "Gangguan Tidur",
-        tipe: "large",
-        href: "https://keslan.kemkes.go.id/view_artikel/3089/apa-yang-menjadi-gangguan-tidur-pada-remaja",
-        img: "a9.jpg",
-        alt: "Gangguan tidur",
-        judul: "Apa yang Menjadi Gangguan Tidur pada Remaja?",
-        desc: "Kenapa kamu susah tidur dan apa yang bisa dilakukan untuk mengatasinya secara alami.",
-        date: "9 Jan 2024"
-    },
-  ];
+    </footer>
+    <script>
+        const artikelData = [
+            {
+                kategori: "Kesehatan Mental",
+                tipe: "large",
+                href: "https://share.google/AdCTQqPyG5dl91vWl",
+                img: "a2.jpg",
+                alt: "Anxiety",
+                judul: "Anxiety Menyerang, Bagaimana Cara untuk Meredakannya?",
+                desc: "Anxiety bisa diredakan dengan cara menarik napas dalam dan fokus terhadap diri sendiri.",
+                date: "2 Mar 2026",
+                reads: "2.5k dibaca"
+            },
+            {
+                kategori: "Kesehatan Mental",
+                tipe: "small",
+                href: "https://share.google/VaQ1UEQJqy0pDdq1w",
+                img: "a3.jpg",
+                alt: "Kesehatan Mental Remaja",
+                katLabel: "Kesehatan Mental",
+                judul: "Pentingnya Kesehatan Mental bagi Remaja",
+                date: "1 Mar 2026"
+            },
+            {
+                kategori: "Kesehatan Mental",
+                tipe: "small",
+                href: "https://share.google/ZFLBWtioUIJZQgB6A",
+                img: "a4.webp",
+                alt: "Kesehatan Mental",
+                katLabel: "Kesehatan Mental",
+                judul: "Kesehatan Mental & Kesejahteraan Hidup",
+                date: "28 Feb 2026"
+            },
+            {
+                kategori: "Kecemasan",
+                tipe: "small",
+                href: "https://share.google/2u3CkXKoOcs7BhxJF",
+                img: "a5.avif",
+                alt: "Gejala Anxiety",
+                katLabel: "Kecemasan",
+                judul: "Kenali Gejala Anxiety Disorder",
+                date: "27 Feb 2026"
+            },
+            {
+                kategori: "Depresi",
+                tipe: "small",
+                href: "https://share.google/tAHwRxDdCDMNJdBPj",
+                img: "a6.jpg",
+                alt: "Tanda Depresi",
+                katLabel: "Depresi",
+                judul: "Tanda Depresi yang Sering Diabaikan",
+                date: "26 Feb 2026"
+            },
+            {
+                kategori: "Stres",
+                tipe: "large",
+                href: "https://www.alodokter.com/stres-pada-remaja-ketahui-tanda-dan-cara-mengatasinya",
+                img: "a7.avif",
+                alt: "Stres pada Remaja",
+                judul: "Stres pada Remaja, Ketahui Tanda dan Cara Mengatasinya",
+                desc: "Stres pada remaja sering kali terabaikan karena dianggap sebagai hal yang wajar terjadi di masa pendewasaan. Padahal, jika diabaikan, stres bisa berdampak buruk pada kesehatan fisik dan mentalnya.",
+                date: "12 Sept 2024"
+            },
+            {
+                kategori: "Gangguan Kepribadian",
+                tipe: "large",
+                href: "https://www.halodoc.com/artikel/ini-gejala-gangguan-kepribadian-yang-bisa-muncul-sejak-remaja?srsltid=AfmBOoqSByriMfNxzKIQ3s6WLT9p80ASsEp0W4JpL8KidnfazMh7lE9L%3F_single%3Dtrue&utm_campaign=articles&utm_campaign=articles&utm_medium=app&utm_medium=app_sharing&utm_source=deeplink%3F_single%3Dtrue&utm_source=app",
+                img: "a8.jpg",
+                alt: "Gangguan kepribadian",
+                judul: "Ini Gejala Gangguan Kepribadian yang Bisa Muncul sejak Remaja",
+                desc: "Gangguan kepribadian termasuk penyakit mental yang menyebabkan pengidap memiliki pola pikir dan perilaku tidak normal. Salah satu gejalanya ditandai dengan emosional berlebihan",
+                date: "20 Sept 2022"
+            },
+            {
+                kategori: "Gangguan Tidur",
+                tipe: "large",
+                href: "https://keslan.kemkes.go.id/view_artikel/3089/apa-yang-menjadi-gangguan-tidur-pada-remaja",
+                img: "a9.jpg",
+                alt: "Gangguan tidur",
+                judul: "Apa yang Menjadi Gangguan Tidur pada Remaja?",
+                desc: "Kenapa kamu susah tidur dan apa yang bisa dilakukan untuk mengatasinya secara alami.",
+                date: "9 Jan 2024"
+            },
+        ];
 
-  function renderArtikel(kategori) {
-    const filtered = kategori === "Kesehatan Mental"
-      ? artikelData
-      : artikelData.filter(a => a.kategori === kategori);
+        function renderArtikel(kategori) {
+            const filtered = kategori === "Kesehatan Mental"
+                ? artikelData
+                : artikelData.filter(a => a.kategori === kategori);
 
-    const grid = document.querySelector('.artikel-grid');
+            const grid = document.querySelector('.artikel-grid');
 
-    if (filtered.length === 0) {
-      grid.innerHTML = `<p style="color:var(--text-muted);font-size:14px;padding:20px 0;">Belum ada artikel untuk kategori ini.</p>`;
-      return;
-    }
+            if (filtered.length === 0) {
+                grid.innerHTML = `<p style="color:var(--text-muted);font-size:14px;padding:20px 0;">Belum ada artikel untuk kategori ini.</p>`;
+                return;
+            }
 
-    const large = filtered.find(a => a.tipe === 'large') || filtered[0];
-    const smalls = filtered.filter(a => a !== large).slice(0, 4);
+            const large = filtered.find(a => a.tipe === 'large') || filtered[0];
+            const smalls = filtered.filter(a => a !== large).slice(0, 4);
 
-    const largeHTML = `
+            const largeHTML = `
   <a href="${large.href}" ${large.href !== '#' ? 'target="_blank"' : ''} class="artikel-link">
     <div class="artikel-card-large">
       <div class="artikel-img">
         ${large.img
-          ? `<img src="${large.img}" alt="${large.alt}" class="artikel-img-real">`
-          : `<div style="width:100%;height:100%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:60px;">${large.emoji || '📄'}</div>`
-        }
+                    ? `<img src="${large.img}" alt="${large.alt}" class="artikel-img-real">`
+                    : `<div style="width:100%;height:100%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:60px;">${large.emoji || '📄'}</div>`
+                }
         <span class="artikel-category">${large.kategori}</span>
       </div>
       <div class="artikel-content">
@@ -1367,16 +1427,16 @@
     </div>
   </a>`;
 
-    const smallsHTML = smalls.length > 0 ? `
+            const smallsHTML = smalls.length > 0 ? `
       <div class="artikel-side">
        ${smalls.map(a => `
   <a href="${a.href}" ${a.href !== '#' ? 'target="_blank"' : ''} class="artikel-link">
     <div class="artikel-card-small">
       <div class="artikel-img-small">
         ${a.img
-          ? `<img src="${a.img}" alt="${a.alt}">`
-          : `<div style="width:100%;height:100%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:28px;">${a.emoji || '📄'}</div>`
-        }
+                    ? `<img src="${a.img}" alt="${a.alt}">`
+                    : `<div style="width:100%;height:100%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:28px;">${a.emoji || '📄'}</div>`
+                }
       </div>
       <div class="artikel-content-small">
         <div class="artikel-category-small">${a.katLabel || a.kategori}</div>
@@ -1387,16 +1447,53 @@
   </a>`).join('')}
       </div>` : '';
 
-    grid.innerHTML = largeHTML + smallsHTML;
-  }
+            grid.innerHTML = largeHTML + smallsHTML;
+        }
 
-  document.querySelectorAll('.tab-item').forEach(tab => {
-    tab.addEventListener('click', function () {
-      document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
-      this.classList.add('active');
-      renderArtikel(this.textContent.trim());
-    });
-  });
-</script>
+        document.querySelectorAll('.tab-item').forEach(tab => {
+            tab.addEventListener('click', function () {
+                document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                renderArtikel(this.textContent.trim());
+            });
+        });
+    </script>
+    <script>
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (user) {
+            const nama = user.email.split('@')[0];
+            document.querySelector('.btn-login').outerHTML = `
+        <div class="profil-wrapper">
+            <button class="btn-profil" onclick="toggleDropdown()">
+                 ${nama} ▾
+            </button>
+            <div class="profil-dropdown" id="profilDropdown">
+                <a href="dashboard-${user.role}.html">🏠 Dashboard</a>
+                <hr>
+                <a href="#" onclick="logout()">🚪 Logout</a>
+            </div>
+        </div>
+    `;
+        }
+
+        function toggleDropdown() {
+            const dd = document.getElementById('profilDropdown');
+            dd.classList.toggle('show');
+        }
+
+        // Klik di luar dropdown → tutup
+        document.addEventListener('click', function (e) {
+            const wrapper = document.querySelector('.profil-wrapper');
+            if (wrapper && !wrapper.contains(e.target)) {
+                document.getElementById('profilDropdown')?.classList.remove('show');
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem("user");
+            window.location.href = "index.html";
+        }
+    </script>
 </body>
+
 </html>
