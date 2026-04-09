@@ -127,7 +127,7 @@
             position: relative;
             overflow: hidden;
             width: 100%;
-            background: linear-gradient(135deg, #f3f0ff 0%, #e9e4ff 40%, #ddd6fe 100%);
+            background: #f8f7ff;
         }
 
         .hero::before {
@@ -855,8 +855,26 @@
         /* ===== RESPONSIVE ===== */
         @media (max-width: 900px) {
             .navbar {
-                padding: 0 24px;
+                padding: 0 16px;
+                flex-wrap: wrap;
+                height: auto;
+                padding-top: 12px;
+                padding-bottom: 12px;
+                gap: 12px;
             }
+
+            .nav-menu {
+                gap: 16px;
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+            }
+
+            .logo {
+                width: 100%;
+                justify-content: center;
+            }
+
 
             .hero {
                 grid-template-columns: 1fr;

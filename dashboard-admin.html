@@ -272,15 +272,8 @@
             gap: 14px;
         }
 
-        .stat-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            flex-shrink: 0;
+        .stat-icon:empty {
+            display: none;
         }
 
         .stat-val {
@@ -925,6 +918,200 @@
             border-bottom-color: var(--primary);
             font-weight: 700;
         }
+
+        @media (max-width: 768px) {
+
+            body {
+                overflow-x: hidden;
+            }
+
+            .sidebar {
+                width: 240px;
+                height: 100vh;
+                position: fixed;
+                top: 0;
+                left: -240px;
+                bottom: auto;
+                flex-direction: column;
+                transition: left 0.3s;
+                overflow-y: auto;
+                z-index: 50;
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            .sidebar-logo,
+            .sidebar-user,
+            .nav-label,
+            .sidebar-footer {
+                display: flex;
+            }
+
+            .sidebar-nav {
+                flex-direction: column;
+                justify-content: flex-start;
+                padding: 8px 12px;
+            }
+
+            .nav-item {
+                flex-direction: row;
+                font-size: 13px;
+                padding: 10px 12px;
+            }
+
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.4);
+                z-index: 49;
+            }
+
+            .sidebar-overlay.show {
+                display: block;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+                overflow-x: hidden;
+            }
+
+            .topbar {
+                padding: 0 16px;
+                position: sticky;
+                top: 0;
+                z-index: 40;
+            }
+
+            #menu-btn {
+                display: block !important;
+                background: none;
+                border: none;
+                font-size: 22px;
+                cursor: pointer;
+                padding: 8px;
+                z-index: 999;
+                position: relative;
+            }
+
+            .content {
+                padding: 12px;
+                width: 100%;
+                overflow-x: hidden;
+                box-sizing: border-box;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .stat-card {
+                min-width: 0;
+                padding: 12px;
+                box-sizing: border-box;
+            }
+
+            .stat-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
+            }
+
+            .stat-val {
+                font-size: 18px;
+            }
+
+            .stat-lbl {
+                font-size: 10px;
+            }
+
+            .two-col,
+            .konten-grid,
+            .profil-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-banner {
+                padding: 16px;
+                flex-direction: column;
+                gap: 10px;
+                box-sizing: border-box;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .filter-bar {
+                flex-direction: column;
+            }
+
+            .filter-bar input,
+            .filter-bar select,
+            .search-wrap {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .table-wrap thead {
+                display: none;
+            }
+
+            .table-wrap tbody tr {
+                display: block;
+                background: white;
+                border-radius: 12px;
+                margin-bottom: 10px;
+                padding: 14px;
+                border: 1px solid var(--border);
+                box-shadow: var(--shadow-sm);
+            }
+
+            .table-wrap tbody td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 6px 0;
+                border-bottom: 1px solid var(--border);
+                font-size: 13px;
+            }
+
+            .table-wrap tbody td:last-child {
+                border-bottom: none;
+                padding-top: 10px;
+            }
+
+            .table-wrap tbody td::before {
+                content: attr(data-label);
+                font-size: 11px;
+                font-weight: 700;
+                color: var(--text-muted);
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                flex-shrink: 0;
+                margin-right: 10px;
+            }
+
+            table {
+                min-width: unset;
+                width: 100%;
+            }
+
+            .table-wrap {
+                overflow-x: unset;
+            }
+
+            .modal {
+                margin: 16px;
+                max-width: calc(100% - 32px);
+            }
+        }
     </style>
 </head>
 
@@ -975,34 +1162,34 @@
             <div class="page active" id="page-dashboard">
                 <div class="welcome-banner">
                     <div class="welcome-text">
-                        <h2>Selamat Datang, Admin! 👋</h2>
+                        <h2>Selamat Datang, Admin! </h2>
                         <p>Pantau dan kelola seluruh aktivitas RuangPulih dari sini.</p>
                     </div>
                 </div>
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-icon" style="background:#ede9fb">🧑‍⚕️</div>
+                        <div class="stat-icon" style="background:#ede9fb"></div>
                         <div>
                             <div class="stat-val">18</div>
                             <div class="stat-lbl">Total Psikolog</div>
                         </div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon" style="background:#e8f2fc">🎓</div>
+                        <div class="stat-icon" style="background:#e8f2fc"></div>
                         <div>
                             <div class="stat-val">342</div>
                             <div class="stat-lbl">Total Mahasiswa</div>
                         </div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon" style="background:#f0fdf4">📅</div>
+                        <div class="stat-icon" style="background:#f0fdf4"></div>
                         <div>
                             <div class="stat-val">56</div>
                             <div class="stat-lbl">Jadwal Bulan Ini</div>
                         </div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon" style="background:#fffbeb">📝</div>
+                        <div class="stat-icon" style="background:#fffbeb"></div>
                         <div>
                             <div class="stat-val">24</div>
                             <div class="stat-lbl">Total Konten</div>
@@ -1029,28 +1216,30 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>Andi Pratama</td>
-                                        <td>Dr. Sarah</td>
-                                        <td>28 Mar 2026</td>
-                                        <td><span class="badge badge-success">Terkonfirmasi</span></td>
+                                        <td data-label="Mahasiswa">Andi Pratama</td>
+                                        <td data-label="Psikolog">Dr. Sarah</td>
+                                        <td data-label="Tanggal">28 Mar 2026</td>
+                                        <td data-label="Status"><span class="badge badge-success">Terkonfirmasi</span>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td>Budi Santoso</td>
-                                        <td>Reza P.</td>
-                                        <td>29 Mar 2026</td>
-                                        <td><span class="badge badge-warning">Menunggu</span></td>
+                                        <td data-label="Mahasiswa">Budi Santoso</td>
+                                        <td data-label="Psikolog">Reza P.</td>
+                                        <td data-label="Tanggal">29 Mar 2026</td>
+                                        <td data-label="Status"><span class="badge badge-warning">Menunggu</span></td>
                                     </tr>
                                     <tr>
-                                        <td>Citra Dewi</td>
-                                        <td>Nadia A.</td>
-                                        <td>30 Mar 2026</td>
-                                        <td><span class="badge badge-success">Terkonfirmasi</span></td>
+                                        <td data-label="Mahasiswa">Citra Dewi</td>
+                                        <td data-label="Psikolog">Nadia A.</td>
+                                        <td data-label="Tanggal">30 Mar 2026</td>
+                                        <td data-label="Status"><span class="badge badge-success">Terkonfirmasi</span>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td>Dian Rahma</td>
-                                        <td>Dr. Sarah</td>
-                                        <td>01 Apr 2026</td>
-                                        <td><span class="badge badge-warning">Menunggu</span></td>
+                                        <td data-label="Mahasiswa">Dian Rahma</td>
+                                        <td data-label="Psikolog">Dr. Sarah</td>
+                                        <td data-label="Tanggal">01 Apr 2026</td>
+                                        <td data-label="Status"><span class="badge badge-warning">Menunggu</span></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -1140,94 +1329,92 @@
                                 <th>Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <!-- SESUDAH -->
+                        <tbody id="tbody-jadwal">
                             <tr>
-                                <td>1</td>
-                                <td>
+                                <td data-label="Nama">
                                     <div class="name-cell">
                                         <div class="psikolog-avatar"
-                                            style="background:linear-gradient(135deg,#6352c7,#4a90d9)">AP</div>Andi
-                                        Pratama
-                                    </div>
+                                            style="background:linear-gradient(135deg,#6352c7,#4a90d9)">SA</div>
                                 </td>
-                                <td>Dr. Sarah Amelia</td>
-                                <td>28 Mar 2026 · 10:00</td>
-                                <td><span class="badge badge-primary">Online</span></td>
-                                <td><span class="badge badge-success">Terkonfirmasi</span></td>
-                                <td>
+                                <td data-label="Psikolog">Dr. Sarah Amelia</td>
+                                <td data-label="Tanggal">28 Mar 2026 · 10:00</td>
+                                <td data-label="Tipe"><span class="badge badge-primary">Online</span></td>
+                                <td data-label="Status"><span class="badge badge-success">Terkonfirmasi</span></td>
+                                <td data-label="Aksi">
                                     <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
                                             class="btn-danger btn-sm">Hapus</button></div>
                                 </td>
                             </tr>
                             <tr>
-                                <td>2</td>
-                                <td>
+                                <td data-label="No">2</td>
+                                <td data-label="Mahasiswa">
                                     <div class="name-cell">
                                         <div class="psikolog-avatar"
                                             style="background:linear-gradient(135deg,#0f6e56,#1d9e75)">BS</div>Budi
                                         Santoso
                                     </div>
                                 </td>
-                                <td>Reza Pratama</td>
-                                <td>29 Mar 2026 · 14:00</td>
-                                <td><span class="badge badge-warning">Offline</span></td>
-                                <td><span class="badge badge-warning">Menunggu</span></td>
-                                <td>
+                                <td data-label="Psikolog">Reza Pratama</td>
+                                <td data-label="Tanggal">29 Mar 2026 · 14:00</td>
+                                <td data-label="Tipe"><span class="badge badge-warning">Offline</span></td>
+                                <td data-label="Status"><span class="badge badge-warning">Menunggu</span></td>
+                                <td data-label="Aksi">
                                     <div class="action-btns"><button
                                             class="btn-outline btn-sm">Konfirmasi</button><button
                                             class="btn-danger btn-sm">Tolak</button></div>
                                 </td>
                             </tr>
                             <tr>
-                                <td>3</td>
-                                <td>
+                                <td data-label="No">3</td>
+                                <td data-label="Mahasiswa">
                                     <div class="name-cell">
                                         <div class="psikolog-avatar"
                                             style="background:linear-gradient(135deg,#993556,#d4537e)">CD</div>Citra
                                         Dewi
                                     </div>
                                 </td>
-                                <td>Nadia Aulia</td>
-                                <td>30 Mar 2026 · 09:00</td>
-                                <td><span class="badge badge-primary">Online</span></td>
-                                <td><span class="badge badge-success">Terkonfirmasi</span></td>
-                                <td>
+                                <td data-label="Psikolog">Nadia Aulia</td>
+                                <td data-label="Tanggal">30 Mar 2026 · 09:00</td>
+                                <td data-label="Tipe"><span class="badge badge-primary">Online</span></td>
+                                <td data-label="Status"><span class="badge badge-success">Terkonfirmasi</span></td>
+                                <td data-label="Aksi">
                                     <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
                                             class="btn-danger btn-sm">Hapus</button></div>
                                 </td>
                             </tr>
                             <tr>
-                                <td>4</td>
-                                <td>
+                                <td data-label="No">4</td>
+                                <td data-label="Mahasiswa">
                                     <div class="name-cell">
                                         <div class="psikolog-avatar"
                                             style="background:linear-gradient(135deg,#854f0b,#ba7517)">DR</div>Dian
                                         Rahma
                                     </div>
                                 </td>
-                                <td>Dr. Sarah Amelia</td>
-                                <td>01 Apr 2026 · 11:00</td>
-                                <td><span class="badge badge-warning">Offline</span></td>
-                                <td><span class="badge badge-warning">Menunggu</span></td>
-                                <td>
+                                <td data-label="Psikolog">Dr. Sarah Amelia</td>
+                                <td data-label="Tanggal">01 Apr 2026 · 11:00</td>
+                                <td data-label="Tipe"><span class="badge badge-warning">Offline</span></td>
+                                <td data-label="Status"><span class="badge badge-warning">Menunggu</span></td>
+                                <td data-label="Aksi">
                                     <div class="action-btns"><button
                                             class="btn-outline btn-sm">Konfirmasi</button><button
                                             class="btn-danger btn-sm">Tolak</button></div>
                                 </td>
                             </tr>
                             <tr>
-                                <td>5</td>
-                                <td>
+                                <td data-label="No">5</td>
+                                <td data-label="Mahasiswa">
                                     <div class="name-cell">
                                         <div class="psikolog-avatar"
                                             style="background:linear-gradient(135deg,#185fa5,#378add)">EP</div>Eka Putra
                                     </div>
                                 </td>
-                                <td>Bayu Wicaksono</td>
-                                <td>02 Apr 2026 · 13:00</td>
-                                <td><span class="badge badge-primary">Online</span></td>
-                                <td><span class="badge badge-gray">Selesai</span></td>
-                                <td>
+                                <td data-label="Psikolog">Bayu Wicaksono</td>
+                                <td data-label="Tanggal">02 Apr 2026 · 13:00</td>
+                                <td data-label="Tipe"><span class="badge badge-primary">Online</span></td>
+                                <td data-label="Status"><span class="badge badge-gray">Selesai</span></td>
+                                <td data-label="Aksi">
                                     <div class="action-btns"><button class="btn-outline btn-sm">Detail</button></div>
                                 </td>
                             </tr>
@@ -1250,20 +1437,16 @@
                         Psikolog</button>
                 </div>
                 <div class="filter-bar">
-                    <div class="search-wrap"><span class="search-icon">🔍</span><input type="text"
-                            placeholder="Cari nama psikolog..."></div>
-                    <select class="filter-select">
+                    <div class="search-wrap"><span class="search-icon">🔍</span><input type="text" id="search-psikolog"
+                            placeholder="Cari nama psikolog..." oninput="filterPsikolog()"></div>
+                    <select class="filter-select" id="filter-spesialisasi" onchange="filterPsikolog()">
                         <option>Semua Spesialisasi</option>
                         <option>Psikologi Klinis</option>
                         <option>Konseling Remaja</option>
                         <option>Manajemen Stres</option>
                         <option>Trauma & PTSD</option>
                     </select>
-                    <select class="filter-select">
-                        <option>Semua Status</option>
-                        <option>Aktif</option>
-                        <option>Nonaktif</option>
-                    </select>
+
                 </div>
                 <div class="table-wrap">
                     <div class="table-head">
@@ -1280,9 +1463,9 @@
                                 <th>Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tbody-psikolog">
                             <tr>
-                                <td>
+                                <td data-label="Nama">
                                     <div class="name-cell">
                                         <div class="psikolog-avatar"
                                             style="background:linear-gradient(135deg,#6352c7,#4a90d9)">SA</div>
@@ -1293,17 +1476,17 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>Psikologi Klinis</td>
-                                <td>Rp 150.000</td>
-                                <td>⭐ 4.9</td>
-                                <td><span class="badge badge-success">Aktif</span></td>
-                                <td>
+                                <td data-label="Spesialisasi">Psikologi Klinis</td>
+                                <td data-label="Tarif">Rp 150.000</td>
+                                <td data-label="Rating">⭐ 4.9</td>
+                                <td data-label="Status"><span class="badge badge-success">Aktif</span></td>
+                                <td data-label="Aksi">
                                     <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
                                             class="btn-danger btn-sm">Nonaktifkan</button></div>
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td data-label="Nama">
                                     <div class="name-cell">
                                         <div class="psikolog-avatar"
                                             style="background:linear-gradient(135deg,#0f6e56,#1d9e75)">RP</div>
@@ -1314,17 +1497,17 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>Konseling Remaja</td>
-                                <td>Rp 100.000</td>
-                                <td>⭐ 4.7</td>
-                                <td><span class="badge badge-success">Aktif</span></td>
-                                <td>
+                                <td data-label="Spesialisasi">Konseling Remaja</td>
+                                <td data-label="Tarif">Rp 100.000</td>
+                                <td data-label="Rating">⭐ 4.7</td>
+                                <td data-label="Status"><span class="badge badge-success">Aktif</span></td>
+                                <td data-label="Aksi">
                                     <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
                                             class="btn-danger btn-sm">Nonaktifkan</button></div>
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td data-label="Nama">
                                     <div class="name-cell">
                                         <div class="psikolog-avatar"
                                             style="background:linear-gradient(135deg,#993556,#d4537e)">NA</div>
@@ -1335,17 +1518,17 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>Manajemen Stres</td>
-                                <td>Rp 120.000</td>
-                                <td>⭐ 4.8</td>
-                                <td><span class="badge badge-success">Aktif</span></td>
-                                <td>
+                                <td data-label="Spesialisasi">Manajemen Stres</td>
+                                <td data-label="Tarif">Rp 120.000</td>
+                                <td data-label="Rating">⭐ 4.8</td>
+                                <td data-label="Status"><span class="badge badge-success">Aktif</span></td>
+                                <td data-label="Aksi">
                                     <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
                                             class="btn-danger btn-sm">Nonaktifkan</button></div>
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td data-label="Nama">
                                     <div class="name-cell">
                                         <div class="psikolog-avatar"
                                             style="background:linear-gradient(135deg,#854f0b,#ba7517)">BW</div>
@@ -1356,11 +1539,11 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>Trauma & PTSD</td>
-                                <td>Rp 130.000</td>
-                                <td>⭐ 4.6</td>
-                                <td><span class="badge badge-gray">Nonaktif</span></td>
-                                <td>
+                                <td data-label="Spesialisasi">Trauma & PTSD</td>
+                                <td data-label="Tarif">Rp 130.000</td>
+                                <td data-label="Rating">⭐ 4.6</td>
+                                <td data-label="Status"><span class="badge badge-gray">Nonaktif</span></td>
+                                <td data-label="Aksi">
                                     <div class="action-btns"><button class="btn-outline btn-sm">Aktifkan</button><button
                                             class="btn-danger btn-sm">Hapus</button></div>
                                 </td>
@@ -1382,13 +1565,13 @@
                     </div>
                 </div>
                 <div class="filter-bar">
-                    <div class="search-wrap"><span class="search-icon">🔍</span><input type="text"
-                            placeholder="Cari nama atau NIM mahasiswa..."></div>
-                    <select class="filter-select">
-                        <option>Semua Status</option>
-                        <option>Aktif</option>
-                        <option>Menunggu Verifikasi</option>
-                        <option>Nonaktif</option>
+                    <div class="search-wrap"><span class="search-icon">🔍</span><input type="text" id="search-mahasiswa"
+                            placeholder="Cari nama atau NIM mahasiswa..." oninput="filterMahasiswa()"></div>
+                    <select class="filter-select" id="filter-status-mahasiswa" onchange="filterMahasiswa()">
+                        <option value="">Semua Status</option>
+                        <option value="Aktif">Aktif</option>
+                        <option value="Menunggu Verifikasi">Menunggu Verifikasi</option>
+                        <option value="Nonaktif">Nonaktif</option>
                     </select>
                 </div>
                 <div class="table-wrap">
@@ -1407,89 +1590,91 @@
                                 <th>Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tbody-mahasiswa">
                             <tr>
-                                <td>
+                                <td data-label="Nama">
                                     <div class="name-cell">
                                         <div class="psikolog-avatar"
                                             style="background:linear-gradient(135deg,#6352c7,#4a90d9)">AP</div>Andi
                                         Pratama
                                     </div>
                                 </td>
-                                <td>2021001001</td>
-                                <td>andi@mahasiswa.ac.id</td>
-                                <td>5</td>
-                                <td><span class="badge badge-success">Aktif</span></td>
-                                <td>
+                                <td data-label="NIM">2021001001</td>
+                                <td data-label="Email">andi@mahasiswa.ac.id</td>
+                                <td data-label="Konsultasi">5</td>
+                                <td data-label="Status"><span class="badge badge-success">Aktif</span></td>
+                                <td data-label="Aksi">
                                     <div class="action-btns"><button class="btn-outline btn-sm">Detail</button><button
                                             class="btn-danger btn-sm">Nonaktifkan</button></div>
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td data-label="Nama">
                                     <div class="name-cell">
                                         <div class="psikolog-avatar"
                                             style="background:linear-gradient(135deg,#0f6e56,#1d9e75)">BS</div>Budi
                                         Santoso
                                     </div>
                                 </td>
-                                <td>2021001234</td>
-                                <td>budi@mahasiswa.ac.id</td>
-                                <td>3</td>
-                                <td><span class="badge badge-success">Aktif</span></td>
-                                <td>
+                                <td data-label="NIM">2021001234</td>
+                                <td data-label="Email">budi@mahasiswa.ac.id</td>
+                                <td data-label="Konsultasi">3</td>
+                                <td data-label="Status"><span class="badge badge-success">Aktif</span></td>
+                                <td data-label="Aksi">
                                     <div class="action-btns"><button class="btn-outline btn-sm">Detail</button><button
                                             class="btn-danger btn-sm">Nonaktifkan</button></div>
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td data-label="Nama">
                                     <div class="name-cell">
                                         <div class="psikolog-avatar"
                                             style="background:linear-gradient(135deg,#993556,#d4537e)">CD</div>Citra
                                         Dewi
                                     </div>
                                 </td>
-                                <td>2022002345</td>
-                                <td>citra@mahasiswa.ac.id</td>
-                                <td>7</td>
-                                <td><span class="badge badge-warning">Menunggu Verifikasi</span></td>
-                                <td>
+                                <td data-label="NIM">2022002345</td>
+                                <td data-label="Email">citra@mahasiswa.ac.id</td>
+                                <td data-label="Konsultasi">7</td>
+                                <td data-label="Status"><span class="badge badge-warning">Menunggu Verifikasi</span>
+                                </td>
+                                <td data-label="Aksi">
                                     <div class="action-btns"><button
                                             class="btn-primary btn-sm">Verifikasi</button><button
                                             class="btn-danger btn-sm">Tolak</button></div>
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td data-label="Nama">
                                     <div class="name-cell">
                                         <div class="psikolog-avatar"
                                             style="background:linear-gradient(135deg,#854f0b,#ba7517)">DR</div>Dian
                                         Rahma
                                     </div>
                                 </td>
-                                <td>2020003456</td>
-                                <td>dian@mahasiswa.ac.id</td>
-                                <td>2</td>
-                                <td><span class="badge badge-warning">Menunggu Verifikasi</span></td>
-                                <td>
+                                <td data-label="NIM">2020003456</td>
+                                <td data-label="Email">dian@mahasiswa.ac.id</td>
+                                <td data-label="Konsultasi">2</td>
+                                <td data-label="Status"><span class="badge badge-warning">Menunggu Verifikasi</span>
+                                </td>
+                                <td data-label="Aksi">
                                     <div class="action-btns"><button
                                             class="btn-primary btn-sm">Verifikasi</button><button
                                             class="btn-danger btn-sm">Tolak</button></div>
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td data-label="Nama">
                                     <div class="name-cell">
                                         <div class="psikolog-avatar"
                                             style="background:linear-gradient(135deg,#185fa5,#378add)">EP</div>Eka Putra
                                     </div>
                                 </td>
-                                <td>2019004567</td>
-                                <td>eka@mahasiswa.ac.id</td>
-                                <td>10</td>
-                                <td><span class="badge badge-gray">Nonaktif</span></td>
-                                <td>
+                                <td data-label="NIM">2019004567</td>
+                                <td data-label="Email">eka@mahasiswa.ac.id</td>
+                                <td data-label="Konsultasi">10</td>
+                                <td data-label="Status"><span class="badge badge-gray">Nonaktif</span></td>
+                                <td data-label="Aksi">
                                     <div class="action-btns"><button class="btn-outline btn-sm">Aktifkan</button><button
                                             class="btn-danger btn-sm">Hapus</button></div>
                                 </td>
@@ -1621,98 +1806,110 @@
                             </thead>
                             <tbody id="video-tbody">
                                 <tr>
-                                    <td><img src="https://img.youtube.com/vi/0xV-gpKYv3k/mqdefault.jpg"
+                                    <td data-label="Thumbnail"><img
+                                            src="https://img.youtube.com/vi/0xV-gpKYv3k/mqdefault.jpg"
                                             style="width:80px;height:50px;object-fit:cover;border-radius:6px;"></td>
-                                    <td style="font-weight:600">Apa Itu Anxiety dan Bagaimana Menghadapinya?</td>
-                                    <td>Into The Light Indonesia</td>
-                                    <td><span class="badge badge-warning">Kecemasan</span></td>
-                                    <td><a href="https://www.youtube.com/watch?v=0xV-gpKYv3k" target="_blank"
-                                            style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
-                                    <td>
+                                    <td data-label="Judul" style="font-weight:600">Apa Itu Anxiety dan Bagaimana
+                                        Menghadapinya?</td>
+                                    <td data-label="Channel">Into The Light Indonesia</td>
+                                    <td data-label="Kategori"><span class="badge badge-warning">Kecemasan</span></td>
+                                    <td data-label="Link"><a href="https://www.youtube.com/watch?v=0xV-gpKYv3k"
+                                            target="_blank" style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
+                                    <td data-label="Aksi">
                                         <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
                                                 class="btn-danger btn-sm" onclick="hapusVideo(this)">Hapus</button>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><img src="https://img.youtube.com/vi/Btpwu4EHhGA/mqdefault.jpg"
+                                    <td data-label="Thumbnail"><img
+                                            src="https://img.youtube.com/vi/Btpwu4EHhGA/mqdefault.jpg"
                                             style="width:80px;height:50px;object-fit:cover;border-radius:6px;"></td>
-                                    <td style="font-weight:600">how I manage stress</td>
-                                    <td>Maudy Ayunda</td>
-                                    <td><span class="badge badge-danger">Stres</span></td>
-                                    <td><a href="https://www.youtube.com/watch?v=Btpwu4EHhGA" target="_blank"
-                                            style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
-                                    <td>
+                                    <td data-label="Judul" style="font-weight:600">how I manage stress</td>
+                                    <td data-label="Channel">Maudy Ayunda</td>
+                                    <td data-label="Kategori"><span class="badge badge-danger">Stres</span></td>
+                                    <td data-label="Link"><a href="https://www.youtube.com/watch?v=Btpwu4EHhGA"
+                                            target="_blank" style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
+                                    <td data-label="Aksi">
                                         <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
                                                 class="btn-danger btn-sm" onclick="hapusVideo(this)">Hapus</button>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><img src="https://img.youtube.com/vi/bGYhibeAhB4/mqdefault.jpg"
+                                    <td data-label="Thumbnail"><img
+                                            src="https://img.youtube.com/vi/bGYhibeAhB4/mqdefault.jpg"
                                             style="width:80px;height:50px;object-fit:cover;border-radius:6px;"></td>
-                                    <td style="font-weight:600">Tanda-Tanda Kamu Terkena Depresi!</td>
-                                    <td>Siloam Hospitals</td>
-                                    <td><span class="badge badge-danger">Depresi</span></td>
-                                    <td><a href="https://www.youtube.com/watch?v=bGYhibeAhB4" target="_blank"
-                                            style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
-                                    <td>
+                                    <td data-label="Judul" style="font-weight:600">Tanda-Tanda Kamu Terkena Depresi!
+                                    </td>
+                                    <td data-label="Channel">Siloam Hospitals</td>
+                                    <td data-label="Kategori"><span class="badge badge-danger">Depresi</span></td>
+                                    <td data-label="Link"><a href="https://www.youtube.com/watch?v=bGYhibeAhB4"
+                                            target="_blank" style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
+                                    <td data-label="Aksi">
                                         <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
                                                 class="btn-danger btn-sm" onclick="hapusVideo(this)">Hapus</button>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><img src="https://img.youtube.com/vi/_50igeHW7vw/mqdefault.jpg"
+                                    <td data-label="Thumbnail"><img
+                                            src="https://img.youtube.com/vi/_50igeHW7vw/mqdefault.jpg"
                                             style="width:80px;height:50px;object-fit:cover;border-radius:6px;"></td>
-                                    <td style="font-weight:600">Mental Health and Social Media</td>
-                                    <td>TED</td>
-                                    <td><span class="badge badge-primary">Kesehatan Mental</span></td>
-                                    <td><a href="https://www.youtube.com/watch?v=_50igeHW7vw" target="_blank"
-                                            style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
-                                    <td>
+                                    <td data-label="Judul" style="font-weight:600">Mental Health and Social Media</td>
+                                    <td data-label="Channel">TED</td>
+                                    <td data-label="Kategori"><span class="badge badge-primary">Kesehatan Mental</span>
+                                    </td>
+                                    <td data-label="Link"><a href="https://www.youtube.com/watch?v=_50igeHW7vw"
+                                            target="_blank" style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
+                                    <td data-label="Aksi">
                                         <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
                                                 class="btn-danger btn-sm" onclick="hapusVideo(this)">Hapus</button>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><img src="https://img.youtube.com/vi/-QDjx_spkwI/mqdefault.jpg"
+                                    <td data-label="Thumbnail"><img
+                                            src="https://img.youtube.com/vi/-QDjx_spkwI/mqdefault.jpg"
                                             style="width:80px;height:50px;object-fit:cover;border-radius:6px;"></td>
-                                    <td style="font-weight:600">Mental Health Wellness Tips</td>
-                                    <td>Psych2Go</td>
-                                    <td><span class="badge badge-primary">Kesehatan Mental</span></td>
-                                    <td><a href="https://www.youtube.com/watch?v=-QDjx_spkwI" target="_blank"
-                                            style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
-                                    <td>
+                                    <td data-label="Judul" style="font-weight:600">Mental Health Wellness Tips</td>
+                                    <td data-label="Channel">Psych2Go</td>
+                                    <td data-label="Kategori"><span class="badge badge-primary">Kesehatan Mental</span>
+                                    </td>
+                                    <td data-label="Link"><a href="https://www.youtube.com/watch?v=-QDjx_spkwI"
+                                            target="_blank" style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
+                                    <td data-label="Aksi">
                                         <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
                                                 class="btn-danger btn-sm" onclick="hapusVideo(this)">Hapus</button>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><img src="https://img.youtube.com/vi/NQcYZplTXnQ/mqdefault.jpg"
+                                    <td data-label="Thumbnail"><img
+                                            src="https://img.youtube.com/vi/NQcYZplTXnQ/mqdefault.jpg"
                                             style="width:80px;height:50px;object-fit:cover;border-radius:6px;"></td>
-                                    <td style="font-weight:600">Mental Health Wellness Tips</td>
-                                    <td>Mental Health Foundation</td>
-                                    <td><span class="badge badge-primary">Kesehatan Mental</span></td>
-                                    <td><a href="https://www.youtube.com/watch?v=NQcYZplTXnQ" target="_blank"
-                                            style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
-                                    <td>
+                                    <td data-label="Judul" style="font-weight:600">Mental Health Wellness Tips</td>
+                                    <td data-label="Channel">Mental Health Foundation</td>
+                                    <td data-label="Kategori"><span class="badge badge-primary">Kesehatan Mental</span>
+                                    </td>
+                                    <td data-label="Link"><a href="https://www.youtube.com/watch?v=NQcYZplTXnQ"
+                                            target="_blank" style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
+                                    <td data-label="Aksi">
                                         <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
                                                 class="btn-danger btn-sm" onclick="hapusVideo(this)">Hapus</button>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><img src="https://img.youtube.com/vi/k_aFpRPwF3o/mqdefault.jpg"
+                                    <td data-label="Thumbnail"><img
+                                            src="https://img.youtube.com/vi/k_aFpRPwF3o/mqdefault.jpg"
                                             style="width:80px;height:50px;object-fit:cover;border-radius:6px;"></td>
-                                    <td style="font-weight:600">How to Cope with Anxiety</td>
-                                    <td>Therapy in a Nutshell</td>
-                                    <td><span class="badge badge-warning">Kecemasan</span></td>
-                                    <td><a href="https://www.youtube.com/watch?v=k_aFpRPwF3o" target="_blank"
-                                            style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
-                                    <td>
+                                    <td data-label="Judul" style="font-weight:600">How to Cope with Anxiety</td>
+                                    <td data-label="Channel">Therapy in a Nutshell</td>
+                                    <td data-label="Kategori"><span class="badge badge-warning">Kecemasan</span></td>
+                                    <td data-label="Link"><a href="https://www.youtube.com/watch?v=k_aFpRPwF3o"
+                                            target="_blank" style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
+                                    <td data-label="Aksi">
                                         <div class="action-btns"><button class="btn-outline btn-sm">Edit</button><button
                                                 class="btn-danger btn-sm" onclick="hapusVideo(this)">Hapus</button>
                                         </div>
@@ -1938,6 +2135,77 @@
             document.getElementById('modal-konten').classList.remove('show');
         }
     </script>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <script>
+        if (!document.getElementById('menu-btn')) {
+            const menuBtn = document.createElement('button');
+            menuBtn.id = 'menu-btn';
+            menuBtn.innerHTML = '☰';
+            menuBtn.style.cssText = 'background:none;border:none;font-size:22px;cursor:pointer;padding:8px;position:relative;z-index:999;display:none;';
+            document.querySelector('.topbar').prepend(menuBtn);
+            menuBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                toggleSidebar();
+            });
+        }
+
+        if (window.innerWidth <= 768) {
+            document.getElementById('menu-btn').style.display = 'block';
+        }
+
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('open');
+            document.getElementById('sidebarOverlay').classList.toggle('show');
+        }
+
+        function closeSidebar() {
+            document.querySelector('.sidebar').classList.remove('open');
+            document.getElementById('sidebarOverlay').classList.remove('show');
+        }
+
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function () {
+                if (window.innerWidth <= 768) closeSidebar();
+            });
+        });
+    </script>
+    <script>
+        // ===== SEARCH & FILTER PSIKOLOG =====
+        function filterPsikolog() {
+            const keyword = document.getElementById('search-psikolog').value.toLowerCase();
+            const spesialisasi = document.getElementById('filter-spesialisasi').value;
+            const rows = document.querySelectorAll('#tbody-psikolog tr');
+
+            rows.forEach(row => {
+                const nama = row.querySelector('[data-label="Nama"]')?.textContent.toLowerCase() || '';
+                const spec = row.querySelector('[data-label="Spesialisasi"]')?.textContent.trim() || '';
+
+                const matchKeyword = nama.includes(keyword);
+                const matchSpec = spesialisasi === '' || spesialisasi === 'Semua Spesialisasi' || spec === spesialisasi;
+
+                row.style.display = (matchKeyword && matchSpec) ? '' : 'none';
+            });
+        }
+
+        function filterMahasiswa() {
+            const keyword = document.getElementById('search-mahasiswa').value.toLowerCase();
+            const status = document.getElementById('filter-status-mahasiswa').value;
+            const rows = document.querySelectorAll('#tbody-mahasiswa tr');
+
+            rows.forEach(row => {
+                const nama = row.querySelector('[data-label="Nama"]')?.textContent.toLowerCase() || '';
+                const nim = row.querySelector('[data-label="NIM"]')?.textContent.toLowerCase() || '';
+                const sts = row.querySelector('[data-label="Status"]')?.textContent.trim() || '';
+
+                const matchKeyword = nama.includes(keyword) || nim.includes(keyword);
+                const matchStatus = status === '' || sts.includes(status);
+
+                row.style.display = (matchKeyword && matchStatus) ? '' : 'none';
+            });
+        }
+    </script>
+
 </body>
 
 </html>
