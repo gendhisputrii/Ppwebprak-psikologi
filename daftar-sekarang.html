@@ -319,14 +319,14 @@
         </div>
 
         <div class="login-header">
-            <h2>Buat Akun Baru ✨</h2>
+            <h2>Buat Akun Baru </h2>
             <p>Bergabunglah dengan RuangPulih sekarang</p>
         </div>
 
         <!-- Role selector -->
         <div class="role-selector">
-            <button class="role-btn active" onclick="setRole('mahasiswa', this)">👤 Mahasiswa</button>
-            <button class="role-btn"        onclick="setRole('psikolog', this)">👨‍⚕️ Psikolog</button>
+            <button class="role-btn active" onclick="setRole('mahasiswa', this)"> Mahasiswa</button>
+            <button class="role-btn"        onclick="setRole('psikolog', this)"> Psikolog</button>
         </div>
 
         <!-- Alert -->
@@ -340,7 +340,7 @@
             <div class="form-group">
                 <label>Nama Lengkap</label>
                 <div class="input-wrap">
-                    <span class="input-icon">👤</span>
+                    <span class="input-icon"></span>
                     <input type="text" id="nama" placeholder="Masukkan nama lengkap">
                 </div>
                 <small class="error-msg" id="errorNama"></small>
@@ -350,7 +350,7 @@
             <div class="form-group" id="wrap-nim">
                 <label>NIM</label>
                 <div class="input-wrap">
-                    <span class="input-icon">🎓</span>
+                    <span class="input-icon"></span>
                     <input type="text" id="nim" placeholder="Contoh: 2021001001">
                 </div>
                 <small class="error-msg" id="errorNim"></small>
@@ -360,7 +360,7 @@
             <div class="form-group" id="wrap-str" style="display:none;">
                 <label>Nomor STR</label>
                 <div class="input-wrap">
-                    <span class="input-icon">📋</span>
+                    <span class="input-icon"></span>
                     <input type="text" id="str" placeholder="Nomor Surat Tanda Registrasi">
                 </div>
                 <small class="error-msg" id="errorStr"></small>
@@ -370,7 +370,7 @@
             <div class="form-group" id="wrap-spesialis" style="display:none;">
                 <label>Spesialisasi</label>
                 <div class="input-wrap select-wrap">
-                    <span class="input-icon">🧠</span>
+                    <span class="input-icon"></span>
                     <select id="spesialis" style="padding-left:40px;">
                         <option value="">Pilih spesialisasi</option>
                         <option>Psikolog Klinis</option>
@@ -388,7 +388,7 @@
                 <div class="form-group">
                     <label>Email</label>
                     <div class="input-wrap">
-                        <span class="input-icon">✉️</span>
+                        <span class="input-icon"></span>
                         <input type="email" id="email" placeholder="nama@email.com">
                     </div>
                     <small class="error-msg" id="errorEmail"></small>
@@ -396,7 +396,7 @@
                 <div class="form-group">
                     <label>No. HP</label>
                     <div class="input-wrap">
-                        <span class="input-icon">📱</span>
+                        <span class="input-icon"></span>
                         <input type="tel" id="phone" placeholder="08xxxxxxxxxx">
                     </div>
                     <small class="error-msg" id="errorPhone"></small>
@@ -408,7 +408,7 @@
                 <div class="form-group">
                     <label>Jenis Kelamin</label>
                     <div class="input-wrap select-wrap">
-                        <span class="input-icon">⚧</span>
+                        <span class="input-icon"></span>
                         <select id="gender" style="padding-left:40px;">
                             <option value="">Pilih</option>
                             <option>Laki-laki</option>
@@ -420,7 +420,7 @@
                 <div class="form-group">
                     <label>Tanggal Lahir</label>
                     <div class="input-wrap">
-                        <span class="input-icon">📅</span>
+                        <span class="input-icon"></span>
                         <input type="text" id="dob"
                             style="padding-left:40px;"
                             placeholder="DD/MM/YYYY"
@@ -437,12 +437,12 @@
             <div class="form-group">
                 <label>Password</label>
                 <div class="input-wrap">
-                    <span class="input-icon">🔑</span>
+                    <span class="input-icon"></span>
                     <input type="password" id="password"
                         placeholder="Minimal 8 karakter"
                         oninput="checkStrength(this.value)">
                     <button type="button" class="toggle-pass"
-                        onclick="togglePass('password', this)">👁️</button>
+                        onclick="togglePass('password', this)"></button>
                 </div>
                 <div class="strength-wrap">
                     <div class="strength-bars">
@@ -460,10 +460,10 @@
             <div class="form-group">
                 <label>Konfirmasi Password</label>
                 <div class="input-wrap">
-                    <span class="input-icon">🔒</span>
+                    <span class="input-icon"></span>
                     <input type="password" id="confirm-password" placeholder="Ulangi password">
                     <button type="button" class="toggle-pass"
-                        onclick="togglePass('confirm-password', this)">👁️</button>
+                        onclick="togglePass('confirm-password', this)"></button>
                 </div>
                 <small class="error-msg" id="errorConfirm"></small>
             </div>
@@ -503,10 +503,10 @@
             const input = document.getElementById(id);
             if (input.type === 'password') {
                 input.type = 'text';
-                btn.textContent = '🙈';
+                btn.textContent = '';
             } else {
                 input.type = 'password';
-                btn.textContent = '👁️';
+                btn.textContent = '';
             }
         }
 
