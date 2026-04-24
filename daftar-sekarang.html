@@ -9,25 +9,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <style>
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
         :root {
-            --primary:       #6352c7;
-            --primary-dark:  #2d1f6e;
+            --primary: #6352c7;
+            --primary-dark: #2d1f6e;
             --primary-light: #ede9fb;
-            --accent:        #4a90d9;
-            --success:       #16a34a;
+            --accent: #4a90d9;
+            --success: #16a34a;
             --success-light: #f0fdf4;
-            --danger:        #dc2626;
-            --text-dark:     #1a1145;
-            --text-mid:      #4a4570;
-            --text-muted:    #8b88a8;
-            --bg:            #f8f7ff;
-            --border:        rgba(99,82,199,0.12);
+            --danger: #dc2626;
+            --text-dark: #1a1145;
+            --text-mid: #4a4570;
+            --text-muted: #8b88a8;
+            --bg: #f8f7ff;
+            --border: rgba(99, 82, 199, 0.12);
         }
 
         body {
@@ -45,34 +47,45 @@
         body::before {
             content: '';
             position: fixed;
-            width: 500px; height: 500px;
+            width: 500px;
+            height: 500px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(99,82,199,0.1) 0%, transparent 70%);
-            top: -150px; right: -100px;
+            background: radial-gradient(circle, rgba(99, 82, 199, 0.1) 0%, transparent 70%);
+            top: -150px;
+            right: -100px;
             pointer-events: none;
         }
 
         body::after {
             content: '';
             position: fixed;
-            width: 350px; height: 350px;
+            width: 350px;
+            height: 350px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(74,144,217,0.08) 0%, transparent 70%);
-            bottom: -100px; left: -80px;
+            background: radial-gradient(circle, rgba(74, 144, 217, 0.08) 0%, transparent 70%);
+            bottom: -100px;
+            left: -80px;
             pointer-events: none;
         }
 
         .back-home {
             position: fixed;
-            top: 24px; left: 32px;
-            display: flex; align-items: center; gap: 8px;
+            top: 24px;
+            left: 32px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             text-decoration: none;
             color: var(--text-mid);
-            font-size: 13px; font-weight: 600;
+            font-size: 13px;
+            font-weight: 600;
             transition: color 0.2s;
             z-index: 10;
         }
-        .back-home:hover { color: var(--primary); }
+
+        .back-home:hover {
+            color: var(--primary);
+        }
 
         /* CARD */
         .register-card {
@@ -82,7 +95,7 @@
             width: 100%;
             max-width: 460px;
             border: 1px solid var(--border);
-            box-shadow: 0 20px 60px rgba(45,31,110,0.10);
+            box-shadow: 0 20px 60px rgba(45, 31, 110, 0.10);
             position: relative;
             z-index: 1;
         }
@@ -92,13 +105,21 @@
             text-align: center;
             margin-bottom: 22px;
         }
+
         .login-logo img {
-            height: 60px; width: auto; max-width: 200px;
-            object-fit: contain; display: block; margin: 0 auto;
+            height: 60px;
+            width: auto;
+            max-width: 200px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
         }
+
         .login-logo-text {
-            font-size: 20px; font-weight: 800;
-            color: var(--primary-dark); letter-spacing: -0.5px;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            letter-spacing: -0.5px;
         }
 
         /* HEADER */
@@ -106,12 +127,19 @@
             text-align: center;
             margin-bottom: 24px;
         }
+
         .login-header h2 {
-            font-size: 22px; font-weight: 800;
-            color: var(--text-dark); letter-spacing: -0.5px;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
             margin-bottom: 6px;
         }
-        .login-header p { font-size: 14px; color: var(--text-muted); }
+
+        .login-header p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
 
         /* ROLE SELECTOR */
         .role-selector {
@@ -124,38 +152,54 @@
             border-radius: 12px;
             border: 1px solid var(--border);
         }
+
         .role-btn {
             padding: 10px;
-            border: none; border-radius: 9px;
+            border: none;
+            border-radius: 9px;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 13px; font-weight: 600;
+            font-size: 13px;
+            font-weight: 600;
             color: var(--text-muted);
             background: transparent;
-            cursor: pointer; transition: all 0.2s;
+            cursor: pointer;
+            transition: all 0.2s;
             text-align: center;
         }
-        .role-btn:hover { color: var(--primary); }
+
+        .role-btn:hover {
+            color: var(--primary);
+        }
+
         .role-btn.active {
             background: white;
             color: var(--primary);
-            box-shadow: 0 2px 8px rgba(99,82,199,0.12);
+            box-shadow: 0 2px 8px rgba(99, 82, 199, 0.12);
         }
 
         /* FORM GROUP */
-        .form-group { margin-bottom: 14px; }
+        .form-group {
+            margin-bottom: 14px;
+        }
+
         .form-group label {
             display: block;
-            font-size: 12px; font-weight: 700;
+            font-size: 12px;
+            font-weight: 700;
             color: var(--text-mid);
-            text-transform: uppercase; letter-spacing: 0.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             margin-bottom: 7px;
         }
 
-        .input-wrap { position: relative; }
+        .input-wrap {
+            position: relative;
+        }
 
         .input-icon {
             position: absolute;
-            left: 13px; top: 50%;
+            left: 13px;
+            top: 50%;
             transform: translateY(-50%);
             font-size: 15px;
             pointer-events: none;
@@ -183,17 +227,23 @@
         .form-group select:focus {
             border-color: var(--primary);
             background: white;
-            box-shadow: 0 0 0 3px rgba(99,82,199,0.08);
+            box-shadow: 0 0 0 3px rgba(99, 82, 199, 0.08);
         }
 
-        .form-group input::placeholder { color: var(--text-muted); }
+        .form-group input::placeholder {
+            color: var(--text-muted);
+        }
 
         /* select arrow */
-        .select-wrap { position: relative; }
+        .select-wrap {
+            position: relative;
+        }
+
         .select-wrap::after {
             content: '▾';
             position: absolute;
-            right: 13px; top: 50%;
+            right: 13px;
+            top: 50%;
             transform: translateY(-50%);
             font-size: 12px;
             color: var(--text-muted);
@@ -202,16 +252,22 @@
 
         .toggle-pass {
             position: absolute;
-            right: 12px; top: 50%;
+            right: 12px;
+            top: 50%;
             transform: translateY(-50%);
-            background: none; border: none;
-            cursor: pointer; font-size: 15px;
-            color: var(--text-muted); padding: 0;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            color: var(--text-muted);
+            padding: 0;
         }
 
         .error-msg {
-            font-size: 12px; color: var(--danger);
-            margin-top: 5px; display: block;
+            font-size: 12px;
+            color: var(--danger);
+            margin-top: 5px;
+            display: block;
         }
 
         /* TWO COLUMN */
@@ -223,83 +279,129 @@
 
         /* TERMS */
         .terms-wrap {
-            display: flex; align-items: flex-start; gap: 9px;
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
             margin-bottom: 18px;
         }
+
         .terms-wrap input[type="checkbox"] {
             accent-color: var(--primary);
             cursor: pointer;
-            margin-top: 2px; flex-shrink: 0;
-            width: 15px; height: 15px;
+            margin-top: 2px;
+            flex-shrink: 0;
+            width: 15px;
+            height: 15px;
         }
+
         .terms-wrap label {
-            font-size: 13px; color: var(--text-mid);
-            line-height: 1.5; cursor: pointer;
+            font-size: 13px;
+            color: var(--text-mid);
+            line-height: 1.5;
+            cursor: pointer;
         }
-        .terms-wrap a { color: var(--primary); font-weight: 600; text-decoration: none; }
-        .terms-wrap a:hover { text-decoration: underline; }
+
+        .terms-wrap a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .terms-wrap a:hover {
+            text-decoration: underline;
+        }
 
         /* SUBMIT */
         .btn-register {
             width: 100%;
             padding: 13px;
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white; border: none; border-radius: 8px;
+            color: white;
+            border: none;
+            border-radius: 8px;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 15px; font-weight: 700;
-            cursor: pointer; transition: all 0.25s;
-            box-shadow: 0 4px 16px rgba(99,82,199,0.35);
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: 0 4px 16px rgba(99, 82, 199, 0.35);
             margin-bottom: 18px;
         }
+
         .btn-register:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(99,82,199,0.4);
+            box-shadow: 0 8px 24px rgba(99, 82, 199, 0.4);
         }
 
         .login-link {
             text-align: center;
-            font-size: 13px; color: var(--text-muted);
+            font-size: 13px;
+            color: var(--text-muted);
         }
+
         .login-link a {
-            color: var(--primary); font-weight: 700; text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
         }
-        .login-link a:hover { text-decoration: underline; }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
 
         /* ALERT */
         .alert-error {
             display: none;
             padding: 11px 15px;
-            background: #fef2f2; color: var(--danger);
+            background: #fef2f2;
+            color: var(--danger);
             border: 1px solid #fecaca;
-            border-radius: 8px; font-size: 13px; font-weight: 500;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
             margin-bottom: 14px;
         }
 
         .alert-success {
             display: none;
             padding: 11px 15px;
-            background: var(--success-light); color: var(--success);
+            background: var(--success-light);
+            color: var(--success);
             border: 1px solid #bbf7d0;
-            border-radius: 8px; font-size: 13px; font-weight: 500;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
             margin-bottom: 14px;
         }
 
         /* PASSWORD STRENGTH */
-        .strength-wrap { margin-top: 8px; }
+        .strength-wrap {
+            margin-top: 8px;
+        }
+
         .strength-bars {
-            display: flex; gap: 4px; margin-bottom: 4px;
+            display: flex;
+            gap: 4px;
+            margin-bottom: 4px;
         }
+
         .strength-bar {
-            flex: 1; height: 4px; border-radius: 2px;
-            background: var(--border); transition: background 0.3s;
+            flex: 1;
+            height: 4px;
+            border-radius: 2px;
+            background: var(--border);
+            transition: background 0.3s;
         }
+
         .strength-label {
-            font-size: 11px; color: var(--text-muted);
+            font-size: 11px;
+            color: var(--text-muted);
             font-weight: 600;
         }
 
         .divider {
-            border: none; border-top: 1px solid var(--border);
+            border: none;
+            border-top: 1px solid var(--border);
             margin: 18px 0;
         }
     </style>
@@ -326,11 +428,11 @@
         <!-- Role selector -->
         <div class="role-selector">
             <button class="role-btn active" onclick="setRole('mahasiswa', this)"> Mahasiswa</button>
-            <button class="role-btn"        onclick="setRole('psikolog', this)"> Psikolog</button>
+            <button class="role-btn" onclick="setRole('psikolog', this)"> Psikolog</button>
         </div>
 
         <!-- Alert -->
-        <div class="alert-error"   id="alert-error">Mohon lengkapi semua data dengan benar.</div>
+        <div class="alert-error" id="alert-error">Mohon lengkapi semua data dengan benar.</div>
         <div class="alert-success" id="alert-success">Akun berhasil dibuat! Mengarahkan ke login...</div>
 
         <!-- FORM -->
@@ -421,10 +523,7 @@
                     <label>Tanggal Lahir</label>
                     <div class="input-wrap">
                         <span class="input-icon"></span>
-                        <input type="text" id="dob"
-                            style="padding-left:40px;"
-                            placeholder="DD/MM/YYYY"
-                            maxlength="10"
+                        <input type="text" id="dob" style="padding-left:40px;" placeholder="DD/MM/YYYY" maxlength="10"
                             oninput="formatDOB(this)">
                     </div>
                     <small class="error-msg" id="errorDob"></small>
@@ -438,11 +537,9 @@
                 <label>Password</label>
                 <div class="input-wrap">
                     <span class="input-icon"></span>
-                    <input type="password" id="password"
-                        placeholder="Minimal 8 karakter"
+                    <input type="password" id="password" placeholder="Minimal 8 karakter"
                         oninput="checkStrength(this.value)">
-                    <button type="button" class="toggle-pass"
-                        onclick="togglePass('password', this)"></button>
+                    <button type="button" class="toggle-pass" onclick="togglePass('password', this)"></button>
                 </div>
                 <div class="strength-wrap">
                     <div class="strength-bars">
@@ -462,8 +559,7 @@
                 <div class="input-wrap">
                     <span class="input-icon"></span>
                     <input type="password" id="confirm-password" placeholder="Ulangi password">
-                    <button type="button" class="toggle-pass"
-                        onclick="togglePass('confirm-password', this)"></button>
+                    <button type="button" class="toggle-pass" onclick="togglePass('confirm-password', this)"></button>
                 </div>
                 <small class="error-msg" id="errorConfirm"></small>
             </div>
@@ -494,8 +590,8 @@
             btn.classList.add('active');
 
             const isPs = role === 'psikolog';
-            document.getElementById('wrap-nim').style.display       = isPs ? 'none' : '';
-            document.getElementById('wrap-str').style.display       = isPs ? '' : 'none';
+            document.getElementById('wrap-nim').style.display = isPs ? 'none' : '';
+            document.getElementById('wrap-str').style.display = isPs ? '' : 'none';
             document.getElementById('wrap-spesialis').style.display = isPs ? '' : 'none';
         }
 
@@ -512,38 +608,38 @@
 
         function formatDOB(input) {
             let v = input.value.replace(/\D/g, '');
-            if (v.length >= 3 && v.length <= 4) v = v.slice(0,2) + '/' + v.slice(2);
-            else if (v.length > 4) v = v.slice(0,2) + '/' + v.slice(2,4) + '/' + v.slice(4,8);
+            if (v.length >= 3 && v.length <= 4) v = v.slice(0, 2) + '/' + v.slice(2);
+            else if (v.length > 4) v = v.slice(0, 2) + '/' + v.slice(2, 4) + '/' + v.slice(4, 8);
             input.value = v;
         }
 
         function checkStrength(pw) {
-            const bars  = [1,2,3,4].map(i => document.getElementById('sb'+i));
+            const bars = [1, 2, 3, 4].map(i => document.getElementById('sb' + i));
             const label = document.getElementById('strength-label');
-            const colors = { 1:'#ef4444', 2:'#f97316', 3:'#eab308', 4:'#16a34a' };
-            const labels = { 1:'Lemah', 2:'Cukup', 3:'Kuat', 4:'Sangat Kuat' };
+            const colors = { 1: '#ef4444', 2: '#f97316', 3: '#eab308', 4: '#16a34a' };
+            const labels = { 1: 'Lemah', 2: 'Cukup', 3: 'Kuat', 4: 'Sangat Kuat' };
 
             let score = 0;
-            if (pw.length >= 8)          score++;
-            if (/[A-Z]/.test(pw))        score++;
-            if (/[0-9]/.test(pw))        score++;
+            if (pw.length >= 8) score++;
+            if (/[A-Z]/.test(pw)) score++;
+            if (/[0-9]/.test(pw)) score++;
             if (/[^A-Za-z0-9]/.test(pw)) score++;
 
             bars.forEach((bar, i) => {
                 bar.style.background = i < score ? colors[score] : 'rgba(99,82,199,0.12)';
             });
-            label.textContent  = pw.length > 0 ? labels[score] || 'Lemah' : '';
-            label.style.color  = pw.length > 0 ? colors[score] || '#ef4444' : '';
+            label.textContent = pw.length > 0 ? labels[score] || 'Lemah' : '';
+            label.style.color = pw.length > 0 ? colors[score] || '#ef4444' : '';
         }
 
         function clearErrors() {
-            ['Nama','Nim','Str','Spesialis','Email','Phone',
-             'Gender','Dob','Password','Confirm','Terms']
-            .forEach(id => {
-                const el = document.getElementById('error' + id);
-                if (el) el.textContent = '';
-            });
-            document.getElementById('alert-error').style.display   = 'none';
+            ['Nama', 'Nim', 'Str', 'Spesialis', 'Email', 'Phone',
+                'Gender', 'Dob', 'Password', 'Confirm', 'Terms']
+                .forEach(id => {
+                    const el = document.getElementById('error' + id);
+                    if (el) el.textContent = '';
+                });
+            document.getElementById('alert-error').style.display = 'none';
             document.getElementById('alert-success').style.display = 'none';
         }
 
@@ -551,17 +647,17 @@
             event.preventDefault();
             clearErrors();
 
-            const nama    = document.getElementById('nama').value.trim();
-            const email   = document.getElementById('email').value.trim();
-            const phone   = document.getElementById('phone').value.trim();
-            const gender  = document.getElementById('gender').value;
-            const dob     = document.getElementById('dob').value.trim();
-            const pass    = document.getElementById('password').value;
+            const nama = document.getElementById('nama').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const gender = document.getElementById('gender').value;
+            const dob = document.getElementById('dob').value.trim();
+            const pass = document.getElementById('password').value;
             const confirm = document.getElementById('confirm-password').value;
-            const terms   = document.getElementById('terms').checked;
+            const terms = document.getElementById('terms').checked;
 
-            const nim       = document.getElementById('nim').value.trim();
-            const str       = document.getElementById('str').value.trim();
+            const nim = document.getElementById('nim').value.trim();
+            const str = document.getElementById('str').value.trim();
             const spesialis = document.getElementById('spesialis').value;
 
             let valid = true;
@@ -639,13 +735,18 @@
                 return false;
             }
 
+            // Simpan status sudah daftar
+
+
             // Simulasi sukses
             document.getElementById('alert-success').style.display = 'block';
-            setTimeout(() => { window.location.href = 'login.html'; }, 2000);
 
-            return false;
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 2000);
         }
     </script>
 
 </body>
+
 </html>

@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - RuangPulih</title>
-    
+
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         :root {
             --primary: #6352c7;
@@ -22,12 +29,12 @@
             --radius-sm: 8px;
             --radius-md: 14px;
             --radius-lg: 20px;
-            --shadow-sm: 0 2px 8px rgba(45,31,110,0.06);
-            --shadow-md: 0 8px 32px rgba(45,31,110,0.10);
+            --shadow-sm: 0 2px 8px rgba(45, 31, 110, 0.06);
+            --shadow-md: 0 8px 32px rgba(45, 31, 110, 0.10);
         }
 
         body {
-            font-family: 'Plus Jakarta Sans',sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--bg);
             color: var(--text-dark);
             display: flex;
@@ -41,274 +48,922 @@
             display: flex;
             flex-direction: column;
             position: fixed;
-            top: 0; left: 0;
+            top: 0;
+            left: 0;
             height: 100vh;
             z-index: 50;
         }
+
         .sidebar-logo {
             padding: 24px 24px 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
+
         .sidebar-logo span {
-            font-size: 18px; font-weight: 800; color: white;
+            font-size: 18px;
+            font-weight: 800;
+            color: white;
         }
+
         .sidebar-user {
-            display: flex; align-items: center; gap: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             padding: 16px 24px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
+
         .user-avatar {
-            width: 36px; height: 36px; border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
             background: linear-gradient(135deg, var(--primary), var(--accent));
-            display: flex; align-items: center; justify-content: center;
-            font-size: 13px; font-weight: 700; color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: white;
             flex-shrink: 0;
         }
-        .user-name { font-size: 13px; font-weight: 600; color: white; }
-        .user-role { font-size: 11px; color: rgba(255,255,255,0.5); }
-        .sidebar-nav { flex: 1; padding: 8px 12px; overflow-y: auto; }
+
+        .user-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .user-role {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 8px 12px;
+            overflow-y: auto;
+        }
+
         .nav-label {
-            font-size: 10px; font-weight: 700; letter-spacing: 1px;
-            text-transform: uppercase; color: rgba(255,255,255,0.35);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.35);
             padding: 12px 12px 6px;
         }
+
         .nav-item {
-            display: flex; align-items: center; gap: 10px;
-            padding: 10px 12px; border-radius: var(--radius-sm);
-            cursor: pointer; transition: all 0.25s; text-decoration: none;
-            color: rgba(255,255,255,0.65); font-size: 13px; font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.25s;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 13px;
+            font-weight: 500;
             margin-bottom: 2px;
         }
-        .nav-item:hover { background: rgba(255,255,255,0.08); color: white; }
-        .nav-item.active { background: rgba(255,255,255,0.12); color: white; }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+        }
+
+        .nav-item.active {
+            background: rgba(255, 255, 255, 0.12);
+            color: white;
+        }
+
         .sidebar-footer {
             padding: 16px 12px;
-            border-top: 1px solid rgba(255,255,255,0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
+
         .logout-btn {
-            display: flex; align-items: center; gap: 10px;
-            padding: 10px 12px; border-radius: var(--radius-sm);
-            color: rgba(255,255,255,0.5); font-size: 13px; font-weight: 500;
-            text-decoration: none; transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
         }
-        .logout-btn:hover { color: #f87171; background: rgba(248,113,113,0.1); }
+
+        .logout-btn:hover {
+            color: #f87171;
+            background: rgba(248, 113, 113, 0.1);
+        }
 
         /* ===== MAIN ===== */
         .main {
             margin-left: 240px;
             width: calc(100% - 240px);
-            display: flex; flex-direction: column;
+            display: flex;
+            flex-direction: column;
         }
 
         /* ===== TOPBAR ===== */
         .topbar {
-            height: 70px; background: white;
+            height: 70px;
+            background: white;
             border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 24px; position: sticky; top: 0; z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
-        .topbar-title { font-size: 18px; font-weight: 700; color: var(--text-dark); }
-        .topbar-right { display: flex; align-items: center; gap: 12px; }
-        .notif-btn { position: relative; font-size: 20px; cursor: pointer; }
+
+        .topbar-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .notif-btn {
+            position: relative;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
         .notif-dot {
-            position: absolute; top: 0; right: 0;
-            width: 8px; height: 8px; border-radius: 50%; background: #ef4444;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ef4444;
         }
 
         /* ===== CONTENT ===== */
-        .content { padding: 24px; }
+        .content {
+            padding: 24px;
+        }
 
         /* PAGE SHOW/HIDE */
-        .page { display: none; }
-        .page.active { display: block; }
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
 
         /* ===== WELCOME BANNER ===== */
         .welcome-banner {
             background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-            border-radius: var(--radius-lg); padding: 28px 32px;
-            display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 24px; color: white;
+            border-radius: var(--radius-lg);
+            padding: 28px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            color: white;
         }
-        .welcome-text h2 { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
-        .welcome-text p { font-size: 14px; opacity: 0.85; }
+
+        .welcome-text h2 {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .welcome-text p {
+            font-size: 14px;
+            opacity: 0.85;
+        }
+
         .welcome-btn {
-            padding: 12px 22px; background: white; color: var(--primary);
-            border-radius: var(--radius-sm); font-size: 13px; font-weight: 700;
-            text-decoration: none; cursor: pointer; border: none;
-            white-space: nowrap; transition: all 0.2s;
+            padding: 12px 22px;
+            background: white;
+            color: var(--primary);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            white-space: nowrap;
+            transition: all 0.2s;
         }
-        .welcome-btn:hover { background: var(--primary-light); }
+
+        .welcome-btn:hover {
+            background: var(--primary-light);
+        }
 
         /* ===== STATS GRID ===== */
         .stats-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr);
-            gap: 16px; margin-bottom: 24px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
         }
+
         .stat-card {
-            background: white; padding: 20px; border-radius: var(--radius-md);
-            border: 1px solid var(--border); display: flex; align-items: center; gap: 16px;
+            background: white;
+            padding: 20px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 16px;
         }
+
         .stat-icon-box {
-            width: 44px; height: 44px; border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 20px; flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
         }
-        .stat-val { font-size: 24px; font-weight: 800; color: var(--text-dark); }
-        .stat-lbl { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+        .stat-val {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        .stat-lbl {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
 
         /* ===== TWO COL ===== */
-        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
 
         /* ===== CARD ===== */
         .card {
-            background: white; border-radius: var(--radius-md);
-            border: 1px solid var(--border); overflow: hidden;
+            background: white;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            overflow: hidden;
         }
+
         .card-header {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 16px 20px; border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
         }
-        .card-title { font-size: 14px; font-weight: 700; color: var(--text-dark); }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
         .card-action {
-            font-size: 12px; font-weight: 600; color: var(--primary);
-            background: var(--primary-light); border: none; border-radius: 6px;
-            padding: 6px 12px; cursor: pointer; transition: all 0.2s;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--primary);
+            background: var(--primary-light);
+            border: none;
+            border-radius: 6px;
+            padding: 6px 12px;
+            cursor: pointer;
+            transition: all 0.2s;
         }
-        .card-action:hover { background: var(--primary); color: white; }
-        .card-body { padding: 16px 20px; }
+
+        .card-action:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .card-body {
+            padding: 16px 20px;
+        }
 
         /* ===== JADWAL ITEM ===== */
         .jadwal-item {
-            display: flex; align-items: center; gap: 14px;
-            padding: 12px 0; border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
         }
-        .jadwal-item:last-child { border-bottom: none; }
+
+        .jadwal-item:last-child {
+            border-bottom: none;
+        }
+
         .jadwal-date {
-            width: 44px; text-align: center; flex-shrink: 0;
-            background: var(--primary-light); border-radius: 8px; padding: 6px 4px;
+            width: 44px;
+            text-align: center;
+            flex-shrink: 0;
+            background: var(--primary-light);
+            border-radius: 8px;
+            padding: 6px 4px;
         }
-        .jadwal-date .day { display: block; font-size: 18px; font-weight: 800; color: var(--primary-dark); }
-        .jadwal-date .month { display: block; font-size: 10px; color: var(--text-muted); font-weight: 600; }
-        .jadwal-info { flex: 1; }
-        .psikolog-name { font-size: 13px; font-weight: 600; color: var(--text-dark); }
-        .jadwal-time { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+        .jadwal-date .day {
+            display: block;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--primary-dark);
+        }
+
+        .jadwal-date .month {
+            display: block;
+            font-size: 10px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .jadwal-info {
+            flex: 1;
+        }
+
+        .psikolog-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .jadwal-time {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
 
         /* ===== BADGE ===== */
         .badge {
-            padding: 4px 10px; border-radius: 999px;
-            font-size: 11px; font-weight: 600; white-space: nowrap;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
         }
-        .badge-primary { background: var(--primary-light); color: var(--primary); }
-        .badge-warning { background: #fef3c7; color: #92400e; }
-        .badge-success { background: #dcfce7; color: #166534; }
-        .badge-danger { background: #fee2e2; color: #991b1b; }
+
+        .badge-primary {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .badge-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-danger {
+            background: #fee2e2;
+            color: #991b1b;
+        }
 
         /* ===== PSIKOLOG LIST ===== */
-        .psikolog-list { display: flex; flex-direction: column; gap: 12px; }
+        .psikolog-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
         .psikolog-item {
-            display: flex; align-items: center; gap: 12px;
-            padding: 10px; border-radius: 10px; background: var(--bg);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            border-radius: 10px;
+            background: var(--bg);
         }
+
         .psikolog-avatar {
-            width: 36px; height: 36px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 12px; font-weight: 700; color: white; flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
         }
-        .psikolog-item-info { flex: 1; }
-        .psikolog-item-name { font-size: 13px; font-weight: 600; color: var(--text-dark); }
-        .psikolog-item-spec { font-size: 11px; color: var(--text-muted); }
-        .psikolog-item-rating { font-size: 12px; font-weight: 600; color: var(--text-mid); }
+
+        .psikolog-item-info {
+            flex: 1;
+        }
+
+        .psikolog-item-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .psikolog-item-spec {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .psikolog-item-rating {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-mid);
+        }
 
         /* ===== PAGE HEADER ===== */
-        .page-header { margin-bottom: 20px; }
-        .page-header h2 { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
-        .page-header p { font-size: 13px; color: var(--text-muted); }
+        .page-header {
+            margin-bottom: 20px;
+        }
+
+        .page-header h2 {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .page-header p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
 
         /* ===== FILTER BAR ===== */
         .filter-bar {
-            display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
-        .filter-bar input, .filter-bar select {
-            padding: 10px 14px; border: 1px solid var(--border);
-            border-radius: var(--radius-sm); font-size: 13px;
-            font-family: inherit; background: white; color: var(--text-dark);
+
+        .filter-bar input,
+        .filter-bar select {
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-family: inherit;
+            background: white;
+            color: var(--text-dark);
         }
-        .filter-bar input { flex: 1; min-width: 200px; }
-        .filter-bar input:focus, .filter-bar select:focus {
-            outline: none; border-color: var(--primary);
+
+        .filter-bar input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-bar input:focus,
+        .filter-bar select:focus {
+            outline: none;
+            border-color: var(--primary);
         }
 
         /* ===== PSIKOLOG GRID ===== */
         .psikolog-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
         }
+
         .psikolog-card {
-            background: white; border-radius: var(--radius-md);
-            border: 1px solid var(--border); padding: 24px;
-            text-align: center; transition: all 0.25s;
+            background: white;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            padding: 24px;
+            text-align: center;
+            transition: all 0.25s;
         }
-        .psikolog-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+
+        .psikolog-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
         .psikolog-card-avatar {
-            width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 14px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 20px; font-weight: 700; color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 0 auto 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
         }
-        .psikolog-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
-        .psikolog-card .spec { font-size: 12px; color: var(--text-muted); margin-bottom: 10px; }
-        .psikolog-card .rating { font-size: 12px; color: var(--text-mid); margin-bottom: 6px; }
-        .psikolog-card .tarif { font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 14px; }
+
+        .psikolog-card h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .psikolog-card .spec {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .psikolog-card .rating {
+            font-size: 12px;
+            color: var(--text-mid);
+            margin-bottom: 6px;
+        }
+
+        .psikolog-card .tarif {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 14px;
+        }
+
         .btn-konsul {
-            width: 100%; padding: 10px; background: var(--primary); color: white;
-            border: none; border-radius: var(--radius-sm); font-size: 13px;
-            font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit;
+            width: 100%;
+            padding: 10px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
         }
-        .btn-konsul:hover { background: var(--primary-dark); }
+
+        .btn-konsul:hover {
+            background: var(--primary-dark);
+        }
 
         /* ===== TABLE ===== */
-        .riwayat-table { width: 100%; border-collapse: collapse; }
-        .riwayat-table th, .riwayat-table td {
-            padding: 12px 16px; text-align: left; font-size: 13px;
+        .riwayat-table {
+            width: 100%;
+            border-collapse: collapse;
         }
-        .riwayat-table th { color: var(--text-muted); border-bottom: 1px solid var(--border); font-weight: 600; }
-        .riwayat-table td { border-bottom: 1px solid var(--border); }
-        .riwayat-table tr:last-child td { border-bottom: none; }
-        .riwayat-table tbody tr:hover { background: var(--primary-light); }
+
+        .riwayat-table th,
+        .riwayat-table td {
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 13px;
+        }
+
+        .riwayat-table th {
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+            font-weight: 600;
+        }
+
+        .riwayat-table td {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .riwayat-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .riwayat-table tbody tr:hover {
+            background: var(--primary-light);
+        }
 
         /* ===== PROFIL ===== */
         .profil-header {
-            display: flex; align-items: center; gap: 20px;
-            margin-bottom: 24px; padding: 24px;
-            background: white; border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 24px;
+            padding: 24px;
+            background: white;
+            border-radius: var(--radius-md);
             border: 1px solid var(--border);
         }
+
         .profil-avatar-lg {
-            width: 64px; height: 64px; border-radius: 50%;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
             background: linear-gradient(135deg, var(--primary), var(--accent));
-            display: flex; align-items: center; justify-content: center;
-            font-size: 22px; font-weight: 700; color: white; flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
         }
-        .profil-header-info h2 { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
-        .profil-header-info p { font-size: 13px; color: var(--text-muted); }
-        .profil-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .form-group { margin-bottom: 16px; }
+
+        .profil-header-info h2 {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .profil-header-info p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .profil-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
         .form-group label {
-            font-size: 12px; color: var(--text-muted); display: block;
-            margin-bottom: 6px; font-weight: 500;
+            font-size: 12px;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
         }
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%; padding: 10px 12px; border: 1px solid var(--border);
-            border-radius: var(--radius-sm); font-size: 13px; font-family: inherit;
-            color: var(--text-dark); transition: all 0.2s;
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-family: inherit;
+            color: var(--text-dark);
+            transition: all 0.2s;
         }
-        .form-group input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 2px var(--primary-light); }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px var(--primary-light);
+        }
+
         .btn-save {
-            padding: 11px 22px; background: var(--primary); color: white;
-            border: none; border-radius: var(--radius-sm); font-size: 13px;
-            font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit;
+            padding: 11px 22px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
         }
-        .btn-save:hover { background: var(--primary-dark); }
+
+        .btn-save:hover {
+            background: var(--primary-dark);
+        }
+
+        /* ===== MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius-lg);
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-md);
+        }
+
+        .modal-header {
+            padding: 24px 24px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-muted);
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .modal-body {
+            padding: 0 24px 24px;
+        }
+
+        .modal-body .form-group {
+            margin-bottom: 20px;
+        }
+
+        .modal-body .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .modal-body label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .modal-body input,
+        .modal-body select,
+        .modal-body textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-family: inherit;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .modal-body input:focus,
+        .modal-body select:focus,
+        .modal-body textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .modal-body textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .modal-footer {
+            padding: 20px 24px 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .btn-cancel {
+            padding: 10px 20px;
+            background: white;
+            color: var(--text-mid);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-cancel:hover {
+            background: var(--bg);
+        }
+
+        .btn-booking {
+            padding: 10px 24px;
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-booking:hover:not(:disabled) {
+            background: #15803d;
+        }
+
+        .btn-booking:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .psikolog-detail {
+            background: var(--primary-light);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .psikolog-detail-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .psikolog-detail-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .psikolog-detail-spec {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .error-msg {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .success-msg {
+            background: #dcfce7;
+            color: #166534;
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 10px;
+                max-height: 95vh;
+            }
+
+            .modal-footer {
+                flex-direction: column;
+            }
+
+            .btn-booking,
+            .btn-cancel {
+                width: 100%;
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <!-- SIDEBAR -->
@@ -356,25 +1011,39 @@
                         <h2>Halo, Budi! </h2>
                         <p>Semoga harimu menyenangkan. Jangan lupa jaga kesehatan mentalmu.</p>
                     </div>
-                    <a class="welcome-btn" onclick="showPage('konsultasi', document.querySelector('[onclick*=konsultasi]'))">+ Buat Konsultasi</a>
+                    <a class="welcome-btn"
+                        onclick="showPage('konsultasi', document.querySelector('[onclick*=konsultasi]'))">+ Buat
+                        Konsultasi</a>
                 </div>
 
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-icon-box" style="background:#ede9fb;"></div>
-                        <div><div class="stat-val">3</div><div class="stat-lbl">Total Konsultasi</div></div>
+                        <div>
+                            <div class="stat-val">3</div>
+                            <div class="stat-lbl">Total Konsultasi</div>
+                        </div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon-box" style="background:#e8f2fc;"></div>
-                        <div><div class="stat-val">1</div><div class="stat-lbl">Jadwal Mendatang</div></div>
+                        <div>
+                            <div class="stat-val">1</div>
+                            <div class="stat-lbl">Jadwal Mendatang</div>
+                        </div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon-box" style="background:#f0fdf4;"></div>
-                        <div><div class="stat-val">2</div><div class="stat-lbl">Sesi Selesai</div></div>
+                        <div>
+                            <div class="stat-val">2</div>
+                            <div class="stat-lbl">Sesi Selesai</div>
+                        </div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon-box" style="background:#fffbeb;">⭐</div>
-                        <div><div class="stat-val">4.8</div><div class="stat-lbl">Rating Rata-rata</div></div>
+                        <div>
+                            <div class="stat-val">4.8</div>
+                            <div class="stat-lbl">Rating Rata-rata</div>
+                        </div>
                     </div>
                 </div>
 
@@ -382,7 +1051,9 @@
                     <div class="card">
                         <div class="card-header">
                             <span class="card-title">Jadwal Mendatang</span>
-                            <button class="card-action" onclick="showPage('jadwal', document.querySelector('[onclick*=jadwal]'))">Lihat Semua</button>
+                            <button class="card-action"
+                                onclick="showPage('jadwal', document.querySelector('[onclick*=jadwal]'))">Lihat
+                                Semua</button>
                         </div>
                         <div class="card-body">
                             <div class="jadwal-item">
@@ -407,12 +1078,15 @@
                     <div class="card">
                         <div class="card-header">
                             <span class="card-title">Psikolog Favorit</span>
-                            <button class="card-action" onclick="showPage('konsultasi', document.querySelector('[onclick*=konsultasi]'))">Cari Psikolog</button>
+                            <button class="card-action"
+                                onclick="showPage('konsultasi', document.querySelector('[onclick*=konsultasi]'))">Cari
+                                Psikolog</button>
                         </div>
                         <div class="card-body">
                             <div class="psikolog-list">
                                 <div class="psikolog-item">
-                                    <div class="psikolog-avatar" style="background:linear-gradient(135deg,#6352c7,#4a90d9)">SA</div>
+                                    <div class="psikolog-avatar"
+                                        style="background:linear-gradient(135deg,#6352c7,#4a90d9)">SA</div>
                                     <div class="psikolog-item-info">
                                         <div class="psikolog-item-name">Dr. Sarah Amelia</div>
                                         <div class="psikolog-item-spec">Psikologi Klinis</div>
@@ -420,7 +1094,8 @@
                                     <span class="psikolog-item-rating">⭐ 4.9</span>
                                 </div>
                                 <div class="psikolog-item">
-                                    <div class="psikolog-avatar" style="background:linear-gradient(135deg,#0f6e56,#1d9e75)">RP</div>
+                                    <div class="psikolog-avatar"
+                                        style="background:linear-gradient(135deg,#0f6e56,#1d9e75)">RP</div>
                                     <div class="psikolog-item-info">
                                         <div class="psikolog-item-name">Reza Pratama</div>
                                         <div class="psikolog-item-spec">Konseling Remaja</div>
@@ -428,7 +1103,8 @@
                                     <span class="psikolog-item-rating">⭐ 4.7</span>
                                 </div>
                                 <div class="psikolog-item">
-                                    <div class="psikolog-avatar" style="background:linear-gradient(135deg,#993556,#d4537e)">NA</div>
+                                    <div class="psikolog-avatar"
+                                        style="background:linear-gradient(135deg,#993556,#d4537e)">NA</div>
                                     <div class="psikolog-item-info">
                                         <div class="psikolog-item-name">Nadia Aulia</div>
                                         <div class="psikolog-item-spec">Manajemen Stres</div>
@@ -464,52 +1140,60 @@
                 </div>
                 <div class="psikolog-grid">
                     <div class="psikolog-card">
-                        <div class="psikolog-card-avatar" style="background:linear-gradient(135deg,#6352c7,#4a90d9)">SA</div>
+                        <div class="psikolog-card-avatar" style="background:linear-gradient(135deg,#6352c7,#4a90d9)">SA
+                        </div>
                         <h4>Dr. Sarah Amelia, M.Psi</h4>
                         <p class="spec">Psikologi Klinis</p>
                         <div class="rating">⭐ 4.9 · 48 ulasan</div>
                         <div class="tarif">Rp 150.000 / sesi</div>
-                        <button class="btn-konsul" onclick="bukaBuatJanji('Dr. Sarah Amelia, M.Psi', 'Psikologi Klinis', 'Rp 150.000')">Buat Janji</button>
+                        <button class="btn-konsul" onclick="openBookingModal(this)">Buat Janji</button>
                     </div>
                     <div class="psikolog-card">
-                        <div class="psikolog-card-avatar" style="background:linear-gradient(135deg,#0f6e56,#1d9e75)">RP</div>
+                        <div class="psikolog-card-avatar" style="background:linear-gradient(135deg,#0f6e56,#1d9e75)">RP
+                        </div>
                         <h4>Reza Pratama, S.Psi</h4>
                         <p class="spec">Konseling Remaja</p>
                         <div class="rating">⭐ 4.7 · 32 ulasan</div>
                         <div class="tarif">Rp 100.000 / sesi</div>
-                        <button class="btn-konsul" onclick="bukaBuatJanji('Dr. Sarah Amelia, M.Psi', 'Psikologi Klinis', 'Rp 150.000')">Buat Janji</button>
+                        <button class="btn-konsul" onclick="window.location.href='form-konsul.html'">
+                            Buat Janji
+                        </button>
                     </div>
                     <div class="psikolog-card">
-                        <div class="psikolog-card-avatar" style="background:linear-gradient(135deg,#993556,#d4537e)">NA</div>
+                        <div class="psikolog-card-avatar" style="background:linear-gradient(135deg,#993556,#d4537e)">NA
+                        </div>
                         <h4>Nadia Aulia, M.Psi</h4>
                         <p class="spec">Manajemen Stres</p>
                         <div class="rating">⭐ 4.8 · 41 ulasan</div>
                         <div class="tarif">Rp 120.000 / sesi</div>
-                        <button class="btn-konsul" onclick="bukaBuatJanji('Dr. Sarah Amelia, M.Psi', 'Psikologi Klinis', 'Rp 150.000')">Buat Janji</button>
+                        <button class="btn-konsul">Buat Janji</button>
                     </div>
                     <div class="psikolog-card">
-                        <div class="psikolog-card-avatar" style="background:linear-gradient(135deg,#854f0b,#ba7517)">BW</div>
+                        <div class="psikolog-card-avatar" style="background:linear-gradient(135deg,#854f0b,#ba7517)">BW
+                        </div>
                         <h4>Bayu Wicaksono, S.Psi</h4>
                         <p class="spec">Trauma & PTSD</p>
                         <div class="rating">⭐ 4.6 · 27 ulasan</div>
                         <div class="tarif">Rp 130.000 / sesi</div>
-                        <button class="btn-konsul" onclick="bukaBuatJanji('Dr. Sarah Amelia, M.Psi', 'Psikologi Klinis', 'Rp 150.000')">Buat Janji</button>
+                        <button class="btn-konsul">Buat Janji</button>
                     </div>
                     <div class="psikolog-card">
-                        <div class="psikolog-card-avatar" style="background:linear-gradient(135deg,#185fa5,#378add)">DH</div>
+                        <div class="psikolog-card-avatar" style="background:linear-gradient(135deg,#185fa5,#378add)">DH
+                        </div>
                         <h4>Dewi Hartati, M.Psi</h4>
                         <p class="spec">Psikologi Pendidikan</p>
                         <div class="rating">⭐ 4.9 · 55 ulasan</div>
                         <div class="tarif">Rp 125.000 / sesi</div>
-                        <button class="btn-konsul" onclick="bukaBuatJanji('Dr. Sarah Amelia, M.Psi', 'Psikologi Klinis', 'Rp 150.000')">Buat Janji</button>
+                        <button class="btn-konsul">Buat Janji</button>
                     </div>
                     <div class="psikolog-card">
-                        <div class="psikolog-card-avatar" style="background:linear-gradient(135deg,#3b6d11,#639922)">YP</div>
+                        <div class="psikolog-card-avatar" style="background:linear-gradient(135deg,#3b6d11,#639922)">YP
+                        </div>
                         <h4>Yoga Purnama, S.Psi</h4>
                         <p class="spec">Konseling Karir</p>
                         <div class="rating">⭐ 4.5 · 19 ulasan</div>
                         <div class="tarif">Rp 90.000 / sesi</div>
-                        <button class="btn-konsul" onclick="bukaBuatJanji('Dr. Sarah Amelia, M.Psi', 'Psikologi Klinis', 'Rp 150.000')">Buat Janji</button>
+                        <button class="btn-konsul">Buat Janji</button>
                     </div>
                 </div>
             </div>
@@ -523,7 +1207,9 @@
                 <div class="card">
                     <div class="card-header">
                         <span class="card-title">Jadwal Mendatang</span>
-                        <button class="card-action" onclick="showPage('konsultasi', document.querySelector('[onclick*=konsultasi]'))">+ Tambah Jadwal</button>
+                        <button class="card-action"
+                            onclick="showPage('konsultasi', document.querySelector('[onclick*=konsultasi]'))">+ Tambah
+                            Jadwal</button>
                     </div>
                     <div class="card-body" style="padding:0">
                         <table class="riwayat-table">
@@ -540,10 +1226,13 @@
                                 <tr>
                                     <td>
                                         <div style="display:flex;align-items:center;gap:10px">
-                                            <div class="psikolog-avatar" style="background:linear-gradient(135deg,#6352c7,#4a90d9);width:32px;height:32px;font-size:12px">SA</div>
+                                            <div class="psikolog-avatar"
+                                                style="background:linear-gradient(135deg,#6352c7,#4a90d9);width:32px;height:32px;font-size:12px">
+                                                SA</div>
                                             <div>
                                                 <div style="font-weight:700;font-size:13px">Dr. Sarah Amelia</div>
-                                                <div style="font-size:11px;color:var(--text-muted)">Psikologi Klinis</div>
+                                                <div style="font-size:11px;color:var(--text-muted)">Psikologi Klinis
+                                                </div>
                                             </div>
                                         </div>
                                     </td>
@@ -555,10 +1244,13 @@
                                 <tr>
                                     <td>
                                         <div style="display:flex;align-items:center;gap:10px">
-                                            <div class="psikolog-avatar" style="background:linear-gradient(135deg,#0f6e56,#1d9e75);width:32px;height:32px;font-size:12px">RP</div>
+                                            <div class="psikolog-avatar"
+                                                style="background:linear-gradient(135deg,#0f6e56,#1d9e75);width:32px;height:32px;font-size:12px">
+                                                RP</div>
                                             <div>
                                                 <div style="font-weight:700;font-size:13px">Reza Pratama</div>
-                                                <div style="font-size:11px;color:var(--text-muted)">Konseling Remaja</div>
+                                                <div style="font-size:11px;color:var(--text-muted)">Konseling Remaja
+                                                </div>
                                             </div>
                                         </div>
                                     </td>
@@ -599,11 +1291,14 @@
                                 <tr>
                                     <td>
                                         <div style="display:flex;align-items:center;gap:10px">
-                                            <div class="psikolog-avatar" style="background:linear-gradient(135deg,#6352c7,#4a90d9);width:32px;height:32px;font-size:12px">SA</div>
+                                            <div class="psikolog-avatar"
+                                                style="background:linear-gradient(135deg,#6352c7,#4a90d9);width:32px;height:32px;font-size:12px">
+                                                SA</div>
                                             <span style="font-weight:600">Dr. Sarah Amelia</span>
                                         </div>
                                     </td>
-                                    <td>15 Mar 2026</td><td>60 menit</td>
+                                    <td>15 Mar 2026</td>
+                                    <td>60 menit</td>
                                     <td><span class="badge badge-primary">Online</span></td>
                                     <td><span class="badge badge-success">Selesai</span></td>
                                     <td>⭐ 5.0</td>
@@ -611,11 +1306,14 @@
                                 <tr>
                                     <td>
                                         <div style="display:flex;align-items:center;gap:10px">
-                                            <div class="psikolog-avatar" style="background:linear-gradient(135deg,#993556,#d4537e);width:32px;height:32px;font-size:12px">NA</div>
+                                            <div class="psikolog-avatar"
+                                                style="background:linear-gradient(135deg,#993556,#d4537e);width:32px;height:32px;font-size:12px">
+                                                NA</div>
                                             <span style="font-weight:600">Nadia Aulia</span>
                                         </div>
                                     </td>
-                                    <td>02 Mar 2026</td><td>60 menit</td>
+                                    <td>02 Mar 2026</td>
+                                    <td>60 menit</td>
                                     <td><span class="badge badge-warning">Offline</span></td>
                                     <td><span class="badge badge-success">Selesai</span></td>
                                     <td>⭐ 4.5</td>
@@ -623,11 +1321,14 @@
                                 <tr>
                                     <td>
                                         <div style="display:flex;align-items:center;gap:10px">
-                                            <div class="psikolog-avatar" style="background:linear-gradient(135deg,#0f6e56,#1d9e75);width:32px;height:32px;font-size:12px">RP</div>
+                                            <div class="psikolog-avatar"
+                                                style="background:linear-gradient(135deg,#0f6e56,#1d9e75);width:32px;height:32px;font-size:12px">
+                                                RP</div>
                                             <span style="font-weight:600">Reza Pratama</span>
                                         </div>
                                     </td>
-                                    <td>18 Feb 2026</td><td>60 menit</td>
+                                    <td>18 Feb 2026</td>
+                                    <td>60 menit</td>
                                     <td><span class="badge badge-primary">Online</span></td>
                                     <td><span class="badge badge-danger">Dibatalkan</span></td>
                                     <td>—</td>
@@ -651,8 +1352,10 @@
                     <div class="card">
                         <div class="card-header"><span class="card-title">Data Diri</span></div>
                         <div class="card-body">
-                            <div class="form-group"><label>Nama Lengkap</label><input type="text" value="Budi Santoso"></div>
-                            <div class="form-group"><label>Email</label><input type="email" value="budi.santoso@mahasiswa.ac.id"></div>
+                            <div class="form-group"><label>Nama Lengkap</label><input type="text" value="Budi Santoso">
+                            </div>
+                            <div class="form-group"><label>Email</label><input type="email"
+                                    value="budi.santoso@mahasiswa.ac.id"></div>
                             <div class="form-group"><label>Nomor HP</label><input type="tel" value="08123456789"></div>
                             <div class="form-group"><label>NIM</label><input type="text" value="2021001234"></div>
                             <button class="btn-save">Simpan Perubahan</button>
@@ -661,9 +1364,12 @@
                     <div class="card">
                         <div class="card-header"><span class="card-title">Ubah Password</span></div>
                         <div class="card-body">
-                            <div class="form-group"><label>Password Lama</label><input type="password" placeholder="••••••••"></div>
-                            <div class="form-group"><label>Password Baru</label><input type="password" placeholder="••••••••"></div>
-                            <div class="form-group"><label>Konfirmasi Password Baru</label><input type="password" placeholder="••••••••"></div>
+                            <div class="form-group"><label>Password Lama</label><input type="password"
+                                    placeholder="••••••••"></div>
+                            <div class="form-group"><label>Password Baru</label><input type="password"
+                                    placeholder="••••••••"></div>
+                            <div class="form-group"><label>Konfirmasi Password Baru</label><input type="password"
+                                    placeholder="••••••••"></div>
                             <button class="btn-save">Update Password</button>
                         </div>
                     </div>
@@ -691,95 +1397,36 @@
         }
     </script>
     <script>
-    // Search & Filter Psikolog
-    const searchInput = document.querySelector('.filter-bar input');
-    const sesiFilter = document.querySelectorAll('.filter-bar select')[0];
-    const tipeFilter = document.querySelectorAll('.filter-bar select')[1];
+        // Search & Filter Psikolog
+        const searchInput = document.querySelector('.filter-bar input');
+        const sesiFilter = document.querySelectorAll('.filter-bar select')[0];
+        const tipeFilter = document.querySelectorAll('.filter-bar select')[1];
 
-    function filterPsikolog() {
-        const keyword = searchInput.value.toLowerCase();
-        const spesialis = sesiFilter.value.toLowerCase();
-        const tipe = tipeFilter.value.toLowerCase();
+        function filterPsikolog() {
+            const keyword = searchInput.value.toLowerCase();
+            const spesialis = sesiFilter.value.toLowerCase();
+            const tipe = tipeFilter.value.toLowerCase();
 
-        document.querySelectorAll('.psikolog-card').forEach(card => {
-            const nama = card.querySelector('h4').textContent.toLowerCase();
-            const spec = card.querySelector('.spec').textContent.toLowerCase();
+            document.querySelectorAll('.psikolog-card').forEach(card => {
+                const nama = card.querySelector('h4').textContent.toLowerCase();
+                const spec = card.querySelector('.spec').textContent.toLowerCase();
 
-            const matchNama = nama.includes(keyword);
-            const matchSpec = spesialis === '' || spec.includes(spesialis.toLowerCase());
+                const matchNama = nama.includes(keyword);
+                const matchSpec = spesialis === '' || spec.includes(spesialis.toLowerCase());
 
-            // Tipe (online/offline) belum ada di card, jadi selalu match
-            const matchTipe = true;
+                // Tipe (online/offline) belum ada di card, jadi selalu match
+                const matchTipe = true;
 
-            card.style.display = (matchNama && matchSpec && matchTipe) ? 'block' : 'none';
-        });
-    }
+                card.style.display = (matchNama && matchSpec && matchTipe) ? 'block' : 'none';
+            });
+        }
 
-    searchInput.addEventListener('input', filterPsikolog);
-    sesiFilter.addEventListener('change', filterPsikolog);
-    tipeFilter.addEventListener('change', filterPsikolog);
+        searchInput.addEventListener('input', filterPsikolog);
+        sesiFilter.addEventListener('change', filterPsikolog);
+        tipeFilter.addEventListener('change', filterPsikolog);
+    </script>
 
-     // === SHOW PAGE ===
-    const titles = { ... };
-    function showPage(page, navEl) { ... }
 
-    // === SEARCH PSIKOLOG ===
-    const searchInput = ...
-    function filterPsikolog() { ... }
-
-    // === BUAT JANJI (TAMBAH DI SINI) ===
-    function bukaBuatJanji(nama, spec, tarif) {
-        ...
-    }
-    function tutupModal() { ... }
-    function konfirmasiJanji() { ... }
-    document.getElementById('modal-janji').addEventListener(...)
-</script>
-
-<!-- MODAL BUAT JANJI -->
-<div id="modal-janji" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:999; align-items:center; justify-content:center;">
-    <div style="background:white; border-radius:16px; padding:32px; width:480px; max-width:90%; position:relative;">
-        <button onclick="tutupModal()" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;">✕</button>
-        <h3 style="font-size:18px;font-weight:800;margin-bottom:4px;" id="modal-nama-psikolog"></h3>
-        <p style="font-size:13px;color:var(--text-muted);margin-bottom:20px;" id="modal-spec-psikolog"></p>
-
-        <div class="form-group">
-            <label>Tipe Konsultasi</label>
-            <select id="form-tipe">
-                <option value="online">Online (Video Call)</option>
-                <option value="offline">Offline (Tatap Muka)</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Tanggal</label>
-            <input type="date" id="form-tanggal">
-        </div>
-        <div class="form-group">
-            <label>Jam</label>
-            <select id="form-jam">
-                <option>08:00</option>
-                <option>09:00</option>
-                <option>10:00</option>
-                <option>11:00</option>
-                <option>13:00</option>
-                <option>14:00</option>
-                <option>15:00</option>
-                <option>16:00</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Keluhan / Catatan</label>
-            <textarea id="form-keluhan" rows="3" placeholder="Ceritakan sedikit apa yang ingin kamu konsultasikan..."></textarea>
-        </div>
-
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
-            <span style="font-size:13px;font-weight:700;color:var(--primary)" id="modal-tarif"></span>
-            <div style="display:flex;gap:10px;">
-                <button onclick="tutupModal()" style="padding:10px 20px;border:1px solid var(--border);background:white;border-radius:8px;cursor:pointer;font-size:13px;">Batal</button>
-                <button onclick="konfirmasiJanji()" style="padding:10px 20px;background:var(--primary);color:white;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;">Konfirmasi Janji</button>
-            </div>
-        </div>
-    </div>
-</div>
 </body>
+
 </html>

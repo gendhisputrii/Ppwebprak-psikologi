@@ -6,59 +6,165 @@
 
 <title>Konsultasi Baru - RuangPulih</title>
 
-<link rel="stylesheet" href="style2.css">
-
 </head>
 
+<style>
+    /* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #6352c7;
+    --primary-dark: #2d1f6e;
+    --primary-light: #ede9fb;
+    --text-dark: #1a1145;
+    --text-muted: #8b88a8;
+    --bg: #f6f5fc;
+    --white: #ffffff;
+    --border: #e7e4f5;
+    --shadow: 0 8px 24px rgba(45, 31, 110, 0.06);
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text-dark);
+    min-height: 100vh;
+}
+
+/* MAIN */
+.main {
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* TOPBAR */
+.topbar {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 20px;
+    background: var(--white);
+    border-radius: 14px;
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow);
+}
+
+.topbar h3 {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* AVATAR */
+.user-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+/* CONTENT */
+.content {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+}
+
+/* FORM CARD */
+.form-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: var(--shadow);
+}
+
+/* FORM */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 14px;
+    background: #fafaff;
+    outline: none;
+    transition: 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--primary);
+    background: white;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+/* BUTTON */
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.btn-primary,
+.btn-secondary {
+    padding: 12px 22px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+.btn-secondary {
+    background: #eeeeee;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background: #dddddd;
+}
+</style>
 <body>
-
-<!-- SIDEBAR -->
-<aside class="sidebar">
-    <div class="sidebar-logo">
-        <span>RuangPulih</span>
-        <small>Mahasiswa</small>
-    </div>
-
-    <div class="sidebar-user">
-        <div class="user-avatar">GV</div>
-        <div>
-            <div class="user-name">Gendhis Vienna</div>
-            <div class="user-role">Mahasiswa Universitas Airlangga</div>
-        </div>
-    </div>
-
-    <nav class="sidebar-nav">
-        <div class="nav-label">Menu Utama</div>
-
-        <a href="dashboard-user.html" class="nav-item">
-            <span class="nav-icon"></span> Dashboard
-        </a>
-
-        <a href="form-konsul.html" class="nav-item active">
-            <span class="nav-icon"></span> Konsultasi Baru
-        </a>
-
-        <a href="jadwal-saya.html" class="nav-item">
-            <span class="nav-icon"></span> Jadwal Saya
-        </a>
-
-        <a href="riwayat-konsultasi.html" class="nav-item">
-            <span class="nav-icon"></span> Riwayat Konsultasi
-        </a>
-
-        <div class="nav-label">Akun</div>
-
-        <a href="profil-mahasiswa.html" class="nav-item">
-            <span class="nav-icon"></span> Profil
-        </a>
-    </nav>
-
-    <div class="sidebar-footer">
-        <a href="login.html" class="logout-btn">
-            <span></span> Logout
-        </a>
-    </div>
-</aside>
 
 <!-- MAIN -->
 <main class="main">

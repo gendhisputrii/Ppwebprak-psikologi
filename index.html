@@ -243,7 +243,7 @@
         .btn-profil {
             padding: 10px 20px;
             background: var(--primary-dark);
-            color: white;
+            color: rgb(255, 255, 255);
             border: none;
             border-radius: var(--radius-sm);
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -287,7 +287,7 @@
 
         .profil-dropdown a:hover {
             background: var(--primary-light);
-            color: var(--primary);
+            color: black;
         }
 
         .profil-dropdown hr {
@@ -364,7 +364,7 @@
             width: 500px;
             height: auto;
             border-radius: 30% 50% 30% 50%;
-    overflow: hidden;
+            overflow: hidden;
         }
 
         .hero-img-wrapper img {
@@ -1061,7 +1061,7 @@
                 kalau rasanya makin berat, jangan dipendam sendiri. Psikolog kami siap jadi teman diskusi yang tepat.
             </p>
             <div class="hero-buttons">
-                <a href="login.html" class="btn-primary">Mulai Konsultasi</a>
+                <a href="#" class="btn-primary" onclick="mulaiKonsultasi()">Mulai Konsultasi</a>
                 <a href="#layanan" class="btn-secondary">Pelajari Layanan</a>
             </div>
             <div class="hero-stats">
@@ -1102,7 +1102,7 @@
                 </div>
                 <h3>Konseling Offline</h3>
                 <p>Buat janji tatap muka langsung dengan psikolog pilihan kamu</p>
-                <a href="login.html" class="card-link">Buat Janji →</a>
+                <a href="#" class="card-link" onclick="mulaiKonsultasi()">Buat Janji →</a>
             </div>
             <div class="layanan-card featured">
                 <div class="card-badge">Terpopuler</div>
@@ -1119,7 +1119,7 @@
                 </div>
                 <h3>Konseling Online</h3>
                 <p>Konsultasi nyaman via video call dari mana saja dan kapan saja</p>
-                <a href="login.html" class="card-link">Konsultasi →</a>
+                <a href="#" class="card-link" onclick="mulaiKonsultasi()">Konsultasi →</a>
             </div>
         </div>
     </section>
@@ -1483,9 +1483,9 @@
                  ${nama} ▾
             </button>
             <div class="profil-dropdown" id="profilDropdown">
-                <a href="dashboard-${user.role}.html">🏠 Dashboard</a>
+                <a href="dashboard-${user.role}.html"> Dashboard</a>
                 <hr>
-                <a href="#" onclick="logout()">🚪 Logout</a>
+                <a href="#" onclick="logout()"> Logout</a>
             </div>
         </div>
     `;
@@ -1509,6 +1509,19 @@
             window.location.href = "index.html";
         }
     </script>
-</body>
+    <script>
+        function mulaiKonsultasi() {
+            const user = JSON.parse(localStorage.getItem("user"));
+
+            // kalau belum login → langsung ke login
+            if (!user) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            // kalau sudah login → ke form konsultasi
+            window.location.href = "form-konsul.html";
+        }
+    </script>
 
 </html>
