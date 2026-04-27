@@ -9,10 +9,99 @@
         rel="stylesheet">
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6352c7;
+            --primary-dark: #2d1f6e;
+            --primary-light: #ede9fb;
+            --text-dark: #1a1145;
+            --text-mid: #4a4570;
+            --text-muted: #8b88a8;
+            --bg: #f8f7ff;
+            --border: rgba(99, 82, 199, 0.12);
+            --shadow-sm: 0 2px 8px rgba(45, 31, 110, 0.06);
+        }
+
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: #f8f7ff;
             margin: 0;
+            padding: 0;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            gap: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 70px;
+            flex-shrink: 0;
+            min-width: 0;
+        }
+
+        .logo-img {
+            height: 100px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 36px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-mid);
+            transition: color 0.2s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+
+        .btn-login {
+            padding: 10px 24px !important;
+            background: var(--primary-dark) !important;
+            color: white !important;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+            transition: all 0.2s !important;
+        }
+
+        .btn-login:hover {
+            background: var(--primary) !important;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ===== CONTENT ===== */
+        .page-content {
             padding: 60px;
         }
 
@@ -83,62 +172,80 @@
 
 <body>
 
-    <h1>Semua Artikel</h1>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logorp.png" alt="RuangPulih" class="logo-img">
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="index.html#layanan">Layanan</a></li>
+            <li><a href="index.html#tentang">Tentang</a></li>
+            <li><a href="index.html#artikel">Artikel</a></li>
+            <li><a href="login.html" class="btn-login">Login</a></li>
+        </ul>
+    </nav>
 
-    <div class="artikel-grid">
+    <div class="page-content">
 
-        <!-- ARTIKEL LAMA -->
-        <a href="https://www.halodoc.com/artikel/anxiety-menyerang-bagaimana-cara-untuk-meredakannya?srsltid=AfmBOoq-BWsb06qX8nBaRu2JN4OxQxIHW5BzReuHXYl9wLMed-mIDB0y">
-            <div class="artikel-card">
-                <div class="kategori">Kesehatan Mental</div>
-                <h3>Anxiety Menyerang, Cara Meredakannya</h3>
-                <p>Teknik sederhana untuk mengelola kecemasan sehari-hari.</p>
-            </div>
-        </a>
+        <h1>Semua Artikel</h1>
 
-        <a href="https://share.google/VaQ1UEQJqy0pDdq1w">
-            <div class="artikel-card">
-                <div class="kategori">Kesehatan Mental</div>
-                <h3>Pentingnya Kesehatan Mental bagi Remaja</h3>
-                <p>Kenapa mental health itu penting sejak dini.</p>
-            </div>
-        </a>
+        <div class="artikel-grid">
 
-        <a href="https://share.google/ZFLBWtioUIJZQgB6A">
-            <div class="artikel-card">
-                <div class="kategori">Kesehatan Mental</div>
-                <h3>Kesehatan Mental & Kesejahteraan Hidup</h3>
-            </div>
-        </a>
+            <!-- ARTIKEL LAMA -->
+            <a href="https://www.halodoc.com/artikel/anxiety-menyerang-bagaimana-cara-untuk-meredakannya?srsltid=AfmBOoq-BWsb06qX8nBaRu2JN4OxQxIHW5BzReuHXYl9wLMed-mIDB0y">
+                <div class="artikel-card">
+                    <div class="kategori">Kesehatan Mental</div>
+                    <h3>Anxiety Menyerang, Cara Meredakannya</h3>
+                    <p>Teknik sederhana untuk mengelola kecemasan sehari-hari.</p>
+                </div>
+            </a>
 
-        <a href="https://share.google/2u3CkXKoOcs7BhxJF">
-            <div class="artikel-card">
-                <div class="kategori">Kecemasan</div>
-                <h3>Gejala Anxiety</h3>
-                <p>Kenali Gejala Anxiety Disorder</p>
-            </div>
-        </a>
+            <a href="https://share.google/VaQ1UEQJqy0pDdq1w">
+                <div class="artikel-card">
+                    <div class="kategori">Kesehatan Mental</div>
+                    <h3>Pentingnya Kesehatan Mental bagi Remaja</h3>
+                    <p>Kenapa mental health itu penting sejak dini.</p>
+                </div>
+            </a>
 
-        <!-- ARTIKEL BARU -->
-        <a href="https://www.halodoc.com/artikel/ini-gejala-gangguan-kepribadian-yang-bisa-muncul-sejak-remaja?srsltid=AfmBOoqSByriMfNxzKIQ3s6WLT9p80ASsEp0W4JpL8KidnfazMh7lE9L%3F_single%3Dtrue&utm_campaign=articles&utm_campaign=articles&utm_medium=app&utm_medium=app_sharing&utm_source=deeplink%3F_single%3Dtrue&utm_source=app">
-            <div class="artikel-card">
-                <div class="kategori">Gangguan Kepribadian</div>
-                <h3>Mengenal Gangguan Kepribadian</h3>
-                <p>Jenis-jenis gangguan kepribadian dan cara menghadapinya.</p>
-            </div>
-        </a>
+            <a href="https://share.google/ZFLBWtioUIJZQgB6A">
+                <div class="artikel-card">
+                    <div class="kategori">Kesehatan Mental</div>
+                    <h3>Kesehatan Mental & Kesejahteraan Hidup</h3>
+                </div>
+            </a>
 
-        <a href="https://keslan.kemkes.go.id/view_artikel/3089/apa-yang-menjadi-gangguan-tidur-pada-remaja">
-            <div class="artikel-card">
-                <div class="kategori">Gangguan Tidur</div>
-                <h3>Penyebab Gangguan Tidur</h3>
-                <p>Insomnia dan cara mengatasinya secara efektif.</p>
-            </div>
-        </a>
+            <a href="https://share.google/2u3CkXKoOcs7BhxJF">
+                <div class="artikel-card">
+                    <div class="kategori">Kecemasan</div>
+                    <h3>Gejala Anxiety</h3>
+                    <p>Kenali Gejala Anxiety Disorder</p>
+                </div>
+            </a>
+
+            <!-- ARTIKEL BARU -->
+            <a href="https://www.halodoc.com/artikel/ini-gejala-gangguan-kepribadian-yang-bisa-muncul-sejak-remaja?srsltid=AfmBOoqSByriMfNxzKIQ3s6WLT9p80ASsEp0W4JpL8KidnfazMh7lE9L%3F_single%3Dtrue&utm_campaign=articles&utm_campaign=articles&utm_medium=app&utm_medium=app_sharing&utm_source=deeplink%3F_single%3Dtrue&utm_source=app">
+                <div class="artikel-card">
+                    <div class="kategori">Gangguan Kepribadian</div>
+                    <h3>Mengenal Gangguan Kepribadian</h3>
+                    <p>Jenis-jenis gangguan kepribadian dan cara menghadapinya.</p>
+                </div>
+            </a>
+
+            <a href="https://keslan.kemkes.go.id/view_artikel/3089/apa-yang-menjadi-gangguan-tidur-pada-remaja">
+                <div class="artikel-card">
+                    <div class="kategori">Gangguan Tidur</div>
+                    <h3>Penyebab Gangguan Tidur</h3>
+                    <p>Insomnia dan cara mengatasinya secara efektif.</p>
+                </div>
+            </a>
+
+        </div>
+
+        <a href="index.html" class="back">← Kembali ke Beranda</a>
 
     </div>
-
-    <a href="index.html" class="back">← Kembali ke Beranda</a>
 
 </body>
 

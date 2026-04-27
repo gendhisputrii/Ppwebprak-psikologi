@@ -287,45 +287,100 @@
             background: var(--primary-light);
         }
 
-        /* ===== STATS GRID ===== */
+        /* ===== STATS GRID — NEW STYLE (Accent Top Border + Badge) ===== */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 16px;
             margin-bottom: 24px;
         }
 
         .stat-card {
             background: white;
-            padding: 20px;
             border-radius: var(--radius-md);
             border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 16px;
+            padding: 20px 20px 16px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .stat-icon-box {
-            width: 44px;
-            height: 44px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            flex-shrink: 0;
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Accent top border */
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
+        }
+
+        .stat-card.purple::before {
+            background: linear-gradient(90deg, #6352c7, #9b8de8);
+        }
+
+        .stat-card.blue::before {
+            background: linear-gradient(90deg, #2563eb, #60a5fa);
+        }
+
+        .stat-card.green::before {
+            background: linear-gradient(90deg, #16a34a, #4ade80);
+        }
+
+        .stat-card.amber::before {
+            background: linear-gradient(90deg, #d97706, #fbbf24);
         }
 
         .stat-val {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 800;
             color: var(--text-dark);
+            line-height: 1;
+            margin-bottom: 4px;
         }
 
         .stat-lbl {
             font-size: 12px;
             color: var(--text-muted);
-            margin-top: 2px;
+            font-weight: 500;
+        }
+
+        /* Badge sub-info */
+        .stat-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 12px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .stat-card.purple .stat-badge {
+            background: #ede9fb;
+            color: #6352c7;
+        }
+
+        .stat-card.blue .stat-badge {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+
+        .stat-card.green .stat-badge {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .stat-card.amber .stat-badge {
+            background: #fef3c7;
+            color: #d97706;
         }
 
         /* ===== TWO COL ===== */
@@ -982,13 +1037,163 @@
                 width: 100%;
             }
         }
+
+        /* ===== MODAL DETAIL JADWAL ===== */
+        .modal-detail {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-detail.active {
+            display: flex;
+        }
+
+        .modal-detail-box {
+            background: white;
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 480px;
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+        }
+
+        .modal-detail-header {
+            padding: 20px 24px 16px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-detail-header h3 {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        .modal-detail-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--text-muted);
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .modal-detail-close:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .modal-detail-psikolog {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 20px 24px;
+            background: var(--primary-light);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-detail-psikolog .avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .modal-detail-psikolog .info-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .modal-detail-psikolog .info-spec {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .modal-detail-body {
+            padding: 20px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .detail-row .label {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .detail-row .value {
+            font-weight: 600;
+            color: var(--text-dark);
+            text-align: right;
+        }
+
+        .modal-detail-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .btn-batal-jadwal {
+            padding: 9px 18px;
+            background: #fee2e2;
+            color: #991b1b;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-batal-jadwal:hover {
+            background: #fecaca;
+        }
     </style>
 </head>
 
 <body>
 
     <!-- SIDEBAR -->
-
     <aside class="sidebar">
         <div class="sidebar-logo">
             <span>RuangPulih</span>
@@ -1003,8 +1208,7 @@
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Menu Utama</div>
-            <a class="nav-item active" onclick="showPage('beranda',this)"><span class="nav-icon"></span>
-                Beranda</a>
+            <a class="nav-item active" onclick="showPage('beranda',this)"><span class="nav-icon"></span> Beranda</a>
             <a class="nav-item" onclick="showPage('konsultasi',this)"><span class="nav-icon"></span> Konsultasi</a>
             <a class="nav-item" onclick="showPage('jadwal',this)"><span class="nav-icon"></span> Jadwal Saya</a>
             <a class="nav-item" onclick="showPage('riwayat',this)"><span class="nav-icon"></span> Riwayat</a>
@@ -1032,7 +1236,7 @@
             <div class="page active" id="page-beranda">
                 <div class="welcome-banner">
                     <div class="welcome-text">
-                        <h2>Halo, Budi! </h2>
+                        <h2>Halo, Budi! 👋</h2>
                         <p>Semoga harimu menyenangkan. Jangan lupa jaga kesehatan mentalmu.</p>
                     </div>
                     <a class="welcome-btn"
@@ -1040,35 +1244,29 @@
                         Konsultasi</a>
                 </div>
 
+                <!-- STATS GRID — Style: Accent Top Border + Badge -->
                 <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon-box" style="background:#ede9fb;"></div>
-                        <div>
-                            <div class="stat-val">3</div>
-                            <div class="stat-lbl">Total Konsultasi</div>
-                        </div>
+                    <!-- Total Konsultasi -->
+                    <div class="stat-card purple">
+                        <div class="stat-val">3</div>
+                        <div class="stat-lbl">Total Konsultasi</div>
+                        <span class="stat-badge">Semua sesi</span>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon-box" style="background:#e8f2fc;"></div>
-                        <div>
-                            <div class="stat-val">1</div>
-                            <div class="stat-lbl">Jadwal Mendatang</div>
-                        </div>
+
+                    <!-- Jadwal Mendatang -->
+                    <div class="stat-card blue">
+                        <div class="stat-val">1</div>
+                        <div class="stat-lbl">Jadwal Mendatang</div>
+                        <span class="stat-badge">Dalam waktu dekat</span>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon-box" style="background:#f0fdf4;"></div>
-                        <div>
-                            <div class="stat-val">2</div>
-                            <div class="stat-lbl">Sesi Selesai</div>
-                        </div>
+
+                    <!-- Sesi Selesai -->
+                    <div class="stat-card green">
+                        <div class="stat-val">2</div>
+                        <div class="stat-lbl">Sesi Selesai</div>
+                        <span class="stat-badge">Berhasil diselesaikan</span>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon-box" style="background:#fffbeb;">⭐</div>
-                        <div>
-                            <div class="stat-val">4.8</div>
-                            <div class="stat-lbl">Rating Rata-rata</div>
-                        </div>
-                    </div>
+
                 </div>
 
                 <div class="two-col">
@@ -1084,7 +1282,7 @@
                                 <div class="jadwal-date"><span class="day">28</span><span class="month">Mar</span></div>
                                 <div class="jadwal-info">
                                     <div class="psikolog-name">Dr. Sarah Amelia, M.Psi</div>
-                                    <div class="jadwal-time"> Online · 10:00 – 11:00 WIB</div>
+                                    <div class="jadwal-time">🖥️ Online · 10:00 – 11:00 WIB</div>
                                 </div>
                                 <span class="badge badge-primary">Terkonfirmasi</span>
                             </div>
@@ -1092,7 +1290,7 @@
                                 <div class="jadwal-date"><span class="day">05</span><span class="month">Apr</span></div>
                                 <div class="jadwal-info">
                                     <div class="psikolog-name">Reza Pratama, S.Psi</div>
-                                    <div class="jadwal-time"> Offline · 14:00 – 15:00 WIB</div>
+                                    <div class="jadwal-time">📍 Offline · 14:00 – 15:00 WIB</div>
                                 </div>
                                 <span class="badge badge-warning">Menunggu</span>
                             </div>
@@ -1170,7 +1368,7 @@
                         <p class="spec">Psikologi Klinis</p>
                         <div class="rating">⭐ 4.9 · 48 ulasan</div>
                         <div class="tarif">Rp 150.000 / sesi</div>
-                        <button class="btn-konsul" onclick="openBookingModal(this)">Buat Janji</button>
+                        <button class="btn-konsul" onclick="window.location.href='form-konsul.html'">Buat Janji</button>
                     </div>
                     <div class="psikolog-card">
                         <div class="psikolog-card-avatar" style="background:linear-gradient(135deg,#0f6e56,#1d9e75)">RP
@@ -1179,9 +1377,7 @@
                         <p class="spec">Konseling Remaja</p>
                         <div class="rating">⭐ 4.7 · 32 ulasan</div>
                         <div class="tarif">Rp 100.000 / sesi</div>
-                        <button class="btn-konsul" onclick="window.location.href='form-konsul.html'">
-                            Buat Janji
-                        </button>
+                        <button class="btn-konsul" onclick="window.location.href='form-konsul.html'">Buat Janji</button>
                     </div>
                     <div class="psikolog-card">
                         <div class="psikolog-card-avatar" style="background:linear-gradient(135deg,#993556,#d4537e)">NA
@@ -1190,7 +1386,7 @@
                         <p class="spec">Manajemen Stres</p>
                         <div class="rating">⭐ 4.8 · 41 ulasan</div>
                         <div class="tarif">Rp 120.000 / sesi</div>
-                        <button class="btn-konsul">Buat Janji</button>
+                        <button class="btn-konsul" onclick="window.location.href='form-konsul.html'">Buat Janji</button>
                     </div>
                     <div class="psikolog-card">
                         <div class="psikolog-card-avatar" style="background:linear-gradient(135deg,#854f0b,#ba7517)">BW
@@ -1199,7 +1395,7 @@
                         <p class="spec">Trauma & PTSD</p>
                         <div class="rating">⭐ 4.6 · 27 ulasan</div>
                         <div class="tarif">Rp 130.000 / sesi</div>
-                        <button class="btn-konsul">Buat Janji</button>
+                        <button class="btn-konsul" onclick="window.location.href='form-konsul.html'">Buat Janji</button>
                     </div>
                     <div class="psikolog-card">
                         <div class="psikolog-card-avatar" style="background:linear-gradient(135deg,#185fa5,#378add)">DH
@@ -1208,7 +1404,7 @@
                         <p class="spec">Psikologi Pendidikan</p>
                         <div class="rating">⭐ 4.9 · 55 ulasan</div>
                         <div class="tarif">Rp 125.000 / sesi</div>
-                        <button class="btn-konsul">Buat Janji</button>
+                        <button class="btn-konsul" onclick="window.location.href='form-konsul.html'">Buat Janji</button>
                     </div>
                     <div class="psikolog-card">
                         <div class="psikolog-card-avatar" style="background:linear-gradient(135deg,#3b6d11,#639922)">YP
@@ -1217,7 +1413,7 @@
                         <p class="spec">Konseling Karir</p>
                         <div class="rating">⭐ 4.5 · 19 ulasan</div>
                         <div class="tarif">Rp 90.000 / sesi</div>
-                        <button class="btn-konsul">Buat Janji</button>
+                        <button class="btn-konsul" onclick="window.location.href='form-konsul.html'">Buat Janji</button>
                     </div>
                 </div>
             </div>
@@ -1263,7 +1459,7 @@
                                     <td>28 Mar 2026 · 10:00 WIB</td>
                                     <td><span class="badge badge-primary">Online</span></td>
                                     <td><span class="badge badge-success">Terkonfirmasi</span></td>
-                                    <td><button class="card-action">Detail</button></td>
+                                    <td><button class="card-action" onclick="openDetailModal(0)">Detail</button></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -1281,7 +1477,7 @@
                                     <td>05 Apr 2026 · 14:00 WIB</td>
                                     <td><span class="badge badge-warning">Offline</span></td>
                                     <td><span class="badge badge-warning">Menunggu</span></td>
-                                    <td><button class="card-action">Detail</button></td>
+                                    <td><button class="card-action" onclick="openDetailModal(1)">Detail</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1403,6 +1599,54 @@
         </div>
     </main>
 
+    <!-- MODAL DETAIL JADWAL -->
+    <div class="modal-detail" id="modalDetail">
+        <div class="modal-detail-box">
+            <div class="modal-detail-header">
+                <h3>Detail Jadwal Konsultasi</h3>
+                <button class="modal-detail-close" onclick="closeDetailModal()">✕</button>
+            </div>
+            <div class="modal-detail-psikolog">
+                <div class="avatar" id="detail-avatar" style="background:linear-gradient(135deg,#6352c7,#4a90d9)">SA
+                </div>
+                <div>
+                    <div class="info-name" id="detail-nama">—</div>
+                    <div class="info-spec" id="detail-spesialis">—</div>
+                </div>
+            </div>
+            <div class="modal-detail-body">
+                <div class="detail-row">
+                    <span class="label">Tanggal</span>
+                    <span class="value" id="detail-tanggal">—</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Waktu</span>
+                    <span class="value" id="detail-waktu">—</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Durasi</span>
+                    <span class="value" id="detail-durasi">—</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Tipe Sesi</span>
+                    <span class="value" id="detail-tipe">—</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Status</span>
+                    <span class="value" id="detail-status">—</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Catatan</span>
+                    <span class="value" id="detail-catatan">—</span>
+                </div>
+            </div>
+            <div class="modal-detail-footer">
+                <button class="btn-batal-jadwal">Batalkan Jadwal</button>
+                <button class="btn-save" onclick="closeDetailModal()">Tutup</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const titles = {
             beranda: 'Beranda',
@@ -1419,9 +1663,7 @@
             document.getElementById('topbar-title').textContent = titles[page];
             if (navEl) navEl.classList.add('active');
         }
-    </script>
-    <script>
-        // Search & Filter Psikolog
+
         const searchInput = document.querySelector('.filter-bar input');
         const sesiFilter = document.querySelectorAll('.filter-bar select')[0];
         const tipeFilter = document.querySelectorAll('.filter-bar select')[1];
@@ -1429,27 +1671,72 @@
         function filterPsikolog() {
             const keyword = searchInput.value.toLowerCase();
             const spesialis = sesiFilter.value.toLowerCase();
-            const tipe = tipeFilter.value.toLowerCase();
 
             document.querySelectorAll('.psikolog-card').forEach(card => {
                 const nama = card.querySelector('h4').textContent.toLowerCase();
                 const spec = card.querySelector('.spec').textContent.toLowerCase();
-
                 const matchNama = nama.includes(keyword);
                 const matchSpec = spesialis === '' || spec.includes(spesialis.toLowerCase());
-
-                // Tipe (online/offline) belum ada di card, jadi selalu match
-                const matchTipe = true;
-
-                card.style.display = (matchNama && matchSpec && matchTipe) ? 'block' : 'none';
+                card.style.display = (matchNama && matchSpec) ? 'block' : 'none';
             });
         }
 
         searchInput.addEventListener('input', filterPsikolog);
         sesiFilter.addEventListener('change', filterPsikolog);
         tipeFilter.addEventListener('change', filterPsikolog);
-    </script>
 
+        // DATA JADWAL
+        const jadwalData = [
+            {
+                nama: 'Dr. Sarah Amelia, M.Psi',
+                spesialis: 'Psikologi Klinis',
+                avatarText: 'SA',
+                avatarBg: 'linear-gradient(135deg,#6352c7,#4a90d9)',
+                tanggal: 'Sabtu, 28 Maret 2026',
+                waktu: '10:00 – 11:00 WIB',
+                durasi: '60 menit',
+                tipe: 'Online (Video Call)',
+                status: '<span class="badge badge-success">Terkonfirmasi</span>',
+                catatan: 'Konsultasi manajemen stres akademik'
+            },
+            {
+                nama: 'Reza Pratama, S.Psi',
+                spesialis: 'Konseling Remaja',
+                avatarText: 'RP',
+                avatarBg: 'linear-gradient(135deg,#0f6e56,#1d9e75)',
+                tanggal: 'Minggu, 05 April 2026',
+                waktu: '14:00 – 15:00 WIB',
+                durasi: '60 menit',
+                tipe: 'Offline (Tatap Muka)',
+                status: '<span class="badge badge-warning">Menunggu Konfirmasi</span>',
+                catatan: 'Konsultasi kecemasan sosial'
+            }
+        ];
+
+        function openDetailModal(idx) {
+            const d = jadwalData[idx];
+            document.getElementById('detail-avatar').textContent = d.avatarText;
+            document.getElementById('detail-avatar').style.background = d.avatarBg;
+            document.getElementById('detail-nama').textContent = d.nama;
+            document.getElementById('detail-spesialis').textContent = d.spesialis;
+            document.getElementById('detail-tanggal').textContent = d.tanggal;
+            document.getElementById('detail-waktu').textContent = d.waktu;
+            document.getElementById('detail-durasi').textContent = d.durasi;
+            document.getElementById('detail-tipe').textContent = d.tipe;
+            document.getElementById('detail-status').innerHTML = d.status;
+            document.getElementById('detail-catatan').textContent = d.catatan;
+            document.getElementById('modalDetail').classList.add('active');
+        }
+
+        function closeDetailModal() {
+            document.getElementById('modalDetail').classList.remove('active');
+        }
+
+        // Tutup modal jika klik di luar
+        document.getElementById('modalDetail').addEventListener('click', function (e) {
+            if (e.target === this) closeDetailModal();
+        });
+    </script>
 
 </body>
 
