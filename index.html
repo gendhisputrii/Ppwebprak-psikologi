@@ -105,7 +105,7 @@
             padding: 10px 24px !important;
             background: var(--primary-dark) !important;
             color: white !important;
-            border-radius: var(--radius-sm) !important;
+            border-radius: 8px !important;
             font-weight: 600 !important;
             transition: all 0.2s !important;
         }
@@ -1030,28 +1030,63 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* ===== SCROLL ANIMATION ===== */
+        [data-animate] {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.9s ease, transform 0.9s ease;
+        }
+
+        [data-animate].visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        [data-animate="left"] {
+            transform: translateX(-40px);
+        }
+
+        [data-animate="left"].visible {
+            transform: translateX(0);
+        }
+
+        [data-animate="right"] {
+            transform: translateX(40px);
+        }
+
+        [data-animate="right"].visible {
+            transform: translateX(0);
+        }
+
+        [data-animate="zoom"] {
+            transform: scale(0.9);
+        }
+
+        [data-animate="zoom"].visible {
+            transform: scale(1);
+        }
     </style>
 </head>
 
 <body>
 
-    <!-- NAVBAR -->
     <nav class="navbar">
         <div class="logo">
             <img src="logorp.png" alt="RuangPulih" class="logo-img">
         </div>
         <ul class="nav-menu">
             <li><a href="index.html">Beranda</a></li>
-            <li><a href="#layanan">Layanan</a></li>
-            <li><a href="#tentang">Tentang</a></li>
-            <li><a href="#artikel">Artikel</a></li>
+            <li><a href="index.html#layanan">Layanan</a></li>
+            <li><a href="index.html#tentang">Tentang</a></li>
+            <li><a href="index.html#artikel">Artikel</a></li>
             <li><a href="login.html" class="btn-login">Login</a></li>
         </ul>
     </nav>
 
     <!-- HERO SECTION -->
     <section class="hero">
-        <div class="hero-content">
+        <div class="hero-content" data-animate="left">
             <div class="hero-badge">
                 <span class="badge-dot"></span>
                 Layanan Psikologi Terpercaya
@@ -1081,7 +1116,7 @@
                 </div>
             </div>
         </div>
-        <div class="hero-image">
+        <div class="hero-image" data-animate="right">
             <div class="hero-img-wrapper">
                 <img src="halamn3.png" alt="Konseling">
             </div>
@@ -1090,13 +1125,13 @@
 
     <!-- LAYANAN SECTION -->
     <section id="layanan" class="layanan">
-        <div class="section-header">
+        <div class="section-header" data-animate>
             <p class="section-label">Apa yang Kami Tawarkan</p>
             <h2>Layanan Kami</h2>
             <p class="section-desc">Pilih layanan yang paling sesuai dengan kebutuhanmu</p>
         </div>
         <div class="layanan-grid">
-            <div class="layanan-card">
+            <div class="layanan-card" data-animate="zoom" style="transition-delay: 0s">
                 <div class="card-icon">
                     <img src="12.png" alt="Konseling Offline" class="gambar-icon">
                 </div>
@@ -1104,7 +1139,7 @@
                 <p>Buat janji tatap muka langsung dengan psikolog pilihan kamu</p>
                 <a href="#" class="card-link" onclick="mulaiKonsultasi()">Buat Janji →</a>
             </div>
-            <div class="layanan-card featured">
+            <div class="layanan-card" data-animate="zoom" style="transition-delay: 0s">
                 <div class="card-badge">Terpopuler</div>
                 <div class="card-icon">
                     <img src="13.png" alt="Tes Depresi" class="gambar-icon">
@@ -1113,7 +1148,7 @@
                 <p>Hasil adaptasi tes PHQ-9 untuk mengecek & mengukur gejala depresi</p>
                 <a href="tes-depresi.html" class="card-link">Mulai Tes →</a>
             </div>
-            <div class="layanan-card">
+            <div class="layanan-card" data-animate="zoom" style="transition-delay: 0.3s">
                 <div class="card-icon">
                     <img src="14.png" alt="Konseling Online" class="gambar-icon">
                 </div>
@@ -1145,7 +1180,7 @@
 
             <!-- KIRI (ARTIKEL BESAR) -->
             <a href="https://share.google/AdCTQqPyG5dl91vWl" target="_blank" class="artikel-link">
-                <div class="artikel-card-large">
+                <div class="artikel-card-large" data-animate="left">
                     <div class="artikel-img">
                         <img src="a2.jpg" alt="Anxiety" class="artikel-img-real">
                         <span class="artikel-category">Kesehatan Mental</span>
@@ -1162,7 +1197,7 @@
             </a>
 
             <!-- KANAN (ARTIKEL KECIL) -->
-            <div class="artikel-side">
+            <div class="artikel-side" data-animate="right">
 
                 <a href="https://share.google/VaQ1UEQJqy0pDdq1w" target="_blank" class="artikel-link">
                     <div class="artikel-card-small">
@@ -1235,7 +1270,7 @@
         <div class="video-container">
 
             <!-- Video 1 -->
-            <div class="video-card">
+            <div class="video-card" data-animate>
                 <a href="https://www.youtube.com/watch?v=0xV-gpKYv3k" target="_blank">
                     <div class="video-wrapper">
                         <img src="https://img.youtube.com/vi/0xV-gpKYv3k/hqdefault.jpg" class="video-thumbnail">
@@ -1250,7 +1285,7 @@
             </div>
 
             <!-- Video 2 -->
-            <div class="video-card">
+            <div class="video-card" data-animate>
                 <a href="https://www.youtube.com/watch?v=Btpwu4EHhGA" target="_blank">
                     <div class="video-wrapper">
                         <img src="https://img.youtube.com/vi/Btpwu4EHhGA/hqdefault.jpg" class="video-thumbnail">
@@ -1265,7 +1300,7 @@
             </div>
 
             <!-- Video 3 -->
-            <div class="video-card">
+            <div class="video-card" data-animate>
                 <a href="https://www.youtube.com/watch?v=bGYhibeAhB4" target="_blank">
                     <div class="video-wrapper">
                         <img src="https://img.youtube.com/vi/bGYhibeAhB4/hqdefault.jpg" class="video-thumbnail">
@@ -1288,7 +1323,7 @@
 
     <!-- FOOTER -->
     <footer>
-        <div class="footer-content">
+        <div class="footer-content" data-animate>
             <div class="footer-section footer-brand">
                 <div class="footer-logo">RuangPulih</div>
                 <p>Ruang aman untuk pulih dan bertumbuh bersama.</p>
@@ -1522,6 +1557,26 @@
             // kalau sudah login → ke form konsultasi
             window.location.href = "form-konsul.html";
         }
+
+        /* Scroll Animation Observer */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // saat masuk viewport → tampil + animasi jalan
+                    entry.target.classList.add('visible');
+                } else {
+                    // saat keluar viewport → reset supaya bisa animasi lagi
+                    entry.target.classList.remove('visible');
+                }
+            });
+        }, {
+            threshold: 0.15
+        });
+
+        document.querySelectorAll('[data-animate]').forEach(el => {
+            observer.observe(el);
+        });
     </script>
 
 </html>
+</body>

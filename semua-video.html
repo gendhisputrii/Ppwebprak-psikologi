@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Semua Video - RuangPulih</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         :root {
             --primary: #6352c7;
             --primary-dark: #2d1f6e;
@@ -18,9 +27,10 @@
             --border: rgba(99, 82, 199, 0.12);
             --radius-md: 14px;
             --radius-lg: 20px;
-            --shadow-sm: 0 2px 8px rgba(45,31,110,0.06);
-            --shadow-md: 0 8px 32px rgba(45,31,110,0.10);
+            --shadow-sm: 0 2px 8px rgba(45, 31, 110, 0.06);
+            --shadow-md: 0 8px 32px rgba(45, 31, 110, 0.10);
         }
+
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--bg);
@@ -35,17 +45,45 @@
             justify-content: space-between;
             padding: 0 60px;
             height: 70px;
-            background: rgba(255,255,255,0.92);
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
             z-index: 100;
         }
-        .logo-img { height: 40px; width: auto; object-fit: contain; }
-        .nav-menu { display: flex; align-items: center; gap: 36px; list-style: none; }
-        .nav-menu a { text-decoration: none; font-size: 14px; font-weight: 500; color: var(--text-mid); transition: color 0.2s; }
-        .nav-menu a:hover { color: var(--primary); }
+        .logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+            min-width: 0;
+        }
+        .logo-img {
+            height: 100px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 36px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-mid);
+            transition: color 0.2s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+
         .btn-login {
             padding: 10px 24px !important;
             background: var(--primary-dark) !important;
@@ -59,6 +97,7 @@
             text-align: center;
             padding: 60px 60px 40px;
         }
+
         .section-label {
             display: inline-block;
             font-size: 12px;
@@ -71,6 +110,7 @@
             border-radius: 100px;
             margin-bottom: 14px;
         }
+
         .page-header h1 {
             font-size: clamp(28px, 3vw, 42px);
             font-weight: 800;
@@ -78,7 +118,11 @@
             letter-spacing: -1px;
             margin-bottom: 10px;
         }
-        .page-header p { font-size: 15px; color: var(--text-muted); }
+
+        .page-header p {
+            font-size: 15px;
+            color: var(--text-muted);
+        }
 
         /* FILTER BAR */
         .filter-wrap {
@@ -88,6 +132,7 @@
             flex-wrap: wrap;
             justify-content: center;
         }
+
         .tab-item {
             padding: 8px 18px;
             border-radius: 100px;
@@ -99,11 +144,25 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-        .tab-item:hover { border-color: var(--primary); color: var(--primary); }
-        .tab-item.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+        .tab-item:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .tab-item.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
 
         /* VIDEO GRID */
-        .video-wrap { padding: 0 60px 80px; max-width: 1200px; margin: 0 auto; }
+        .video-wrap {
+            padding: 0 60px 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
         .video-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -120,12 +179,17 @@
             display: flex;
             flex-direction: column;
         }
+
         .video-card:hover {
             transform: translateY(-6px);
             box-shadow: var(--shadow-md);
             border-color: var(--primary);
         }
-        .video-card a { text-decoration: none; color: inherit; }
+
+        .video-card a {
+            text-decoration: none;
+            color: inherit;
+        }
 
         .video-wrapper {
             position: relative;
@@ -134,6 +198,7 @@
             overflow: hidden;
             background: #000;
         }
+
         .video-thumbnail {
             position: absolute;
             width: 100%;
@@ -141,7 +206,11 @@
             object-fit: cover;
             transition: opacity 0.3s;
         }
-        .video-card:hover .video-thumbnail { opacity: 0.85; }
+
+        .video-card:hover .video-thumbnail {
+            opacity: 0.85;
+        }
+
         .play-button {
             position: absolute;
             top: 50%;
@@ -149,7 +218,7 @@
             transform: translate(-50%, -50%);
             width: 52px;
             height: 52px;
-            background: rgba(255,255,255,0.95);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -159,9 +228,18 @@
             pointer-events: none;
             transition: transform 0.2s;
         }
-        .video-card:hover .play-button { transform: translate(-50%, -50%) scale(1.1); }
 
-        .video-info { padding: 18px 20px 20px; flex: 1; display: flex; flex-direction: column; }
+        .video-card:hover .play-button {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-info {
+            padding: 18px 20px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
         .video-channel {
             display: inline-block;
             font-size: 11px;
@@ -175,6 +253,7 @@
             margin-bottom: 10px;
             align-self: flex-start;
         }
+
         .video-kategori {
             display: inline-block;
             font-size: 10px;
@@ -184,6 +263,7 @@
             color: var(--text-muted);
             margin-bottom: 8px;
         }
+
         .video-info h4 {
             font-size: 14px;
             font-weight: 700;
@@ -192,7 +272,12 @@
             margin-bottom: 8px;
             flex: 1;
         }
-        .video-info p { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+
+        .video-info p {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
 
         /* EMPTY STATE */
         .empty-state {
@@ -202,10 +287,19 @@
             color: var(--text-muted);
             font-size: 15px;
         }
-        .empty-state span { display: block; font-size: 40px; margin-bottom: 12px; }
+
+        .empty-state span {
+            display: block;
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
 
         /* BACK */
-        .back-wrap { text-align: center; margin-bottom: 20px; }
+        .back-wrap {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
         .back {
             display: inline-block;
             color: var(--primary);
@@ -213,144 +307,171 @@
             font-size: 14px;
             text-decoration: none;
         }
-        .back:hover { color: var(--primary-dark); }
+
+        .back:hover {
+            color: var(--primary-dark);
+        }
 
         /* FOOTER */
         footer {
             background: var(--primary-dark);
-            color: rgba(255,255,255,0.7);
+            color: rgba(255, 255, 255, 0.7);
             padding: 40px 60px;
             text-align: center;
         }
-        footer p { font-size: 13px; }
+
+        footer p {
+            font-size: 13px;
+        }
 
         @media (max-width: 900px) {
-            .navbar { padding: 0 24px; }
-            .page-header { padding: 40px 24px 28px; }
-            .filter-wrap { padding: 0 24px 24px; }
-            .video-wrap { padding: 0 24px 60px; }
-            .video-grid { grid-template-columns: repeat(2, 1fr); }
-            footer { padding: 32px 24px; }
+            .navbar {
+                padding: 0 24px;
+            }
+
+            .page-header {
+                padding: 40px 24px 28px;
+            }
+
+            .filter-wrap {
+                padding: 0 24px 24px;
+            }
+
+            .video-wrap {
+                padding: 0 24px 60px;
+            }
+
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            footer {
+                padding: 32px 24px;
+            }
         }
+
         @media (max-width: 600px) {
-            .video-grid { grid-template-columns: 1fr; }
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
+
 <body>
 
-<nav class="navbar">
-    <div class="logo">
-        <img src="logo1.png" alt="RuangPulih" class="logo-img">
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logorp.png" alt="RuangPulih" class="logo-img">
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="index.html#layanan">Layanan</a></li>
+            <li><a href="index.html#artikel">Artikel</a></li>
+            <li><a href="login.html" class="btn-login">Login</a></li>
+        </ul>
+    </nav>
+
+    <div class="page-header">
+        <p class="section-label">Tonton & Belajar</p>
+        <h1>Semua Video Edukasi</h1>
+        <p>Kumpulan video pilihan untuk membantu kamu memahami kesehatan mental.</p>
     </div>
-    <ul class="nav-menu">
-        <li><a href="index.html">Beranda</a></li>
-        <li><a href="index.html#layanan">Layanan</a></li>
-        <li><a href="index.html#artikel">Artikel</a></li>
-        <li><a href="login.html" class="btn-login">Login</a></li>
-    </ul>
-</nav>
 
-<div class="page-header">
-    <p class="section-label">Tonton & Belajar</p>
-    <h1>Semua Video Edukasi</h1>
-    <p>Kumpulan video pilihan untuk membantu kamu memahami kesehatan mental.</p>
-</div>
+    <div class="filter-wrap" id="filterBar"></div>
 
-<div class="filter-wrap" id="filterBar"></div>
+    <div class="video-wrap">
+        <div class="video-grid" id="videoGrid"></div>
+    </div>
 
-<div class="video-wrap">
-    <div class="video-grid" id="videoGrid"></div>
-</div>
+    <div class="back-wrap">
+        <a href="index.html" class="back">← Kembali ke Beranda</a>
+    </div>
 
-<div class="back-wrap">
-    <a href="index.html" class="back">← Kembali ke Beranda</a>
-</div>
+    <footer>
+        <p>© 2026 RuangPulih. Semua hak dilindungi.</p>
+    </footer>
 
-<footer>
-    <p>© 2026 RuangPulih. Semua hak dilindungi.</p>
-</footer>
+    <script>
+        const semuaVideo = [
+            // === TAMPIL DI HALAMAN UTAMA ===
+            {
+                id: "0xV-gpKYv3k",
+                kategori: "Kecemasan",
+                channel: "Into The Light Indonesia",
+                judul: "Apa Itu Anxiety dan Bagaimana Menghadapinya?",
+                desc: "Penjelasan lengkap tentang anxiety disorder dan cara mengelolanya sehari-hari."
+            },
+            {
+                id: "Btpwu4EHhGA",
+                kategori: "Stres",
+                channel: "Maudy Ayunda",
+                judul: "Cara Menangani Stress",
+                desc: "Tips praktis mengelola stres agar tetap produktif dan sehat mental."
+            },
+            {
+                id: "bGYhibeAhB4",
+                kategori: "Depresi",
+                channel: "Siloam Hospitals",
+                judul: "Tanda-Tanda Kamu Terkena Depresi!",
+                desc: "Kenali fakta tentang depresi hingga kapan bantuan profesional dibutuhkan."
+            },
+            // === VIDEO TAMBAHAN (hanya di semua-video.html) ===
+            {
+                id: "_50igeHW7vw",
+                kategori: "Kesehatan Mental",
+                channel: "TED",
+                judul: "Mental Health and Social Media",
+                desc: "Bagaimana media sosial mempengaruhi kesehatan mental kita sehari-hari."
+            },
+            {
+                id: "-QDjx_spkwI",
+                kategori: "Kesehatan Mental",
+                channel: "Psych2Go",
+                judul: "Mental Health Wellness Tips",
+                desc: "Tips menjaga kesehatan mental agar tetap seimbang dan bahagia."
+            },
+            {
+                id: "NQcYZplTXnQ",
+                kategori: "Kesehatan Mental",
+                channel: "Mental Health Foundation",
+                judul: "Mental Health Wellness Tips",
+                desc: "Panduan praktis menjaga kesejahteraan mental untuk kehidupan sehari-hari."
+            },
+            {
+                id: "k_aFpRPwF3o",
+                kategori: "Kecemasan",
+                channel: "Therapy in a Nutshell",
+                judul: "How to Cope with Anxiety",
+                desc: "Teknik dan strategi efektif untuk mengelola kecemasan dalam kehidupan sehari-hari."
+            }
+        ];
 
-<script>
-const semuaVideo = [
-    // === TAMPIL DI HALAMAN UTAMA ===
-    {
-        id: "0xV-gpKYv3k",
-        kategori: "Kecemasan",
-        channel: "Into The Light Indonesia",
-        judul: "Apa Itu Anxiety dan Bagaimana Menghadapinya?",
-        desc: "Penjelasan lengkap tentang anxiety disorder dan cara mengelolanya sehari-hari."
-    },
-    {
-        id: "Btpwu4EHhGA",
-        kategori: "Stres",
-        channel: "Maudy Ayunda",
-        judul: "Cara Menangani Stress",
-        desc: "Tips praktis mengelola stres agar tetap produktif dan sehat mental."
-    },
-    {
-        id: "bGYhibeAhB4",
-        kategori: "Depresi",
-        channel: "Siloam Hospitals",
-        judul: "Tanda-Tanda Kamu Terkena Depresi!",
-        desc: "Kenali fakta tentang depresi hingga kapan bantuan profesional dibutuhkan."
-    },
-    // === VIDEO TAMBAHAN (hanya di semua-video.html) ===
-    {
-        id: "_50igeHW7vw",
-        kategori: "Kesehatan Mental",
-        channel: "TED",
-        judul: "Mental Health and Social Media",
-        desc: "Bagaimana media sosial mempengaruhi kesehatan mental kita sehari-hari."
-    },
-    {
-        id: "-QDjx_spkwI",
-        kategori: "Kesehatan Mental",
-        channel: "Psych2Go",
-        judul: "Mental Health Wellness Tips",
-        desc: "Tips menjaga kesehatan mental agar tetap seimbang dan bahagia."
-    },
-    {
-        id: "NQcYZplTXnQ",
-        kategori: "Kesehatan Mental",
-        channel: "Mental Health Foundation",
-        judul: "Mental Health Wellness Tips",
-        desc: "Panduan praktis menjaga kesejahteraan mental untuk kehidupan sehari-hari."
-    },
-    {
-        id: "k_aFpRPwF3o",
-        kategori: "Kecemasan",
-        channel: "Therapy in a Nutshell",
-        judul: "How to Cope with Anxiety",
-        desc: "Teknik dan strategi efektif untuk mengelola kecemasan dalam kehidupan sehari-hari."
-    }
-];
+        const kategoriList = ['Semua', 'Kesehatan Mental', 'Stres', 'Kecemasan', 'Depresi'];
+        let aktif = 'Semua';
 
-const kategoriList = ['Semua', 'Kesehatan Mental', 'Stres', 'Kecemasan', 'Depresi'];
-let aktif = 'Semua';
+        function renderFilter() {
+            const bar = document.getElementById('filterBar');
+            bar.innerHTML = '';
+            kategoriList.forEach(k => {
+                const btn = document.createElement('button');
+                btn.className = 'tab-item' + (k === aktif ? ' active' : '');
+                btn.textContent = k;
+                btn.onclick = () => { aktif = k; renderFilter(); renderGrid(); };
+                bar.appendChild(btn);
+            });
+        }
 
-function renderFilter() {
-    const bar = document.getElementById('filterBar');
-    bar.innerHTML = '';
-    kategoriList.forEach(k => {
-        const btn = document.createElement('button');
-        btn.className = 'tab-item' + (k === aktif ? ' active' : '');
-        btn.textContent = k;
-        btn.onclick = () => { aktif = k; renderFilter(); renderGrid(); };
-        bar.appendChild(btn);
-    });
-}
+        function renderGrid() {
+            const grid = document.getElementById('videoGrid');
+            const filtered = aktif === 'Semua' ? semuaVideo : semuaVideo.filter(v => v.kategori === aktif);
 
-function renderGrid() {
-    const grid = document.getElementById('videoGrid');
-    const filtered = aktif === 'Semua' ? semuaVideo : semuaVideo.filter(v => v.kategori === aktif);
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="empty-state"><span>📭</span>Belum ada video untuk kategori ini.</div>`;
+                return;
+            }
 
-    if (filtered.length === 0) {
-        grid.innerHTML = `<div class="empty-state"><span>📭</span>Belum ada video untuk kategori ini.</div>`;
-        return;
-    }
-
-    grid.innerHTML = filtered.map(v => `
+            grid.innerHTML = filtered.map(v => `
         <div class="video-card">
             <a href="https://www.youtube.com/watch?v=${v.id}" target="_blank">
                 <div class="video-wrapper">
@@ -371,11 +492,12 @@ function renderGrid() {
             </div>
         </div>
     `).join('');
-}
+        }
 
-renderFilter();
-renderGrid();
-</script>
+        renderFilter();
+        renderGrid();
+    </script>
 
 </body>
+
 </html>
