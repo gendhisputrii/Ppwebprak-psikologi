@@ -189,7 +189,7 @@
             flex-direction: column;
         }
 
-               /* ===== TOPBAR ===== */
+        /* ===== TOPBAR ===== */
         .topbar {
             height: 70px;
             background: white;
@@ -231,802 +231,797 @@
             background: #ef4444;
         }
 
-/* ===== CONTENT ===== */
-.content {
-    padding: 24px;
-}
-
-.page {
-    display: none;
-}
-
-.page.active {
-    display: block;
-}
-
-/* ===== WELCOME BANNER ===== */
-.welcome-banner {
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    border-radius: var(--radius-md);
-    padding: 24px 32px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 24px;
-    color: white;
-}
-
-.welcome-text h2 {
-    font-size: 20px;
-    font-weight: 800;
-    margin-bottom: 4px;
-}
-
-.welcome-text p {
-    font-size: 13px;
-    opacity: 0.85;
-}
-
-.welcome-btn {
-    padding: 10px 20px;
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.2s;
-}
-
-.welcome-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
-
-/* ===== STATS GRID ===== */
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 24px;
-}
-
-.stat-card {
-    background: white;
-    padding: 16px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-.stat-icon-box {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    flex-shrink: 0;
-}
-
-.stat-val {
-    font-size: 22px;
-    font-weight: 800;
-    color: var(--text-dark);
-}
-
-.stat-lbl {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-top: 2px;
-}
-
-/* ===== TWO COL ===== */
-.two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-}
-
-/* ===== CARD ===== */
-.card {
-    background: white;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border);
-    overflow: hidden;
-    margin-bottom: 16px;
-}
-
-.card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--border);
-}
-
-.card-title {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text-dark);
-}
-
-.card-action {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--primary);
-    background: var(--primary-light);
-    border: none;
-    border-radius: 6px;
-    padding: 6px 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.card-action:hover {
-    background: var(--primary);
-    color: white;
-}
-
-.card-body {
-    padding: 16px 20px;
-}
-
-/* ===== JADWAL ITEM ===== */
-.jadwal-item {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--border);
-}
-
-.jadwal-item:last-child {
-    border-bottom: none;
-}
-
-.jadwal-date {
-    width: 44px;
-    text-align: center;
-    flex-shrink: 0;
-    background: var(--primary-light);
-    border-radius: var(--radius-sm);
-    padding: 6px 4px;
-}
-
-.jadwal-date .day {
-    display: block;
-    font-size: 18px;
-    font-weight: 800;
-    color: var(--primary);
-}
-
-.jadwal-date .month {
-    display: block;
-    font-size: 10px;
-    color: var(--text-muted);
-    font-weight: 600;
-    text-transform: uppercase;
-}
-
-.jadwal-info {
-    flex: 1;
-}
-
-.psikolog-name {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-dark);
-}
-
-.jadwal-time {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-top: 2px;
-}
-
-/* ===== BADGE ===== */
-.badge {
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 999px;
-    font-size: 11px;
-    font-weight: 600;
-    white-space: nowrap;
-}
-
-.badge-primary {
-    background: var(--primary-light);
-    color: var(--primary);
-}
-
-.badge-warning {
-    background: var(--warning-light);
-    color: #92400e;
-}
-
-.badge-success {
-    background: var(--success-light);
-    color: #166534;
-}
-
-.badge-danger {
-    background: var(--danger-light);
-    color: #991b1b;
-}
-
-/* ===== PSIKOLOG / PASIEN LIST ===== */
-.psikolog-list,
-.pasien-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-}
-
-.psikolog-item,
-.pasien-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border);
-}
-
-.psikolog-item:last-child,
-.pasien-item:last-child {
-    border-bottom: none;
-}
-
-.psikolog-avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 700;
-    color: white;
-    flex-shrink: 0;
-}
-
-.psikolog-item-info,
-.pasien-item-info {
-    flex: 1;
-}
-
-.psikolog-item-name,
-.pasien-item-name {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-dark);
-}
-
-.psikolog-item-spec,
-.pasien-item-spec {
-    font-size: 11px;
-    color: var(--text-muted);
-}
-
-.psikolog-item-rating {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text-mid);
-}
-
-/* ===== PAGE HEADER ===== */
-.page-header {
-    margin-bottom: 20px;
-}
-
-.page-header h2 {
-    font-size: 20px;
-    font-weight: 800;
-    margin-bottom: 4px;
-}
-
-.page-header p {
-    font-size: 13px;
-    color: var(--text-muted);
-}
-
-/* ===== FILTER BAR ===== */
-.filter-bar {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-}
-
-.filter-bar input,
-.filter-bar select {
-    padding: 8px 12px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    font-family: inherit;
-    background: white;
-    color: var(--text-dark);
-    outline: none;
-}
-
-.filter-bar input {
-    flex: 1;
-    min-width: 200px;
-}
-
-.filter-bar input:focus,
-.filter-bar select:focus {
-    border-color: var(--primary);
-}
-
-/* ===== PSIKOLOG GRID ===== */
-.psikolog-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-}
-
-.psikolog-card {
-    background: white;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border);
-    padding: 24px;
-    text-align: center;
-    transition: all 0.25s;
-}
-
-.psikolog-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
-}
-
-.psikolog-card-avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    margin: 0 auto 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    font-weight: 700;
-    color: white;
-}
-
-.psikolog-card h4 {
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 4px;
-}
-
-.psikolog-card .spec {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-bottom: 10px;
-}
-
-.psikolog-card .rating {
-    font-size: 12px;
-    color: var(--text-mid);
-    margin-bottom: 6px;
-}
-
-.psikolog-card .tarif {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 14px;
-}
-
-.btn-konsul {
-    width: 100%;
-    padding: 10px;
-    background: var(--primary);
-    color: white;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: inherit;
-}
-
-.btn-konsul:hover {
-    opacity: 0.9;
-}
-
-/* ===== TABLE ===== */
-.riwayat-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-}
-
-.riwayat-table th {
-    background: var(--bg);
-    padding: 10px 16px;
-    text-align: left;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border-bottom: 1px solid var(--border);
-}
-
-.riwayat-table td {
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--border);
-    vertical-align: middle;
-}
-
-.riwayat-table tr:last-child td {
-    border-bottom: none;
-}
-
-.riwayat-table tbody tr:hover td {
-    background: var(--bg);
-}
-
-/* ===== LAPORAN ===== */
-.laporan-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-bottom: 20px;
-}
-
-.laporan-card {
-    background: white;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border);
-    padding: 20px;
-    text-align: center;
-}
-
-.laporan-card .lbl {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-bottom: 8px;
-}
-
-.laporan-card .val {
-    font-size: 22px;
-    font-weight: 800;
-    color: var(--primary);
-}
-
-/* ===== PROFIL ===== */
-.profil-header {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 24px;
-    padding: 24px;
-    background: white;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border);
-}
-
-.profil-avatar-lg {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    font-weight: 700;
-    color: white;
-    flex-shrink: 0;
-}
-
-.profil-header-info h2 {
-    font-size: 20px;
-    font-weight: 800;
-    margin-bottom: 4px;
-}
-
-.profil-header-info p {
-    font-size: 13px;
-    color: var(--text-muted);
-}
-
-.profil-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-.form-group {
-    margin-bottom: 14px;
-}
-
-.form-group label {
-    font-size: 12px;
-    color: var(--text-muted);
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 500;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 9px 12px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    font-family: inherit;
-    color: var(--text-dark);
-    background: var(--bg);
-    transition: all 0.2s;
-    outline: none;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    border-color: var(--primary);
-    background: white;
-    box-shadow: 0 0 0 2px var(--primary-light);
-}
-
-.btn-save {
-    width: 100%;
-    padding: 10px 20px;
-    background: var(--primary);
-    color: white;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: inherit;
-    margin-top: 4px;
-}
-
-.btn-save:hover {
-    opacity: 0.9;
-}
-
-/* ===== MODAL ===== */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.45);
-    z-index: 1000;
-    backdrop-filter: blur(4px);
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-
-.modal.active {
-    display: flex;
-}
-
-.modal-content {
-    background: white;
-    border-radius: var(--radius-lg);
-    max-width: 500px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-    box-shadow: var(--shadow-md);
-    position: relative;
-}
-
-.modal-header {
-    padding: 20px 24px;
-    border-bottom: 1px solid var(--border);
-}
-
-.modal-title {
-    font-size: 16px;
-    font-weight: 800;
-    color: var(--text-dark);
-}
-
-.modal-close {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    background: var(--bg);
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    color: var(--text-muted);
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-}
-
-.modal-close:hover {
-    background: var(--primary-light);
-    color: var(--primary);
-}
-
-.modal-body {
-    padding: 20px 24px;
-}
-
-.modal-body .form-group {
-    margin-bottom: 16px;
-}
-
-.modal-body label {
-    display: block;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text-muted);
-    margin-bottom: 6px;
-}
-
-.modal-body input,
-.modal-body select,
-.modal-body textarea {
-    width: 100%;
-    padding: 9px 12px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    font-family: inherit;
-    background: var(--bg);
-    color: var(--text-dark);
-    outline: none;
-    transition: all 0.2s;
-}
-
-.modal-body input:focus,
-.modal-body select:focus,
-.modal-body textarea:focus {
-    border-color: var(--primary);
-    background: white;
-    box-shadow: 0 0 0 2px var(--primary-light);
-}
-
-.modal-body textarea {
-    resize: vertical;
-    min-height: 80px;
-}
-
-.modal-footer {
-    padding: 16px 24px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-}
-
-.btn-cancel {
-    padding: 9px 18px;
-    background: white;
-    color: var(--text-mid);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: inherit;
-}
-
-.btn-cancel:hover {
-    background: var(--bg);
-}
-
-.btn-booking {
-    padding: 9px 20px;
-    background: var(--success);
-    color: white;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: inherit;
-}
-
-.btn-booking:hover:not(:disabled) {
-    opacity: 0.9;
-}
-
-.btn-booking:disabled {
-    background: var(--text-muted);
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-
-.psikolog-detail {
-    background: var(--primary-light);
-    border-radius: var(--radius-sm);
-    padding: 16px;
-    margin-bottom: 16px;
-    text-align: center;
-}
-
-.psikolog-detail-avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    margin: 0 auto 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    font-weight: 700;
-    color: white;
-}
-
-.psikolog-detail-name {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--primary);
-}
-
-.psikolog-detail-spec {
-    font-size: 12px;
-    color: var(--text-muted);
-}
-
-.error-msg {
-    background: var(--danger-light);
-    color: #991b1b;
-    padding: 10px;
-    border-radius: var(--radius-sm);
-    font-size: 12px;
-    margin-top: 8px;
-    display: none;
-}
-
-.success-msg {
-    background: var(--success-light);
-    color: #166534;
-    padding: 16px;
-    border-radius: var(--radius-sm);
-    text-align: center;
-    font-size: 14px;
-    font-weight: 600;
-    display: none;
-}
-
-@media (max-width: 768px) {
-    .modal-content {
-        margin: 10px;
-        max-height: 95vh;
-    }
-
-    .modal-footer {
-        flex-direction: column;
-    }
-
-    .btn-booking,
-    .btn-cancel {
-        width: 100%;
-    }
-}
+        /* ===== CONTENT ===== */
+        .content {
+            padding: 24px;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* ===== WELCOME BANNER ===== */
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: var(--radius-md);
+            padding: 24px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            color: white;
+        }
+
+        .welcome-text h2 {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .welcome-text p {
+            font-size: 13px;
+            opacity: 0.85;
+        }
+
+        .welcome-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .welcome-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* ===== STATS GRID — STYLE 1 ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 18px 20px 16px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            border-top: 3px solid;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            transition: box-shadow 0.2s;
+        }
+
+        .stat-card:hover {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-card.purple { border-top-color: #7F77DD; }
+        .stat-card.blue   { border-top-color: #378ADD; }
+        .stat-card.teal   { border-top-color: #1D9E75; }
+        .stat-card.amber  { border-top-color: #BA7517; }
+
+        .stat-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            flex-shrink: 0;
+        }
+
+        .stat-card.purple .stat-icon { background: #EEEDFE; }
+        .stat-card.blue   .stat-icon { background: #E6F1FB; }
+        .stat-card.teal   .stat-icon { background: #E1F5EE; }
+        .stat-card.amber  .stat-icon { background: #FAEEDA; }
+
+        .stat-val {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-dark);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .stat-lbl {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .stat-badge {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 3px 9px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 600;
+            background: #EAF3DE;
+            color: #3B6D11;
+            width: fit-content;
+        }
+
+        /* ===== TWO COL ===== */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* ===== CARD ===== */
+        .card {
+            background: white;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .card-action {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--primary);
+            background: var(--primary-light);
+            border: none;
+            border-radius: 6px;
+            padding: 6px 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .card-action:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .card-body {
+            padding: 16px 20px;
+        }
+
+        /* ===== JADWAL ITEM ===== */
+        .jadwal-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .jadwal-item:last-child {
+            border-bottom: none;
+        }
+
+        .jadwal-date {
+            width: 44px;
+            text-align: center;
+            flex-shrink: 0;
+            background: var(--primary-light);
+            border-radius: var(--radius-sm);
+            padding: 6px 4px;
+        }
+
+        .jadwal-date .day {
+            display: block;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .jadwal-date .month {
+            display: block;
+            font-size: 10px;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .jadwal-info {
+            flex: 1;
+        }
+
+        .psikolog-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .jadwal-time {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* ===== BADGE ===== */
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .badge-primary {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .badge-warning {
+            background: var(--warning-light);
+            color: #92400e;
+        }
+
+        .badge-success {
+            background: var(--success-light);
+            color: #166534;
+        }
+
+        .badge-danger {
+            background: var(--danger-light);
+            color: #991b1b;
+        }
+
+        /* ===== PSIKOLOG / PASIEN LIST ===== */
+        .psikolog-list,
+        .pasien-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .psikolog-item,
+        .pasien-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .psikolog-item:last-child,
+        .pasien-item:last-child {
+            border-bottom: none;
+        }
+
+        .psikolog-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .psikolog-item-info,
+        .pasien-item-info {
+            flex: 1;
+        }
+
+        .psikolog-item-name,
+        .pasien-item-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .psikolog-item-spec,
+        .pasien-item-spec {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .psikolog-item-rating {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-mid);
+        }
+
+        /* ===== PAGE HEADER ===== */
+        .page-header {
+            margin-bottom: 20px;
+        }
+
+        .page-header h2 {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .page-header p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* ===== FILTER BAR ===== */
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-bar input,
+        .filter-bar select {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-family: inherit;
+            background: white;
+            color: var(--text-dark);
+            outline: none;
+        }
+
+        .filter-bar input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-bar input:focus,
+        .filter-bar select:focus {
+            border-color: var(--primary);
+        }
+
+        /* ===== PSIKOLOG GRID ===== */
+        .psikolog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .psikolog-card {
+            background: white;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            padding: 24px;
+            text-align: center;
+            transition: all 0.25s;
+        }
+
+        .psikolog-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .psikolog-card-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 0 auto 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .psikolog-card h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .psikolog-card .spec {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .psikolog-card .rating {
+            font-size: 12px;
+            color: var(--text-mid);
+            margin-bottom: 6px;
+        }
+
+        .psikolog-card .tarif {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 14px;
+        }
+
+        .btn-konsul {
+            width: 100%;
+            padding: 10px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-konsul:hover {
+            opacity: 0.9;
+        }
+
+        /* ===== TABLE ===== */
+        .riwayat-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .riwayat-table th {
+            background: var(--bg);
+            padding: 10px 16px;
+            text-align: left;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .riwayat-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        .riwayat-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .riwayat-table tbody tr:hover td {
+            background: var(--bg);
+        }
+
+        /* ===== LAPORAN ===== */
+        .laporan-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .laporan-card {
+            background: white;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .laporan-card .lbl {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .laporan-card .val {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        /* ===== PROFIL ===== */
+        .profil-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 24px;
+            padding: 24px;
+            background: white;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+        }
+
+        .profil-avatar-lg {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .profil-header-info h2 {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .profil-header-info p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .profil-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 9px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-family: inherit;
+            color: var(--text-dark);
+            background: var(--bg);
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 2px var(--primary-light);
+        }
+
+        .btn-save {
+            width: 100%;
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            margin-top: 4px;
+        }
+
+        .btn-save:hover {
+            opacity: 0.9;
+        }
+
+        /* ===== MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius-lg);
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-md);
+            position: relative;
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--bg);
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: var(--text-muted);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .modal-body {
+            padding: 20px 24px;
+        }
+
+        .modal-body .form-group {
+            margin-bottom: 16px;
+        }
+
+        .modal-body label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .modal-body input,
+        .modal-body select,
+        .modal-body textarea {
+            width: 100%;
+            padding: 9px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-family: inherit;
+            background: var(--bg);
+            color: var(--text-dark);
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .modal-body input:focus,
+        .modal-body select:focus,
+        .modal-body textarea:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 2px var(--primary-light);
+        }
+
+        .modal-body textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .btn-cancel {
+            padding: 9px 18px;
+            background: white;
+            color: var(--text-mid);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-cancel:hover {
+            background: var(--bg);
+        }
+
+        .btn-booking {
+            padding: 9px 20px;
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-booking:hover:not(:disabled) {
+            opacity: 0.9;
+        }
+
+        .btn-booking:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .error-msg {
+            background: var(--danger-light);
+            color: #991b1b;
+            padding: 10px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .success-msg {
+            background: var(--success-light);
+            color: #166534;
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 10px;
+                max-height: 95vh;
+            }
+            .modal-footer {
+                flex-direction: column;
+            }
+            .btn-booking,
+            .btn-cancel {
+                width: 100%;
+            }
+        }
     </style>
-
 </head>
 <body>
 
@@ -1079,35 +1074,57 @@
         <a class="welcome-btn" onclick="showPage('jadwal', document.querySelector('[onclick*=jadwal]'))">Lihat Jadwal</a>
       </div>
 
+      <!-- STATS GRID — STYLE 1 -->
       <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-icon-box" style="background:#ede9fb;"></div>
-          <div>
-            <div class="stat-val">3</div>
-            <div class="stat-lbl">Konsultasi Hari Ini</div>
+
+        <!-- Konsultasi Hari Ini -->
+        <div class="stat-card purple">
+          <div class="stat-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7F77DD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
           </div>
+          <div class="stat-val">3</div>
+          <div class="stat-lbl">Konsultasi Hari Ini</div>
+          <div class="stat-badge">+1 dari kemarin</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-icon-box" style="background:#e8f2fc;"></div>
-          <div>
-            <div class="stat-val">12</div>
-            <div class="stat-lbl">Pasien Aktif</div>
+
+        <!-- Pasien Aktif -->
+        <div class="stat-card blue">
+          <div class="stat-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#378ADD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
           </div>
+          <div class="stat-val">12</div>
+          <div class="stat-lbl">Pasien Aktif</div>
+          <div class="stat-badge">2 baru minggu ini</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-icon-box" style="background:#f0fdf4;"></div>
-          <div>
-            <div class="stat-val">4.9</div>
-            <div class="stat-lbl">Rating</div>
+
+        <!-- Rating -->
+        <div class="stat-card teal">
+          <div class="stat-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
           </div>
+          <div class="stat-val">4.9</div>
+          <div class="stat-lbl">Rating</div>
+          <div class="stat-badge">dari 28 ulasan</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-icon-box" style="background:#fffbeb;">⭐</div>
-          <div>
-            <div class="stat-val">Rp 2.5jt</div>
-            <div class="stat-lbl">Pendapatan Bulan Ini</div>
+
+        <!-- Pendapatan -->
+        <div class="stat-card amber">
+          <div class="stat-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#BA7517" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
           </div>
+          <div class="stat-val">Rp 2.5jt</div>
+          <div class="stat-lbl">Pendapatan Bulan Ini</div>
+          <div class="stat-badge">+12% vs bulan lalu</div>
         </div>
+
       </div>
 
       <div class="two-col">
@@ -1261,11 +1278,12 @@
         <p>Semua pasien yang pernah berkonsultasi dengan Anda</p>
       </div>
       <div class="filter-bar">
-        <input type="text" placeholder="Cari nama pasien...">
-        <select>
+        <input type="text" id="search-pasien" placeholder="Cari nama pasien..." oninput="filterPasien()">
+        <select id="filter-status" onchange="filterPasien()">
           <option value="">Semua Status</option>
-          <option>Aktif</option>
-          <option>Selesai</option>
+          <option value="Aktif">Aktif</option>
+          <option value="Baru">Baru</option>
+          <option value="Selesai">Selesai</option>
         </select>
       </div>
       <div class="card">
@@ -1281,8 +1299,8 @@
                 <th>Aksi</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
+            <tbody id="tbody-pasien">
+              <tr data-nama="Andi Pratama" data-status="Aktif">
                 <td>
                   <div style="display:flex;align-items:center;gap:10px">
                     <div class="psikolog-avatar" style="background:linear-gradient(135deg,#6352c7,#4a90d9);width:32px;height:32px;font-size:12px">AP</div>
@@ -1295,7 +1313,7 @@
                 <td><span class="badge badge-success">Aktif</span></td>
                 <td><button class="card-action">Detail</button></td>
               </tr>
-              <tr>
+              <tr data-nama="Budi Santoso" data-status="Baru">
                 <td>
                   <div style="display:flex;align-items:center;gap:10px">
                     <div class="psikolog-avatar" style="background:linear-gradient(135deg,#0f6e56,#1d9e75);width:32px;height:32px;font-size:12px">BS</div>
@@ -1308,7 +1326,7 @@
                 <td><span class="badge badge-warning">Baru</span></td>
                 <td><button class="card-action">Detail</button></td>
               </tr>
-              <tr>
+              <tr data-nama="Citra Dewi" data-status="Aktif">
                 <td>
                   <div style="display:flex;align-items:center;gap:10px">
                     <div class="psikolog-avatar" style="background:linear-gradient(135deg,#993556,#d4537e);width:32px;height:32px;font-size:12px">CD</div>
@@ -1321,8 +1339,24 @@
                 <td><span class="badge badge-success">Aktif</span></td>
                 <td><button class="card-action">Detail</button></td>
               </tr>
+              <tr data-nama="Deni Kusuma" data-status="Selesai">
+                <td>
+                  <div style="display:flex;align-items:center;gap:10px">
+                    <div class="psikolog-avatar" style="background:linear-gradient(135deg,#5f5e5a,#888780);width:32px;height:32px;font-size:12px">DK</div>
+                    <span style="font-weight:600">Deni Kusuma</span>
+                  </div>
+                </td>
+                <td>Burnout</td>
+                <td>4</td>
+                <td>15 Apr 2026</td>
+                <td><span class="badge badge-primary">Selesai</span></td>
+                <td><button class="card-action">Detail</button></td>
+              </tr>
             </tbody>
           </table>
+          <div id="empty-pasien" style="display:none; text-align:center; padding:32px; color:var(--text-muted); font-size:13px;">
+            Tidak ada pasien yang sesuai dengan pencarian.
+          </div>
         </div>
       </div>
     </div>
@@ -1431,6 +1465,26 @@
 </main>
 
 <script>
+  function filterPasien() {
+    const keyword = document.getElementById('search-pasien').value.toLowerCase().trim();
+    const status = document.getElementById('filter-status').value;
+    const rows = document.querySelectorAll('#tbody-pasien tr');
+    let visible = 0;
+    rows.forEach(row => {
+      const nama = row.getAttribute('data-nama').toLowerCase();
+      const rowStatus = row.getAttribute('data-status');
+      const matchNama = nama.includes(keyword);
+      const matchStatus = status === '' || rowStatus === status;
+      if (matchNama && matchStatus) {
+        row.style.display = '';
+        visible++;
+      } else {
+        row.style.display = 'none';
+      }
+    });
+    document.getElementById('empty-pasien').style.display = visible === 0 ? 'block' : 'none';
+  }
+
   const titles = {
     beranda: 'Dashboard',
     jadwal: 'Jadwal Konsultasi',
