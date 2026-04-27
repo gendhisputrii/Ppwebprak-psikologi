@@ -718,19 +718,144 @@
             border-radius: var(--radius-md);
             border: 1px solid var(--border);
             padding: 20px;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            gap: 16px;
         }
 
-        .laporan-card .lbl {
+        .laporan-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .laporan-card-info .lbl {
             font-size: 12px;
             color: var(--text-muted);
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
 
-        .laporan-card .val {
+        .laporan-card-info .val {
             font-size: 22px;
             font-weight: 800;
-            color: var(--primary);
+            color: var(--text-dark);
+        }
+
+        /* Breakdown grid */
+        .laporan-breakdown {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .breakdown-card {
+            background: white;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .breakdown-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .breakdown-card-info .lbl {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .breakdown-card-info .val {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        /* Filter & Export bar */
+        .laporan-filter-bar {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .laporan-filter-bar select,
+        .laporan-filter-bar input[type="date"] {
+            padding: 9px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-family: inherit;
+            background: white;
+            color: var(--text-dark);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .laporan-filter-bar select:focus,
+        .laporan-filter-bar input[type="date"]:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-export {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 18px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+            margin-left: auto;
+        }
+
+        .btn-export:hover {
+            opacity: 0.9;
+        }
+
+        /* toast */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--text-dark);
+            color: white;
+            padding: 12px 20px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            z-index: 999;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* ===== PROFIL ===== */
@@ -1074,10 +1199,7 @@
         <a class="welcome-btn" onclick="showPage('jadwal', document.querySelector('[onclick*=jadwal]'))">Lihat Jadwal</a>
       </div>
 
-      <!-- STATS GRID — STYLE 1 -->
       <div class="stats-grid">
-
-        <!-- Konsultasi Hari Ini -->
         <div class="stat-card purple">
           <div class="stat-icon">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7F77DD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1088,8 +1210,6 @@
           <div class="stat-lbl">Konsultasi Hari Ini</div>
           <div class="stat-badge">+1 dari kemarin</div>
         </div>
-
-        <!-- Pasien Aktif -->
         <div class="stat-card blue">
           <div class="stat-icon">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#378ADD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1100,8 +1220,6 @@
           <div class="stat-lbl">Pasien Aktif</div>
           <div class="stat-badge">2 baru minggu ini</div>
         </div>
-
-        <!-- Rating -->
         <div class="stat-card teal">
           <div class="stat-icon">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1112,8 +1230,6 @@
           <div class="stat-lbl">Rating</div>
           <div class="stat-badge">dari 28 ulasan</div>
         </div>
-
-        <!-- Pendapatan -->
         <div class="stat-card amber">
           <div class="stat-icon">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#BA7517" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1124,7 +1240,6 @@
           <div class="stat-lbl">Pendapatan Bulan Ini</div>
           <div class="stat-badge">+12% vs bulan lalu</div>
         </div>
-
       </div>
 
       <div class="two-col">
@@ -1365,28 +1480,80 @@
     <div class="page" id="page-laporan">
       <div class="page-header">
         <h2>Laporan Keuangan</h2>
-        <p>Ringkasan pendapatan dari layanan konsultasi</p>
+        <p>Ringkasan pendapatan dan transaksi bulan ini</p>
       </div>
+
+      <!-- Summary Cards -->
       <div class="laporan-grid">
         <div class="laporan-card">
-          <div class="lbl">Pendapatan Bulan Ini</div>
-          <div class="val">Rp 2.500.000</div>
+          <div class="laporan-card-icon" style="background:#fff3e0;">💰</div>
+          <div class="laporan-card-info">
+            <div class="lbl">Pendapatan Bulan Ini</div>
+            <div class="val">Rp 12,5M</div>
+          </div>
         </div>
         <div class="laporan-card">
-          <div class="lbl">Total Sesi Selesai</div>
-          <div class="val">20 Sesi</div>
+          <div class="laporan-card-icon" style="background:#e8f5e9;">✅</div>
+          <div class="laporan-card-info">
+            <div class="lbl">Transaksi Lunas</div>
+            <div class="val">24</div>
+          </div>
         </div>
         <div class="laporan-card">
-          <div class="lbl">Rata-rata per Sesi</div>
-          <div class="val">Rp 125.000</div>
+          <div class="laporan-card-icon" style="background:#fff8e1;">⏳</div>
+          <div class="laporan-card-info">
+            <div class="lbl">Belum Dibayar</div>
+            <div class="val">3</div>
+          </div>
         </div>
       </div>
+
+      <!-- Filter & Export -->
+      <div class="laporan-filter-bar">
+        <select id="filter-bulan" onchange="filterLaporan()">
+          <option value="01">Januari 2026</option>
+          <option value="02">Februari 2026</option>
+          <option value="03" selected>Maret 2026</option>
+          <option value="04">April 2026</option>
+        </select>
+        <input type="date" id="filter-tgl-mulai" onchange="filterLaporan()">
+        <input type="date" id="filter-tgl-akhir" onchange="filterLaporan()">
+        <button class="btn-export" onclick="exportExcel()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="12" y1="18" x2="12" y2="12"/>
+            <line x1="9" y1="15" x2="15" y2="15"/>
+          </svg>
+          Ekspor Excel
+        </button>
+      </div>
+
+      <!-- Breakdown Online / Offline -->
+      <div class="laporan-breakdown">
+        <div class="breakdown-card">
+          <div class="breakdown-card-icon" style="background:#e8f2fc;">📊</div>
+          <div class="breakdown-card-info">
+            <div class="lbl">Online</div>
+            <div class="val">Rp 4,2M</div>
+          </div>
+        </div>
+        <div class="breakdown-card">
+          <div class="breakdown-card-icon" style="background:#fff3e0;">🏠</div>
+          <div class="breakdown-card-info">
+            <div class="lbl">Offline</div>
+            <div class="val">Rp 8,3M</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Riwayat Transaksi -->
       <div class="card">
         <div class="card-header">
           <span class="card-title">Riwayat Transaksi</span>
         </div>
         <div class="card-body" style="padding:0">
-          <table class="riwayat-table">
+          <table class="riwayat-table" id="tabel-transaksi">
             <thead>
               <tr>
                 <th>Pasien</th>
@@ -1397,14 +1564,14 @@
                 <th>Status</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="tbody-transaksi">
               <tr>
                 <td><span style="font-weight:600">Andi Pratama</span></td>
                 <td>20 Apr 2026</td>
                 <td><span class="badge badge-primary">Online</span></td>
                 <td>60 menit</td>
                 <td style="font-weight:700;color:var(--success)">Rp 150.000</td>
-                <td><span class="badge badge-success">Selesai</span></td>
+                <td><span class="badge badge-success">Lunas</span></td>
               </tr>
               <tr>
                 <td><span style="font-weight:600">Citra Dewi</span></td>
@@ -1412,12 +1579,28 @@
                 <td><span class="badge badge-primary">Online</span></td>
                 <td>60 menit</td>
                 <td style="font-weight:700;color:var(--success)">Rp 150.000</td>
-                <td><span class="badge badge-success">Selesai</span></td>
+                <td><span class="badge badge-success">Lunas</span></td>
               </tr>
               <tr>
                 <td><span style="font-weight:600">Deni Kusuma</span></td>
                 <td>15 Apr 2026</td>
                 <td><span class="badge badge-warning">Offline</span></td>
+                <td>60 menit</td>
+                <td style="font-weight:700;color:var(--text-muted)">Rp 150.000</td>
+                <td><span class="badge badge-warning">Belum Bayar</span></td>
+              </tr>
+              <tr>
+                <td><span style="font-weight:600">Budi Santoso</span></td>
+                <td>10 Apr 2026</td>
+                <td><span class="badge badge-warning">Offline</span></td>
+                <td>60 menit</td>
+                <td style="font-weight:700;color:var(--success)">Rp 150.000</td>
+                <td><span class="badge badge-success">Lunas</span></td>
+              </tr>
+              <tr>
+                <td><span style="font-weight:600">Eka Putri</span></td>
+                <td>05 Apr 2026</td>
+                <td><span class="badge badge-primary">Online</span></td>
                 <td>60 menit</td>
                 <td style="font-weight:700;color:var(--danger)">—</td>
                 <td><span class="badge badge-danger">Dibatalkan</span></td>
@@ -1464,6 +1647,9 @@
   </div>
 </main>
 
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
 <script>
   function filterPasien() {
     const keyword = document.getElementById('search-pasien').value.toLowerCase().trim();
@@ -1475,12 +1661,8 @@
       const rowStatus = row.getAttribute('data-status');
       const matchNama = nama.includes(keyword);
       const matchStatus = status === '' || rowStatus === status;
-      if (matchNama && matchStatus) {
-        row.style.display = '';
-        visible++;
-      } else {
-        row.style.display = 'none';
-      }
+      if (matchNama && matchStatus) { row.style.display = ''; visible++; }
+      else row.style.display = 'none';
     });
     document.getElementById('empty-pasien').style.display = visible === 0 ? 'block' : 'none';
   }
@@ -1499,6 +1681,53 @@
     document.getElementById('page-' + page).classList.add('active');
     document.getElementById('topbar-title').textContent = titles[page];
     if (navEl) navEl.classList.add('active');
+  }
+
+  function filterLaporan() {
+    // Placeholder — bisa dikembangkan dengan data dinamis
+    showToast('Filter diterapkan');
+  }
+
+  function exportExcel() {
+    // Ambil data dari tabel
+    const rows = document.querySelectorAll('#tbody-transaksi tr');
+    const headers = ['Pasien', 'Tanggal', 'Tipe', 'Durasi', 'Pendapatan', 'Status'];
+
+    let csvContent = headers.join(',') + '\n';
+
+    rows.forEach(row => {
+      const cols = row.querySelectorAll('td');
+      const rowData = [];
+      cols.forEach((col, i) => {
+        // Ambil teks bersih
+        let text = col.innerText.replace(/,/g, ';').trim();
+        rowData.push('"' + text + '"');
+      });
+      csvContent += rowData.join(',') + '\n';
+    });
+
+    // Tambahkan BOM untuk Excel agar UTF-8 terbaca benar
+    const BOM = '\uFEFF';
+    const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+
+    const bulan = document.getElementById('filter-bulan');
+    const namaBulan = bulan.options[bulan.selectedIndex].text.replace(' ', '_');
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Laporan_Keuangan_' + namaBulan + '.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+
+    showToast('✅ File berhasil diunduh!');
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
   }
 </script>
 
