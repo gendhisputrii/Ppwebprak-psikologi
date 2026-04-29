@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<title>Billing Modal</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Plus Jakarta Sans',sans-serif;
+}
+
+/* BACKDROP */
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.35);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* BOX */
+.modal-box{
+    width:460px;
+    background:#fff;
+    border-radius:20px;
+    padding:28px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.15);
+    animation:fade .25s ease;
+}
+
+@keyframes fade{
+    from{transform:scale(.95);opacity:0;}
+    to{transform:scale(1);opacity:1;}
+}
+
+/* HEADER */
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.header h2{
+    font-size:22px;
+    font-weight:700;
+    color:#1a1145;
+}
+
+.close{
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    background:#f2f1f7;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    font-size:18px;
+}
+
+/* SECTION */
+.section{
+    margin-bottom:16px;
+}
+
+/* ROW */
+.row{
+    display:flex;
+    justify-content:space-between;
+    padding:10px 0;
+    border-bottom:1px solid #eee;
+    font-size:14px;
+}
+
+.row:last-child{
+    border:none;
+}
+
+.label{
+    color:#8b88a8;
+}
+
+.value{
+    font-weight:600;
+    color:#1a1145;
+}
+
+/* TOTAL */
+.total{
+    margin-top:15px;
+    padding:14px;
+    border-radius:12px;
+    background:#ede9fb;
+    display:flex;
+    justify-content:space-between;
+    font-weight:700;
+    color:#6352c7;
+}
+
+/* INFO */
+.info{
+    margin-top:18px;
+    padding:14px;
+    background:#f3f1ff;
+    border-radius:12px;
+    font-size:13px;
+    line-height:1.6;
+}
+
+/* UPLOAD */
+.upload{
+    margin-top:16px;
+}
+
+.upload input{
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    border:1px solid #ddd;
+}
+
+/* BUTTON */
+.actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+    margin-top:20px;
+}
+
+.btn-secondary{
+    padding:10px 18px;
+    border-radius:10px;
+    border:1px solid #ddd;
+    background:#fff;
+    cursor:pointer;
+}
+
+.btn-primary{
+    padding:10px 18px;
+    border-radius:10px;
+    border:none;
+    background:#6352c7;
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.btn-primary:hover{
+    background:#2d1f6e;
+}
+
+/* SUCCESS */
+.success{
+    display:none;
+    margin-top:12px;
+    background:#e7f9ee;
+    color:#16a34a;
+    padding:10px;
+    border-radius:10px;
+    text-align:center;
+    font-weight:600;
+}
+</style>
+</head>
+
+<body>
+
+<div class="modal">
+
+<div class="modal-box">
+
+    <!-- HEADER -->
+    <div class="header">
+        <h2>Pembayaran</h2>
+        <div class="close" onclick="closeModal()">✕</div>
+    </div>
+
+    <!-- DETAIL -->
+    <div class="section">
+        <div class="row"><span class="label">Psikolog</span><span class="value" id="psikolog">-</span></div>
+        <div class="row"><span class="label">Tanggal</span><span class="value" id="tgl">-</span></div>
+        <div class="row"><span class="label">Waktu</span><span class="value" id="waktu">-</span></div>
+        <div class="row"><span class="label">Tipe</span><span class="value" id="tipe">-</span></div>
+        <div class="row"><span class="label">Biaya</span><span class="value" id="biaya">-</span></div>
+        <div class="row"><span class="label">Admin</span><span class="value">Rp 2.500</span></div>
+    </div>
+
+    <!-- TOTAL -->
+    <div class="total">
+        <span>Total</span>
+        <span id="total">-</span>
+    </div>
+
+    <!-- INFO BAYAR -->
+    <div class="info" id="infoBayar"></div>
+
+    <!-- UPLOAD -->
+    <div class="upload">
+        <input type="file" id="bukti">
+    </div>
+
+    <!-- BUTTON -->
+    <div class="actions">
+        <button class="btn-secondary" onclick="closeModal()">Batal</button>
+        <button class="btn-primary" onclick="bayar()">Kirim</button>
+    </div>
+
+    <div class="success" id="success">
+        ✅ Bukti pembayaran berhasil dikirim!
+    </div>
+
+</div>
+
+</div>
+
+<script>
+const tarifPsi={
+    "Dr. Sarah Amelia, M.Psi":150000,
+    "Reza Pratama, S.Psi":100000
+};
+
+const ADMIN=2500;
+
+function rupiah(n){
+    return "Rp "+n.toLocaleString("id-ID");
+}
+
+function load(){
+    let data=sessionStorage.getItem("dataKonsultasi");
+
+    if(!data){
+        alert("Isi form dulu!");
+        return;
+    }
+
+    data=JSON.parse(data);
+
+    let tarif=tarifPsi[data.psikolog] || 100000;
+    let total=tarif+ADMIN;
+
+    document.getElementById("psikolog").innerText=data.psikolog;
+    document.getElementById("tgl").innerText=data.tanggal;
+    document.getElementById("waktu").innerText=data.waktu;
+    document.getElementById("tipe").innerText=data.tipe;
+    document.getElementById("biaya").innerText=rupiah(tarif);
+    document.getElementById("total").innerText=rupiah(total);
+
+    // INFO BAYAR
+    if(data.metode==="bank"){
+        document.getElementById("infoBayar").innerHTML=`
+        <b>Transfer Bank</b><br>
+        1234567890<br>
+        a.n RuangPulih
+        `;
+    }else{
+        document.getElementById("infoBayar").innerHTML=`
+        <b>GoPay</b><br>
+        085732705124
+        `;
+    }
+}
+
+function bayar(){
+    let file=document.getElementById("bukti").files[0];
+
+    if(!file){
+        alert("Upload bukti dulu!");
+        return;
+    }
+
+    document.getElementById("success").style.display="block";
+}
+
+function closeModal(){
+    document.querySelector(".modal").style.display="none";
+}
+
+load();
+</script>
+
+</body>
+</html>

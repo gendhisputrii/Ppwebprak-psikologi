@@ -1,236 +1,250 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Konsultasi Baru - RuangPulih</title>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsultasi Baru - RuangPulih</title>
 </head>
 
 <style>
-    /* RESET */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-:root {
-    --primary: #6352c7;
-    --primary-dark: #2d1f6e;
-    --primary-light: #ede9fb;
-    --text-dark: #1a1145;
-    --text-muted: #8b88a8;
-    --bg: #f6f5fc;
-    --white: #ffffff;
-    --border: #e7e4f5;
-    --shadow: 0 8px 24px rgba(45, 31, 110, 0.06);
-}
+    :root {
+        --primary: #6352c7;
+        --primary-dark: #2d1f6e;
+        --primary-light: #ede9fb;
+        --text-dark: #1a1145;
+        --text-muted: #8b88a8;
+        --bg: #f6f5fc;
+        --white: #ffffff;
+        --border: #e7e4f5;
+        --shadow: 0 8px 24px rgba(45, 31, 110, 0.06);
+    }
 
-body {
-    font-family: Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text-dark);
-    min-height: 100vh;
-}
+    body {
+        font-family: Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text-dark);
+        min-height: 100vh;
+    }
 
-/* MAIN */
-.main {
-    width: 100%;
-    min-height: 100vh;
-    padding: 20px;
-}
+    .main { width: 100%; min-height: 100vh; padding: 20px; }
 
-/* TOPBAR */
-.topbar {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto 20px;
-    background: var(--white);
-    border-radius: 14px;
-    padding: 18px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: var(--shadow);
-}
+    .topbar {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto 20px;
+        background: var(--white);
+        border-radius: 14px;
+        padding: 18px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: var(--shadow);
+    }
 
-.topbar h3 {
-    font-size: 24px;
-    font-weight: 700;
-}
+    .topbar h3 { font-size: 24px; font-weight: 700; }
 
-/* AVATAR */
-.user-avatar {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    background: var(--primary);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    font-size: 15px;
-}
+    .user-avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: var(--primary);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+    }
 
-/* CONTENT */
-.content {
-    width: 100%;
-    max-width: 800px;
-    margin: auto;
-}
+    .content { width: 100%; max-width: 800px; margin: auto; }
 
-/* FORM CARD */
-.form-card {
-    background: var(--white);
-    border-radius: 16px;
-    padding: 28px;
-    box-shadow: var(--shadow);
-}
+    .form-card {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 28px;
+        box-shadow: var(--shadow);
+    }
 
-/* FORM */
-.form-group {
-    margin-bottom: 18px;
-}
+    .form-group { margin-bottom: 18px; }
 
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-dark);
-}
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+        font-weight: 600;
+    }
 
-.form-group input,
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 13px 14px;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    font-size: 14px;
-    background: #fafaff;
-    outline: none;
-    transition: 0.2s;
-}
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 13px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        font-size: 14px;
+        background: #fafaff;
+    }
 
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    border-color: var(--primary);
-    background: white;
-}
+    textarea { min-height: 110px; }
 
-textarea {
-    resize: vertical;
-    min-height: 110px;
-}
+    .form-actions {
+        display: flex;
+        gap: 12px;
+    }
 
-/* BUTTON */
-.form-actions {
-    display: flex;
-    gap: 12px;
-    margin-top: 8px;
-}
+    .btn-primary {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 12px 22px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
 
-.btn-primary,
-.btn-secondary {
-    padding: 12px 22px;
-    border: none;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.btn-primary {
-    background: var(--primary);
-    color: white;
-}
-
-.btn-primary:hover {
-    background: var(--primary-dark);
-}
-
-.btn-secondary {
-    background: #eeeeee;
-    color: #333;
-}
-
-.btn-secondary:hover {
-    background: #dddddd;
-}
+    .btn-secondary {
+        background: #eee;
+        border: none;
+        padding: 12px 22px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
 </style>
+
 <body>
 
-<!-- MAIN -->
 <main class="main">
 
-<div class="topbar">
-<h3>Konsultasi Baru</h3>
-<div class="user-avatar">GV</div>
-</div>
+    <div class="topbar">
+        <h3>Konsultasi Baru</h3>
+        <div class="user-avatar">GV</div>
+    </div>
 
-<div class="content">
+    <div class="content">
+        <div class="form-card">
 
-<div class="form-card">
+            <form onsubmit="return submitForm()">
 
-<form onsubmit="return submitForm()">
+                <div class="form-group">
+                    <label>Pilih Psikolog</label>
+                    <select id="psikolog" required>
+                        <option value="">-- Pilih Psikolog --</option>
+                        <option>Dr. Sarah Amelia, M.Psi</option>
+                        <option>Reza Pratama, S.Psi</option>
+                        <option>Nadia Aulia, M.Psi</option>
+                        <option>Bayu Wicaksono, S.Psi</option>
+                        <option>Dewi Hartati, M.Psi</option>
+                        <option>Yoga Purnama, S.Psi</option>
+                    </select>
+                </div>
 
-<div class="form-group">
-<label>Pilih Psikolog</label>
-<select required>
-<option value="">-- Pilih Psikolog --</option>
-<option>dr. Sarah Wijaya</option>
-<option>dr. Andi Kusuma</option>
-</select>
-</div>
+                <div class="form-group">
+                    <label>Tanggal</label>
+                    <input type="date" id="tanggal" required>
+                </div>
 
-<div class="form-group">
-<label>Tanggal</label>
-<input type="date" required>
-</div>
+                <div class="form-group">
+                    <label>Waktu</label>
+                    <input type="time" id="waktu" required>
+                </div>
 
-<div class="form-group">
-<label>Waktu</label>
-<input type="time" required>
-</div>
+                <div class="form-group">
+                    <label>Tipe Konsultasi</label>
+                    <select id="tipe" required>
+                        <option value="">-- Pilih Tipe --</option>
+                        <option>Online</option>
+                        <option>Offline</option>
+                    </select>
+                </div>
 
-<div class="form-group">
-<label>Tipe Konsultasi</label>
-<select required>
-<option value="">-- Pilih Tipe --</option>
-<option>Online</option>
-<option>Offline</option>
-</select>
-</div>
+                <!-- ✅ METODE PEMBAYARAN -->
+                <div class="form-group">
+                    <label>Metode Pembayaran</label>
+                    <select id="metode" onchange="showPembayaran()" required>
+                        <option value="">-- Pilih Metode --</option>
+                        <option value="bank">Transfer Bank</option>
+                        <option value="ewallet">E-Wallet</option>
+                    </select>
+                </div>
 
-<div class="form-group">
-<label>Keluhan</label>
-<textarea rows="4" placeholder="Ceritakan keluhan Anda..." required></textarea>
-</div>
+                <div id="infoPembayaran"
+                    style="display:none; margin-top:10px; font-size:13px; background:#f3f1ff; padding:10px; border-radius:8px;">
+                </div>
 
-<div class="form-actions">
-<button type="submit" class="btn-primary">Ajukan Konsultasi</button>
-<button type="reset" class="btn-secondary">Batal</button>
-</div>
+                <div class="form-group">
+                    <label>Keluhan</label>
+                    <textarea id="keluhan" required></textarea>
+                </div>
 
-</form>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Ajukan Konsultasi</button>
+                    <button type="reset" class="btn-secondary">Batal</button>
+                </div>
 
-</div>
+            </form>
 
-</div>
+        </div>
+    </div>
 
 </main>
 
 <script>
-function submitForm(){
-    alert("Konsultasi berhasil diajukan!");
+
+function submitForm() {
+
+    const psikolog = document.getElementById('psikolog').value;
+    const tanggal = document.getElementById('tanggal').value;
+    const waktu = document.getElementById('waktu').value;
+    const tipe = document.getElementById('tipe').value;
+    const keluhan = document.getElementById('keluhan').value;
+    const metode = document.getElementById('metode').value; // ✅ FIX
+
+    if (!psikolog || !tanggal || !waktu || !tipe || !keluhan || !metode) {
+        alert('Harap lengkapi semua field!');
+        return false;
+    }
+
+    const data = {
+        psikolog,
+        tanggal,
+        waktu,
+        tipe,
+        keluhan,
+        metode // ✅ SIMPAN METODE
+    };
+
+    sessionStorage.setItem('dataKonsultasi', JSON.stringify(data));
+
+    window.location.href = "billing-mahasiswa.html";
+
     return false;
 }
+
+function showPembayaran() {
+    const metode = document.getElementById('metode').value;
+    const box = document.getElementById('infoPembayaran');
+
+    if (metode === "bank") {
+        box.style.display = "block";
+        box.innerHTML = `
+            <b>Transfer ke:</b><br>
+            1234567890<br>
+            a.n RuangPulih
+        `;
+    } 
+    else if (metode === "ewallet") {
+        box.style.display = "block";
+        box.innerHTML = `
+            <b>Transfer ke GoPay:</b><br>
+            085732705124
+        `;
+    } 
+    else {
+        box.style.display = "none";
+    }
+}
+
 </script>
 
 </body>
