@@ -1,294 +1,504 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembayaran - RuangPulih</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+        :root {
+            --primary: #6352c7;
+            --primary-dark: #2d1f6e;
+            --primary-light: #ede9fb;
+            --accent: #4a90d9;
+            --success: #16a34a;
+            --success-light: #f0fdf4;
+            --warning: #d97706;
+            --warning-light: #fffbeb;
+            --danger: #dc2626;
+            --text-dark: #1a1145;
+            --text-mid: #4a4570;
+            --text-muted: #8b88a8;
+            --bg: #f8f7ff;
+            --border: rgba(99, 82, 199, 0.12);
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --shadow-md: 0 8px 40px rgba(45, 31, 110, 0.18);
+        }
 
-<title>Billing Modal</title>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: rgba(0, 0, 0, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+        .modal-box {
+            width: 460px;
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            animation: fadeIn .25s ease;
+        }
 
-body{
-    font-family:'Plus Jakarta Sans',sans-serif;
-}
+        @keyframes fadeIn {
+            from {
+                transform: scale(.96);
+                opacity: 0;
+            }
 
-/* BACKDROP */
-.modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.35);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
 
-/* BOX */
-.modal-box{
-    width:460px;
-    background:#fff;
-    border-radius:20px;
-    padding:28px;
-    box-shadow:0 20px 60px rgba(0,0,0,0.15);
-    animation:fade .25s ease;
-}
+        .modal-head {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
 
-@keyframes fade{
-    from{transform:scale(.95);opacity:0;}
-    to{transform:scale(1);opacity:1;}
-}
+        .head-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+        }
 
-/* HEADER */
-.header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:18px;
-}
+        .head-info {
+            flex: 1;
+        }
 
-.header h2{
-    font-size:22px;
-    font-weight:700;
-    color:#1a1145;
-}
+        .head-info h3 {
+            font-size: 17px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 3px;
+        }
 
-.close{
-    width:36px;
-    height:36px;
-    border-radius:50%;
-    background:#f2f1f7;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    font-size:18px;
-}
+        .head-info p {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.8);
+        }
 
-/* SECTION */
-.section{
-    margin-bottom:16px;
-}
+        .head-close {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background .2s;
+            flex-shrink: 0;
+        }
 
-/* ROW */
-.row{
-    display:flex;
-    justify-content:space-between;
-    padding:10px 0;
-    border-bottom:1px solid #eee;
-    font-size:14px;
-}
+        .head-close:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
 
-.row:last-child{
-    border:none;
-}
+        .modal-body {
+            padding: 20px 24px;
+            max-height: 72vh;
+            overflow-y: auto;
+        }
 
-.label{
-    color:#8b88a8;
-}
+        .section-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--border);
+        }
 
-.value{
-    font-weight:600;
-    color:#1a1145;
-}
+        .section {
+            margin-bottom: 20px;
+        }
 
-/* TOTAL */
-.total{
-    margin-top:15px;
-    padding:14px;
-    border-radius:12px;
-    background:#ede9fb;
-    display:flex;
-    justify-content:space-between;
-    font-weight:700;
-    color:#6352c7;
-}
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 9px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+        }
 
-/* INFO */
-.info{
-    margin-top:18px;
-    padding:14px;
-    background:#f3f1ff;
-    border-radius:12px;
-    font-size:13px;
-    line-height:1.6;
-}
+        .detail-row:last-child {
+            border-bottom: none;
+        }
 
-/* UPLOAD */
-.upload{
-    margin-top:16px;
-}
+        .detail-row .lbl {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
 
-.upload input{
-    width:100%;
-    padding:10px;
-    border-radius:10px;
-    border:1px solid #ddd;
-}
+        .detail-row .val {
+            font-weight: 600;
+            color: var(--text-dark);
+            text-align: right;
+        }
 
-/* BUTTON */
-.actions{
-    display:flex;
-    justify-content:flex-end;
-    gap:10px;
-    margin-top:20px;
-}
+        .total-box {
+            background: var(--primary-light);
+            border-radius: var(--radius-sm);
+            padding: 13px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
 
-.btn-secondary{
-    padding:10px 18px;
-    border-radius:10px;
-    border:1px solid #ddd;
-    background:#fff;
-    cursor:pointer;
-}
+        .total-box .total-lbl {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary);
+        }
 
-.btn-primary{
-    padding:10px 18px;
-    border-radius:10px;
-    border:none;
-    background:#6352c7;
-    color:white;
-    font-weight:600;
-    cursor:pointer;
-}
+        .total-box .total-val {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--primary);
+        }
 
-.btn-primary:hover{
-    background:#2d1f6e;
-}
+        .info-box {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 14px 16px;
+            font-size: 13px;
+            color: var(--text-mid);
+            line-height: 1.8;
+        }
 
-/* SUCCESS */
-.success{
-    display:none;
-    margin-top:12px;
-    background:#e7f9ee;
-    color:#16a34a;
-    padding:10px;
-    border-radius:10px;
-    text-align:center;
-    font-weight:600;
-}
-</style>
+        .info-box strong {
+            color: var(--text-dark);
+            font-weight: 700;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .info-box .rekening {
+            font-size: 19px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 1px;
+            display: block;
+            margin: 2px 0 2px;
+        }
+
+        .info-box .atas-nama {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: block;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .tag-warning {
+            background: var(--warning-light);
+            color: #92400e;
+        }
+
+        .tag-primary {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* UPLOAD AREA */
+        .upload-area {
+            border: 2px dashed rgba(99, 82, 199, 0.25);
+            border-radius: var(--radius-sm);
+            background: var(--bg);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all .2s;
+            position: relative;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .upload-area input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+        }
+
+        .upload-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .upload-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 3px;
+        }
+
+        .upload-hint {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .upload-name {
+            margin-top: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--success);
+            display: none;
+        }
+
+        .modal-footer {
+            padding: 14px 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .btn-cancel {
+            padding: 9px 18px;
+            background: white;
+            color: var(--text-mid);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all .2s;
+        }
+
+        .btn-cancel:hover {
+            background: var(--bg);
+        }
+
+        .btn-kirim {
+            padding: 9px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all .2s;
+        }
+
+        .btn-kirim:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-kirim:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .success-banner {
+            display: none;
+            background: var(--success-light);
+            border: 1px solid #bbf7d0;
+            border-radius: var(--radius-sm);
+            padding: 12px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--success);
+            text-align: center;
+            margin-top: 4px;
+        }
+    </style>
 </head>
 
 <body>
+    <div class="modal-box">
+        <div class="modal-head">
+            <div class="head-avatar" id="head-avatar">AP</div>
+            <div class="head-info">
+                <h3 id="head-nama">Andi Pratama</h3>
+                <p id="head-sub">Kecemasan (Anxiety) · Menunggu Pembayaran</p>
+            </div>
+            <button class="head-close" onclick="closeModal()">✕</button>
+        </div>
+        <div class="modal-body">
+            <div class="section">
+                <div class="section-title">Detail Konsultasi</div>
+                <div class="detail-row">
+                    <span class="lbl">Psikolog</span>
+                    <span class="val" id="psikolog">Dr. Sarah Amelia, M.Psi</span>
+                </div>
+                <div class="detail-row">
+                    <span class="lbl">Tanggal</span>
+                    <span class="val" id="tgl">—</span>
+                </div>
+                <div class="detail-row">
+                    <span class="lbl">Waktu</span>
+                    <span class="val" id="waktu">—</span>
+                </div>
+                <div class="detail-row">
+                    <span class="lbl">Tipe Sesi</span>
+                    <span class="val" id="tipe">—</span>
+                </div>
+            </div>
 
-<div class="modal">
+            <div class="section">
+                <div class="section-title">Rincian Biaya</div>
+                <div class="detail-row">
+                    <span class="lbl">Biaya Konsultasi</span>
+                    <span class="val" id="biaya">Rp 150.000</span>
+                </div>
+                <div class="detail-row">
+                    <span class="lbl">Biaya Admin</span>
+                    <span class="val">Rp 2.500</span>
+                </div>
+            </div>
 
-<div class="modal-box">
+            <div class="total-box">
+                <span class="total-lbl">Total yang Harus Dibayar</span>
+                <span class="total-val" id="total">Rp 152.500</span>
+            </div>
 
-    <!-- HEADER -->
-    <div class="header">
-        <h2>Pembayaran</h2>
-        <div class="close" onclick="closeModal()">✕</div>
+            <div class="section">
+                <div class="section-title">Informasi Pembayaran</div>
+                <div class="info-box" id="info-bayar">
+                    <strong>Transfer Bank BCA</strong>
+                    <span class="rekening">1234 5678 90</span>
+                    <span class="atas-nama">a.n. RuangPulih Indonesia</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Kirim Bukti Pembayaran</div>
+                <div class="upload-area" id="upload-area">
+                    <input type="file" id="bukti" accept="image/*,.pdf" onchange="fileSelected(this)">
+                    <div class="upload-icon"></div>
+                    <div class="upload-text">Klik untuk upload bukti transfer</div>
+                    <div class="upload-hint">JPG, PNG, atau PDF · Maks 5MB</div>
+                    <div class="upload-name" id="upload-name"></div>
+                </div>
+            </div>
+
+            <div class="success-banner" id="success-banner">
+                ✅ Bukti pembayaran berhasil dikirim! Sedang diverifikasi.
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-cancel" onclick="closeModal()">Batal</button>
+            <button class="btn-kirim" id="btn-kirim" onclick="kirim()">Kirim Bukti</button>
+        </div>
     </div>
+    <script>
+        const ADMIN = 2500;
+        const tarifPsikolog = {
+            "Dr. Sarah Amelia, M.Psi": 150000,
+            "Reza Pratama, S.Psi": 100000
+        };
+        const infoMetode = {
+            bank: `<strong>Transfer Bank BCA</strong><span class="rekening">1234 5678 90</span><span class="atas-nama">a.n. RuangPulih Indonesia</span>`,
+            gopay: `<strong>GoPay</strong><span class="rekening">0857 3270 5124</span><span class="atas-nama">a.n. RuangPulih Indonesia</span>`,
+            ovo: `<strong>OVO</strong><span class="rekening">0857 3270 5124</span><span class="atas-nama">a.n. RuangPulih Indonesia</span>`
+        };
 
-    <!-- DETAIL -->
-    <div class="section">
-        <div class="row"><span class="label">Psikolog</span><span class="value" id="psikolog">-</span></div>
-        <div class="row"><span class="label">Tanggal</span><span class="value" id="tgl">-</span></div>
-        <div class="row"><span class="label">Waktu</span><span class="value" id="waktu">-</span></div>
-        <div class="row"><span class="label">Tipe</span><span class="value" id="tipe">-</span></div>
-        <div class="row"><span class="label">Biaya</span><span class="value" id="biaya">-</span></div>
-        <div class="row"><span class="label">Admin</span><span class="value">Rp 2.500</span></div>
-    </div>
+        function rupiah(n) { return "Rp " + n.toLocaleString("id-ID"); }
+        function getInisial(nama) { return nama.split(" ").slice(0, 2).map(w => w[0]).join("").toUpperCase(); }
 
-    <!-- TOTAL -->
-    <div class="total">
-        <span>Total</span>
-        <span id="total">-</span>
-    </div>
+        function load() {
+            let raw = sessionStorage.getItem("dataKonsultasi");
+            let data = raw ? JSON.parse(raw) : {
+                psikolog: "Dr. Sarah Amelia, M.Psi",
+                tanggal: "30 April 2026",
+                waktu: "09:00 – 10:00 WIB",
+                tipe: "Online",
+                metode: "bank",
+                keluhan: "Kecemasan (Anxiety)",
+                namaPasien: "Andi Pratama"
+            };
 
-    <!-- INFO BAYAR -->
-    <div class="info" id="infoBayar"></div>
+            let tarif = tarifPsikolog[data.psikolog] || 150000;
+            document.getElementById("head-nama").textContent = data.namaPasien || "Pasien";
+            document.getElementById("head-sub").textContent = (data.keluhan || "—") + " · Menunggu Pembayaran";
+            document.getElementById("head-avatar").textContent = getInisial(data.namaPasien || "P");
+            document.getElementById("psikolog").textContent = data.psikolog;
+            document.getElementById("tgl").textContent = data.tanggal || "—";
+            document.getElementById("waktu").textContent = data.waktu || "—";
+            document.getElementById("tipe").innerHTML = data.tipe === "Online"
+                ? '<span class="tag tag-primary">Online</span>'
+                : '<span class="tag tag-warning">Offline</span>';
+            document.getElementById("biaya").textContent = rupiah(tarif);
+            document.getElementById("total").textContent = rupiah(tarif + ADMIN);
+            const m = (data.metode || "bank").toLowerCase();
+            document.getElementById("info-bayar").innerHTML = infoMetode[m] || infoMetode.bank;
+        }
 
-    <!-- UPLOAD -->
-    <div class="upload">
-        <input type="file" id="bukti">
-    </div>
+        function fileSelected(input) {
+            const nameEl = document.getElementById("upload-name");
+            if (input.files[0]) {
+                nameEl.textContent = "✓ " + input.files[0].name;
+                nameEl.style.display = "block";
+            }
+        }
 
-    <!-- BUTTON -->
-    <div class="actions">
-        <button class="btn-secondary" onclick="closeModal()">Batal</button>
-        <button class="btn-primary" onclick="bayar()">Kirim</button>
-    </div>
+        function kirim() {
+            const file = document.getElementById("bukti").files[0];
+            if (!file) { alert("Upload bukti pembayaran terlebih dahulu!"); return; }
+            document.getElementById("success-banner").style.display = "block";
+            document.getElementById("btn-kirim").disabled = true;
+            document.getElementById("upload-area").style.pointerEvents = "none";
+            document.getElementById("upload-area").style.opacity = "0.5";
+        }
 
-    <div class="success" id="success">
-        ✅ Bukti pembayaran berhasil dikirim!
-    </div>
+        function closeModal() { document.body.style.display = "none"; }
 
-</div>
-
-</div>
-
-<script>
-const tarifPsi={
-    "Dr. Sarah Amelia, M.Psi":150000,
-    "Reza Pratama, S.Psi":100000
-};
-
-const ADMIN=2500;
-
-function rupiah(n){
-    return "Rp "+n.toLocaleString("id-ID");
-}
-
-function load(){
-    let data=sessionStorage.getItem("dataKonsultasi");
-
-    if(!data){
-        alert("Isi form dulu!");
-        return;
-    }
-
-    data=JSON.parse(data);
-
-    let tarif=tarifPsi[data.psikolog] || 100000;
-    let total=tarif+ADMIN;
-
-    document.getElementById("psikolog").innerText=data.psikolog;
-    document.getElementById("tgl").innerText=data.tanggal;
-    document.getElementById("waktu").innerText=data.waktu;
-    document.getElementById("tipe").innerText=data.tipe;
-    document.getElementById("biaya").innerText=rupiah(tarif);
-    document.getElementById("total").innerText=rupiah(total);
-
-    // INFO BAYAR
-    if(data.metode==="bank"){
-        document.getElementById("infoBayar").innerHTML=`
-        <b>Transfer Bank</b><br>
-        1234567890<br>
-        a.n RuangPulih
-        `;
-    }else{
-        document.getElementById("infoBayar").innerHTML=`
-        <b>GoPay</b><br>
-        085732705124
-        `;
-    }
-}
-
-function bayar(){
-    let file=document.getElementById("bukti").files[0];
-
-    if(!file){
-        alert("Upload bukti dulu!");
-        return;
-    }
-
-    document.getElementById("success").style.display="block";
-}
-
-function closeModal(){
-    document.querySelector(".modal").style.display="none";
-}
-
-load();
-</script>
-
+        load();
+    </script>
 </body>
+
 </html>
