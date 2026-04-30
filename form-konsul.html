@@ -1,251 +1,796 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Konsultasi Baru - RuangPulih</title>
-</head>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Konsultasi Baru - RuangPulih</title>
 <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-    :root {
-        --primary: #6352c7;
-        --primary-dark: #2d1f6e;
-        --primary-light: #ede9fb;
-        --text-dark: #1a1145;
-        --text-muted: #8b88a8;
-        --bg: #f6f5fc;
-        --white: #ffffff;
-        --border: #e7e4f5;
-        --shadow: 0 8px 24px rgba(45, 31, 110, 0.06);
-    }
+:root {
+  --primary: #6352c7;
+  --primary-dark: #2d1f6e;
+  --primary-light: #ede9fb;
+  --accent: #4a90d9;
+  --success: #16a34a;
+  --success-light: #f0fdf4;
+  --warning: #d97706;
+  --text-dark: #1a1145;
+  --text-mid: #4a4570;
+  --text-muted: #8b88a8;
+  --bg: #f8f7ff;
+  --border: rgba(99,82,199,0.15);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 2px 8px rgba(45,31,110,0.06);
+  --shadow-md: 0 8px 32px rgba(45,31,110,0.12);
+}
 
-    body {
-        font-family: Arial, sans-serif;
-        background: var(--bg);
-        color: var(--text-dark);
-        min-height: 100vh;
-    }
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text-dark);
+  min-height: 100vh;
+}
 
-    .main { width: 100%; min-height: 100vh; padding: 20px; }
+/* TOPBAR */
+.topbar {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 0 40px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
 
-    .topbar {
-        width: 100%;
-        max-width: 800px;
-        margin: 0 auto 20px;
-        background: var(--white);
-        border-radius: 14px;
-        padding: 18px 24px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-shadow: var(--shadow);
-    }
+.topbar-logo {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--primary-dark);
+}
 
-    .topbar h3 { font-size: 24px; font-weight: 700; }
+.topbar-logo span { color: var(--primary); }
 
-    .user-avatar {
-        width: 42px;
-        height: 42px;
-        border-radius: 50%;
-        background: var(--primary);
-        color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-weight: bold;
-    }
+.topbar-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
 
-    .content { width: 100%; max-width: 800px; margin: auto; }
+.topbar-step .step-active { color: var(--primary); font-weight: 700; }
+.topbar-step .sep { color: #ccc; }
 
-    .form-card {
-        background: var(--white);
-        border-radius: 16px;
-        padding: 28px;
-        box-shadow: var(--shadow);
-    }
+/* STEPS BAR */
+.steps-bar {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 18px 40px;
+  display: flex;
+  align-items: center;
+}
 
-    .form-group { margin-bottom: 18px; }
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
 
-    .form-group label {
-        display: block;
-        margin-bottom: 8px;
-        font-size: 14px;
-        font-weight: 600;
-    }
+.step-num {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: white;
+  flex-shrink: 0;
+  transition: all 0.3s;
+}
 
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-        width: 100%;
-        padding: 13px;
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        font-size: 14px;
-        background: #fafaff;
-    }
+.step-item.active .step-num { background: var(--primary); border-color: var(--primary); color: white; }
+.step-item.done .step-num { background: var(--success); border-color: var(--success); color: white; }
 
-    textarea { min-height: 110px; }
+.step-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: color 0.3s;
+}
 
-    .form-actions {
-        display: flex;
-        gap: 12px;
-    }
+.step-item.active .step-label { color: var(--primary); }
+.step-item.done .step-label { color: var(--success); }
 
-    .btn-primary {
-        background: var(--primary);
-        color: white;
-        border: none;
-        padding: 12px 22px;
-        border-radius: 10px;
-        cursor: pointer;
-    }
+.step-line {
+  flex: 1;
+  height: 2px;
+  background: var(--border);
+  margin: 0 12px;
+}
 
-    .btn-secondary {
-        background: #eee;
-        border: none;
-        padding: 12px 22px;
-        border-radius: 10px;
-        cursor: pointer;
-    }
+.step-line.done { background: var(--success); }
+
+/* LAYOUT */
+.page-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 24px;
+  align-items: start;
+}
+
+/* SECTION CARD */
+.section-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.section-card-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.section-card-header h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.section-card-body { padding: 20px 24px; }
+
+/* PSIKOLOG GRID */
+.psikolog-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.psikolog-option {
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.psikolog-option:hover {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.psikolog-option.selected {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.psikolog-option.selected::after {
+  content: '✓';
+  position: absolute;
+  top: -9px;
+  right: -9px;
+  width: 20px;
+  height: 20px;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+}
+
+.psi-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+
+.psi-name { font-size: 13px; font-weight: 700; color: var(--text-dark); }
+.psi-spec { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+.psi-tarif { font-size: 11px; font-weight: 700; color: var(--primary); margin-top: 3px; }
+
+/* DATETIME ROW */
+.datetime-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* TIPE SESI */
+.tipe-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.tipe-card {
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  position: relative;
+}
+
+.tipe-card:hover { border-color: var(--primary); background: var(--primary-light); }
+.tipe-card.selected { border-color: var(--primary); background: var(--primary-light); }
+
+.tipe-card.selected::after {
+  content: '✓';
+  position: absolute;
+  top: -9px;
+  right: -9px;
+  width: 20px;
+  height: 20px;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+}
+
+.tipe-icon { font-size: 26px; margin-bottom: 8px; }
+.tipe-name { font-size: 13px; font-weight: 700; color: var(--text-dark); }
+.tipe-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+/* FORM */
+.form-group { margin-bottom: 14px; }
+
+.form-group label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--text-dark);
+  background: white;
+  transition: all 0.2s;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.form-group textarea { min-height: 90px; resize: vertical; }
+
+/* SUMMARY RIGHT */
+.summary-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 90px;
+}
+
+.summary-header {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.summary-empty {
+  padding: 32px 20px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.summary-empty-icon { font-size: 32px; margin-bottom: 8px; }
+
+.summary-psikolog {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sum-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+
+.sum-name { font-size: 13px; font-weight: 700; color: var(--text-dark); }
+.sum-spec { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+.summary-rows {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sum-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 0;
+  font-size: 13px;
+}
+
+.sum-row .slabel { color: var(--text-muted); }
+.sum-row .sval { font-weight: 600; color: var(--text-dark); }
+
+.summary-total {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.summary-total .tlabel { font-size: 14px; font-weight: 700; color: var(--text-dark); }
+.summary-total .tval { font-size: 18px; font-weight: 800; color: var(--primary); }
+
+.summary-btn-wrap {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-lanjut {
+  width: 100%;
+  padding: 14px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.btn-lanjut:hover { background: var(--primary-dark); }
+.btn-lanjut:disabled { background: var(--text-muted); cursor: not-allowed; }
+
+.btn-reset {
+  width: 100%;
+  padding: 11px;
+  background: white;
+  color: var(--text-mid);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.btn-reset:hover { border-color: var(--primary); color: var(--primary); }
+
+.secure-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text-muted);
+  padding: 0 20px 14px;
+}
+
+/* SECTION HIDDEN */
+.section-locked {
+  opacity: 0.45;
+  pointer-events: none;
+}
 </style>
-
+</head>
 <body>
 
-<main class="main">
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-logo">Ruang<span>Pulih</span></div>
+  <div class="topbar-step">
+    <span class="step-active">Pilih Psikolog</span>
+    <span class="sep">›</span>
+    <span>Pembayaran</span>
+    <span class="sep">›</span>
+    <span>Konfirmasi</span>
+  </div>
+</div>
 
-    <div class="topbar">
-        <h3>Konsultasi Baru</h3>
-        <div class="user-avatar">GV</div>
-    </div>
+<!-- STEPS -->
+<div class="steps-bar">
+  <div class="step-item active" id="s1">
+    <div class="step-num">1</div>
+    <div class="step-label">Pilih Psikolog</div>
+  </div>
+  <div class="step-line"></div>
+  <div class="step-item" id="s2">
+    <div class="step-num">2</div>
+    <div class="step-label">Pembayaran</div>
+  </div>
+  <div class="step-line"></div>
+  <div class="step-item" id="s3">
+    <div class="step-num">3</div>
+    <div class="step-label">Konfirmasi</div>
+  </div>
+</div>
 
-    <div class="content">
-        <div class="form-card">
+<div class="page-wrap">
 
-            <form onsubmit="return submitForm()">
+  <!-- LEFT FORM -->
+  <div>
 
-                <div class="form-group">
-                    <label>Pilih Psikolog</label>
-                    <select id="psikolog" required>
-                        <option value="">-- Pilih Psikolog --</option>
-                        <option>Dr. Sarah Amelia, M.Psi</option>
-                        <option>Reza Pratama, S.Psi</option>
-                        <option>Nadia Aulia, M.Psi</option>
-                        <option>Bayu Wicaksono, S.Psi</option>
-                        <option>Dewi Hartati, M.Psi</option>
-                        <option>Yoga Purnama, S.Psi</option>
-                    </select>
-                </div>
+    <!-- 1. PILIH PSIKOLOG -->
+    <div class="section-card" id="sec-psikolog">
+      <div class="section-card-header">
+        <div class="section-num">1</div>
+        <h3>Pilih Psikolog</h3>
+      </div>
+      <div class="section-card-body">
+        <div class="psikolog-grid">
 
-                <div class="form-group">
-                    <label>Tanggal</label>
-                    <input type="date" id="tanggal" required>
-                </div>
+          <div class="psikolog-option" onclick="pilihPsikolog(this, 'Dr. Sarah Amelia, M.Psi', 'Psikologi Klinis', 150000, 'SA', 'linear-gradient(135deg,#6352c7,#4a90d9)')">
+            <div class="psi-avatar" style="background:linear-gradient(135deg,#6352c7,#4a90d9)">SA</div>
+            <div>
+              <div class="psi-name">Dr. Sarah Amelia, M.Psi</div>
+              <div class="psi-spec">Psikologi Klinis · ⭐ 4.9</div>
+              <div class="psi-tarif">Rp 150.000 / sesi</div>
+            </div>
+          </div>
 
-                <div class="form-group">
-                    <label>Waktu</label>
-                    <input type="time" id="waktu" required>
-                </div>
+          <div class="psikolog-option" onclick="pilihPsikolog(this, 'Reza Pratama, S.Psi', 'Konseling Remaja', 100000, 'RP', 'linear-gradient(135deg,#0f6e56,#1d9e75)')">
+            <div class="psi-avatar" style="background:linear-gradient(135deg,#0f6e56,#1d9e75)">RP</div>
+            <div>
+              <div class="psi-name">Reza Pratama, S.Psi</div>
+              <div class="psi-spec">Konseling Remaja · ⭐ 4.7</div>
+              <div class="psi-tarif">Rp 100.000 / sesi</div>
+            </div>
+          </div>
 
-                <div class="form-group">
-                    <label>Tipe Konsultasi</label>
-                    <select id="tipe" required>
-                        <option value="">-- Pilih Tipe --</option>
-                        <option>Online</option>
-                        <option>Offline</option>
-                    </select>
-                </div>
+          <div class="psikolog-option" onclick="pilihPsikolog(this, 'Nadia Aulia, M.Psi', 'Manajemen Stres', 120000, 'NA', 'linear-gradient(135deg,#993556,#d4537e)')">
+            <div class="psi-avatar" style="background:linear-gradient(135deg,#993556,#d4537e)">NA</div>
+            <div>
+              <div class="psi-name">Nadia Aulia, M.Psi</div>
+              <div class="psi-spec">Manajemen Stres · ⭐ 4.8</div>
+              <div class="psi-tarif">Rp 120.000 / sesi</div>
+            </div>
+          </div>
 
-                <!-- ✅ METODE PEMBAYARAN -->
-                <div class="form-group">
-                    <label>Metode Pembayaran</label>
-                    <select id="metode" onchange="showPembayaran()" required>
-                        <option value="">-- Pilih Metode --</option>
-                        <option value="bank">Transfer Bank</option>
-                        <option value="ewallet">E-Wallet</option>
-                    </select>
-                </div>
+          <div class="psikolog-option" onclick="pilihPsikolog(this, 'Bayu Wicaksono, S.Psi', 'Trauma & PTSD', 130000, 'BW', 'linear-gradient(135deg,#854f0b,#ba7517)')">
+            <div class="psi-avatar" style="background:linear-gradient(135deg,#854f0b,#ba7517)">BW</div>
+            <div>
+              <div class="psi-name">Bayu Wicaksono, S.Psi</div>
+              <div class="psi-spec">Trauma & PTSD · ⭐ 4.6</div>
+              <div class="psi-tarif">Rp 130.000 / sesi</div>
+            </div>
+          </div>
 
-                <div id="infoPembayaran"
-                    style="display:none; margin-top:10px; font-size:13px; background:#f3f1ff; padding:10px; border-radius:8px;">
-                </div>
+          <div class="psikolog-option" onclick="pilihPsikolog(this, 'Dewi Hartati, M.Psi', 'Psikologi Pendidikan', 125000, 'DH', 'linear-gradient(135deg,#185fa5,#378add)')">
+            <div class="psi-avatar" style="background:linear-gradient(135deg,#185fa5,#378add)">DH</div>
+            <div>
+              <div class="psi-name">Dewi Hartati, M.Psi</div>
+              <div class="psi-spec">Psikologi Pendidikan · ⭐ 4.9</div>
+              <div class="psi-tarif">Rp 125.000 / sesi</div>
+            </div>
+          </div>
 
-                <div class="form-group">
-                    <label>Keluhan</label>
-                    <textarea id="keluhan" required></textarea>
-                </div>
-
-                <div class="form-actions">
-                    <button type="submit" class="btn-primary">Ajukan Konsultasi</button>
-                    <button type="reset" class="btn-secondary">Batal</button>
-                </div>
-
-            </form>
+          <div class="psikolog-option" onclick="pilihPsikolog(this, 'Yoga Purnama, S.Psi', 'Konseling Karir', 90000, 'YP', 'linear-gradient(135deg,#3b6d11,#639922)')">
+            <div class="psi-avatar" style="background:linear-gradient(135deg,#3b6d11,#639922)">YP</div>
+            <div>
+              <div class="psi-name">Yoga Purnama, S.Psi</div>
+              <div class="psi-spec">Konseling Karir · ⭐ 4.5</div>
+              <div class="psi-tarif">Rp 90.000 / sesi</div>
+            </div>
+          </div>
 
         </div>
+      </div>
     </div>
 
-</main>
+    <!-- 2. JADWAL & TIPE -->
+    <div class="section-card section-locked" id="sec-jadwal">
+      <div class="section-card-header">
+        <div class="section-num">2</div>
+        <h3>Pilih Jadwal & Tipe Sesi</h3>
+      </div>
+      <div class="section-card-body">
+        <div class="datetime-row" style="margin-bottom:18px">
+          <div class="form-group" style="margin-bottom:0">
+            <label>Tanggal</label>
+            <input type="date" id="inp-tanggal" onchange="updateSummary()">
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label>Waktu</label>
+            <input type="time" id="inp-waktu" onchange="updateSummary()">
+          </div>
+        </div>
+
+        <label style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:10px;">Tipe Sesi</label>
+        <div class="tipe-grid">
+          <div class="tipe-card" onclick="pilihTipe(this, 'Online')">
+            <div class="tipe-icon">💻</div>
+            <div class="tipe-name">Online</div>
+            <div class="tipe-sub">Via Video Call</div>
+          </div>
+          <div class="tipe-card" onclick="pilihTipe(this, 'Offline')">
+            <div class="tipe-icon">📍</div>
+            <div class="tipe-name">Offline</div>
+            <div class="tipe-sub">Tatap Muka Langsung</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. KELUHAN -->
+    <div class="section-card section-locked" id="sec-keluhan">
+      <div class="section-card-header">
+        <div class="section-num">3</div>
+        <h3>Ceritakan Keluhanmu</h3>
+      </div>
+      <div class="section-card-body">
+        <div class="form-group" style="margin-bottom:0">
+          <label>Keluhan / Hal yang Ingin Dikonsultasikan</label>
+          <textarea id="inp-keluhan" placeholder="Ceritakan apa yang sedang kamu rasakan atau ingin kamu diskusikan bersama psikolog..." oninput="updateSummary()"></textarea>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT SUMMARY -->
+  <div>
+    <div class="summary-card">
+      <div class="summary-header">Ringkasan Konsultasi</div>
+
+      <!-- Empty state -->
+      <div class="summary-empty" id="sum-empty">
+        <div class="summary-empty-icon">📋</div>
+        Pilih psikolog untuk melihat ringkasan
+      </div>
+
+      <!-- Filled state -->
+      <div id="sum-filled" style="display:none">
+        <div class="summary-psikolog">
+          <div class="sum-avatar" id="sumAvatar">SA</div>
+          <div>
+            <div class="sum-name" id="sumNama">—</div>
+            <div class="sum-spec" id="sumSpec">—</div>
+          </div>
+        </div>
+
+        <div class="summary-rows">
+          <div class="sum-row">
+            <span class="slabel">Tanggal</span>
+            <span class="sval" id="sumTgl">—</span>
+          </div>
+          <div class="sum-row">
+            <span class="slabel">Waktu</span>
+            <span class="sval" id="sumWaktu">—</span>
+          </div>
+          <div class="sum-row">
+            <span class="slabel">Tipe</span>
+            <span class="sval" id="sumTipe">—</span>
+          </div>
+          <div class="sum-row">
+            <span class="slabel">Durasi</span>
+            <span class="sval">60 Menit</span>
+          </div>
+          <div class="sum-row">
+            <span class="slabel">Biaya Konsultasi</span>
+            <span class="sval" id="sumBiaya">—</span>
+          </div>
+          <div class="sum-row">
+            <span class="slabel">Biaya Admin</span>
+            <span class="sval">Rp 2.500</span>
+          </div>
+        </div>
+
+        <div class="summary-total">
+          <span class="tlabel">Estimasi Total</span>
+          <span class="tval" id="sumTotal">—</span>
+        </div>
+      </div>
+
+      <div class="summary-btn-wrap">
+        <button class="btn-lanjut" id="btnLanjut" disabled onclick="lanjutBayar()">Lanjut ke Pembayaran →</button>
+        <button class="btn-reset" onclick="resetForm()">Ulangi</button>
+      </div>
+
+      <div class="secure-note">Data kamu aman & terlindungi</div>
+    </div>
+  </div>
+
+</div>
 
 <script>
+const ADMIN = 2500;
 
-function submitForm() {
+let state = {
+  psikolog: null,
+  spesialis: null,
+  tarif: 0,
+  avatarText: null,
+  avatarBg: null,
+  tanggal: null,
+  waktu: null,
+  tipe: null,
+  keluhan: null
+};
 
-    const psikolog = document.getElementById('psikolog').value;
-    const tanggal = document.getElementById('tanggal').value;
-    const waktu = document.getElementById('waktu').value;
-    const tipe = document.getElementById('tipe').value;
-    const keluhan = document.getElementById('keluhan').value;
-    const metode = document.getElementById('metode').value; // ✅ FIX
-
-    if (!psikolog || !tanggal || !waktu || !tipe || !keluhan || !metode) {
-        alert('Harap lengkapi semua field!');
-        return false;
-    }
-
-    const data = {
-        psikolog,
-        tanggal,
-        waktu,
-        tipe,
-        keluhan,
-        metode // ✅ SIMPAN METODE
-    };
-
-    sessionStorage.setItem('dataKonsultasi', JSON.stringify(data));
-
-    window.location.href = "billing-mahasiswa.html";
-
-    return false;
+function rupiah(n) {
+  return "Rp " + n.toLocaleString("id-ID");
 }
 
-function showPembayaran() {
-    const metode = document.getElementById('metode').value;
-    const box = document.getElementById('infoPembayaran');
-
-    if (metode === "bank") {
-        box.style.display = "block";
-        box.innerHTML = `
-            <b>Transfer ke:</b><br>
-            1234567890<br>
-            a.n RuangPulih
-        `;
-    } 
-    else if (metode === "ewallet") {
-        box.style.display = "block";
-        box.innerHTML = `
-            <b>Transfer ke GoPay:</b><br>
-            085732705124
-        `;
-    } 
-    else {
-        box.style.display = "none";
-    }
+function formatTanggal(val) {
+  if (!val) return "—";
+  const d = new Date(val);
+  return d.toLocaleDateString("id-ID", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
 }
 
+function formatWaktu(val) {
+  if (!val) return "—";
+  const [h, m] = val.split(":");
+  const end = String(parseInt(h) + 1).padStart(2, "0");
+  return `${h}:${m} – ${end}:${m} WIB`;
+}
+
+function pilihPsikolog(el, nama, spesialis, tarif, avatarText, avatarBg) {
+  document.querySelectorAll(".psikolog-option").forEach(c => c.classList.remove("selected"));
+  el.classList.add("selected");
+
+  state.psikolog = nama;
+  state.spesialis = spesialis;
+  state.tarif = tarif;
+  state.avatarText = avatarText;
+  state.avatarBg = avatarBg;
+
+  // Unlock jadwal & keluhan
+  document.getElementById("sec-jadwal").classList.remove("section-locked");
+  document.getElementById("sec-keluhan").classList.remove("section-locked");
+
+  updateSummary();
+}
+
+function pilihTipe(el, tipe) {
+  document.querySelectorAll(".tipe-card").forEach(c => c.classList.remove("selected"));
+  el.classList.add("selected");
+  state.tipe = tipe;
+  updateSummary();
+}
+
+function updateSummary() {
+  state.tanggal = document.getElementById("inp-tanggal").value;
+  state.waktu = document.getElementById("inp-waktu").value;
+  state.keluhan = document.getElementById("inp-keluhan").value.trim();
+
+  if (!state.psikolog) return;
+
+  document.getElementById("sum-empty").style.display = "none";
+  document.getElementById("sum-filled").style.display = "block";
+
+  document.getElementById("sumAvatar").textContent = state.avatarText;
+  document.getElementById("sumAvatar").style.background = state.avatarBg;
+  document.getElementById("sumNama").textContent = state.psikolog;
+  document.getElementById("sumSpec").textContent = state.spesialis;
+  document.getElementById("sumTgl").textContent = state.tanggal ? formatTanggal(state.tanggal) : "Belum dipilih";
+  document.getElementById("sumWaktu").textContent = state.waktu ? formatWaktu(state.waktu) : "Belum dipilih";
+  document.getElementById("sumTipe").textContent = state.tipe || "Belum dipilih";
+  document.getElementById("sumBiaya").textContent = rupiah(state.tarif);
+  document.getElementById("sumTotal").textContent = rupiah(state.tarif + ADMIN);
+
+  // Enable button jika semua lengkap
+  const ready = state.psikolog && state.tanggal && state.waktu && state.tipe && state.keluhan;
+  document.getElementById("btnLanjut").disabled = !ready;
+}
+
+function lanjutBayar() {
+  const data = {
+    psikolog: state.psikolog,
+    spesialis: state.spesialis,
+    tarif: state.tarif,
+    avatarText: state.avatarText,
+    avatarBg: state.avatarBg,
+    tanggal: formatTanggal(state.tanggal),
+    tanggalRaw: state.tanggal,
+    waktu: formatWaktu(state.waktu),
+    tipe: state.tipe,
+    keluhan: state.keluhan
+  };
+
+  sessionStorage.setItem("dataKonsultasi", JSON.stringify(data));
+  window.location.href = "billing-mahasiswa.html";
+}
+
+function resetForm() {
+  document.querySelectorAll(".psikolog-option").forEach(c => c.classList.remove("selected"));
+  document.querySelectorAll(".tipe-card").forEach(c => c.classList.remove("selected"));
+  document.getElementById("inp-tanggal").value = "";
+  document.getElementById("inp-waktu").value = "";
+  document.getElementById("inp-keluhan").value = "";
+  document.getElementById("sec-jadwal").classList.add("section-locked");
+  document.getElementById("sec-keluhan").classList.add("section-locked");
+  document.getElementById("sum-empty").style.display = "block";
+  document.getElementById("sum-filled").style.display = "none";
+  document.getElementById("btnLanjut").disabled = true;
+  state = { psikolog:null, spesialis:null, tarif:0, avatarText:null, avatarBg:null, tanggal:null, waktu:null, tipe:null, keluhan:null };
+}
 </script>
-
 </body>
 </html>

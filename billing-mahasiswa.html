@@ -1,504 +1,1140 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pembayaran - RuangPulih</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <style>
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Pembayaran - RuangPulih</title>
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-        :root {
-            --primary: #6352c7;
-            --primary-dark: #2d1f6e;
-            --primary-light: #ede9fb;
-            --accent: #4a90d9;
-            --success: #16a34a;
-            --success-light: #f0fdf4;
-            --warning: #d97706;
-            --warning-light: #fffbeb;
-            --danger: #dc2626;
-            --text-dark: #1a1145;
-            --text-mid: #4a4570;
-            --text-muted: #8b88a8;
-            --bg: #f8f7ff;
-            --border: rgba(99, 82, 199, 0.12);
-            --radius-sm: 8px;
-            --radius-md: 14px;
-            --radius-lg: 20px;
-            --shadow-md: 0 8px 40px rgba(45, 31, 110, 0.18);
-        }
+:root {
+  --primary: #6352c7;
+  --primary-dark: #2d1f6e;
+  --primary-light: #ede9fb;
+  --accent: #4a90d9;
+  --success: #16a34a;
+  --success-light: #f0fdf4;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --text-dark: #1a1145;
+  --text-mid: #4a4570;
+  --text-muted: #8b88a8;
+  --bg: #f8f7ff;
+  --border: rgba(99,82,199,0.15);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 2px 8px rgba(45,31,110,0.06);
+  --shadow-md: 0 8px 32px rgba(45,31,110,0.12);
+}
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: rgba(0, 0, 0, 0.35);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text-dark);
+  min-height: 100vh;
+}
 
-        .modal-box {
-            width: 460px;
-            background: white;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            overflow: hidden;
-            animation: fadeIn .25s ease;
-        }
+/* ===== TOPBAR ===== */
+.topbar {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 0 40px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
 
-        @keyframes fadeIn {
-            from {
-                transform: scale(.96);
-                opacity: 0;
-            }
+.topbar-logo {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--primary-dark);
+}
 
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
+.topbar-logo span {
+  color: var(--primary);
+}
 
-        .modal-head {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            padding: 20px 24px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
+.topbar-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
 
-        .head-avatar {
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            font-weight: 700;
-            color: white;
-            flex-shrink: 0;
-        }
+.topbar-step .step-active {
+  color: var(--primary);
+  font-weight: 700;
+}
 
-        .head-info {
-            flex: 1;
-        }
+.topbar-step .sep { color: #ccc; }
 
-        .head-info h3 {
-            font-size: 17px;
-            font-weight: 800;
-            color: white;
-            margin-bottom: 3px;
-        }
+/* ===== STEPS INDICATOR ===== */
+.steps-bar {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 18px 40px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
 
-        .head-info p {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.8);
-        }
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
 
-        .head-close {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            cursor: pointer;
-            color: white;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background .2s;
-            flex-shrink: 0;
-        }
+.step-num {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: white;
+  flex-shrink: 0;
+  transition: all 0.3s;
+}
 
-        .head-close:hover {
-            background: rgba(255, 255, 255, 0.35);
-        }
+.step-item.active .step-num {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
 
-        .modal-body {
-            padding: 20px 24px;
-            max-height: 72vh;
-            overflow-y: auto;
-        }
+.step-item.done .step-num {
+  background: var(--success);
+  border-color: var(--success);
+  color: white;
+}
 
-        .section-title {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-            padding-bottom: 6px;
-            border-bottom: 1px solid var(--border);
-        }
+.step-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: color 0.3s;
+}
 
-        .section {
-            margin-bottom: 20px;
-        }
+.step-item.active .step-label { color: var(--primary); }
+.step-item.done .step-label { color: var(--success); }
 
-        .detail-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 9px 0;
-            border-bottom: 1px solid var(--border);
-            font-size: 13px;
-        }
+.step-line {
+  flex: 1;
+  height: 2px;
+  background: var(--border);
+  margin: 0 12px;
+  transition: background 0.3s;
+}
 
-        .detail-row:last-child {
-            border-bottom: none;
-        }
+.step-line.done { background: var(--success); }
 
-        .detail-row .lbl {
-            color: var(--text-muted);
-            font-weight: 500;
-        }
+/* ===== LAYOUT ===== */
+.page-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 24px;
+  align-items: start;
+}
 
-        .detail-row .val {
-            font-weight: 600;
-            color: var(--text-dark);
-            text-align: right;
-        }
+/* ===== SECTION CARD ===== */
+.section-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+}
 
-        .total-box {
-            background: var(--primary-light);
-            border-radius: var(--radius-sm);
-            padding: 13px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+.section-card-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+}
 
-        .total-box .total-lbl {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--primary);
-        }
+.section-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
 
-        .total-box .total-val {
-            font-size: 17px;
-            font-weight: 800;
-            color: var(--primary);
-        }
+.section-card-header h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
 
-        .info-box {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            padding: 14px 16px;
-            font-size: 13px;
-            color: var(--text-mid);
-            line-height: 1.8;
-        }
+.section-card-body {
+  padding: 20px 24px;
+}
 
-        .info-box strong {
-            color: var(--text-dark);
-            font-weight: 700;
-            display: block;
-            margin-bottom: 2px;
-        }
+/* ===== PAYMENT METHOD ===== */
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
 
-        .info-box .rekening {
-            font-size: 19px;
-            font-weight: 800;
-            color: var(--primary);
-            letter-spacing: 1px;
-            display: block;
-            margin: 2px 0 2px;
-        }
+.method-card {
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 18px 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  background: white;
+}
 
-        .info-box .atas-nama {
-            font-size: 12px;
-            color: var(--text-muted);
-            display: block;
-        }
+.method-card:hover {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
 
-        .tag {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 999px;
-            font-size: 11px;
-            font-weight: 600;
-        }
+.method-card.selected {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
 
-        .tag-warning {
-            background: var(--warning-light);
-            color: #92400e;
-        }
+.method-card.selected::after {
+  content: '✓';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 22px;
+  height: 22px;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+}
 
-        .tag-primary {
-            background: var(--primary-light);
-            color: var(--primary);
-        }
+.method-icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+  display: block;
+}
 
-        /* UPLOAD AREA */
-        .upload-area {
-            border: 2px dashed rgba(99, 82, 199, 0.25);
-            border-radius: var(--radius-sm);
-            background: var(--bg);
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all .2s;
-            position: relative;
-        }
+.method-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
 
-        .upload-area:hover {
-            border-color: var(--primary);
-            background: var(--primary-light);
-        }
+.method-sub {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
 
-        .upload-area input[type="file"] {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            cursor: pointer;
-            width: 100%;
-            height: 100%;
-        }
+/* ===== PAYMENT INFO BOX ===== */
+.payment-info-box {
+  background: var(--primary-light);
+  border: 1px solid rgba(99,82,199,0.2);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  margin-top: 16px;
+  display: none;
+}
 
-        .upload-icon {
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
+.payment-info-box.show { display: block; }
 
-        .upload-text {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 3px;
-        }
+.payment-info-box .bank-name {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--primary-dark);
+  margin-bottom: 12px;
+}
 
-        .upload-hint {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
+.payment-info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
 
-        .upload-name {
-            margin-top: 10px;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--success);
-            display: none;
-        }
+.payment-info-row:last-child { margin-bottom: 0; }
 
-        .modal-footer {
-            padding: 14px 24px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-        }
+.payment-info-row .pkey {
+  font-size: 12px;
+  color: var(--text-muted);
+}
 
-        .btn-cancel {
-            padding: 9px 18px;
-            background: white;
-            color: var(--text-mid);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: inherit;
-            transition: all .2s;
-        }
+.payment-info-row .pval {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
-        .btn-cancel:hover {
-            background: var(--bg);
-        }
+.copy-btn {
+  padding: 3px 10px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
 
-        .btn-kirim {
-            padding: 9px 20px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: var(--radius-sm);
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: inherit;
-            transition: all .2s;
-        }
+.copy-btn:hover { background: var(--primary-dark); }
 
-        .btn-kirim:hover {
-            background: var(--primary-dark);
-        }
+/* ===== FORM ===== */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
 
-        .btn-kirim:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+.form-group {
+  margin-bottom: 14px;
+}
 
-        .success-banner {
-            display: none;
-            background: var(--success-light);
-            border: 1px solid #bbf7d0;
-            border-radius: var(--radius-sm);
-            padding: 12px 14px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--success);
-            text-align: center;
-            margin-top: 4px;
-        }
-    </style>
+.form-group label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.form-group input, .form-group select {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--text-dark);
+  background: white;
+  transition: all 0.2s;
+  outline: none;
+}
+
+.form-group input:focus, .form-group select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+/* Upload bukti */
+.upload-area {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.upload-area:hover {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.upload-area input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.upload-icon { font-size: 28px; margin-bottom: 8px; }
+
+.upload-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-mid);
+}
+
+.upload-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.upload-preview {
+  display: none;
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: var(--success-light);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--success);
+  text-align: left;
+}
+
+/* ===== ORDER SUMMARY (right) ===== */
+.summary-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 90px;
+}
+
+.summary-header {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.summary-psikolog {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sum-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+
+.sum-name { font-size: 13px; font-weight: 700; color: var(--text-dark); }
+.sum-spec { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+.summary-rows {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sum-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 0;
+  font-size: 13px;
+}
+
+.sum-row .slabel { color: var(--text-muted); }
+.sum-row .sval { font-weight: 600; color: var(--text-dark); }
+
+.summary-total {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.summary-total .tlabel {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.summary-total .tval {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.summary-btn-wrap {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-bayar {
+  width: 100%;
+  padding: 14px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.btn-bayar:hover { background: var(--primary-dark); }
+
+.btn-bayar:disabled {
+  background: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.btn-back {
+  width: 100%;
+  padding: 11px;
+  background: white;
+  color: var(--text-mid);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.btn-back:hover { border-color: var(--primary); color: var(--primary); }
+
+.secure-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text-muted);
+  padding: 0 20px 14px;
+}
+
+/* ===== SUCCESS SCREEN ===== */
+#screen-success {
+  display: none;
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  background: var(--success-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  margin: 0 auto 20px;
+  animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+@keyframes popIn {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.success-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.success-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
+
+/* Detail jadwal card */
+.detail-jadwal-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.djc-header {
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+  padding: 20px 24px;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.djc-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.djc-name { font-size: 16px; font-weight: 800; }
+.djc-spec { font-size: 12px; opacity: 0.75; margin-top: 2px; }
+
+.djc-body { padding: 20px 24px; }
+
+.djc-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.djc-row:last-child { border-bottom: none; }
+.djc-row .dk { color: var(--text-muted); font-weight: 500; }
+.djc-row .dv { font-weight: 700; color: var(--text-dark); }
+
+.badge-success {
+  background: #dcfce7;
+  color: #166534;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-primary {
+  background: var(--primary-light);
+  color: var(--primary);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.success-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-jadwal {
+  flex: 1;
+  padding: 13px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.btn-jadwal:hover { background: var(--primary-dark); }
+
+.btn-home {
+  flex: 1;
+  padding: 13px;
+  background: white;
+  color: var(--text-mid);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.btn-home:hover { border-color: var(--primary); color: var(--primary); }
+
+.method-icon img {
+  width: 100px;
+  height: 40px;
+  object-fit: contain;
+}
+
+/* ===== SCREENS ===== */
+#screen-payment { display: block; }
+</style>
 </head>
-
 <body>
-    <div class="modal-box">
-        <div class="modal-head">
-            <div class="head-avatar" id="head-avatar">AP</div>
-            <div class="head-info">
-                <h3 id="head-nama">Andi Pratama</h3>
-                <p id="head-sub">Kecemasan (Anxiety) · Menunggu Pembayaran</p>
-            </div>
-            <button class="head-close" onclick="closeModal()">✕</button>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-logo">Ruang<span>Pulih</span></div>
+  <div class="topbar-step">
+    <span>Form Konsultasi</span>
+    <span class="sep">›</span>
+    <span class="step-active">Pembayaran</span>
+    <span class="sep">›</span>
+    <span>Konfirmasi</span>
+  </div>
+</div>
+
+<!-- STEPS -->
+<div class="steps-bar" id="stepsBar">
+  <div class="step-item done" id="s1">
+    <div class="step-num">✓</div>
+    <div class="step-label">Pilih Psikolog</div>
+  </div>
+  <div class="step-line done"></div>
+  <div class="step-item active" id="s2">
+    <div class="step-num">2</div>
+    <div class="step-label">Pembayaran</div>
+  </div>
+  <div class="step-line" id="line2"></div>
+  <div class="step-item" id="s3">
+    <div class="step-num">3</div>
+    <div class="step-label">Konfirmasi</div>
+  </div>
+</div>
+
+<!-- ===== PAYMENT SCREEN ===== -->
+<div id="screen-payment">
+  <div class="page-wrap">
+
+    <!-- LEFT -->
+    <div>
+
+      <!-- 1. METODE PEMBAYARAN -->
+      <div class="section-card">
+        <div class="section-card-header">
+          <div class="section-num">1</div>
+          <h3>Pilih Metode Pembayaran</h3>
         </div>
-        <div class="modal-body">
-            <div class="section">
-                <div class="section-title">Detail Konsultasi</div>
-                <div class="detail-row">
-                    <span class="lbl">Psikolog</span>
-                    <span class="val" id="psikolog">Dr. Sarah Amelia, M.Psi</span>
-                </div>
-                <div class="detail-row">
-                    <span class="lbl">Tanggal</span>
-                    <span class="val" id="tgl">—</span>
-                </div>
-                <div class="detail-row">
-                    <span class="lbl">Waktu</span>
-                    <span class="val" id="waktu">—</span>
-                </div>
-                <div class="detail-row">
-                    <span class="lbl">Tipe Sesi</span>
-                    <span class="val" id="tipe">—</span>
-                </div>
+        <div class="section-card-body">
+          <div class="method-grid">
+            <div class="method-card selected" onclick="selectMethod('bank', this)">
+              <span class="method-icon">
+                <img src="bca.png" alt="Bank" width="32"></span>
+              <div class="method-name">Transfer Bank</div>
+              <div class="method-sub">BCA</div>
             </div>
+            <div class="method-card" onclick="selectMethod('gopay', this)">
+              <span class="method-icon">
+                <img src="gopay-logo.png" alt="GoPay" width="55"></span>
+              <div class="method-name">GoPay</div>
+              <div class="method-sub">Dompet Digital</div>
+            </div>
+            <div class="method-card" onclick="selectMethod('qris', this)">
+              <span class="method-icon"><img src="qris.png" alt="QRIS" width="32"></span>
+              <div class="method-name">QRIS</div>
+              <div class="method-sub">Semua E-Wallet</div>
+            </div>
+          </div>
 
-            <div class="section">
-                <div class="section-title">Rincian Biaya</div>
-                <div class="detail-row">
-                    <span class="lbl">Biaya Konsultasi</span>
-                    <span class="val" id="biaya">Rp 150.000</span>
-                </div>
-                <div class="detail-row">
-                    <span class="lbl">Biaya Admin</span>
-                    <span class="val">Rp 2.500</span>
-                </div>
+          <!-- INFO BAYAR dinamis -->
+          <div class="payment-info-box show" id="infoBank">
+            <div class="bank-name">Transfer Bank BCA</div>
+            <div class="payment-info-row">
+              <span class="pkey">No. Rekening</span>
+              <span class="pval">1234567890 <button class="copy-btn" onclick="copyText('1234567890')">Salin</button></span>
             </div>
+            <div class="payment-info-row">
+              <span class="pkey">Atas Nama</span>
+              <span class="pval">RuangPulih Indonesia</span>
+            </div>
+            <div class="payment-info-row">
+              <span class="pkey">Total Transfer</span>
+              <span class="pval" id="infoBankTotal" style="color:var(--primary)">—</span>
+            </div>
+          </div>
 
-            <div class="total-box">
-                <span class="total-lbl">Total yang Harus Dibayar</span>
-                <span class="total-val" id="total">Rp 152.500</span>
+          <div class="payment-info-box" id="infoGopay">
+            <div class="bank-name">GoPay</div>
+            <div class="payment-info-row">
+              <span class="pkey">No. HP / Akun</span>
+              <span class="pval">085732705124 <button class="copy-btn" onclick="copyText('085732705124')">Salin</button></span>
             </div>
+            <div class="payment-info-row">
+              <span class="pkey">Atas Nama</span>
+              <span class="pval">RuangPulih</span>
+            </div>
+            <div class="payment-info-row">
+              <span class="pkey">Total Transfer</span>
+              <span class="pval" id="infoGopayTotal" style="color:var(--primary)">—</span>
+            </div>
+          </div>
 
-            <div class="section">
-                <div class="section-title">Informasi Pembayaran</div>
-                <div class="info-box" id="info-bayar">
-                    <strong>Transfer Bank BCA</strong>
-                    <span class="rekening">1234 5678 90</span>
-                    <span class="atas-nama">a.n. RuangPulih Indonesia</span>
-                </div>
+          <div class="payment-info-box" id="infoQris">
+            <div class="bank-name">QRIS</div>
+            <div style="text-align:center;padding:12px 0">
+              <div style="width:120px;height:120px;background:var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:48px;">▩</div>
+              <div style="font-size:12px;color:var(--text-muted);margin-top:10px;">Scan QR Code di atas</div>
             </div>
-
-            <div class="section">
-                <div class="section-title">Kirim Bukti Pembayaran</div>
-                <div class="upload-area" id="upload-area">
-                    <input type="file" id="bukti" accept="image/*,.pdf" onchange="fileSelected(this)">
-                    <div class="upload-icon"></div>
-                    <div class="upload-text">Klik untuk upload bukti transfer</div>
-                    <div class="upload-hint">JPG, PNG, atau PDF · Maks 5MB</div>
-                    <div class="upload-name" id="upload-name"></div>
-                </div>
+            <div class="payment-info-row">
+              <span class="pkey">Total Transfer</span>
+              <span class="pval" id="infoQrisTotal" style="color:var(--primary)">—</span>
             </div>
-
-            <div class="success-banner" id="success-banner">
-                ✅ Bukti pembayaran berhasil dikirim! Sedang diverifikasi.
-            </div>
+          </div>
         </div>
-        <div class="modal-footer">
-            <button class="btn-cancel" onclick="closeModal()">Batal</button>
-            <button class="btn-kirim" id="btn-kirim" onclick="kirim()">Kirim Bukti</button>
+      </div>
+
+      <!-- 2. INFORMASI PEMESAN -->
+      <div class="section-card">
+        <div class="section-card-header">
+          <div class="section-num">2</div>
+          <h3>Informasi Pemesan</h3>
         </div>
+        <div class="section-card-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nama Lengkap</label>
+              <input type="text" id="inp-nama" placeholder="Masukkan nama lengkap" value="Budi Santoso">
+            </div>
+            <div class="form-group">
+              <label>NIM</label>
+              <input type="text" id="inp-nim" placeholder="Nomor Induk Mahasiswa" value="2021001234">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" id="inp-email" placeholder="email@mahasiswa.ac.id" value="budi.santoso@mahasiswa.ac.id">
+            </div>
+            <div class="form-group">
+              <label>No. Telepon</label>
+              <input type="tel" id="inp-telp" placeholder="08xxxxxxxxxx" value="08123456789">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Catatan Tambahan (Opsional)</label>
+            <input type="text" id="inp-catatan" placeholder="Contoh: konsultasi stres akademik...">
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. UPLOAD BUKTI -->
+      <div class="section-card">
+        <div class="section-card-header">
+          <div class="section-num">3</div>
+          <h3>Upload Bukti Pembayaran</h3>
+        </div>
+        <div class="section-card-body">
+          <div class="upload-area" id="uploadArea">
+            <input type="file" id="buktiFile" accept="image/*,.pdf" onchange="previewFile(this)">
+            <div class="upload-icon">📎</div>
+            <div class="upload-text">Klik atau drag & drop file di sini</div>
+            <div class="upload-sub">Format: JPG, PNG, PDF — Maks. 5MB</div>
+          </div>
+          <div class="upload-preview" id="uploadPreview"></div>
+        </div>
+      </div>
+
     </div>
-    <script>
-        const ADMIN = 2500;
-        const tarifPsikolog = {
-            "Dr. Sarah Amelia, M.Psi": 150000,
-            "Reza Pratama, S.Psi": 100000
-        };
-        const infoMetode = {
-            bank: `<strong>Transfer Bank BCA</strong><span class="rekening">1234 5678 90</span><span class="atas-nama">a.n. RuangPulih Indonesia</span>`,
-            gopay: `<strong>GoPay</strong><span class="rekening">0857 3270 5124</span><span class="atas-nama">a.n. RuangPulih Indonesia</span>`,
-            ovo: `<strong>OVO</strong><span class="rekening">0857 3270 5124</span><span class="atas-nama">a.n. RuangPulih Indonesia</span>`
-        };
 
-        function rupiah(n) { return "Rp " + n.toLocaleString("id-ID"); }
-        function getInisial(nama) { return nama.split(" ").slice(0, 2).map(w => w[0]).join("").toUpperCase(); }
+    <!-- RIGHT: SUMMARY -->
+    <div>
+      <div class="summary-card">
+        <div class="summary-header">Ringkasan Pesanan</div>
 
-        function load() {
-            let raw = sessionStorage.getItem("dataKonsultasi");
-            let data = raw ? JSON.parse(raw) : {
-                psikolog: "Dr. Sarah Amelia, M.Psi",
-                tanggal: "30 April 2026",
-                waktu: "09:00 – 10:00 WIB",
-                tipe: "Online",
-                metode: "bank",
-                keluhan: "Kecemasan (Anxiety)",
-                namaPasien: "Andi Pratama"
-            };
+        <div class="summary-psikolog">
+          <div class="sum-avatar" id="sumAvatar">SA</div>
+          <div>
+            <div class="sum-name" id="sumNama">Dr. Sarah Amelia, M.Psi</div>
+            <div class="sum-spec" id="sumSpec">Psikologi Klinis</div>
+          </div>
+        </div>
 
-            let tarif = tarifPsikolog[data.psikolog] || 150000;
-            document.getElementById("head-nama").textContent = data.namaPasien || "Pasien";
-            document.getElementById("head-sub").textContent = (data.keluhan || "—") + " · Menunggu Pembayaran";
-            document.getElementById("head-avatar").textContent = getInisial(data.namaPasien || "P");
-            document.getElementById("psikolog").textContent = data.psikolog;
-            document.getElementById("tgl").textContent = data.tanggal || "—";
-            document.getElementById("waktu").textContent = data.waktu || "—";
-            document.getElementById("tipe").innerHTML = data.tipe === "Online"
-                ? '<span class="tag tag-primary">Online</span>'
-                : '<span class="tag tag-warning">Offline</span>';
-            document.getElementById("biaya").textContent = rupiah(tarif);
-            document.getElementById("total").textContent = rupiah(tarif + ADMIN);
-            const m = (data.metode || "bank").toLowerCase();
-            document.getElementById("info-bayar").innerHTML = infoMetode[m] || infoMetode.bank;
-        }
+        <div class="summary-rows">
+          <div class="sum-row">
+            <span class="slabel">Tanggal</span>
+            <span class="sval" id="sumTgl">—</span>
+          </div>
+          <div class="sum-row">
+            <span class="slabel">Waktu</span>
+            <span class="sval" id="sumWaktu">—</span>
+          </div>
+          <div class="sum-row">
+            <span class="slabel">Tipe</span>
+            <span class="sval" id="sumTipe">—</span>
+          </div>
+          <div class="sum-row">
+            <span class="slabel">Biaya Konsultasi</span>
+            <span class="sval" id="sumBiaya">—</span>
+          </div>
+          <div class="sum-row">
+            <span class="slabel">Biaya Admin</span>
+            <span class="sval">Rp 2.500</span>
+          </div>
+        </div>
 
-        function fileSelected(input) {
-            const nameEl = document.getElementById("upload-name");
-            if (input.files[0]) {
-                nameEl.textContent = "✓ " + input.files[0].name;
-                nameEl.style.display = "block";
-            }
-        }
+        <div class="summary-total">
+          <span class="tlabel">Total Pembayaran</span>
+          <span class="tval" id="sumTotal">—</span>
+        </div>
 
-        function kirim() {
-            const file = document.getElementById("bukti").files[0];
-            if (!file) { alert("Upload bukti pembayaran terlebih dahulu!"); return; }
-            document.getElementById("success-banner").style.display = "block";
-            document.getElementById("btn-kirim").disabled = true;
-            document.getElementById("upload-area").style.pointerEvents = "none";
-            document.getElementById("upload-area").style.opacity = "0.5";
-        }
+        <div class="summary-btn-wrap">
+          <button class="btn-bayar" id="btnBayar" onclick="bayar()">Konfirmasi & Bayar</button>
+          <button class="btn-back" onclick="history.back()">← Kembali ke Form</button>
+        </div>
 
-        function closeModal() { document.body.style.display = "none"; }
+        <div class="secure-note">Pembayaran aman & terenkripsi</div>
+      </div>
+    </div>
 
-        load();
-    </script>
+  </div>
+</div>
+
+<!-- ===== SUCCESS SCREEN ===== -->
+<div id="screen-success">
+  <div class="success-icon">✅</div>
+  <div class="success-title">Pembayaran Berhasil!</div>
+  <div class="success-sub">Bukti pembayaran kamu sudah diterima.<br>Jadwal konsultasi kamu sudah dikonfirmasi.</div>
+
+  <div class="detail-jadwal-card">
+    <div class="djc-header">
+      <div class="djc-avatar" id="suc-avatar">SA</div>
+      <div>
+        <div class="djc-name" id="suc-nama">—</div>
+        <div class="djc-spec" id="suc-spec">—</div>
+      </div>
+    </div>
+    <div class="djc-body">
+      <div class="djc-row">
+        <span class="dk">Tanggal</span>
+        <span class="dv" id="suc-tgl">—</span>
+      </div>
+      <div class="djc-row">
+        <span class="dk">Waktu</span>
+        <span class="dv" id="suc-waktu">—</span>
+      </div>
+      <div class="djc-row">
+        <span class="dk">Durasi</span>
+        <span class="dv">60 Menit</span>
+      </div>
+      <div class="djc-row">
+        <span class="dk">Tipe Sesi</span>
+        <span class="dv" id="suc-tipe">—</span>
+      </div>
+      <div class="djc-row">
+        <span class="dk">Status</span>
+        <span class="dv"><span class="badge-success">✓ Terkonfirmasi</span></span>
+      </div>
+      <div class="djc-row">
+        <span class="dk">Metode Bayar</span>
+        <span class="dv" id="suc-metode">—</span>
+      </div>
+      <div class="djc-row">
+        <span class="dk">Total Dibayar</span>
+        <span class="dv" style="color:var(--primary)" id="suc-total">—</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="success-actions">
+    <button class="btn-jadwal" onclick="lihatJadwal()">Lihat Jadwal Saya</button>
+    <button class="btn-home" onclick="kembaliDashboard()">Ke Beranda</button>
+  </div>
+</div>
+
+<script>
+const ADMIN = 2500;
+
+const tarifPsi = {
+  "Dr. Sarah Amelia, M.Psi": 150000,
+  "Reza Pratama, S.Psi": 100000,
+  "Nadia Aulia, M.Psi": 120000,
+  "Bayu Wicaksono, S.Psi": 130000,
+  "Dewi Hartati, M.Psi": 125000,
+  "Yoga Purnama, S.Psi": 90000,
+};
+
+const avatarMap = {
+  "Dr. Sarah Amelia, M.Psi": { text: "SA", bg: "linear-gradient(135deg,#6352c7,#4a90d9)", spec: "Psikologi Klinis" },
+  "Reza Pratama, S.Psi": { text: "RP", bg: "linear-gradient(135deg,#0f6e56,#1d9e75)", spec: "Konseling Remaja" },
+  "Nadia Aulia, M.Psi": { text: "NA", bg: "linear-gradient(135deg,#993556,#d4537e)", spec: "Manajemen Stres" },
+  "Bayu Wicaksono, S.Psi": { text: "BW", bg: "linear-gradient(135deg,#854f0b,#ba7517)", spec: "Trauma & PTSD" },
+  "Dewi Hartati, M.Psi": { text: "DH", bg: "linear-gradient(135deg,#185fa5,#378add)", spec: "Psikologi Pendidikan" },
+  "Yoga Purnama, S.Psi": { text: "YP", bg: "linear-gradient(135deg,#3b6d11,#639922)", spec: "Konseling Karir" },
+};
+
+const metodeLabel = {
+  bank: "Transfer Bank BCA",
+  gopay: "GoPay",
+  qris: "QRIS"
+};
+
+let selectedMethod = "bank";
+let sessionData = {};
+
+function rupiah(n) {
+  return "Rp " + n.toLocaleString("id-ID");
+}
+
+function load() {
+  // Coba dari sessionStorage, fallback ke data demo
+  let raw = sessionStorage.getItem("dataKonsultasi");
+  if (raw) {
+    sessionData = JSON.parse(raw);
+  } else {
+    // Demo data
+    sessionData = {
+      psikolog: "Dr. Sarah Amelia, M.Psi",
+      tanggal: "28 Maret 2026",
+      waktu: "10:00 – 11:00 WIB",
+      tipe: "Online",
+      metode: "bank"
+    };
+  }
+
+  const tarif = tarifPsi[sessionData.psikolog] || 100000;
+  const total = tarif + ADMIN;
+  const av = avatarMap[sessionData.psikolog] || { text: "—", bg: "#6352c7", spec: "—" };
+
+  // Summary right
+  document.getElementById("sumAvatar").textContent = av.text;
+  document.getElementById("sumAvatar").style.background = av.bg;
+  document.getElementById("sumNama").textContent = sessionData.psikolog;
+  document.getElementById("sumSpec").textContent = av.spec;
+  document.getElementById("sumTgl").textContent = sessionData.tanggal;
+  document.getElementById("sumWaktu").textContent = sessionData.waktu;
+  document.getElementById("sumTipe").textContent = sessionData.tipe;
+  document.getElementById("sumBiaya").textContent = rupiah(tarif);
+  document.getElementById("sumTotal").textContent = rupiah(total);
+
+  // Payment info totals
+  document.getElementById("infoBankTotal").textContent = rupiah(total);
+  document.getElementById("infoGopayTotal").textContent = rupiah(total);
+  document.getElementById("infoQrisTotal").textContent = rupiah(total);
+}
+
+function selectMethod(method, el) {
+  selectedMethod = method;
+  document.querySelectorAll(".method-card").forEach(c => c.classList.remove("selected"));
+  el.classList.add("selected");
+
+  document.getElementById("infoBank").classList.remove("show");
+  document.getElementById("infoGopay").classList.remove("show");
+  document.getElementById("infoQris").classList.remove("show");
+  document.getElementById("info" + method.charAt(0).toUpperCase() + method.slice(1)).classList.add("show");
+}
+
+function copyText(txt) {
+  navigator.clipboard.writeText(txt).then(() => {
+    showToast("Disalin ke clipboard!");
+  });
+}
+
+function showToast(msg) {
+  const t = document.createElement("div");
+  t.textContent = msg;
+  t.style.cssText = "position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a1145;color:white;padding:10px 20px;border-radius:999px;font-size:13px;font-weight:600;z-index:9999;animation:fadeIn .2s ease";
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2000);
+}
+
+function previewFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const prev = document.getElementById("uploadPreview");
+  prev.style.display = "block";
+  prev.textContent = "✅ " + file.name + " (" + (file.size / 1024).toFixed(1) + " KB)";
+  document.getElementById("uploadArea").style.borderColor = "var(--success)";
+  document.getElementById("uploadArea").style.background = "var(--success-light)";
+}
+
+function bayar() {
+  const file = document.getElementById("buktiFile").files[0];
+  if (!file) {
+    showToast("Upload bukti pembayaran terlebih dahulu!");
+    return;
+  }
+  const nama = document.getElementById("inp-nama").value.trim();
+  if (!nama) {
+    showToast("Lengkapi informasi pemesan!");
+    return;
+  }
+
+  // Fill success screen
+  const tarif = tarifPsi[sessionData.psikolog] || 100000;
+  const total = tarif + ADMIN;
+  const av = avatarMap[sessionData.psikolog] || { text: "—", bg: "#6352c7", spec: "—" };
+
+  document.getElementById("suc-avatar").textContent = av.text;
+  document.getElementById("suc-avatar").style.background = av.bg;
+  document.getElementById("suc-nama").textContent = sessionData.psikolog;
+  document.getElementById("suc-spec").textContent = av.spec;
+  document.getElementById("suc-tgl").textContent = sessionData.tanggal;
+  document.getElementById("suc-waktu").textContent = sessionData.waktu;
+  document.getElementById("suc-tipe").textContent = sessionData.tipe;
+  document.getElementById("suc-metode").textContent = metodeLabel[selectedMethod];
+  document.getElementById("suc-total").textContent = rupiah(total);
+
+  // Simpan ke sessionStorage untuk jadwal
+  const jadwalBaru = {
+    psikolog: sessionData.psikolog,
+    spesialis: av.spec,
+    avatarText: av.text,
+    avatarBg: av.bg,
+    tanggal: sessionData.tanggal,
+    waktu: sessionData.waktu,
+    tipe: sessionData.tipe,
+    status: "Terkonfirmasi",
+    total: rupiah(total),
+    catatan: document.getElementById("inp-catatan").value || "—"
+  };
+  sessionStorage.setItem("jadwalBaru", JSON.stringify(jadwalBaru));
+
+  // Steps update
+  document.getElementById("s2").className = "step-item done";
+  document.getElementById("s2").querySelector(".step-num").textContent = "✓";
+  document.getElementById("line2").classList.add("done");
+  document.getElementById("s3").className = "step-item active";
+
+  // Switch screen
+  document.getElementById("screen-payment").style.display = "none";
+  document.getElementById("stepsBar").style.display = "none";
+  document.getElementById("screen-success").style.display = "block";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function lihatJadwal() {
+  // Arahkan ke dashboard mahasiswa halaman jadwal
+  window.location.href = "dashboard-mahasiswa.html#jadwal";
+}
+
+function kembaliDashboard() {
+  window.location.href = "dashboard-mahasiswa.html";
+}
+
+load();
+</script>
 </body>
-
 </html>
