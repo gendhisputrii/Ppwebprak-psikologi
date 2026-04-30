@@ -689,6 +689,18 @@ body {
   object-fit: contain;
 }
 
+.qris-img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  padding: 8px;
+  background: white;
+}
+
 /* ===== SCREENS ===== */
 #screen-payment { display: block; }
 </style>
@@ -795,7 +807,7 @@ body {
           <div class="payment-info-box" id="infoQris">
             <div class="bank-name">QRIS</div>
             <div style="text-align:center;padding:12px 0">
-              <div style="width:120px;height:120px;background:var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:48px;">▩</div>
+              <img src="barcode.png" alt="QRIS" class="qris-img">
               <div style="font-size:12px;color:var(--text-muted);margin-top:10px;">Scan QR Code di atas</div>
             </div>
             <div class="payment-info-row">
