@@ -580,8 +580,12 @@
 
         <p class="login-link">Sudah punya akun? <a href="login.html">Masuk di sini</a></p>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
+        const SUPABASE_URL = 'https://wpnsdjxtrojacfrhhumf.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_iUgPhq6MeTh3hl1LgGMjNg_YU7Go7yT';
+        const { createClient } = supabase;
+        const db = createClient(SUPABASE_URL, SUPABASE_KEY);
         let currentRole = 'mahasiswa';
 
         function setRole(role, btn) {
@@ -643,7 +647,7 @@
             document.getElementById('alert-success').style.display = 'none';
         }
 
-        function submitRegister(event) {
+        async function submitRegister(event) {
             event.preventDefault();
             clearErrors();
 
@@ -735,15 +739,52 @@
                 return false;
             }
 
-            // Simpan status sudah daftar
+            const btnEl = document.querySelector('.btn-register');
+            btnEl.disabled = true;
+            btnEl.textContent = 'Memproses...';
 
+            // Daftar ke Supabase Auth
+            const { data, error } = await db.auth.signUp({ email, password: pass });
 
-            // Simulasi sukses
+            if (error) {
+                document.getElementById('alert-error').style.display = 'block';
+                document.getElementById('alert-error').textContent = 'Gagal daftar: ' + error.message;
+                btnEl.disabled = false;
+                btnEl.textContent = 'Daftar Sekarang';
+                return false;
+            }
+
+            // Generate id_user
+            const idUser = (currentRole === 'mahasiswa' ? 'USR' : 'PSI') + Math.floor(Math.random() * 9000000 + 1000000);
+
+            // Simpan ke tabel pengguna
+            await db.from('pengguna').insert({
+                id_user: idUser,
+                nama_user: nama,
+                email_user: email,
+                no_hp: phone,
+                role_user: currentRole,
+                status_verifikasi: 0,
+                auth_id: data.user.id
+            });
+
+            // Kalau mahasiswa, simpan ke tabel mahasiswa
+            if (currentRole === 'mahasiswa') {
+                await db.from('mahasiswa').insert({ id_mahasiswa: idUser });
+            }
+
+            // Kalau psikolog, simpan ke tabel psikolog
+            if (currentRole === 'psikolog') {
+                await db.from('psikolog').insert({
+                    id_psikolog: idUser,
+                    spesialisasi: spesialis,
+                    nama_psikolog: nama
+                });
+            }
+
             document.getElementById('alert-success').style.display = 'block';
-
-            setTimeout(() => {
-                window.location.href = "login.html";
-            }, 2000);
+            setTimeout(() => { window.location.href = 'login.html'; }, 2000);
+            btn.disabled = true;
         }
     </script>
 

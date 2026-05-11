@@ -380,96 +380,93 @@
                 <a href="#" class="forgot-link">Lupa password?</a>
             </div>
 
-            <button type="submit" class="btn-login-submit">Masuk</button>
+            <button type="submit" class="btn-login-submit" id="btn-submit">Masuk</button>
         </form>
 
         <p class="register-link">Belum punya akun? <a href="daftar-sekarang.html">Daftar sekarang</a></p>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-    function togglePass() {
-        const input = document.getElementById('password');
-        const btn = document.querySelector('.toggle-pass');
-        if (input.type === 'password') {
-            input.type = 'text';
-            btn.textContent = '';
-        } else {
-            input.type = 'password';
-            btn.textContent = '';
-        }
+       // Inisialisasi Supabase
+const SUPABASE_URL = 'https://wpnsdjxtrojacfrhhumf.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_iUgPhq6MeTh3hl1LgGMjNg_YU7Go7yT';
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// Tidak diubah
+function togglePass() {
+    const input = document.getElementById('password');
+    const btn = document.querySelector('.toggle-pass');
+    if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = '';
+    } else {
+        input.type = 'password';
+        btn.textContent = '';
     }
+}
 
-    // SIMPAN DATA USER (simulasi database)
-    const users = [
-        {
-            email: "admin@gmail.com",
-            password: "123456",
-            role: "admin"
-        },
-        {
-            email: "psikolog@gmail.com",
-            password: "123456",
-            role: "psikolog"
-        },
-        {
-            email: "mahasiswa@gmail.com",
-            password: "123456",
-            role: "mahasiswa"
-        }
-    ];
+// Ganti loginUser lama dengan versi Supabase
+async function loginUser(event) {
+    event.preventDefault();
 
-    function loginUser(event) {
-        event.preventDefault();
+    const email    = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const alertEl  = document.getElementById('alert-error');
+    const btnEl    = document.getElementById('btn-submit');
 
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const alertEl = document.getElementById('alert-error');
+    document.getElementById('errorEmail').innerText    = '';
+    document.getElementById('errorPassword').innerText = '';
+    alertEl.style.display = 'none';
 
-        document.getElementById('errorEmail').innerText = '';
-        document.getElementById('errorPassword').innerText = '';
-        alertEl.style.display = 'none';
+    let valid = true;
+    if (!email) {
+        document.getElementById('errorEmail').innerText = 'Email wajib diisi';
+        valid = false;
+    } else if (!email.includes('@')) {
+        document.getElementById('errorEmail').innerText = 'Format email tidak valid';
+        valid = false;
+    }
+    if (!password) {
+        document.getElementById('errorPassword').innerText = 'Password wajib diisi';
+        valid = false;
+    } else if (password.length < 6) {
+        document.getElementById('errorPassword').innerText = 'Minimal 6 karakter';
+        valid = false;
+    }
+    if (!valid) return false;
 
-        let valid = true;
+    btnEl.disabled    = true;
+    btnEl.textContent = 'Memproses...';
 
-        if (!email) {
-            document.getElementById('errorEmail').innerText = 'Email wajib diisi';
-            valid = false;
-        } else if (!email.includes('@')) {
-            document.getElementById('errorEmail').innerText = 'Format email tidak valid';
-            valid = false;
-        }
+    const { data, error } = await db.auth.signInWithPassword({ email, password });
 
-        if (!password) {
-            document.getElementById('errorPassword').innerText = 'Password wajib diisi';
-            valid = false;
-        } else if (password.length < 6) {
-            document.getElementById('errorPassword').innerText = 'Minimal 6 karakter';
-            valid = false;
-        }
-
-        if (!valid) return false;
-
-        // CARI USER
-        const user = users.find(u => u.email === email && u.password === password);
-
-        if (user) {
-            // SIMPAN KE LOCAL STORAGE
-            localStorage.setItem("user", JSON.stringify(user));
-
-            // REDIRECT BERDASARKAN ROLE
-            if (user.role === "admin") {
-                window.location.href = "index.html";
-            } else if (user.role === "psikolog") {
-                window.location.href = "index.html";
-            } else if (user.role === "mahasiswa") {
-                window.location.href = "index.html";
-            }
-        } else {
-            alertEl.style.display = 'block';
-        }
-
+    if (error) {
+        alertEl.style.display = 'block';
+        alertEl.textContent   = 'Email atau password salah. Silakan coba lagi.';
+        btnEl.disabled        = false;
+        btnEl.textContent     = 'Masuk';
         return false;
     }
+
+    const { data: profil } = await db
+        .from('pengguna')
+        .select('*')
+        .eq('auth_id', data.user.id)
+        .single();
+
+    localStorage.setItem('user', JSON.stringify(profil));
+
+    if (profil.role_user === 'admin') {
+        window.location.href = 'dashboard-admin.html';
+    } else if (profil.role_user === 'psikolog') {
+        window.location.href = 'dashboard-psikolog.html';
+    } else {
+        window.location.href = 'dashboard-mahasiswa.html';
+    }
+
+    return false;
+}
     </script>
 
 </body>

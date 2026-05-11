@@ -1278,12 +1278,12 @@
     <aside class="sidebar">
         <div class="sidebar-logo">
             <span>RuangPulih</span>
-            <small>Administrator</small>
+            <small id="sidebar-role">Administrator</small>
         </div>
         <div class="sidebar-user">
-            <div class="user-avatar">AD</div>
+            <div class="user-avatar" id="sidebar-avatar">AD</div>
             <div>
-                <div class="user-name">Admin RuangPulih</div>
+                <div class="user-name" id="sidebar-nama">Admin RuangPulih</div>
                 <div class="user-role">Super Admin</div>
             </div>
         </div>
@@ -1298,7 +1298,7 @@
             <a class="nav-item" onclick="showPage('profil',this)"><span class="nav-icon"></span> Profil Saya</a>
         </nav>
         <div class="sidebar-footer">
-            <a href="login.html" class="logout-btn"><span></span> Keluar</a>
+            <a href="#" class="logout-btn" onclick="logout()"><span></span> Keluar</a>
         </div>
     </aside>
 
@@ -2143,10 +2143,10 @@
             <!-- ===== PROFIL ADMIN ===== -->
             <div class="page" id="page-profil">
                 <div class="profil-header">
-                    <div class="profil-avatar">AD</div>
+                    <div class="profil-avatar" id="profil-avatar">AD</div>
                     <div>
-                        <h2>Admin RuangPulih</h2>
-                        <p>admin@ruangpulih.com · Super Admin</p>
+                        <h2 id="profil-nama">Admin RuangPulih</h2>
+                        <p id="profil-email">admin@ruangpulih.com · Super Admin</p>
                     </div>
                 </div>
                 <div class="profil-grid">
@@ -2469,8 +2469,32 @@
     <div class="toast" id="toast"></div>
 
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
-
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
+        const SUPABASE_URL = 'https://wpnsdjxtrojacfrhhumf.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_iUgPhq6MeTh3hl1LgGMjNg_YU7Go7yT';
+        const { createClient } = supabase;
+        const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user || user.role_user !== 'admin') window.location.href = 'login.html';
+
+        if (user) {
+            const inisial = user.nama_user.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+            document.getElementById('sidebar-avatar').textContent = inisial;
+            document.getElementById('sidebar-nama').textContent = user.nama_user;
+            document.getElementById('sidebar-role').textContent = user.role_user;
+            document.querySelectorAll('.user-avatar').forEach(el => el.textContent = inisial);
+            document.getElementById('profil-avatar').textContent = inisial;
+            document.getElementById('profil-nama').textContent = user.nama_user;
+            document.getElementById('profil-email').textContent = user.email_user + ' · Admin';
+        }
+
+        async function logout() {
+            await db.auth.signOut();
+            localStorage.removeItem('user');
+            window.location.href = 'login.html';
+        }
         /* ===== TOAST ===== */
         function showToast(msg, type = 'success') {
             const t = document.getElementById('toast');
