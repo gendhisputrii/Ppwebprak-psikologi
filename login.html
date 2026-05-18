@@ -40,7 +40,6 @@
             overflow: hidden;
         }
 
-        /* Background decorative circles */
         body::before {
             content: '';
             position: fixed;
@@ -65,7 +64,6 @@
             pointer-events: none;
         }
 
-        /* Back to home */
         .back-home {
             position: fixed;
             top: 24px;
@@ -84,7 +82,6 @@
             color: var(--primary);
         }
 
-        /* Logo area */
         .login-logo {
             text-align: center;
             margin-bottom: 28px;
@@ -106,7 +103,6 @@
             letter-spacing: -0.5px;
         }
 
-        /* Card */
         .login-card {
             background: white;
             border-radius: 24px;
@@ -137,7 +133,6 @@
             color: var(--text-muted);
         }
 
-        /* Role selector */
         .role-selector {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -175,7 +170,6 @@
             box-shadow: 0 2px 8px rgba(99, 82, 199, 0.12);
         }
 
-        /* Form */
         .form-group {
             margin-bottom: 16px;
         }
@@ -337,7 +331,6 @@
 
     <div class="login-card">
 
-        <!-- Logo -->
         <div class="login-logo">
             <img src="logo2.png" alt="RuangPulih"
                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
@@ -349,10 +342,8 @@
             <p>Silakan masuk ke akun kamu</p>
         </div>
 
-        <!-- Alert error -->
         <div class="alert-error" id="alert-error">Email atau password salah. Silakan coba lagi.</div>
 
-        <!-- Form -->
         <form onsubmit="return loginUser(event)">
             <div class="form-group">
                 <label>Email</label>
@@ -385,88 +376,83 @@
 
         <p class="register-link">Belum punya akun? <a href="daftar-sekarang.html">Daftar sekarang</a></p>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script>
-       // Inisialisasi Supabase
-const SUPABASE_URL = 'https://wpnsdjxtrojacfrhhumf.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_iUgPhq6MeTh3hl1LgGMjNg_YU7Go7yT';
-const { createClient } = supabase;
-const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+        function togglePass() {
+            const input = document.getElementById('password');
+            const btn = document.querySelector('.toggle-pass');
+            if (input.type === 'password') {
+                input.type = 'text';
+                btn.textContent = '';
+            } else {
+                input.type = 'password';
+                btn.textContent = '';
+            }
+        }
 
-// Tidak diubah
-function togglePass() {
-    const input = document.getElementById('password');
-    const btn = document.querySelector('.toggle-pass');
-    if (input.type === 'password') {
-        input.type = 'text';
-        btn.textContent = '';
-    } else {
-        input.type = 'password';
-        btn.textContent = '';
-    }
-}
+        async function loginUser(event) {
+            event.preventDefault();
 
-// Ganti loginUser lama dengan versi Supabase
-async function loginUser(event) {
-    event.preventDefault();
+            const email    = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const alertEl  = document.getElementById('alert-error');
+            const btnEl    = document.getElementById('btn-submit');
 
-    const email    = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value;
-    const alertEl  = document.getElementById('alert-error');
-    const btnEl    = document.getElementById('btn-submit');
+            document.getElementById('errorEmail').innerText    = '';
+            document.getElementById('errorPassword').innerText = '';
+            alertEl.style.display = 'none';
 
-    document.getElementById('errorEmail').innerText    = '';
-    document.getElementById('errorPassword').innerText = '';
-    alertEl.style.display = 'none';
+            let valid = true;
+            if (!email) {
+                document.getElementById('errorEmail').innerText = 'Email wajib diisi';
+                valid = false;
+            } else if (!email.includes('@')) {
+                document.getElementById('errorEmail').innerText = 'Format email tidak valid';
+                valid = false;
+            }
+            if (!password) {
+                document.getElementById('errorPassword').innerText = 'Password wajib diisi';
+                valid = false;
+            } else if (password.length < 6) {
+                document.getElementById('errorPassword').innerText = 'Minimal 6 karakter';
+                valid = false;
+            }
+            if (!valid) return false;
 
-    let valid = true;
-    if (!email) {
-        document.getElementById('errorEmail').innerText = 'Email wajib diisi';
-        valid = false;
-    } else if (!email.includes('@')) {
-        document.getElementById('errorEmail').innerText = 'Format email tidak valid';
-        valid = false;
-    }
-    if (!password) {
-        document.getElementById('errorPassword').innerText = 'Password wajib diisi';
-        valid = false;
-    } else if (password.length < 6) {
-        document.getElementById('errorPassword').innerText = 'Minimal 6 karakter';
-        valid = false;
-    }
-    if (!valid) return false;
+            btnEl.disabled    = true;
+            btnEl.textContent = 'Memproses...';
 
-    btnEl.disabled    = true;
-    btnEl.textContent = 'Memproses...';
+            try {
+                const res  = await fetch('auth/login.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await res.json();
 
-    const { data, error } = await db.auth.signInWithPassword({ email, password });
+                if (data.status !== 'success') {
+                    alertEl.style.display = 'block';
+                    alertEl.textContent   = data.message;
+                    btnEl.disabled        = false;
+                    btnEl.textContent     = 'Masuk';
+                    return false;
+                }
 
-    if (error) {
-        alertEl.style.display = 'block';
-        alertEl.textContent   = 'Email atau password salah. Silakan coba lagi.';
-        btnEl.disabled        = false;
-        btnEl.textContent     = 'Masuk';
-        return false;
-    }
+                localStorage.setItem('user', JSON.stringify(data.user));
 
-    const { data: profil } = await db
-        .from('pengguna')
-        .select('*')
-        .eq('auth_id', data.user.id)
-        .single();
+                if (data.user.role_user === 'admin')         window.location.href = 'dashboard-admin.html';
+                else if (data.user.role_user === 'psikolog') window.location.href = 'dashboard-psikolog.html';
+                else                                         window.location.href = 'dashboard-mahasiswa.html';
 
-    localStorage.setItem('user', JSON.stringify(profil));
+            } catch (err) {
+                alertEl.style.display = 'block';
+                alertEl.textContent   = 'Terjadi kesalahan. Pastikan server sudah berjalan.';
+                btnEl.disabled        = false;
+                btnEl.textContent     = 'Masuk';
+            }
 
-    if (profil.role_user === 'admin') {
-        window.location.href = 'dashboard-admin.html';
-    } else if (profil.role_user === 'psikolog') {
-        window.location.href = 'dashboard-psikolog.html';
-    } else {
-        window.location.href = 'dashboard-mahasiswa.html';
-    }
-
-    return false;
-}
+            return false;
+        }
     </script>
 
 </body>

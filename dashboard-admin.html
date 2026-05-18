@@ -2469,13 +2469,8 @@
     <div class="toast" id="toast"></div>
 
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        const SUPABASE_URL = 'https://wpnsdjxtrojacfrhhumf.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_iUgPhq6MeTh3hl1LgGMjNg_YU7Go7yT';
-        const { createClient } = supabase;
-        const db = createClient(SUPABASE_URL, SUPABASE_KEY);
 
+    <script>
         const user = JSON.parse(localStorage.getItem('user'));
         if (!user || user.role_user !== 'admin') window.location.href = 'login.html';
 
@@ -2490,11 +2485,200 @@
             document.getElementById('profil-email').textContent = user.email_user + ' · Admin';
         }
 
-        async function logout() {
-            await db.auth.signOut();
+        function logout() {
             localStorage.removeItem('user');
             window.location.href = 'login.html';
         }
+
+        // Load stats dari database
+        async function loadStats() {
+            try {
+                const res = await fetch('api/get_stats_admin.php');
+                const data = await res.json();
+                if (data.status !== 'success') return;
+                const d = data.data;
+                const statVals = document.querySelectorAll('.stat-val');
+                if (statVals[0]) statVals[0].textContent = d.total_psikolog;
+                if (statVals[1]) statVals[1].textContent = d.total_mahasiswa;
+                if (statVals[2]) statVals[2].textContent = d.total_jadwal;
+                if (statVals[3]) statVals[3].textContent = d.total_reservasi;
+            } catch (err) {
+                console.error('Gagal load stats:', err);
+            }
+        }
+
+        // Load reservasi untuk tabel jadwal terbaru di beranda & kelola jadwal
+        async function loadReservasi() {
+            try {
+                const res = await fetch('api/get_reservasi_admin.php');
+                const data = await res.json();
+                if (data.status !== 'success') return;
+
+                const reservasi = data.data;
+
+                // Isi tabel jadwal terbaru di beranda (max 4)
+                const tbodyDashboard = document.querySelector('#page-dashboard table tbody');
+                if (tbodyDashboard && reservasi.length > 0) {
+                    tbodyDashboard.innerHTML = reservasi.slice(0, 4).map(r => {
+                        const tgl = new Date(r.tanggal_reservasi).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+                        const badgeStatus = r.status_reservasi === 'terkonfirmasi'
+                            ? '<span class="badge badge-success">Terkonfirmasi</span>'
+                            : r.status_reservasi === 'dibatalkan'
+                                ? '<span class="badge badge-danger">Dibatalkan</span>'
+                                : r.status_reservasi === 'selesai'
+                                    ? '<span class="badge badge-gray">Selesai</span>'
+                                    : '<span class="badge badge-warning">Menunggu</span>';
+                        return `<tr>
+                    <td data-label="Mahasiswa">${r.nama_mahasiswa}</td>
+                    <td data-label="Psikolog">${r.nama_psikolog}</td>
+                    <td data-label="Tanggal">${tgl}</td>
+                    <td data-label="Status">${badgeStatus}</td>
+                </tr>`;
+                    }).join('');
+                }
+
+                // Isi tabel kelola jadwal (semua)
+                const tbodyJadwal = document.getElementById('tbody-jadwal');
+                if (tbodyJadwal && reservasi.length > 0) {
+                    tbodyJadwal.innerHTML = reservasi.map((r, i) => {
+                        const tgl = new Date(r.tanggal_reservasi).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+                        const jam = r.waktu_reservasi ? r.waktu_reservasi.substring(0, 5) : '-';
+                        const inisial = r.nama_mahasiswa.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                        const badgeStatus = r.status_reservasi === 'terkonfirmasi'
+                            ? '<span class="badge badge-success">Terkonfirmasi</span>'
+                            : r.status_reservasi === 'dibatalkan'
+                                ? '<span class="badge badge-danger">Dibatalkan</span>'
+                                : r.status_reservasi === 'selesai'
+                                    ? '<span class="badge badge-gray">Selesai</span>'
+                                    : '<span class="badge badge-warning">Menunggu</span>';
+                        return `<tr>
+                    <td data-label="No">${i + 1}</td>
+                    <td data-label="Mahasiswa">
+                        <div class="name-cell">
+                            <div class="psikolog-avatar" style="background:linear-gradient(135deg,#6352c7,#4a90d9)">${inisial}</div>
+                            ${r.nama_mahasiswa}
+                        </div>
+                    </td>
+                    <td data-label="Psikolog">${r.nama_psikolog}</td>
+                    <td data-label="Tanggal">${tgl} · ${jam}</td>
+                    <td data-label="Tipe"><span class="badge badge-primary">Online</span></td>
+                    <td data-label="Status">${badgeStatus}</td>
+                    <td data-label="Aksi">
+                        <div class="action-btns">
+                            <button class="btn-outline btn-sm" onclick="openEditModal(this)">Edit</button>
+                            <button class="btn-danger btn-sm" onclick="hapusJadwal(this)">Hapus</button>
+                        </div>
+                    </td>
+                </tr>`;
+                    }).join('');
+                    document.getElementById('jadwal-count').textContent = reservasi.length + ' jadwal';
+                }
+
+            } catch (err) {
+                console.error('Gagal load reservasi:', err);
+            }
+        }
+
+        // Load psikolog dari database
+        async function loadPsikolog() {
+            try {
+                const res = await fetch('api/get_psikolog.php');
+                const data = await res.json();
+                if (data.status !== 'success') return;
+
+                const tbody = document.getElementById('tbody-psikolog');
+                if (!tbody) return;
+
+                const warna = [
+                    'linear-gradient(135deg,#6352c7,#4a90d9)',
+                    'linear-gradient(135deg,#0f6e56,#1d9e75)',
+                    'linear-gradient(135deg,#993556,#d4537e)',
+                    'linear-gradient(135deg,#854f0b,#ba7517)',
+                    'linear-gradient(135deg,#185fa5,#378add)'
+                ];
+
+                tbody.innerHTML = data.data.map((p, i) => {
+                    const inisial = p.nama_psikolog.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                    const tarif = p.tarif ? 'Rp ' + parseInt(p.tarif).toLocaleString('id-ID') : '-';
+                    return `<tr data-status="Aktif">
+                <td data-label="Nama">
+                    <div class="name-cell">
+                        <div class="psikolog-avatar" style="background:${warna[i % warna.length]}">${inisial}</div>
+                        ${p.nama_psikolog}
+                    </div>
+                </td>
+                <td data-label="Email">${p.email_user || '-'}</td>
+                <td data-label="Spesialisasi">${p.spesialisasi || '-'}</td>
+                <td data-label="Tarif">${tarif}</td>
+                <td data-label="STR">-</td>
+                <td data-label="Status"><span class="badge badge-success">Aktif</span></td>
+                <td data-label="Aksi">
+                    <div class="action-btns">
+                        <button class="btn-outline btn-sm" onclick="openEditPsikolog(this)">Edit</button>
+                        <button class="btn-danger btn-sm" onclick="nonaktifkanMahasiswa(this)">Nonaktifkan</button>
+                    </div>
+                </td>
+            </tr>`;
+                }).join('');
+
+            } catch (err) {
+                console.error('Gagal load psikolog:', err);
+            }
+        }
+
+        // Load mahasiswa dari database
+        async function loadMahasiswa() {
+            try {
+                const res = await fetch('api/get_mahasiswa.php');
+                const data = await res.json();
+                if (data.status !== 'success') return;
+
+                const tbody = document.getElementById('tbody-mahasiswa');
+                if (!tbody) return;
+
+                const warna = [
+                    'linear-gradient(135deg,#6352c7,#4a90d9)',
+                    'linear-gradient(135deg,#0f6e56,#1d9e75)',
+                    'linear-gradient(135deg,#993556,#d4537e)',
+                    'linear-gradient(135deg,#854f0b,#ba7517)',
+                    'linear-gradient(135deg,#185fa5,#378add)'
+                ];
+
+                tbody.innerHTML = data.data.map((m, i) => {
+                    const inisial = m.nama_user.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                    const statusVerif = parseInt(m.status_verifikasi);
+                    const badgeStatus = statusVerif === 1
+                        ? '<span class="badge badge-success">Aktif</span>'
+                        : '<span class="badge badge-warning">Menunggu Verifikasi</span>';
+                    const dataStatus = statusVerif === 1 ? 'Aktif' : 'Menunggu Verifikasi';
+                    const aksiBtn = statusVerif === 1
+                        ? `<button class="btn-outline btn-sm" onclick="openDetailMahasiswa(this)">Detail</button>
+                   <button class="btn-danger btn-sm" onclick="nonaktifkanMahasiswa(this)">Nonaktifkan</button>`
+                        : `<button class="btn-outline btn-sm" onclick="openDetailMahasiswa(this)">Detail</button>
+                   <button class="btn-primary btn-sm" onclick="verifikasiMahasiswa(this)">Verifikasi</button>
+                   <button class="btn-danger btn-sm" onclick="tolakMahasiswa(this)">Tolak</button>`;
+                    return `<tr data-status="${dataStatus}">
+                <td data-label="Nama">
+                    <div class="name-cell">
+                        <div class="psikolog-avatar" style="background:${warna[i % warna.length]}">${inisial}</div>
+                        ${m.nama_user}
+                    </div>
+                </td>
+                <td data-label="NIM">${m.nim_nip || '-'}</td>
+                <td data-label="Email">${m.email_user}</td>
+                <td data-label="Konsultasi">0</td>
+                <td data-label="Status">${badgeStatus}</td>
+                <td data-label="Aksi"><div class="action-btns">${aksiBtn}</div></td>
+            </tr>`;
+                }).join('');
+
+                document.getElementById('mahasiswa-count').textContent = data.data.length + ' mahasiswa';
+
+            } catch (err) {
+                console.error('Gagal load mahasiswa:', err);
+            }
+        }
+
         /* ===== TOAST ===== */
         function showToast(msg, type = 'success') {
             const t = document.getElementById('toast');
@@ -2524,6 +2708,9 @@
             document.getElementById('page-' + page).classList.add('active');
             document.getElementById('topbar-title').textContent = titles[page];
             if (el) el.classList.add('active');
+            if (page === 'psikolog') loadPsikolog();
+            if (page === 'mahasiswa') loadMahasiswa();
+            if (page === 'jadwal') loadReservasi();
         }
 
         /* ===== KONTEN TABS ===== */
@@ -2555,27 +2742,13 @@
             }
         }
 
-        /* ===== TAMBAH KONTEN ===== */
         const badgeMap = {
-            'Kesehatan Mental': 'badge-primary',
-            'Stres': 'badge-danger',
-            'Kecemasan': 'badge-warning',
-            'Depresi': 'badge-danger',
-            'Gangguan Kepribadian': 'badge-gray',
-            'Gangguan Tidur': 'badge-gray'
+            'Kesehatan Mental': 'badge-primary', 'Stres': 'badge-danger',
+            'Kecemasan': 'badge-warning', 'Depresi': 'badge-danger',
+            'Gangguan Kepribadian': 'badge-gray', 'Gangguan Tidur': 'badge-gray'
         };
 
         function resetKontenModal() {
-            document.getElementById('modal-konten-title').textContent = 'Tambah Konten Baru';
-            document.getElementById('modal-konten-sub').textContent = 'Pilih tipe konten yang ingin ditambahkan';
-            document.getElementById('form-tipe-group').style.display = '';
-            document.getElementById('btn-simpan-konten').onclick = simpanKonten;
-            document.getElementById('input-judul-artikel').value = '';
-            document.getElementById('input-link-artikel').value = '';
-            document.getElementById('input-gambar-artikel').value = '';
-            document.getElementById('input-judul-video').value = '';
-            document.getElementById('input-channel-video').value = '';
-            document.getElementById('input-id-video').value = '';
             document.getElementById('tipe-konten').value = 'artikel';
             toggleKontenForm('artikel');
         }
@@ -2587,155 +2760,73 @@
                 const kategori = document.getElementById('input-kategori-artikel').value;
                 const link = document.getElementById('input-link-artikel').value.trim();
                 const gambar = document.getElementById('input-gambar-artikel').value.trim();
-                if (!judul) { alert('Judul artikel wajib diisi!'); return; }
-                if (!link) { alert('Link artikel wajib diisi!'); return; }
-                const badgeClass = badgeMap[kategori] || 'badge-gray';
+                if (!judul || !link) { alert('Judul dan link wajib diisi!'); return; }
                 const today = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
                 const card = document.createElement('div');
                 card.className = 'konten-card has-link';
                 card.onclick = () => bukaArtikel(link);
                 card.innerHTML = `
-                    <div class="konten-img" style="padding:0"><img src="${gambar || 'a2.jpg'}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<div style=width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px>📄</div>'"></div>
-                    <div class="konten-body">
-                        <h4>${judul}</h4>
-                        <p>${today} · 0 dibaca · <span class="link-tag">Buka Artikel</span></p>
-                        <div class="konten-meta">
-                            <span class="badge ${badgeClass}">${kategori}</span>
-                            <div class="action-btns">
-                                <button class="btn-outline btn-sm" onclick="event.stopPropagation();openEditArtikel(this)">Edit</button>
-                                <button class="btn-danger btn-sm" onclick="event.stopPropagation();hapusKonten(this)">Hapus</button>
-                            </div>
-                        </div>
-                    </div>`;
+            <div class="konten-img" style="padding:0"><img src="${gambar || 'a2.jpg'}" style="width:100%;height:100%;object-fit:cover;"></div>
+            <div class="konten-body">
+                <h4>${judul}</h4>
+                <p>${today} · 0 dibaca · <span class="link-tag">Buka Artikel</span></p>
+                <div class="konten-meta">
+                    <span class="badge ${badgeMap[kategori] || 'badge-gray'}">${kategori}</span>
+                    <div class="action-btns">
+                        <button class="btn-outline btn-sm" onclick="event.stopPropagation();openEditArtikel(this)">Edit</button>
+                        <button class="btn-danger btn-sm" onclick="event.stopPropagation();hapusKonten(this)">Hapus</button>
+                    </div>
+                </div>
+            </div>`;
                 document.getElementById('artikel-grid').prepend(card);
             } else {
                 const judul = document.getElementById('input-judul-video').value.trim();
                 const channel = document.getElementById('input-channel-video').value.trim();
                 const videoId = document.getElementById('input-id-video').value.trim();
                 const kategori = document.getElementById('input-kategori-video').value;
-                if (!judul) { alert('Judul video wajib diisi!'); return; }
-                if (!videoId) { alert('ID video YouTube wajib diisi!'); return; }
-                const badgeClass = badgeMap[kategori] || 'badge-gray';
-                const youtubeUrl = `https://www.youtube.com/watch?v=${videoId}`;
+                if (!judul || !videoId) { alert('Judul dan ID video wajib diisi!'); return; }
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td data-label="Thumbnail"><img src="https://img.youtube.com/vi/${videoId}/mqdefault.jpg" style="width:80px;height:50px;object-fit:cover;border-radius:6px;"></td>
-                    <td data-label="Judul" style="font-weight:600">${judul}</td>
-                    <td data-label="Channel">${channel}</td>
-                    <td data-label="Kategori"><span class="badge ${badgeClass}">${kategori}</span></td>
-                    <td data-label="Link"><a href="${youtubeUrl}" target="_blank" style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
-                    <td data-label="Aksi"><div class="action-btns"><button class="btn-outline btn-sm" onclick="openEditVideo(this)">Edit</button><button class="btn-danger btn-sm" onclick="hapusVideo(this)">Hapus</button></div></td>`;
+            <td><img src="https://img.youtube.com/vi/${videoId}/mqdefault.jpg" style="width:80px;height:50px;object-fit:cover;border-radius:6px;"></td>
+            <td style="font-weight:600">${judul}</td>
+            <td>${channel}</td>
+            <td><span class="badge ${badgeMap[kategori] || 'badge-gray'}">${kategori}</span></td>
+            <td><a href="https://www.youtube.com/watch?v=${videoId}" target="_blank" style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
+            <td><div class="action-btns"><button class="btn-outline btn-sm" onclick="openEditVideo(this)">Edit</button><button class="btn-danger btn-sm" onclick="hapusVideo(this)">Hapus</button></div></td>`;
                 document.getElementById('video-tbody').prepend(row);
             }
             closeModal('modal-konten');
             resetKontenModal();
-            showToast('Konten berhasil ditambahkan!', 'success');
+            showToast('Konten berhasil ditambahkan!');
         }
 
-        /* ===== EDIT ARTIKEL ===== */
         let activeArtikelCard = null;
-
         function openEditArtikel(btn) {
             activeArtikelCard = btn.closest('.konten-card');
-            const judul = activeArtikelCard.querySelector('h4').textContent;
-            const badgeEl = activeArtikelCard.querySelector('.konten-meta .badge');
-            const kategori = badgeEl ? badgeEl.textContent : 'Kesehatan Mental';
-            const imgEl = activeArtikelCard.querySelector('img');
-            const imgSrc = imgEl ? imgEl.getAttribute('src') : '';
-            const linkOnclick = activeArtikelCard.getAttribute('onclick') || '';
-            const linkMatch = linkOnclick.match(/bukaArtikel\('([^']+)'\)/);
-            const link = linkMatch ? linkMatch[1] : '';
-
-            document.getElementById('edit-judul-artikel').value = judul;
-            document.getElementById('edit-gambar-artikel').value = imgSrc;
-            document.getElementById('edit-link-artikel').value = link;
-
-            // Pilih kategori yang sesuai
-            const sel = document.getElementById('edit-kategori-artikel');
-            for (let opt of sel.options) {
-                if (opt.text === kategori) { sel.value = opt.value; break; }
-            }
-
+            document.getElementById('edit-judul-artikel').value = activeArtikelCard.querySelector('h4').textContent;
             document.getElementById('modal-edit-artikel').classList.add('show');
         }
-
         function simpanEditArtikel() {
             if (!activeArtikelCard) return;
-            const judul = document.getElementById('edit-judul-artikel').value.trim();
-            const kategori = document.getElementById('edit-kategori-artikel').value;
-            const link = document.getElementById('edit-link-artikel').value.trim();
-            const gambar = document.getElementById('edit-gambar-artikel').value.trim();
-            if (!judul) { alert('Judul tidak boleh kosong!'); return; }
-
-            activeArtikelCard.querySelector('h4').textContent = judul;
-
-            const badgeEl = activeArtikelCard.querySelector('.konten-meta .badge');
-            if (badgeEl) {
-                badgeEl.textContent = kategori;
-                badgeEl.className = `badge ${badgeMap[kategori] || 'badge-gray'}`;
-            }
-
-            const imgEl = activeArtikelCard.querySelector('img');
-            if (imgEl && gambar) imgEl.setAttribute('src', gambar);
-
-            if (link) {
-                activeArtikelCard.onclick = () => bukaArtikel(link);
-                activeArtikelCard.setAttribute('onclick', `bukaArtikel('${link}')`);
-            }
-
+            activeArtikelCard.querySelector('h4').textContent = document.getElementById('edit-judul-artikel').value.trim();
             closeModal('modal-edit-artikel');
-            showToast('Artikel berhasil diperbarui!', 'success');
+            showToast('Artikel berhasil diperbarui!');
             activeArtikelCard = null;
         }
 
-        /* ===== EDIT VIDEO ===== */
         let activeVideoRow = null;
-
         function openEditVideo(btn) {
             activeVideoRow = btn.closest('tr');
-            const cells = activeVideoRow.cells;
-            const imgEl = cells[0].querySelector('img');
-            const videoSrc = imgEl ? imgEl.getAttribute('src') : '';
-            const videoIdMatch = videoSrc.match(/\/vi\/([^/]+)\//);
-            const videoId = videoIdMatch ? videoIdMatch[1] : '';
-            const judul = cells[1].textContent.trim();
-            const channel = cells[2].textContent.trim();
-            const kategori = cells[3].querySelector('.badge') ? cells[3].querySelector('.badge').textContent.trim() : 'Kesehatan Mental';
-
-            document.getElementById('edit-judul-video').value = judul;
-            document.getElementById('edit-channel-video').value = channel;
-            document.getElementById('edit-id-video').value = videoId;
-
-            const sel = document.getElementById('edit-kategori-video');
-            for (let opt of sel.options) {
-                if (opt.text === kategori) { sel.value = opt.value; break; }
-            }
-
+            document.getElementById('edit-judul-video').value = activeVideoRow.cells[1].textContent.trim();
+            document.getElementById('edit-channel-video').value = activeVideoRow.cells[2].textContent.trim();
             document.getElementById('modal-edit-video').classList.add('show');
         }
-
         function simpanEditVideo() {
             if (!activeVideoRow) return;
-            const judul = document.getElementById('edit-judul-video').value.trim();
-            const channel = document.getElementById('edit-channel-video').value.trim();
-            const videoId = document.getElementById('edit-id-video').value.trim();
-            const kategori = document.getElementById('edit-kategori-video').value;
-            if (!judul) { alert('Judul tidak boleh kosong!'); return; }
-            if (!videoId) { alert('ID video tidak boleh kosong!'); return; }
-
-            const cells = activeVideoRow.cells;
-            const youtubeUrl = `https://www.youtube.com/watch?v=${videoId}`;
-            const badgeClass = badgeMap[kategori] || 'badge-gray';
-
-            cells[0].innerHTML = `<img src="https://img.youtube.com/vi/${videoId}/mqdefault.jpg" style="width:80px;height:50px;object-fit:cover;border-radius:6px;">`;
-            cells[1].textContent = judul;
-            cells[1].style.fontWeight = '600';
-            cells[2].textContent = channel;
-            cells[3].innerHTML = `<span class="badge ${badgeClass}">${kategori}</span>`;
-            cells[4].innerHTML = `<a href="${youtubeUrl}" target="_blank" style="color:var(--primary);font-size:12px">Lihat ↗</a>`;
-
+            activeVideoRow.cells[1].textContent = document.getElementById('edit-judul-video').value.trim();
+            activeVideoRow.cells[2].textContent = document.getElementById('edit-channel-video').value.trim();
             closeModal('modal-edit-video');
-            showToast('Video berhasil diperbarui!', 'success');
+            showToast('Video berhasil diperbarui!');
             activeVideoRow = null;
         }
 
@@ -2804,151 +2895,66 @@
             }
         }
 
-        /* ===== HAPUS MAHASISWA ===== */
         function hapusMahasiswa(btn) {
-            if (confirm('Yakin ingin menghapus akun mahasiswa ini? Tindakan ini tidak dapat dibatalkan.')) {
+            if (confirm('Yakin ingin menghapus akun mahasiswa ini?')) {
                 btn.closest('tr').remove();
                 filterMahasiswa();
                 showToast('Mahasiswa berhasil dihapus', 'danger');
             }
         }
 
-        /* ===== VERIFIKASI MAHASISWA ===== */
         function verifikasiMahasiswa(btn) {
             const row = btn.closest('tr');
             const nama = row.querySelector('[data-label="Nama"]').textContent.trim();
             if (confirm(`Verifikasi akun mahasiswa "${nama}"?`)) {
-                // Update status badge
-                const statusCell = row.querySelector('[data-label="Status"]');
-                statusCell.innerHTML = '<span class="badge badge-success">Aktif</span>';
+                row.querySelector('[data-label="Status"]').innerHTML = '<span class="badge badge-success">Aktif</span>';
                 row.setAttribute('data-status', 'Aktif');
-
-                // Update action buttons
-                const aksiCell = row.querySelector('[data-label="Aksi"]');
-                aksiCell.innerHTML = `<div class="action-btns">
-                    <button class="btn-outline btn-sm" onclick="openDetailMahasiswa(this)">Detail</button>
-                    <button class="btn-danger btn-sm" onclick="nonaktifkanMahasiswa(this)">Nonaktifkan</button>
-                </div>`;
-
-                showToast(`Akun ${nama} berhasil diverifikasi!`, 'success');
+                row.querySelector('[data-label="Aksi"]').innerHTML = `<div class="action-btns">
+            <button class="btn-outline btn-sm" onclick="openDetailMahasiswa(this)">Detail</button>
+            <button class="btn-danger btn-sm" onclick="nonaktifkanMahasiswa(this)">Nonaktifkan</button>
+        </div>`;
+                showToast(`Akun ${nama} berhasil diverifikasi!`);
             }
         }
 
-        /* ===== TOLAK MAHASISWA ===== */
         function tolakMahasiswa(btn) {
             const row = btn.closest('tr');
             const nama = row.querySelector('[data-label="Nama"]').textContent.trim();
-            if (confirm(`Tolak pendaftaran mahasiswa "${nama}"? Akun akan dihapus.`)) {
+            if (confirm(`Tolak pendaftaran "${nama}"?`)) {
                 row.remove();
                 filterMahasiswa();
                 showToast(`Pendaftaran ${nama} ditolak`, 'warning');
             }
         }
 
-        /* ===== NONAKTIFKAN MAHASISWA ===== */
         function nonaktifkanMahasiswa(btn) {
             const row = btn.closest('tr');
             const nama = row.querySelector('[data-label="Nama"]').textContent.trim();
-            if (confirm(`Nonaktifkan akun mahasiswa "${nama}"?`)) {
-                const statusCell = row.querySelector('[data-label="Status"]');
-                statusCell.innerHTML = '<span class="badge badge-gray">Nonaktif</span>';
+            if (confirm(`Nonaktifkan akun "${nama}"?`)) {
+                row.querySelector('[data-label="Status"]').innerHTML = '<span class="badge badge-gray">Nonaktif</span>';
                 row.setAttribute('data-status', 'Nonaktif');
-
-                const aksiCell = row.querySelector('[data-label="Aksi"]');
-                aksiCell.innerHTML = `<div class="action-btns">
-                    <button class="btn-outline btn-sm" onclick="openDetailMahasiswa(this)">Detail</button>
-                    <button class="btn-success btn-sm" onclick="aktifkanMahasiswa(this)">Aktifkan</button>
-                    <button class="btn-danger btn-sm" onclick="hapusMahasiswa(this)">Hapus</button>
-                </div>`;
-
+                row.querySelector('[data-label="Aksi"]').innerHTML = `<div class="action-btns">
+            <button class="btn-outline btn-sm" onclick="openDetailMahasiswa(this)">Detail</button>
+            <button class="btn-success btn-sm" onclick="aktifkanMahasiswa(this)">Aktifkan</button>
+            <button class="btn-danger btn-sm" onclick="hapusMahasiswa(this)">Hapus</button>
+        </div>`;
                 showToast(`Akun ${nama} dinonaktifkan`, 'warning');
             }
         }
 
-        /* ===== AKTIFKAN MAHASISWA ===== */
         function aktifkanMahasiswa(btn) {
             const row = btn.closest('tr');
             const nama = row.querySelector('[data-label="Nama"]').textContent.trim();
-            if (confirm(`Aktifkan kembali akun mahasiswa "${nama}"?`)) {
-                const statusCell = row.querySelector('[data-label="Status"]');
-                statusCell.innerHTML = '<span class="badge badge-success">Aktif</span>';
+            if (confirm(`Aktifkan kembali akun "${nama}"?`)) {
+                row.querySelector('[data-label="Status"]').innerHTML = '<span class="badge badge-success">Aktif</span>';
                 row.setAttribute('data-status', 'Aktif');
-
-                const aksiCell = row.querySelector('[data-label="Aksi"]');
-                aksiCell.innerHTML = `<div class="action-btns">
-                    <button class="btn-outline btn-sm" onclick="openDetailMahasiswa(this)">Detail</button>
-                    <button class="btn-danger btn-sm" onclick="nonaktifkanMahasiswa(this)">Nonaktifkan</button>
-                </div>`;
-
-                showToast(`Akun ${nama} berhasil diaktifkan!`, 'success');
+                row.querySelector('[data-label="Aksi"]').innerHTML = `<div class="action-btns">
+            <button class="btn-outline btn-sm" onclick="openDetailMahasiswa(this)">Detail</button>
+            <button class="btn-danger btn-sm" onclick="nonaktifkanMahasiswa(this)">Nonaktifkan</button>
+        </div>`;
+                showToast(`Akun ${nama} berhasil diaktifkan!`);
             }
         }
-
-        /* ===== DETAIL MAHASISWA ===== */
-        // Data riwayat dummy per mahasiswa (NIM sebagai key)
-        const riwayatData = {
-            '2021001001': [
-                { tanggal: '28 Mar 2026', psikolog: 'Dr. Sarah Amelia', tipe: 'Online', status: 'Selesai' },
-                { tanggal: '10 Mar 2026', psikolog: 'Reza Pratama', tipe: 'Online', status: 'Selesai' },
-                { tanggal: '20 Feb 2026', psikolog: 'Dr. Sarah Amelia', tipe: 'Offline', status: 'Selesai' },
-                { tanggal: '05 Feb 2026', psikolog: 'Nadia Aulia', tipe: 'Online', status: 'Selesai' },
-                { tanggal: '15 Jan 2026', psikolog: 'Dr. Sarah Amelia', tipe: 'Online', status: 'Selesai' },
-            ],
-            '2021001234': [
-                { tanggal: '29 Mar 2026', psikolog: 'Reza Pratama', tipe: 'Offline', status: 'Terkonfirmasi' },
-                { tanggal: '01 Mar 2026', psikolog: 'Nadia Aulia', tipe: 'Online', status: 'Selesai' },
-                { tanggal: '10 Feb 2026', psikolog: 'Reza Pratama', tipe: 'Offline', status: 'Selesai' },
-            ],
-            '2022002345': [
-                { tanggal: '30 Mar 2026', psikolog: 'Nadia Aulia', tipe: 'Online', status: 'Menunggu' },
-                { tanggal: '12 Mar 2026', psikolog: 'Dr. Sarah Amelia', tipe: 'Online', status: 'Selesai' },
-                { tanggal: '22 Feb 2026', psikolog: 'Nadia Aulia', tipe: 'Offline', status: 'Selesai' },
-                { tanggal: '05 Feb 2026', psikolog: 'Reza Pratama', tipe: 'Online', status: 'Selesai' },
-                { tanggal: '20 Jan 2026', psikolog: 'Dr. Sarah Amelia', tipe: 'Online', status: 'Selesai' },
-                { tanggal: '05 Jan 2026', psikolog: 'Nadia Aulia', tipe: 'Offline', status: 'Selesai' },
-                { tanggal: '15 Dec 2025', psikolog: 'Reza Pratama', tipe: 'Online', status: 'Selesai' },
-            ],
-            '2020003456': [
-                { tanggal: '01 Apr 2026', psikolog: 'Dr. Sarah Amelia', tipe: 'Offline', status: 'Menunggu' },
-                { tanggal: '15 Mar 2026', psikolog: 'Bayu Wicaksono', tipe: 'Online', status: 'Selesai' },
-            ],
-            '2019004567': [
-                { tanggal: '02 Apr 2026', psikolog: 'Bayu Wicaksono', tipe: 'Online', status: 'Selesai' },
-                { tanggal: '18 Mar 2026', psikolog: 'Dr. Sarah Amelia', tipe: 'Online', status: 'Selesai' },
-                { tanggal: '05 Mar 2026', psikolog: 'Reza Pratama', tipe: 'Offline', status: 'Selesai' },
-                { tanggal: '20 Feb 2026', psikolog: 'Nadia Aulia', tipe: 'Online', status: 'Selesai' },
-                { tanggal: '01 Feb 2026', psikolog: 'Bayu Wicaksono', tipe: 'Online', status: 'Selesai' },
-                { tanggal: '15 Jan 2026', psikolog: 'Dr. Sarah Amelia', tipe: 'Offline', status: 'Selesai' },
-                { tanggal: '01 Jan 2026', psikolog: 'Reza Pratama', tipe: 'Online', status: 'Selesai' },
-                { tanggal: '15 Dec 2025', psikolog: 'Nadia Aulia', tipe: 'Online', status: 'Selesai' },
-                { tanggal: '01 Dec 2025', psikolog: 'Bayu Wicaksono', tipe: 'Offline', status: 'Selesai' },
-                { tanggal: '15 Nov 2025', psikolog: 'Dr. Sarah Amelia', tipe: 'Online', status: 'Selesai' },
-            ]
-        };
-
-        const joinData = {
-            '2021001001': '1 Jan 2024',
-            '2021001234': '15 Mar 2024',
-            '2022002345': '20 Sep 2024',
-            '2020003456': '5 Feb 2023',
-            '2019004567': '1 Aug 2022',
-        };
-
-        const lastLoginData = {
-            '2021001001': '27 Apr 2026',
-            '2021001234': '25 Apr 2026',
-            '2022002345': '28 Apr 2026',
-            '2020003456': '26 Apr 2026',
-            '2019004567': '10 Jan 2026',
-        };
-
-        const avatarColors = {
-            '2021001001': 'linear-gradient(135deg,#6352c7,#4a90d9)',
-            '2021001234': 'linear-gradient(135deg,#0f6e56,#1d9e75)',
-            '2022002345': 'linear-gradient(135deg,#993556,#d4537e)',
-            '2020003456': 'linear-gradient(135deg,#854f0b,#ba7517)',
-            '2019004567': 'linear-gradient(135deg,#185fa5,#378add)',
-        };
 
         function openDetailMahasiswa(btn) {
             const row = btn.closest('tr');
@@ -2957,86 +2963,28 @@
             const email = row.querySelector('[data-label="Email"]').textContent.trim();
             const konsultasi = row.querySelector('[data-label="Konsultasi"]').textContent.trim();
             const status = row.querySelector('[data-label="Status"]').textContent.trim();
-
             const inisial = nama.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
-            const avatarColor = avatarColors[nim] || 'linear-gradient(135deg,#6352c7,#4a90d9)';
 
-            // Psikolog terakhir dari riwayat
-            const riwayat = riwayatData[nim] || [];
-            const psikologTerakhir = riwayat.length > 0 ? riwayat[0].psikolog : '-';
-
-            // Isi data modal
             document.getElementById('detail-mhs-avatar').textContent = inisial;
-            document.getElementById('detail-mhs-avatar').style.background = avatarColor;
             document.getElementById('detail-mhs-nama').textContent = nama;
             document.getElementById('detail-mhs-email').textContent = email;
             document.getElementById('detail-mhs-subtitle').textContent = `NIM ${nim} · ${email}`;
             document.getElementById('detail-mhs-nim').textContent = nim;
             document.getElementById('detail-mhs-status').textContent = status;
-            document.getElementById('detail-mhs-konsultasi').textContent = `${konsultasi} sesi`;
-            document.getElementById('detail-mhs-join').textContent = joinData[nim] || '-';
-            document.getElementById('detail-mhs-last-login').textContent = lastLoginData[nim] || '-';
-            document.getElementById('detail-mhs-psikolog').textContent = psikologTerakhir;
-
-            // Riwayat konsultasi
-            const riwayatEl = document.getElementById('detail-riwayat-list');
-            if (riwayat.length === 0) {
-                riwayatEl.innerHTML = '<p style="font-size:13px;color:var(--text-muted);text-align:center;padding:20px 0">Belum ada riwayat konsultasi</p>';
-            } else {
-                const statusBadge = {
-                    'Selesai': 'badge-gray',
-                    'Terkonfirmasi': 'badge-success',
-                    'Menunggu': 'badge-warning',
-                    'Dibatalkan': 'badge-danger'
-                };
-                riwayatEl.innerHTML = riwayat.map(r => `
-                    <div class="riwayat-item">
-                        <div>
-                            <div style="font-weight:600;margin-bottom:2px">${r.psikolog}</div>
-                            <div style="color:var(--text-muted)">${r.tanggal} · ${r.tipe}</div>
-                        </div>
-                        <span class="badge ${statusBadge[r.status] || 'badge-gray'}">${r.status}</span>
-                    </div>`).join('');
-            }
-
-            // Tombol aksi di footer modal sesuai status
-            const actionBtn = document.getElementById('detail-action-btn');
-            if (status === 'Aktif') {
-                actionBtn.textContent = 'Nonaktifkan';
-                actionBtn.className = 'btn-danger';
-                actionBtn.onclick = () => { closeModal('modal-detail-mahasiswa'); nonaktifkanMahasiswa(btn); };
-            } else if (status === 'Menunggu Verifikasi') {
-                actionBtn.textContent = 'Verifikasi';
-                actionBtn.className = 'btn-primary';
-                actionBtn.onclick = () => { closeModal('modal-detail-mahasiswa'); verifikasiMahasiswa(btn); };
-            } else if (status === 'Nonaktif') {
-                actionBtn.textContent = 'Aktifkan';
-                actionBtn.className = 'btn-primary';
-                actionBtn.onclick = () => { closeModal('modal-detail-mahasiswa'); aktifkanMahasiswa(btn); };
-            }
+            document.getElementById('detail-mhs-konsultasi').textContent = konsultasi + ' sesi';
+            document.getElementById('detail-riwayat-list').innerHTML = '<p style="font-size:13px;color:var(--text-muted);text-align:center;padding:20px 0">Memuat riwayat...</p>';
 
             document.getElementById('modal-detail-mahasiswa').classList.add('show');
         }
 
         /* ===== MODAL EDIT JADWAL ===== */
         let activeRow = null;
-
         function openEditModal(btn) {
             activeRow = btn.closest('tr');
             const cells = activeRow.cells;
-            const namaCellText = cells[1].innerText.trim();
-            const namaClean = namaCellText.replace(/^[A-Z]{2}\s*/, '').trim();
-
-            document.getElementById('edit-mahasiswa').value = namaClean;
+            document.getElementById('edit-mahasiswa').value = cells[1].innerText.trim();
             document.getElementById('edit-psikolog').value = cells[2].innerText.trim();
             document.getElementById('edit-tanggal').value = cells[3].innerText.trim();
-
-            const tipe = cells[4].innerText.trim();
-            document.getElementById('edit-tipe').value = tipe;
-
-            const status = cells[5].innerText.trim();
-            document.getElementById('edit-status').value = status;
-
             document.getElementById('editModal').classList.add('active');
         }
 
@@ -3052,33 +3000,23 @@
             const tanggal = document.getElementById('edit-tanggal').value.trim();
             const tipe = document.getElementById('edit-tipe').value;
             const status = document.getElementById('edit-status').value;
-
             if (!mahasiswa || !psikolog || !tanggal) { alert('Semua field wajib diisi!'); return; }
-
             const inisial = mahasiswa.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
-            const avatarEl = activeRow.cells[1].querySelector('.psikolog-avatar');
-            const avatarStyle = avatarEl ? avatarEl.style.cssText : 'background:linear-gradient(135deg,#6352c7,#4a90d9)';
-
-            activeRow.cells[1].innerHTML = `<div class="name-cell"><div class="psikolog-avatar" style="${avatarStyle}">${inisial}</div>${mahasiswa}</div>`;
+            activeRow.cells[1].innerHTML = `<div class="name-cell"><div class="psikolog-avatar" style="background:linear-gradient(135deg,#6352c7,#4a90d9)">${inisial}</div>${mahasiswa}</div>`;
             activeRow.cells[2].innerText = psikolog;
             activeRow.cells[3].innerText = tanggal;
-
             const tipeBadge = tipe === 'Online' ? 'badge-primary' : 'badge-warning';
-            activeRow.cells[4].innerHTML = `<span class="badge ${tipeBadge}">${tipe}</span>`;
-
             const statusMap = { 'Terkonfirmasi': 'badge-success', 'Menunggu': 'badge-warning', 'Selesai': 'badge-gray', 'Dibatalkan': 'badge-danger' };
+            activeRow.cells[4].innerHTML = `<span class="badge ${tipeBadge}">${tipe}</span>`;
             activeRow.cells[5].innerHTML = `<span class="badge ${statusMap[status] || 'badge-gray'}">${status}</span>`;
-
             closeEditModal();
-            showToast('Jadwal berhasil diperbarui!', 'success');
+            showToast('Jadwal berhasil diperbarui!');
         }
 
-        // Tutup modal saat klik backdrop
         document.getElementById('editModal').addEventListener('click', function (e) {
             if (e.target === this) closeEditModal();
         });
 
-        // Tutup modal overlay saat klik backdrop
         document.querySelectorAll('.modal-overlay').forEach(overlay => {
             overlay.addEventListener('click', function (e) {
                 if (e.target === this) this.classList.remove('show');
@@ -3090,65 +3028,31 @@
             document.querySelector('.sidebar').classList.toggle('open');
             document.getElementById('sidebarOverlay').classList.toggle('show');
         }
-
         function closeSidebar() {
             document.querySelector('.sidebar').classList.remove('open');
             document.getElementById('sidebarOverlay').classList.remove('show');
         }
-
         const menuBtn = document.getElementById('menu-btn');
         if (window.innerWidth <= 768) menuBtn.style.display = 'block';
         menuBtn.addEventListener('click', function (e) { e.stopPropagation(); toggleSidebar(); });
-
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', function () { if (window.innerWidth <= 768) closeSidebar(); });
         });
-
         window.addEventListener('resize', function () {
             menuBtn.style.display = window.innerWidth <= 768 ? 'block' : 'none';
         });
 
-
-        function openEditPsikolog(button) {
-            const row = button.closest("tr");
-            const cells = row.querySelectorAll("td");
-
-            document.getElementById("edit-index").value = row.rowIndex;
-
-            document.getElementById("nama-psikolog").value = cells[0].innerText;
-            document.getElementById("spesialis").value = cells[1].innerText;
-            document.getElementById("jadwal").value = cells[2].innerText;
-            document.getElementById("status").value = cells[3].innerText.trim();
-
-            document.getElementById("modal-title-psikolog").innerText = "Edit Data Psikolog";
-
-            document.getElementById("modal-psikolog").classList.add("show");
+        function openEditPsikolog(btn) {
+            document.getElementById('modal-psikolog').classList.add('show');
         }
-
         function simpanPsikolog() {
-            const index = document.getElementById("edit-index").value;
-            const nama = document.getElementById("nama-psikolog").value;
-            const spesialis = document.getElementById("spesialis").value;
-            const jadwal = document.getElementById("jadwal").value;
-            const status = document.getElementById("status").value;
-
-            if (index !== "") {
-                const table = document.querySelector("#tabel-psikolog tbody");
-                const row = table.rows[index - 1];
-
-                row.cells[0].innerText = nama;
-                row.cells[1].innerText = spesialis;
-                row.cells[2].innerText = jadwal;
-                row.cells[3].innerText = status;
-            }
-
-            document.getElementById("formPsikolog").reset();
-            document.getElementById("edit-index").value = "";
-            document.getElementById("modal-title-psikolog").innerText = "Tambah Psikolog";
-
-            document.getElementById("modal-psikolog").classList.remove("show");
+            document.getElementById('modal-psikolog').classList.remove('show');
+            showToast('Data psikolog berhasil disimpan!');
         }
 
+        // Load semua data saat halaman dibuka
+        loadStats();
+        loadReservasi();
     </script>
 
 </body>

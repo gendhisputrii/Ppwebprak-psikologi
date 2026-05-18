@@ -1141,7 +1141,7 @@
       <div class="page active" id="page-beranda">
         <div class="welcome-banner">
           <div class="welcome-text">
-            <h2>Halo, Dr. Sarah! 👋</h2>
+            <h2 id="welcome-nama">Halo! 👋</h2>
             <p>Semoga harimu menyenangkan. Anda memiliki 3 sesi konsultasi hari ini.</p>
           </div>
           <a class="welcome-btn" onclick="showPage('jadwal', document.querySelector('[onclick*=jadwal]'))">Lihat
@@ -1669,13 +1669,7 @@
 
   <!-- TOAST -->
   <div class="toast" id="toast"></div>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    const SUPABASE_URL = 'https://wpnsdjxtrojacfrhhumf.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_iUgPhq6MeTh3hl1LgGMjNg_YU7Go7yT';
-    const { createClient } = supabase;
-    const db = createClient(SUPABASE_URL, SUPABASE_KEY);
-
     const user = JSON.parse(localStorage.getItem('user'));
     if (!user || user.role_user !== 'psikolog') window.location.href = 'login.html';
 
@@ -1686,70 +1680,157 @@
       document.getElementById('sidebar-role').textContent = user.role_user;
       document.querySelectorAll('.user-avatar').forEach(el => el.textContent = inisial);
       document.getElementById('profil-avatar-lg').textContent = inisial;
-document.getElementById('profil-header-nama').textContent = user.nama_user;
-document.getElementById('profil-header-email').textContent = user.email_user + ' · Psikolog';
+      document.getElementById('profil-header-nama').textContent = user.nama_user;
+      document.getElementById('profil-header-email').textContent = user.email_user + ' · Psikolog';
+      document.getElementById('welcome-nama').textContent = 'Halo, ' + user.nama_user + '! 👋';
     }
 
-    async function logout() {
-      await db.auth.signOut();
+    function logout() {
       localStorage.removeItem('user');
       window.location.href = 'login.html';
     }
-    const dataPasien = {
-      andi: {
-        nama: 'Andi Pratama', inisial: 'AP',
-        avatarBg: 'linear-gradient(135deg,#6352c7,#4a90d9)',
-        keluhan: 'Kecemasan (Anxiety)',
-        status: '<span class="badge badge-success">Aktif</span>',
-        totalSesi: '3 sesi', sesiTerakhir: '20 Apr 2026', totalBayar: 'Rp 450.000',
-        catatan: 'Pasien menunjukkan perkembangan yang baik dalam mengelola kecemasan. Teknik pernapasan dan CBT sudah mulai diterapkan. Disarankan untuk melanjutkan terapi mingguan selama 4 minggu ke depan.',
-        riwayat: [
-          { tanggal: '20 Apr 2026', tipe: 'Online', durasi: '60 menit', topik: 'Evaluasi perkembangan & teknik relaksasi' },
-          { tanggal: '10 Apr 2026', tipe: 'Online', durasi: '60 menit', topik: 'CBT sesi 2 – identifikasi pola pikir negatif' },
-          { tanggal: '01 Apr 2026', tipe: 'Online', durasi: '60 menit', topik: 'Sesi perkenalan & asesmen awal' },
-        ]
-      },
-      budi: {
-        nama: 'Budi Santoso', inisial: 'BS',
-        avatarBg: 'linear-gradient(135deg,#0f6e56,#1d9e75)',
-        keluhan: 'Stres Akademik',
-        status: '<span class="badge badge-warning">Baru</span>',
-        totalSesi: '1 sesi', sesiTerakhir: '25 Apr 2026', totalBayar: 'Rp 150.000',
-        catatan: 'Pasien baru dengan keluhan stres tinggi akibat tekanan akademik. Perlu asesmen lebih lanjut. Direkomendasikan sesi mingguan dan latihan manajemen waktu.',
-        riwayat: [
-          { tanggal: '25 Apr 2026', tipe: 'Offline', durasi: '60 menit', topik: 'Sesi perkenalan & asesmen awal' },
-        ]
-      },
-      citra: {
-        nama: 'Citra Dewi', inisial: 'CD',
-        avatarBg: 'linear-gradient(135deg,#993556,#d4537e)',
-        keluhan: 'Depresi',
-        status: '<span class="badge badge-success">Aktif</span>',
-        totalSesi: '5 sesi', sesiTerakhir: '18 Apr 2026', totalBayar: 'Rp 750.000',
-        catatan: 'Pasien menunjukkan kemajuan signifikan. Gejala depresi berkurang dari sedang ke ringan. Terapi mindfulness dan aktivasi perilaku telah diterapkan.',
-        riwayat: [
-          { tanggal: '18 Apr 2026', tipe: 'Online', durasi: '60 menit', topik: 'Evaluasi bulanan & latihan mindfulness' },
-          { tanggal: '08 Apr 2026', tipe: 'Online', durasi: '60 menit', topik: 'Aktivasi perilaku & penjadwalan aktivitas' },
-          { tanggal: '28 Mar 2026', tipe: 'Online', durasi: '60 menit', topik: 'CBT sesi 3 – restrukturisasi kognitif' },
-          { tanggal: '15 Mar 2026', tipe: 'Online', durasi: '60 menit', topik: 'CBT sesi 2 – identifikasi pikiran otomatis' },
-          { tanggal: '03 Mar 2026', tipe: 'Online', durasi: '60 menit', topik: 'Sesi perkenalan & asesmen awal' },
-        ]
-      },
-      deni: {
-        nama: 'Deni Kusuma', inisial: 'DK',
-        avatarBg: 'linear-gradient(135deg,#5f5e5a,#888780)',
-        keluhan: 'Burnout',
-        status: '<span class="badge badge-primary">Selesai</span>',
-        totalSesi: '4 sesi', sesiTerakhir: '15 Apr 2026', totalBayar: 'Rp 450.000 (1 belum lunas)',
-        catatan: 'Pasien telah menyelesaikan program terapi burnout. Kondisi membaik secara signifikan. Terapi dinyatakan selesai.',
-        riwayat: [
-          { tanggal: '15 Apr 2026', tipe: 'Offline', durasi: '60 menit', topik: 'Sesi penutup & panduan mandiri' },
-          { tanggal: '05 Apr 2026', tipe: 'Offline', durasi: '60 menit', topik: 'Strategi pemulihan & work-life balance' },
-          { tanggal: '26 Mar 2026', tipe: 'Offline', durasi: '60 menit', topik: 'Identifikasi sumber burnout' },
-          { tanggal: '15 Mar 2026', tipe: 'Offline', durasi: '60 menit', topik: 'Sesi perkenalan & asesmen awal' },
-        ]
+
+    // Load jadwal & pasien dari database
+    async function loadDataPsikolog() {
+      try {
+        const res = await fetch('api/get_reservasi.php?id_psikolog=' + user.id_user);
+        const data = await res.json();
+        if (data.status !== 'success') return;
+
+        const reservasi = data.data;
+        const sekarang = new Date();
+
+        const mendatang = reservasi.filter(r => new Date(r.tanggal_reservasi) >= sekarang);
+        const selesai = reservasi.filter(r => new Date(r.tanggal_reservasi) < sekarang);
+
+        // Update stat cards
+        const statCards = document.querySelectorAll('.stat-card');
+        if (statCards[0]) statCards[0].querySelector('.stat-val').textContent = mendatang.length;
+        if (statCards[1]) statCards[1].querySelector('.stat-val').textContent = reservasi.length;
+
+        // Isi jadwal hari ini di beranda
+        const hariIni = new Date().toISOString().split('T')[0];
+        const jadwalHariIni = reservasi.filter(r => r.tanggal_reservasi === hariIni);
+        const cardBodyJadwal = document.querySelector('#page-beranda .card .card-body');
+        if (cardBodyJadwal) {
+          if (jadwalHariIni.length === 0) {
+            cardBodyJadwal.innerHTML = '<p style="font-size:13px;color:var(--text-muted);text-align:center;padding:20px 0">Tidak ada jadwal hari ini</p>';
+          } else {
+            cardBodyJadwal.innerHTML = jadwalHariIni.map(r => {
+              const jam = r.waktu_reservasi ? r.waktu_reservasi.substring(0, 5) : '-';
+              const inisialPasien = r.nama_mahasiswa.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+              const badgeStatus = r.status_reservasi === 'terkonfirmasi'
+                ? '<span class="badge badge-success">Terkonfirmasi</span>'
+                : '<span class="badge badge-warning">Menunggu</span>';
+              return `
+                    <div class="jadwal-item">
+                        <div class="jadwal-date"><span class="day">${jam.split(':')[0]}</span><span class="month">:${jam.split(':')[1]}</span></div>
+                        <div class="jadwal-info">
+                            <div class="psikolog-name">${r.nama_mahasiswa}</div>
+                            <div class="jadwal-time">Online · ${jam} WIB</div>
+                        </div>
+                        ${badgeStatus}
+                    </div>`;
+            }).join('');
+          }
+        }
+
+        // Isi daftar pasien terbaru di beranda
+        const pasienList = document.querySelector('#page-beranda .pasien-list');
+        if (pasienList) {
+          const warna = [
+            'linear-gradient(135deg,#6352c7,#4a90d9)',
+            'linear-gradient(135deg,#0f6e56,#1d9e75)',
+            'linear-gradient(135deg,#993556,#d4537e)',
+            'linear-gradient(135deg,#854f0b,#ba7517)',
+            'linear-gradient(135deg,#185fa5,#378add)'
+          ];
+          const pasienUnik = [...new Map(reservasi.map(r => [r.nama_mahasiswa, r])).values()].slice(0, 5);
+          if (pasienUnik.length === 0) {
+            pasienList.innerHTML = '<p style="font-size:13px;color:var(--text-muted);text-align:center;padding:20px 0">Belum ada pasien</p>';
+          } else {
+            pasienList.innerHTML = pasienUnik.map((r, i) => {
+              const inisialPasien = r.nama_mahasiswa.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+              return `
+                    <div class="pasien-item">
+                        <div class="psikolog-avatar" style="background:${warna[i % warna.length]}">${inisialPasien}</div>
+                        <div class="pasien-item-info">
+                            <div class="pasien-item-name">${r.nama_mahasiswa}</div>
+                            <div class="psikolog-item-spec">${r.status_reservasi}</div>
+                        </div>
+                        <span class="badge badge-success">Aktif</span>
+                    </div>`;
+            }).join('');
+          }
+        }
+
+        // Isi tabel jadwal konsultasi
+        const tbodyJadwal = document.querySelector('#page-jadwal tbody');
+        if (tbodyJadwal) {
+          if (mendatang.length === 0) {
+            tbodyJadwal.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:20px">Tidak ada jadwal mendatang</td></tr>';
+          } else {
+            tbodyJadwal.innerHTML = mendatang.map(r => {
+              const tgl = new Date(r.tanggal_reservasi).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+              const jam = r.waktu_reservasi ? r.waktu_reservasi.substring(0, 5) : '-';
+              const inisialPasien = r.nama_mahasiswa.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+              const badgeStatus = r.status_reservasi === 'terkonfirmasi'
+                ? '<span class="badge badge-success">Terkonfirmasi</span>'
+                : '<span class="badge badge-warning">Menunggu</span>';
+              return `<tr>
+                        <td>${tgl} · ${jam} WIB</td>
+                        <td>
+                            <div style="display:flex;align-items:center;gap:10px">
+                                <div class="psikolog-avatar" style="background:linear-gradient(135deg,#6352c7,#4a90d9);width:32px;height:32px;font-size:12px">${inisialPasien}</div>
+                                <div>
+                                    <div style="font-weight:700;font-size:13px">${r.nama_mahasiswa}</div>
+                                    <div style="font-size:11px;color:var(--text-muted)">${r.email_user || '-'}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span class="badge badge-primary">Online</span></td>
+                        <td>${badgeStatus}</td>
+                        <td><button class="card-action">Mulai Sesi</button></td>
+                    </tr>`;
+            }).join('');
+          }
+        }
+
+        // Isi tabel daftar pasien
+        const tbodyPasien = document.querySelector('#page-daftar #tbody-pasien');
+        if (tbodyPasien) {
+          const pasienAll = [...new Map(reservasi.map(r => [r.nama_mahasiswa, r])).values()];
+          if (pasienAll.length === 0) {
+            tbodyPasien.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:20px">Belum ada pasien</td></tr>';
+          } else {
+            tbodyPasien.innerHTML = pasienAll.map((r, i) => {
+              const warna = ['linear-gradient(135deg,#6352c7,#4a90d9)', 'linear-gradient(135deg,#0f6e56,#1d9e75)', 'linear-gradient(135deg,#993556,#d4537e)', 'linear-gradient(135deg,#854f0b,#ba7517)', 'linear-gradient(135deg,#185fa5,#378add)'];
+              const inisialPasien = r.nama_mahasiswa.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+              const tgl = new Date(r.tanggal_reservasi).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+              const jumlahSesi = reservasi.filter(x => x.nama_mahasiswa === r.nama_mahasiswa).length;
+              return `<tr data-nama="${r.nama_mahasiswa}" data-status="Aktif">
+                        <td>
+                            <div style="display:flex;align-items:center;gap:10px">
+                                <div class="psikolog-avatar" style="background:${warna[i % warna.length]};width:32px;height:32px;font-size:12px">${inisialPasien}</div>
+                                <span style="font-weight:600">${r.nama_mahasiswa}</span>
+                            </div>
+                        </td>
+                        <td>-</td>
+                        <td>${jumlahSesi}</td>
+                        <td>${tgl}</td>
+                        <td><span class="badge badge-success">Aktif</span></td>
+                        <td><button class="card-action">Detail</button></td>
+                    </tr>`;
+            }).join('');
+          }
+        }
+
+      } catch (err) {
+        console.error('Gagal load data psikolog:', err);
       }
-    };
+    }
+
+    const dataPasien = {};
 
     function bukaDetailPasien(id) {
       const p = dataPasien[id];
@@ -1757,7 +1838,6 @@ document.getElementById('profil-header-email').textContent = user.email_user + '
       document.getElementById('modal-pasien-avatar').textContent = p.inisial;
       document.getElementById('modal-pasien-avatar').style.background = p.avatarBg;
       document.getElementById('modal-pasien-nama').textContent = p.nama;
-      document.getElementById('modal-pasien-sub').textContent = p.keluhan + ' · ' + p.status.replace(/<[^>]+>/g, '');
       document.getElementById('detail-nama').textContent = p.nama;
       document.getElementById('detail-keluhan').textContent = p.keluhan;
       document.getElementById('detail-status').innerHTML = p.status;
@@ -1765,21 +1845,6 @@ document.getElementById('profil-header-email').textContent = user.email_user + '
       document.getElementById('detail-sesi-terakhir').textContent = p.sesiTerakhir;
       document.getElementById('detail-total-bayar').textContent = p.totalBayar;
       document.getElementById('detail-catatan').textContent = p.catatan;
-      const riwayatEl = document.getElementById('detail-riwayat-sesi');
-      riwayatEl.innerHTML = '';
-      p.riwayat.forEach((s, i) => {
-        const tipeBadge = s.tipe === 'Online'
-          ? '<span class="badge badge-primary" style="font-size:10px">Online</span>'
-          : '<span class="badge badge-warning" style="font-size:10px">Offline</span>';
-        riwayatEl.innerHTML += `
-        <div class="sesi-history-item">
-          <div class="sesi-dot"></div>
-          <div class="sesi-history-info">
-            <div class="sesi-history-date">Sesi ${p.riwayat.length - i} &nbsp;${tipeBadge}&nbsp; <span style="font-weight:400;color:var(--text-muted)">${s.durasi}</span></div>
-            <div class="sesi-history-desc">${s.tanggal} · ${s.topik}</div>
-          </div>
-        </div>`;
-      });
       document.getElementById('modal-detail-pasien').classList.add('active');
       document.body.style.overflow = 'hidden';
     }
@@ -1799,8 +1864,8 @@ document.getElementById('profil-header-email').textContent = user.email_user + '
       const rows = document.querySelectorAll('#tbody-pasien tr');
       let visible = 0;
       rows.forEach(row => {
-        const nama = row.getAttribute('data-nama').toLowerCase();
-        const rowStatus = row.getAttribute('data-status');
+        const nama = (row.getAttribute('data-nama') || '').toLowerCase();
+        const rowStatus = row.getAttribute('data-status') || '';
         const matchNama = nama.includes(keyword);
         const matchStatus = status === '' || rowStatus === status;
         if (matchNama && matchStatus) { row.style.display = ''; visible++; }
@@ -1825,9 +1890,7 @@ document.getElementById('profil-header-email').textContent = user.email_user + '
       if (navEl) navEl.classList.add('active');
     }
 
-    function filterLaporan() {
-      showToast('Filter diterapkan');
-    }
+    function filterLaporan() { showToast('Filter diterapkan'); }
 
     function exportExcel() {
       const rows = document.querySelectorAll('#tbody-transaksi tr');
@@ -1845,11 +1908,9 @@ document.getElementById('profil-header-email').textContent = user.email_user + '
       const BOM = '\uFEFF';
       const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
-      const bulan = document.getElementById('filter-bulan');
-      const namaBulan = bulan.options[bulan.selectedIndex].text.replace(' ', '_');
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'Laporan_Keuangan_' + namaBulan + '.csv';
+      a.download = 'Laporan_Keuangan.csv';
       a.click();
       URL.revokeObjectURL(url);
       showToast('✅ File berhasil diunduh!');
@@ -1861,6 +1922,9 @@ document.getElementById('profil-header-email').textContent = user.email_user + '
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 2500);
     }
+
+    // Load data saat halaman dibuka
+    loadDataPsikolog();
   </script>
 
 </body>

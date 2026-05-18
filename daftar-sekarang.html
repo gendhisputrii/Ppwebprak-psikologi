@@ -87,7 +87,6 @@
             color: var(--primary);
         }
 
-        /* CARD */
         .register-card {
             background: white;
             border-radius: 24px;
@@ -100,7 +99,6 @@
             z-index: 1;
         }
 
-        /* LOGO */
         .login-logo {
             text-align: center;
             margin-bottom: 22px;
@@ -122,7 +120,6 @@
             letter-spacing: -0.5px;
         }
 
-        /* HEADER */
         .login-header {
             text-align: center;
             margin-bottom: 24px;
@@ -141,7 +138,6 @@
             color: var(--text-muted);
         }
 
-        /* ROLE SELECTOR */
         .role-selector {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -177,7 +173,6 @@
             box-shadow: 0 2px 8px rgba(99, 82, 199, 0.12);
         }
 
-        /* FORM GROUP */
         .form-group {
             margin-bottom: 14px;
         }
@@ -234,7 +229,6 @@
             color: var(--text-muted);
         }
 
-        /* select arrow */
         .select-wrap {
             position: relative;
         }
@@ -270,14 +264,12 @@
             display: block;
         }
 
-        /* TWO COLUMN */
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
         }
 
-        /* TERMS */
         .terms-wrap {
             display: flex;
             align-items: flex-start;
@@ -311,7 +303,6 @@
             text-decoration: underline;
         }
 
-        /* SUBMIT */
         .btn-register {
             width: 100%;
             padding: 13px;
@@ -349,7 +340,6 @@
             text-decoration: underline;
         }
 
-        /* ALERT */
         .alert-error {
             display: none;
             padding: 11px 15px;
@@ -374,7 +364,6 @@
             margin-bottom: 14px;
         }
 
-        /* PASSWORD STRENGTH */
         .strength-wrap {
             margin-top: 8px;
         }
@@ -413,7 +402,6 @@
 
     <div class="register-card">
 
-        <!-- Logo -->
         <div class="login-logo">
             <img src="logo2.png" alt="RuangPulih"
                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
@@ -425,20 +413,16 @@
             <p>Bergabunglah dengan RuangPulih sekarang</p>
         </div>
 
-        <!-- Role selector -->
         <div class="role-selector">
             <button class="role-btn active" onclick="setRole('mahasiswa', this)"> Mahasiswa</button>
             <button class="role-btn" onclick="setRole('psikolog', this)"> Psikolog</button>
         </div>
 
-        <!-- Alert -->
         <div class="alert-error" id="alert-error">Mohon lengkapi semua data dengan benar.</div>
         <div class="alert-success" id="alert-success">Akun berhasil dibuat! Mengarahkan ke login...</div>
 
-        <!-- FORM -->
         <form onsubmit="return submitRegister(event)" novalidate>
 
-            <!-- Nama lengkap -->
             <div class="form-group">
                 <label>Nama Lengkap</label>
                 <div class="input-wrap">
@@ -448,7 +432,6 @@
                 <small class="error-msg" id="errorNama"></small>
             </div>
 
-            <!-- NIM / ID (khusus mahasiswa) -->
             <div class="form-group" id="wrap-nim">
                 <label>NIM</label>
                 <div class="input-wrap">
@@ -458,7 +441,6 @@
                 <small class="error-msg" id="errorNim"></small>
             </div>
 
-            <!-- No STR (khusus psikolog, tersembunyi awalnya) -->
             <div class="form-group" id="wrap-str" style="display:none;">
                 <label>Nomor STR</label>
                 <div class="input-wrap">
@@ -468,7 +450,6 @@
                 <small class="error-msg" id="errorStr"></small>
             </div>
 
-            <!-- Spesialisasi (khusus psikolog) -->
             <div class="form-group" id="wrap-spesialis" style="display:none;">
                 <label>Spesialisasi</label>
                 <div class="input-wrap select-wrap">
@@ -485,7 +466,6 @@
                 <small class="error-msg" id="errorSpesialis"></small>
             </div>
 
-            <!-- Email & No HP -->
             <div class="form-row">
                 <div class="form-group">
                     <label>Email</label>
@@ -505,7 +485,6 @@
                 </div>
             </div>
 
-            <!-- Jenis Kelamin & Tanggal Lahir -->
             <div class="form-row">
                 <div class="form-group">
                     <label>Jenis Kelamin</label>
@@ -532,7 +511,6 @@
 
             <hr class="divider">
 
-            <!-- Password -->
             <div class="form-group">
                 <label>Password</label>
                 <div class="input-wrap">
@@ -553,7 +531,6 @@
                 <small class="error-msg" id="errorPassword"></small>
             </div>
 
-            <!-- Konfirmasi password -->
             <div class="form-group">
                 <label>Konfirmasi Password</label>
                 <div class="input-wrap">
@@ -564,7 +541,6 @@
                 <small class="error-msg" id="errorConfirm"></small>
             </div>
 
-            <!-- Terms -->
             <div class="terms-wrap">
                 <input type="checkbox" id="terms">
                 <label for="terms">
@@ -580,19 +556,14 @@
 
         <p class="login-link">Sudah punya akun? <a href="login.html">Masuk di sini</a></p>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script>
-        const SUPABASE_URL = 'https://wpnsdjxtrojacfrhhumf.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_iUgPhq6MeTh3hl1LgGMjNg_YU7Go7yT';
-        const { createClient } = supabase;
-        const db = createClient(SUPABASE_URL, SUPABASE_KEY);
         let currentRole = 'mahasiswa';
 
         function setRole(role, btn) {
             currentRole = role;
             document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-
             const isPs = role === 'psikolog';
             document.getElementById('wrap-nim').style.display = isPs ? 'none' : '';
             document.getElementById('wrap-str').style.display = isPs ? '' : 'none';
@@ -622,13 +593,11 @@
             const label = document.getElementById('strength-label');
             const colors = { 1: '#ef4444', 2: '#f97316', 3: '#eab308', 4: '#16a34a' };
             const labels = { 1: 'Lemah', 2: 'Cukup', 3: 'Kuat', 4: 'Sangat Kuat' };
-
             let score = 0;
             if (pw.length >= 8) score++;
             if (/[A-Z]/.test(pw)) score++;
             if (/[0-9]/.test(pw)) score++;
             if (/[^A-Za-z0-9]/.test(pw)) score++;
-
             bars.forEach((bar, i) => {
                 bar.style.background = i < score ? colors[score] : 'rgba(99,82,199,0.12)';
             });
@@ -637,8 +606,7 @@
         }
 
         function clearErrors() {
-            ['Nama', 'Nim', 'Str', 'Spesialis', 'Email', 'Phone',
-                'Gender', 'Dob', 'Password', 'Confirm', 'Terms']
+            ['Nama', 'Nim', 'Str', 'Spesialis', 'Email', 'Phone', 'Gender', 'Dob', 'Password', 'Confirm', 'Terms']
                 .forEach(id => {
                     const el = document.getElementById('error' + id);
                     if (el) el.textContent = '';
@@ -651,88 +619,37 @@
             event.preventDefault();
             clearErrors();
 
-            const nama = document.getElementById('nama').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const gender = document.getElementById('gender').value;
-            const dob = document.getElementById('dob').value.trim();
-            const pass = document.getElementById('password').value;
-            const confirm = document.getElementById('confirm-password').value;
-            const terms = document.getElementById('terms').checked;
-
-            const nim = document.getElementById('nim').value.trim();
-            const str = document.getElementById('str').value.trim();
+            const nama      = document.getElementById('nama').value.trim();
+            const email     = document.getElementById('email').value.trim();
+            const phone     = document.getElementById('phone').value.trim();
+            const gender    = document.getElementById('gender').value;
+            const dob       = document.getElementById('dob').value.trim();
+            const pass      = document.getElementById('password').value;
+            const confirm   = document.getElementById('confirm-password').value;
+            const terms     = document.getElementById('terms').checked;
+            const nim       = document.getElementById('nim').value.trim();
+            const str       = document.getElementById('str').value.trim();
             const spesialis = document.getElementById('spesialis').value;
 
             let valid = true;
 
-            if (!nama) {
-                document.getElementById('errorNama').textContent = 'Nama wajib diisi';
-                valid = false;
-            }
-
-            if (currentRole === 'mahasiswa' && !nim) {
-                document.getElementById('errorNim').textContent = 'NIM wajib diisi';
-                valid = false;
-            }
-
+            if (!nama) { document.getElementById('errorNama').textContent = 'Nama wajib diisi'; valid = false; }
+            if (currentRole === 'mahasiswa' && !nim) { document.getElementById('errorNim').textContent = 'NIM wajib diisi'; valid = false; }
             if (currentRole === 'psikolog') {
-                if (!str) {
-                    document.getElementById('errorStr').textContent = 'Nomor STR wajib diisi';
-                    valid = false;
-                }
-                if (!spesialis) {
-                    document.getElementById('errorSpesialis').textContent = 'Spesialisasi wajib dipilih';
-                    valid = false;
-                }
+                if (!str) { document.getElementById('errorStr').textContent = 'Nomor STR wajib diisi'; valid = false; }
+                if (!spesialis) { document.getElementById('errorSpesialis').textContent = 'Spesialisasi wajib dipilih'; valid = false; }
             }
-
-            if (!email) {
-                document.getElementById('errorEmail').textContent = 'Email wajib diisi';
-                valid = false;
-            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                document.getElementById('errorEmail').textContent = 'Format email tidak valid';
-                valid = false;
-            }
-
-            if (!phone) {
-                document.getElementById('errorPhone').textContent = 'No. HP wajib diisi';
-                valid = false;
-            } else if (!/^08\d{8,11}$/.test(phone)) {
-                document.getElementById('errorPhone').textContent = 'Format: 08xxxxxxxxxx';
-                valid = false;
-            }
-
-            if (!gender) {
-                document.getElementById('errorGender').textContent = 'Pilih jenis kelamin';
-                valid = false;
-            }
-
-            if (!dob) {
-                document.getElementById('errorDob').textContent = 'Tanggal lahir wajib diisi';
-                valid = false;
-            }
-
-            if (!pass) {
-                document.getElementById('errorPassword').textContent = 'Password wajib diisi';
-                valid = false;
-            } else if (pass.length < 8) {
-                document.getElementById('errorPassword').textContent = 'Minimal 8 karakter';
-                valid = false;
-            }
-
-            if (!confirm) {
-                document.getElementById('errorConfirm').textContent = 'Konfirmasi password wajib diisi';
-                valid = false;
-            } else if (pass !== confirm) {
-                document.getElementById('errorConfirm').textContent = 'Password tidak cocok';
-                valid = false;
-            }
-
-            if (!terms) {
-                document.getElementById('errorTerms').textContent = 'Kamu harus menyetujui syarat & ketentuan';
-                valid = false;
-            }
+            if (!email) { document.getElementById('errorEmail').textContent = 'Email wajib diisi'; valid = false; }
+            else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { document.getElementById('errorEmail').textContent = 'Format email tidak valid'; valid = false; }
+            if (!phone) { document.getElementById('errorPhone').textContent = 'No. HP wajib diisi'; valid = false; }
+            else if (!/^08\d{8,11}$/.test(phone)) { document.getElementById('errorPhone').textContent = 'Format: 08xxxxxxxxxx'; valid = false; }
+            if (!gender) { document.getElementById('errorGender').textContent = 'Pilih jenis kelamin'; valid = false; }
+            if (!dob) { document.getElementById('errorDob').textContent = 'Tanggal lahir wajib diisi'; valid = false; }
+            if (!pass) { document.getElementById('errorPassword').textContent = 'Password wajib diisi'; valid = false; }
+            else if (pass.length < 8) { document.getElementById('errorPassword').textContent = 'Minimal 8 karakter'; valid = false; }
+            if (!confirm) { document.getElementById('errorConfirm').textContent = 'Konfirmasi password wajib diisi'; valid = false; }
+            else if (pass !== confirm) { document.getElementById('errorConfirm').textContent = 'Password tidak cocok'; valid = false; }
+            if (!terms) { document.getElementById('errorTerms').textContent = 'Kamu harus menyetujui syarat & ketentuan'; valid = false; }
 
             if (!valid) {
                 document.getElementById('alert-error').style.display = 'block';
@@ -740,51 +657,42 @@
             }
 
             const btnEl = document.querySelector('.btn-register');
-            btnEl.disabled = true;
+            btnEl.disabled    = true;
             btnEl.textContent = 'Memproses...';
 
-            // Daftar ke Supabase Auth
-            const { data, error } = await db.auth.signUp({ email, password: pass });
-
-            if (error) {
-                document.getElementById('alert-error').style.display = 'block';
-                document.getElementById('alert-error').textContent = 'Gagal daftar: ' + error.message;
-                btnEl.disabled = false;
-                btnEl.textContent = 'Daftar Sekarang';
-                return false;
-            }
-
-            // Generate id_user
-            const idUser = (currentRole === 'mahasiswa' ? 'USR' : 'PSI') + Math.floor(Math.random() * 9000000 + 1000000);
-
-            // Simpan ke tabel pengguna
-            await db.from('pengguna').insert({
-                id_user: idUser,
-                nama_user: nama,
-                email_user: email,
-                no_hp: phone,
-                role_user: currentRole,
-                status_verifikasi: 0,
-                auth_id: data.user.id
-            });
-
-            // Kalau mahasiswa, simpan ke tabel mahasiswa
-            if (currentRole === 'mahasiswa') {
-                await db.from('mahasiswa').insert({ id_mahasiswa: idUser });
-            }
-
-            // Kalau psikolog, simpan ke tabel psikolog
-            if (currentRole === 'psikolog') {
-                await db.from('psikolog').insert({
-                    id_psikolog: idUser,
-                    spesialisasi: spesialis,
-                    nama_psikolog: nama
+            try {
+                const res  = await fetch('auth/register.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        nama, email, password: pass,
+                        no_hp: phone, role: currentRole,
+                        spesialisasi: spesialis
+                    })
                 });
+                const data = await res.json();
+
+                if (data.status !== 'success') {
+                    const alertEl = document.getElementById('alert-error');
+                    alertEl.style.display = 'block';
+                    alertEl.textContent   = data.message;
+                    btnEl.disabled        = false;
+                    btnEl.textContent     = 'Daftar Sekarang';
+                    return false;
+                }
+
+                document.getElementById('alert-success').style.display = 'block';
+                setTimeout(() => { window.location.href = 'login.html'; }, 2000);
+
+            } catch (err) {
+                const alertEl = document.getElementById('alert-error');
+                alertEl.style.display = 'block';
+                alertEl.textContent   = 'Terjadi kesalahan. Pastikan server sudah berjalan.';
+                btnEl.disabled        = false;
+                btnEl.textContent     = 'Daftar Sekarang';
             }
 
-            document.getElementById('alert-success').style.display = 'block';
-            setTimeout(() => { window.location.href = 'login.html'; }, 2000);
-            btn.disabled = true;
+            return false;
         }
     </script>
 
