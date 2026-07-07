@@ -5,19 +5,20 @@ header('Access-Control-Allow-Methods: POST');
 require_once '../koneksi.php';
 
 $data = json_decode(file_get_contents('php://input'), true);
-$id_reservasi = $data['id_reservasi'] ?? '';
-$status = $data['status_reservasi'] ?? '';
+$id_user = $data['id_user'] ?? '';
+$nama = trim($data['nama'] ?? '');
+$hp = trim($data['hp'] ?? '');
 
-if (!$id_reservasi || !$status) {
+if (!$id_user || !$nama) {
     echo json_encode(['status' => 'error', 'message' => 'Data tidak lengkap']);
     exit;
 }
 
-$stmt = $conn->prepare("UPDATE reservasi SET status_reservasi = ? WHERE id_reservasi = ?");
-$stmt->bind_param('ss', $status, $id_reservasi);
+$stmt = $conn->prepare("UPDATE pengguna SET nama_user = ?, no_hp = ? WHERE id_user = ?");
+$stmt->bind_param('sss', $nama, $hp, $id_user);
 
 if ($stmt->execute()) {
-    echo json_encode(['status' => 'success', 'message' => 'Status berhasil diperbarui']);
+    echo json_encode(['status' => 'success', 'message' => 'Mahasiswa berhasil diperbarui']);
 } else {
     echo json_encode(['status' => 'error', 'message' => 'Gagal update']);
 }

@@ -828,21 +828,21 @@ body {
           <div class="form-row">
             <div class="form-group">
               <label>Nama Lengkap</label>
-              <input type="text" id="inp-nama" placeholder="Masukkan nama lengkap" value="Budi Santoso">
+              <input type="text" id="inp-nama" placeholder="Masukkan nama lengkap">
             </div>
             <div class="form-group">
               <label>NIM</label>
-              <input type="text" id="inp-nim" placeholder="Nomor Induk Mahasiswa" value="2021001234">
+              <input type="text" id="inp-nim" placeholder="Nomor Induk Mahasiswa" >
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
               <label>Email</label>
-              <input type="email" id="inp-email" placeholder="email@mahasiswa.ac.id" value="budi.santoso@mahasiswa.ac.id">
+              <input type="email" id="inp-email" placeholder="email@mahasiswa.ac.id" >
             </div>
             <div class="form-group">
               <label>No. Telepon</label>
-              <input type="tel" id="inp-telp" placeholder="08xxxxxxxxxx" value="08123456789">
+              <input type="tel" id="inp-telp" placeholder="08xxxxxxxxxx" >
             </div>
           </div>
           <div class="form-group">
@@ -979,24 +979,6 @@ body {
 <script>
 const ADMIN = 2500;
 
-const tarifPsi = {
-  "Dr. Sarah Amelia, M.Psi": 150000,
-  "Reza Pratama, S.Psi": 100000,
-  "Nadia Aulia, M.Psi": 120000,
-  "Bayu Wicaksono, S.Psi": 130000,
-  "Dewi Hartati, M.Psi": 125000,
-  "Yoga Purnama, S.Psi": 90000,
-};
-
-const avatarMap = {
-  "Dr. Sarah Amelia, M.Psi": { text: "SA", bg: "linear-gradient(135deg,#6352c7,#4a90d9)", spec: "Psikologi Klinis" },
-  "Reza Pratama, S.Psi": { text: "RP", bg: "linear-gradient(135deg,#0f6e56,#1d9e75)", spec: "Konseling Remaja" },
-  "Nadia Aulia, M.Psi": { text: "NA", bg: "linear-gradient(135deg,#993556,#d4537e)", spec: "Manajemen Stres" },
-  "Bayu Wicaksono, S.Psi": { text: "BW", bg: "linear-gradient(135deg,#854f0b,#ba7517)", spec: "Trauma & PTSD" },
-  "Dewi Hartati, M.Psi": { text: "DH", bg: "linear-gradient(135deg,#185fa5,#378add)", spec: "Psikologi Pendidikan" },
-  "Yoga Purnama, S.Psi": { text: "YP", bg: "linear-gradient(135deg,#3b6d11,#639922)", spec: "Konseling Karir" },
-};
-
 const metodeLabel = {
   bank: "Transfer Bank BCA",
   gopay: "GoPay",
@@ -1015,6 +997,13 @@ function load() {
   let raw = sessionStorage.getItem("dataKonsultasi");
   if (raw) {
     sessionData = JSON.parse(raw);
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+        document.getElementById('inp-nama').value = user.nama_user || '';
+        document.getElementById('inp-email').value = user.email_user || '';
+        document.getElementById('inp-telp').value = user.no_hp || '';
+        document.getElementById('inp-nim').value = user.nim_nip || '';
+    }
   } else {
     // Demo data
     sessionData = {
@@ -1026,9 +1015,13 @@ function load() {
     };
   }
 
-  const tarif = tarifPsi[sessionData.psikolog] || 100000;
-  const total = tarif + ADMIN;
-  const av = avatarMap[sessionData.psikolog] || { text: "—", bg: "#6352c7", spec: "—" };
+  const tarif = sessionData.tarif || 100000;
+const total = tarif + ADMIN;
+const av = {
+    text: sessionData.avatarText || '??',
+    bg: sessionData.avatarBg || '#6352c7',
+    spec: sessionData.spesialis || '-'
+};
 
   // Summary right
   document.getElementById("sumAvatar").textContent = av.text;
@@ -1095,9 +1088,13 @@ function bayar() {
   }
 
   // Fill success screen
-  const tarif = tarifPsi[sessionData.psikolog] || 100000;
-  const total = tarif + ADMIN;
-  const av = avatarMap[sessionData.psikolog] || { text: "—", bg: "#6352c7", spec: "—" };
+  const tarif = sessionData.tarif || 100000;
+const total = tarif + ADMIN;
+const av = {
+    text: sessionData.avatarText || '??',
+    bg: sessionData.avatarBg || '#6352c7',
+    spec: sessionData.spesialis || '-'
+};
 
   document.getElementById("suc-avatar").textContent = av.text;
   document.getElementById("suc-avatar").style.background = av.bg;

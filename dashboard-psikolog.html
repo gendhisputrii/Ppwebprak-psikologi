@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
   <style>
+    /* ... CSS sama persis, tidak berubah ... */
     *,
     *::before,
     *::after {
@@ -1093,6 +1094,35 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    .password-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .password-wrapper input {
+      padding-right: 45px;
+      width: 100%;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--text-muted);
+      user-select: none;
+      transition: color 0.2s;
+      z-index: 2;
+      background: var(--bg);
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+
+    .toggle-password:hover {
+      color: var(--primary);
+    }
   </style>
 </head>
 
@@ -1130,7 +1160,7 @@
     <div class="topbar">
       <div class="topbar-title" id="topbar-title">Dashboard</div>
       <div class="topbar-right">
-        <div class="notif-btn">🔔<span class="notif-dot"></span></div>
+        <div class="notif-btn">🔔<<span class="notif-dot"></span></div>
         <div class="user-avatar" style="width:32px;height:32px;font-size:12px;">SA</div>
       </div>
     </div>
@@ -1210,405 +1240,232 @@
               <button class="card-action"
                 onclick="showPage('jadwal', document.querySelector('[onclick*=jadwal]'))">Lihat Semua</button>
             </div>
-            <div class="card-body">
-              <div class="jadwal-item">
-                <div class="jadwal-date"><span class="day">09</span><span class="month">:00</span></div>
-                <div class="jadwal-info">
-                  <div class="psikolog-name">Andi Pratama</div>
-                  <div class="jadwal-time">Online · 09:00 – 10:00 WIB</div>
-                </div>
-                <span class="badge badge-success">Terkonfirmasi</span>
-              </div>
-              <div class="jadwal-item">
-                <div class="jadwal-date"><span class="day">10</span><span class="month">:30</span></div>
-                <div class="jadwal-info">
-                  <div class="psikolog-name">Budi Santoso</div>
-                  <div class="jadwal-time">Offline · 10:30 – 11:30 WIB</div>
-                </div>
-                <span class="badge badge-warning">Menunggu</span>
-              </div>
-              <div class="jadwal-item">
-                <div class="jadwal-date"><span class="day">13</span><span class="month">:00</span></div>
-                <div class="jadwal-info">
-                  <div class="psikolog-name">Citra Dewi</div>
-                  <div class="jadwal-time">Online · 13:00 – 14:00 WIB</div>
-                </div>
-                <span class="badge badge-success">Terkonfirmasi</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title">Pasien Terbaru</span>
-              <button class="card-action"
-                onclick="showPage('daftar', document.querySelector('[onclick*=daftar]'))">Lihat Semua</button>
-            </div>
-            <div class="card-body">
-              <div class="pasien-list">
-                <div class="pasien-item">
-                  <div class="psikolog-avatar" style="background:linear-gradient(135deg,#6352c7,#4a90d9)">AP</div>
-                  <div class="pasien-item-info">
-                    <div class="pasien-item-name">Andi Pratama</div>
-                    <div class="psikolog-item-spec">Kecemasan · 3 sesi</div>
-                  </div>
-                  <span class="badge badge-success">Aktif</span>
-                </div>
-                <div class="pasien-item">
-                  <div class="psikolog-avatar" style="background:linear-gradient(135deg,#0f6e56,#1d9e75)">BS</div>
-                  <div class="pasien-item-info">
-                    <div class="pasien-item-name">Budi Santoso</div>
-                    <div class="psikolog-item-spec">Stres Akademik · 1 sesi</div>
-                  </div>
-                  <span class="badge badge-warning">Baru</span>
-                </div>
-                <div class="pasien-item">
-                  <div class="psikolog-avatar" style="background:linear-gradient(135deg,#993556,#d4537e)">CD</div>
-                  <div class="pasien-item-info">
-                    <div class="pasien-item-name">Citra Dewi</div>
-                    <div class="psikolog-item-spec">Depresi · 5 sesi</div>
-                  </div>
-                  <span class="badge badge-success">Aktif</span>
-                </div>
-              </div>
+            <div class="card-body" id="beranda-jadwal">
+              <p style="font-size:13px;color:var(--text-muted);text-align:center;padding:20px 0">Memuat jadwal...</p>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- JADWAL -->
-      <div class="page" id="page-jadwal">
-        <div class="page-header">
-          <h2>Jadwal Konsultasi</h2>
-          <p>Daftar seluruh jadwal konsultasi Anda</p>
-        </div>
         <div class="card">
           <div class="card-header">
-            <span class="card-title">Jadwal Mendatang</span>
+            <span class="card-title">Pasien Terbaru</span>
+            <button class="card-action" onclick="showPage('daftar', document.querySelector('[onclick*=daftar]'))">Lihat
+              Semua</button>
           </div>
-          <div class="card-body" style="padding:0">
-            <table class="riwayat-table">
-              <thead>
-                <tr>
-                  <th>Waktu</th>
-                  <th>Pasien</th>
-                  <th>Tipe</th>
-                  <th>Status</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>09:00 WIB</td>
-                  <td>
-                    <div style="display:flex;align-items:center;gap:10px">
-                      <div class="psikolog-avatar"
-                        style="background:linear-gradient(135deg,#6352c7,#4a90d9);width:32px;height:32px;font-size:12px">
-                        AP</div>
-                      <div>
-                        <div style="font-weight:700;font-size:13px">Andi Pratama</div>
-                        <div style="font-size:11px;color:var(--text-muted)">Kecemasan</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td><span class="badge badge-primary">Online</span></td>
-                  <td><span class="badge badge-success">Terkonfirmasi</span></td>
-                  <td><button class="card-action">Mulai Sesi</button></td>
-                </tr>
-                <tr>
-                  <td>10:30 WIB</td>
-                  <td>
-                    <div style="display:flex;align-items:center;gap:10px">
-                      <div class="psikolog-avatar"
-                        style="background:linear-gradient(135deg,#0f6e56,#1d9e75);width:32px;height:32px;font-size:12px">
-                        BS</div>
-                      <div>
-                        <div style="font-weight:700;font-size:13px">Budi Santoso</div>
-                        <div style="font-size:11px;color:var(--text-muted)">Stres Akademik</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td><span class="badge badge-warning">Offline</span></td>
-                  <td><span class="badge badge-warning">Menunggu</span></td>
-                  <td><button class="card-action">Mulai Sesi</button></td>
-                </tr>
-                <tr>
-                  <td>13:00 WIB</td>
-                  <td>
-                    <div style="display:flex;align-items:center;gap:10px">
-                      <div class="psikolog-avatar"
-                        style="background:linear-gradient(135deg,#993556,#d4537e);width:32px;height:32px;font-size:12px">
-                        CD</div>
-                      <div>
-                        <div style="font-weight:700;font-size:13px">Citra Dewi</div>
-                        <div style="font-size:11px;color:var(--text-muted)">Depresi</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td><span class="badge badge-primary">Online</span></td>
-                  <td><span class="badge badge-success">Terkonfirmasi</span></td>
-                  <td><button class="card-action">Mulai Sesi</button></td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="card-body" id="beranda-pasien">
+            <p style="font-size:13px;color:var(--text-muted);text-align:center;padding:20px 0">Memuat pasien...</p>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- DAFTAR PASIEN -->
-      <div class="page" id="page-daftar">
-        <div class="page-header">
-          <h2>Daftar Pasien</h2>
-          <p>Semua pasien yang pernah berkonsultasi dengan Anda</p>
+    <!-- JADWAL -->
+    <div class="page" id="page-jadwal">
+      <div class="page-header">
+        <h2>Jadwal Konsultasi</h2>
+        <p>Daftar seluruh jadwal konsultasi Anda</p>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Jadwal Mendatang</span>
         </div>
-        <div class="filter-bar">
-          <input type="text" id="search-pasien" placeholder="Cari nama pasien..." oninput="filterPasien()">
-          <select id="filter-status" onchange="filterPasien()">
-            <option value="">Semua Status</option>
-            <option value="Aktif">Aktif</option>
-            <option value="Baru">Baru</option>
-            <option value="Selesai">Selesai</option>
-          </select>
+        <div class="card-body" style="padding:0">
+          <table class="riwayat-table">
+            <thead>
+              <tr>
+                <th>Waktu</th>
+                <th>Pasien</th>
+                <th>Tipe</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAFTAR PASIEN -->
+    <div class="page" id="page-daftar">
+      <div class="page-header">
+        <h2>Daftar Pasien</h2>
+        <p>Semua pasien yang pernah berkonsultasi dengan Anda</p>
+      </div>
+      <div class="filter-bar">
+        <input type="text" id="search-pasien" placeholder="Cari nama pasien..." oninput="filterPasien()">
+        <select id="filter-status" onchange="filterPasien()">
+          <option value="">Semua Status</option>
+          <option value="Aktif">Aktif</option>
+          <option value="Baru">Baru</option>
+          <option value="Selesai">Selesai</option>
+        </select>
+      </div>
+      <div class="card">
+        <div class="card-body" style="padding:0">
+          <table class="riwayat-table">
+            <thead>
+              <tr>
+                <th>Pasien</th>
+                <th>Keluhan</th>
+                <th>Total Sesi</th>
+                <th>Sesi Terakhir</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-pasien">
+
+            </tbody>
+          </table>
+          <div id="empty-pasien"
+            style="display:none;text-align:center;padding:32px;color:var(--text-muted);font-size:13px;">
+            Tidak ada pasien yang sesuai dengan pencarian.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LAPORAN KEUANGAN — OPSI B -->
+    <div class="page" id="page-laporan">
+      <div class="page-header">
+        <h2>Laporan Keuangan</h2>
+        <p>Ringkasan pendapatan dan transaksi bulan ini</p>
+      </div>
+
+      <!-- Summary Cards — Left Accent -->
+      <div class="laporan-summary-grid">
+        <div class="laporan-summary-card c-purple">
+          <div class="laporan-summary-lbl">Pendapatan Bulan Ini</div>
+          <div class="laporan-summary-val" id="laporan-pendapatan">Rp 0</div>
+        </div>
+        <div class="laporan-summary-card c-teal">
+          <div class="laporan-summary-lbl">Transaksi Lunas</div>
+          <div class="laporan-summary-val" id="laporan-lunas">0</div>
+        </div>
+        <div class="laporan-summary-card c-amber">
+          <div class="laporan-summary-lbl">Belum Dibayar</div>
+          <div class="laporan-summary-val" id="laporan-belum">0</div>
+        </div>
+      </div>
+
+      <!-- Filter & Export -->
+      <div class="laporan-filter-bar">
+        <select id="filter-bulan" onchange="filterLaporan()">
+          <option value="01">Januari 2026</option>
+          <option value="02">Februari 2026</option>
+          <option value="03" selected>Maret 2026</option>
+          <option value="04">April 2026</option>
+        </select>
+        <input type="date" id="filter-tgl-mulai" onchange="filterLaporan()">
+        <input type="date" id="filter-tgl-akhir" onchange="filterLaporan()">
+        <button class="btn-export" onclick="exportExcel()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="12" y1="18" x2="12" y2="12" />
+            <line x1="9" y1="15" x2="15" y2="15" />
+          </svg>
+          Ekspor Excel
+        </button>
+      </div>
+
+      <!-- Breakdown Online / Offline — Left Accent -->
+      <div class="laporan-breakdown">
+        <div class="breakdown-card">
+          <div class="breakdown-lbl">Online</div>
+          <div class="breakdown-val" id="breakdown-online">Rp 0</div>
+        </div>
+        <div class="breakdown-card offline">
+          <div class="breakdown-lbl">Offline</div>
+          <div class="breakdown-val" id="breakdown-offline">Rp 0</div>
+        </div>
+      </div>
+
+      <!-- Riwayat Transaksi -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Riwayat Transaksi</span>
+        </div>
+        <div class="card-body" style="padding:0">
+          <table class="riwayat-table" id="tabel-transaksi">
+            <thead>
+              <tr>
+                <th>Pasien</th>
+                <th>Tanggal</th>
+                <th>Tipe</th>
+                <th>Durasi</th>
+                <th>Pendapatan</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-transaksi">
+              <!-- Diisi oleh JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFIL -->
+    <div class="page" id="page-profil">
+      <div class="profil-header">
+        <div class="profil-avatar-lg" id="profil-avatar-lg">SA</div>
+        <div class="profil-header-info">
+          <h2 id="profil-header-nama">Dr. Sarah Amelia, M.Psi</h2>
+          <p id="profil-header-email">sarah.amelia@ruangpulih.id · Psikolog Klinis · ⭐ 4.9</p>
+        </div>
+      </div>
+      <div class="profil-grid">
+        <div class="card">
+          <div class="card-header"><span class="card-title">Data Diri</span></div>
+          <div class="card-body">
+            <div class="form-group"><label>Nama Lengkap</label><input type="text" id="profil-nama"
+                value="Dr. Sarah Amelia, M.Psi"></div>
+            <div class="form-group"><label>Email</label><input type="email" id="profil-email"
+                value="sarah.amelia@ruangpulih.id" readonly></div>
+            <div class="form-group"><label>Nomor HP</label><input type="tel" id="profil-hp" value="08198765432"></div>
+            <div class="form-group"><label>Spesialisasi</label><input type="text" id="profil-spesialisasi"
+                value="Psikologi Klinis" readonly></div>
+            <div class="form-group"><label>Tarif per Sesi</label><input type="text" id="profil-tarif" value="Rp 150.000"
+                readonly></div>
+            <button class="btn-save" onclick="simpanProfilPsikolog()">Simpan Perubahan</button>
+          </div>
         </div>
         <div class="card">
-          <div class="card-body" style="padding:0">
-            <table class="riwayat-table">
-              <thead>
-                <tr>
-                  <th>Pasien</th>
-                  <th>Keluhan</th>
-                  <th>Total Sesi</th>
-                  <th>Sesi Terakhir</th>
-                  <th>Status</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody id="tbody-pasien">
-                <tr data-nama="Andi Pratama" data-status="Aktif">
-                  <td>
-                    <div style="display:flex;align-items:center;gap:10px">
-                      <div class="psikolog-avatar"
-                        style="background:linear-gradient(135deg,#6352c7,#4a90d9);width:32px;height:32px;font-size:12px">
-                        AP</div>
-                      <span style="font-weight:600">Andi Pratama</span>
-                    </div>
-                  </td>
-                  <td>Kecemasan</td>
-                  <td>3</td>
-                  <td>20 Apr 2026</td>
-                  <td><span class="badge badge-success">Aktif</span></td>
-                  <td><button class="card-action" onclick="bukaDetailPasien('andi')">Detail</button></td>
-                </tr>
-                <tr data-nama="Budi Santoso" data-status="Baru">
-                  <td>
-                    <div style="display:flex;align-items:center;gap:10px">
-                      <div class="psikolog-avatar"
-                        style="background:linear-gradient(135deg,#0f6e56,#1d9e75);width:32px;height:32px;font-size:12px">
-                        BS</div>
-                      <span style="font-weight:600">Budi Santoso</span>
-                    </div>
-                  </td>
-                  <td>Stres Akademik</td>
-                  <td>1</td>
-                  <td>25 Apr 2026</td>
-                  <td><span class="badge badge-warning">Baru</span></td>
-                  <td><button class="card-action" onclick="bukaDetailPasien('budi')">Detail</button></td>
-                </tr>
-                <tr data-nama="Citra Dewi" data-status="Aktif">
-                  <td>
-                    <div style="display:flex;align-items:center;gap:10px">
-                      <div class="psikolog-avatar"
-                        style="background:linear-gradient(135deg,#993556,#d4537e);width:32px;height:32px;font-size:12px">
-                        CD</div>
-                      <span style="font-weight:600">Citra Dewi</span>
-                    </div>
-                  </td>
-                  <td>Depresi</td>
-                  <td>5</td>
-                  <td>18 Apr 2026</td>
-                  <td><span class="badge badge-success">Aktif</span></td>
-                  <td><button class="card-action" onclick="bukaDetailPasien('citra')">Detail</button></td>
-                </tr>
-                <tr data-nama="Deni Kusuma" data-status="Selesai">
-                  <td>
-                    <div style="display:flex;align-items:center;gap:10px">
-                      <div class="psikolog-avatar"
-                        style="background:linear-gradient(135deg,#5f5e5a,#888780);width:32px;height:32px;font-size:12px">
-                        DK</div>
-                      <span style="font-weight:600">Deni Kusuma</span>
-                    </div>
-                  </td>
-                  <td>Burnout</td>
-                  <td>4</td>
-                  <td>15 Apr 2026</td>
-                  <td><span class="badge badge-primary">Selesai</span></td>
-                  <td><button class="card-action" onclick="bukaDetailPasien('deni')">Detail</button></td>
-                </tr>
-              </tbody>
-            </table>
-            <div id="empty-pasien"
-              style="display:none;text-align:center;padding:32px;color:var(--text-muted);font-size:13px;">
-              Tidak ada pasien yang sesuai dengan pencarian.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- LAPORAN KEUANGAN — OPSI B -->
-      <div class="page" id="page-laporan">
-        <div class="page-header">
-          <h2>Laporan Keuangan</h2>
-          <p>Ringkasan pendapatan dan transaksi bulan ini</p>
-        </div>
-
-        <!-- Summary Cards — Left Accent -->
-        <div class="laporan-summary-grid">
-          <div class="laporan-summary-card c-purple">
-            <div class="laporan-summary-lbl">Pendapatan Bulan Ini</div>
-            <div class="laporan-summary-val">Rp 12,5M</div>
-          </div>
-          <div class="laporan-summary-card c-teal">
-            <div class="laporan-summary-lbl">Transaksi Lunas</div>
-            <div class="laporan-summary-val">24</div>
-          </div>
-          <div class="laporan-summary-card c-amber">
-            <div class="laporan-summary-lbl">Belum Dibayar</div>
-            <div class="laporan-summary-val">3</div>
-          </div>
-        </div>
-
-        <!-- Filter & Export -->
-        <div class="laporan-filter-bar">
-          <select id="filter-bulan" onchange="filterLaporan()">
-            <option value="01">Januari 2026</option>
-            <option value="02">Februari 2026</option>
-            <option value="03" selected>Maret 2026</option>
-            <option value="04">April 2026</option>
-          </select>
-          <input type="date" id="filter-tgl-mulai" onchange="filterLaporan()">
-          <input type="date" id="filter-tgl-akhir" onchange="filterLaporan()">
-          <button class="btn-export" onclick="exportExcel()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-              <polyline points="14 2 14 8 20 8" />
-              <line x1="12" y1="18" x2="12" y2="12" />
-              <line x1="9" y1="15" x2="15" y2="15" />
-            </svg>
-            Ekspor Excel
-          </button>
-        </div>
-
-        <!-- Breakdown Online / Offline — Left Accent -->
-        <div class="laporan-breakdown">
-          <div class="breakdown-card">
-            <div class="breakdown-lbl">Online</div>
-            <div class="breakdown-val">Rp 4,2M</div>
-          </div>
-          <div class="breakdown-card offline">
-            <div class="breakdown-lbl">Offline</div>
-            <div class="breakdown-val">Rp 8,3M</div>
-          </div>
-        </div>
-
-        <!-- Riwayat Transaksi -->
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Riwayat Transaksi</span>
-          </div>
-          <div class="card-body" style="padding:0">
-            <table class="riwayat-table" id="tabel-transaksi">
-              <thead>
-                <tr>
-                  <th>Pasien</th>
-                  <th>Tanggal</th>
-                  <th>Tipe</th>
-                  <th>Durasi</th>
-                  <th>Pendapatan</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody id="tbody-transaksi">
-                <tr>
-                  <td><span style="font-weight:600">Andi Pratama</span></td>
-                  <td>20 Apr 2026</td>
-                  <td><span class="badge badge-primary">Online</span></td>
-                  <td>60 menit</td>
-                  <td style="font-weight:700;color:var(--success)">Rp 150.000</td>
-                  <td><span class="badge badge-success">Lunas</span></td>
-                </tr>
-                <tr>
-                  <td><span style="font-weight:600">Citra Dewi</span></td>
-                  <td>18 Apr 2026</td>
-                  <td><span class="badge badge-primary">Online</span></td>
-                  <td>60 menit</td>
-                  <td style="font-weight:700;color:var(--success)">Rp 150.000</td>
-                  <td><span class="badge badge-success">Lunas</span></td>
-                </tr>
-                <tr>
-                  <td><span style="font-weight:600">Deni Kusuma</span></td>
-                  <td>15 Apr 2026</td>
-                  <td><span class="badge badge-warning">Offline</span></td>
-                  <td>60 menit</td>
-                  <td style="font-weight:700;color:var(--text-muted)">Rp 150.000</td>
-                  <td><span class="badge badge-warning">Belum Bayar</span></td>
-                </tr>
-                <tr>
-                  <td><span style="font-weight:600">Budi Santoso</span></td>
-                  <td>10 Apr 2026</td>
-                  <td><span class="badge badge-warning">Offline</span></td>
-                  <td>60 menit</td>
-                  <td style="font-weight:700;color:var(--success)">Rp 150.000</td>
-                  <td><span class="badge badge-success">Lunas</span></td>
-                </tr>
-                <tr>
-                  <td><span style="font-weight:600">Eka Putri</span></td>
-                  <td>05 Apr 2026</td>
-                  <td><span class="badge badge-primary">Online</span></td>
-                  <td>60 menit</td>
-                  <td style="font-weight:700;color:var(--danger)">—</td>
-                  <td><span class="badge badge-danger">Dibatalkan</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- PROFIL -->
-      <div class="page" id="page-profil">
-        <div class="profil-header">
-          <div class="profil-avatar-lg" id="profil-avatar-lg">SA</div>
-          <div class="profil-header-info">
-            <h2 id="profil-header-nama">Dr. Sarah Amelia, M.Psi</h2>
-            <p id="profil-header-email">sarah.amelia@ruangpulih.id · Psikolog Klinis · ⭐ 4.9</p>
-          </div>
-        </div>
-        <div class="profil-grid">
-          <div class="card">
-            <div class="card-header"><span class="card-title">Data Diri</span></div>
-            <div class="card-body">
-              <div class="form-group"><label>Nama Lengkap</label><input type="text" value="Dr. Sarah Amelia, M.Psi">
+          <div class="card-header"><span class="card-title">Ubah Password</span></div>
+          <div class="card-body">
+            <div class="form-group">
+              <label>Password Lama</label>
+              <div class="password-wrapper">
+                <input type="password" id="pass-lama" placeholder="••••••••">
+                <span class="toggle-password" onclick="togglePassword('pass-lama', this)">👁️</span>
               </div>
-              <div class="form-group"><label>Email</label><input type="email" value="sarah.amelia@ruangpulih.id"></div>
-              <div class="form-group"><label>Nomor HP</label><input type="tel" value="08198765432"></div>
-              <div class="form-group"><label>Spesialisasi</label><input type="text" value="Psikologi Klinis"></div>
-              <div class="form-group"><label>Tarif per Sesi</label><input type="text" value="Rp 150.000"></div>
-              <button class="btn-save" onclick="showToast('✅ Perubahan berhasil disimpan!')">Simpan Perubahan</button>
             </div>
-          </div>
-          <div class="card">
-            <div class="card-header"><span class="card-title">Ubah Password</span></div>
-            <div class="card-body">
-              <div class="form-group"><label>Password Lama</label><input type="password" placeholder="••••••••"></div>
-              <div class="form-group"><label>Password Baru</label><input type="password" placeholder="••••••••"></div>
-              <div class="form-group"><label>Konfirmasi Password Baru</label><input type="password"
-                  placeholder="••••••••"></div>
-              <button class="btn-save" onclick="showToast('✅ Password berhasil diperbarui!')">Update Password</button>
+            <div class="form-group">
+              <label>Password Baru</label>
+              <div class="password-wrapper">
+                <input type="password" id="pass-baru" placeholder="••••••••">
+                <span class="toggle-password" onclick="togglePassword('pass-baru', this)">👁️</span>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
+            <div class="form-group">
+              <label>Konfirmasi Password Baru</label>
+              <div class="password-wrapper">
+                <input type="password" id="pass-konfirmasi" placeholder="••••••••">
+                <span class="toggle-password" onclick="togglePassword('pass-konfirmasi', this)">👁️</span>
+              </div>
+            
+          <button class="btn-save" onclick="updatePasswordPsikolog()">Update Password</button>
+        </div> <!-- penutup .card-body -->
+      </div> <!-- penutup .card -->
+    </div>
+    </div>
+    </div>
+    </div>
 
     </div>
   </main>
@@ -1690,146 +1547,6 @@
       window.location.href = 'login.html';
     }
 
-    // Load jadwal & pasien dari database
-    async function loadDataPsikolog() {
-      try {
-        const res = await fetch('api/get_reservasi.php?id_psikolog=' + user.id_user);
-        const data = await res.json();
-        if (data.status !== 'success') return;
-
-        const reservasi = data.data;
-        const sekarang = new Date();
-
-        const mendatang = reservasi.filter(r => new Date(r.tanggal_reservasi) >= sekarang);
-        const selesai = reservasi.filter(r => new Date(r.tanggal_reservasi) < sekarang);
-
-        // Update stat cards
-        const statCards = document.querySelectorAll('.stat-card');
-        if (statCards[0]) statCards[0].querySelector('.stat-val').textContent = mendatang.length;
-        if (statCards[1]) statCards[1].querySelector('.stat-val').textContent = reservasi.length;
-
-        // Isi jadwal hari ini di beranda
-        const hariIni = new Date().toISOString().split('T')[0];
-        const jadwalHariIni = reservasi.filter(r => r.tanggal_reservasi === hariIni);
-        const cardBodyJadwal = document.querySelector('#page-beranda .card .card-body');
-        if (cardBodyJadwal) {
-          if (jadwalHariIni.length === 0) {
-            cardBodyJadwal.innerHTML = '<p style="font-size:13px;color:var(--text-muted);text-align:center;padding:20px 0">Tidak ada jadwal hari ini</p>';
-          } else {
-            cardBodyJadwal.innerHTML = jadwalHariIni.map(r => {
-              const jam = r.waktu_reservasi ? r.waktu_reservasi.substring(0, 5) : '-';
-              const inisialPasien = r.nama_mahasiswa.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-              const badgeStatus = r.status_reservasi === 'terkonfirmasi'
-                ? '<span class="badge badge-success">Terkonfirmasi</span>'
-                : '<span class="badge badge-warning">Menunggu</span>';
-              return `
-                    <div class="jadwal-item">
-                        <div class="jadwal-date"><span class="day">${jam.split(':')[0]}</span><span class="month">:${jam.split(':')[1]}</span></div>
-                        <div class="jadwal-info">
-                            <div class="psikolog-name">${r.nama_mahasiswa}</div>
-                            <div class="jadwal-time">Online · ${jam} WIB</div>
-                        </div>
-                        ${badgeStatus}
-                    </div>`;
-            }).join('');
-          }
-        }
-
-        // Isi daftar pasien terbaru di beranda
-        const pasienList = document.querySelector('#page-beranda .pasien-list');
-        if (pasienList) {
-          const warna = [
-            'linear-gradient(135deg,#6352c7,#4a90d9)',
-            'linear-gradient(135deg,#0f6e56,#1d9e75)',
-            'linear-gradient(135deg,#993556,#d4537e)',
-            'linear-gradient(135deg,#854f0b,#ba7517)',
-            'linear-gradient(135deg,#185fa5,#378add)'
-          ];
-          const pasienUnik = [...new Map(reservasi.map(r => [r.nama_mahasiswa, r])).values()].slice(0, 5);
-          if (pasienUnik.length === 0) {
-            pasienList.innerHTML = '<p style="font-size:13px;color:var(--text-muted);text-align:center;padding:20px 0">Belum ada pasien</p>';
-          } else {
-            pasienList.innerHTML = pasienUnik.map((r, i) => {
-              const inisialPasien = r.nama_mahasiswa.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-              return `
-                    <div class="pasien-item">
-                        <div class="psikolog-avatar" style="background:${warna[i % warna.length]}">${inisialPasien}</div>
-                        <div class="pasien-item-info">
-                            <div class="pasien-item-name">${r.nama_mahasiswa}</div>
-                            <div class="psikolog-item-spec">${r.status_reservasi}</div>
-                        </div>
-                        <span class="badge badge-success">Aktif</span>
-                    </div>`;
-            }).join('');
-          }
-        }
-
-        // Isi tabel jadwal konsultasi
-        const tbodyJadwal = document.querySelector('#page-jadwal tbody');
-        if (tbodyJadwal) {
-          if (mendatang.length === 0) {
-            tbodyJadwal.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:20px">Tidak ada jadwal mendatang</td></tr>';
-          } else {
-            tbodyJadwal.innerHTML = mendatang.map(r => {
-              const tgl = new Date(r.tanggal_reservasi).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
-              const jam = r.waktu_reservasi ? r.waktu_reservasi.substring(0, 5) : '-';
-              const inisialPasien = r.nama_mahasiswa.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-              const badgeStatus = r.status_reservasi === 'terkonfirmasi'
-                ? '<span class="badge badge-success">Terkonfirmasi</span>'
-                : '<span class="badge badge-warning">Menunggu</span>';
-              return `<tr>
-                        <td>${tgl} · ${jam} WIB</td>
-                        <td>
-                            <div style="display:flex;align-items:center;gap:10px">
-                                <div class="psikolog-avatar" style="background:linear-gradient(135deg,#6352c7,#4a90d9);width:32px;height:32px;font-size:12px">${inisialPasien}</div>
-                                <div>
-                                    <div style="font-weight:700;font-size:13px">${r.nama_mahasiswa}</div>
-                                    <div style="font-size:11px;color:var(--text-muted)">${r.email_user || '-'}</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="badge badge-primary">Online</span></td>
-                        <td>${badgeStatus}</td>
-                        <td><button class="card-action">Mulai Sesi</button></td>
-                    </tr>`;
-            }).join('');
-          }
-        }
-
-        // Isi tabel daftar pasien
-        const tbodyPasien = document.querySelector('#page-daftar #tbody-pasien');
-        if (tbodyPasien) {
-          const pasienAll = [...new Map(reservasi.map(r => [r.nama_mahasiswa, r])).values()];
-          if (pasienAll.length === 0) {
-            tbodyPasien.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:20px">Belum ada pasien</td></tr>';
-          } else {
-            tbodyPasien.innerHTML = pasienAll.map((r, i) => {
-              const warna = ['linear-gradient(135deg,#6352c7,#4a90d9)', 'linear-gradient(135deg,#0f6e56,#1d9e75)', 'linear-gradient(135deg,#993556,#d4537e)', 'linear-gradient(135deg,#854f0b,#ba7517)', 'linear-gradient(135deg,#185fa5,#378add)'];
-              const inisialPasien = r.nama_mahasiswa.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-              const tgl = new Date(r.tanggal_reservasi).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
-              const jumlahSesi = reservasi.filter(x => x.nama_mahasiswa === r.nama_mahasiswa).length;
-              return `<tr data-nama="${r.nama_mahasiswa}" data-status="Aktif">
-                        <td>
-                            <div style="display:flex;align-items:center;gap:10px">
-                                <div class="psikolog-avatar" style="background:${warna[i % warna.length]};width:32px;height:32px;font-size:12px">${inisialPasien}</div>
-                                <span style="font-weight:600">${r.nama_mahasiswa}</span>
-                            </div>
-                        </td>
-                        <td>-</td>
-                        <td>${jumlahSesi}</td>
-                        <td>${tgl}</td>
-                        <td><span class="badge badge-success">Aktif</span></td>
-                        <td><button class="card-action">Detail</button></td>
-                    </tr>`;
-            }).join('');
-          }
-        }
-
-      } catch (err) {
-        console.error('Gagal load data psikolog:', err);
-      }
-    }
-
     const dataPasien = {};
 
     function bukaDetailPasien(id) {
@@ -1888,6 +1605,9 @@
       document.getElementById('page-' + page).classList.add('active');
       document.getElementById('topbar-title').textContent = titles[page];
       if (navEl) navEl.classList.add('active');
+
+      if (page === 'laporan') loadLaporan();
+      if (page === 'profil') loadProfilPsikolog();
     }
 
     function filterLaporan() { showToast('Filter diterapkan'); }
@@ -1921,6 +1641,332 @@
       toast.textContent = msg;
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    // Load laporan keuangan
+    async function loadLaporan() {
+      try {
+        const res = await fetch('api/get_laporan.php?id_psikolog=' + user.id_user);
+        const data = await res.json();
+        if (data.status !== 'success') return;
+
+        const d = data.data;
+
+        // Update summary cards
+        document.getElementById('laporan-pendapatan').textContent = 'Rp ' + parseInt(d.total_pendapatan).toLocaleString('id-ID');
+        document.getElementById('laporan-lunas').textContent = d.lunas;
+        document.getElementById('laporan-belum').textContent = d.belum;
+
+        // Update breakdown online/offline
+        const onlineTotal = d.transaksi.filter(t => t.status_reservasi === 'selesai').reduce((sum, t) => sum + parseInt(t.tarif), 0);
+        const offlineTotal = 0; // Kalau ada data tipe offline, ganti ini
+        document.getElementById('breakdown-online').textContent = 'Rp ' + onlineTotal.toLocaleString('id-ID');
+        document.getElementById('breakdown-offline').textContent = 'Rp ' + offlineTotal.toLocaleString('id-ID');
+
+        // Update tabel transaksi
+        const tbody = document.getElementById('tbody-transaksi');
+        if (tbody && d.transaksi.length > 0) {
+          tbody.innerHTML = d.transaksi.map(t => {
+            const tgl = new Date(t.tanggal_reservasi).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+            const badgeStatus = t.status_reservasi === 'selesai'
+              ? '<span class="badge badge-success">Lunas</span>'
+              : t.status_reservasi === 'menunggu'
+                ? '<span class="badge badge-warning">Belum Bayar</span>'
+                : '<span class="badge badge-danger">Dibatalkan</span>';
+            const warnaPendapatan = t.status_reservasi === 'selesai' ? 'var(--success)' : 'var(--text-muted)';
+            return `<tr>
+                    <td><span style="font-weight:600">${t.nama_mahasiswa}</span></td>
+                    <td>${tgl}</td>
+                    <td><span class="badge badge-primary">Online</span></td>
+                    <td>60 menit</td>
+                    <td style="font-weight:700;color:${warnaPendapatan}">Rp ${parseInt(t.tarif).toLocaleString('id-ID')}</td>
+                    <td>${badgeStatus}</td>
+                </tr>`;
+          }).join('');
+        }
+      } catch (err) {
+        console.error('Gagal load laporan:', err);
+      }
+    }
+
+    // Load profil psikolog
+    async function loadProfilPsikolog() {
+      try {
+        const res = await fetch('api/get_profil_psikolog.php?id_user=' + user.id_user);
+        const data = await res.json();
+        if (data.status !== 'success') return;
+
+        const p = data.data;
+        document.getElementById('profil-nama').value = p.nama_user;
+        document.getElementById('profil-email').value = p.email_user;
+        document.getElementById('profil-hp').value = p.no_hp || '';
+        document.getElementById('profil-spesialisasi').value = p.spesialisasi || '';
+        const tarif = p.tarif ? parseInt(p.tarif) : 0;
+        document.getElementById('profil-tarif').value = 'Rp ' + tarif.toLocaleString('id-ID');
+      } catch (err) {
+        console.error('Gagal load profil:', err);
+      }
+    }
+
+    // Simpan profil psikolog
+    async function simpanProfilPsikolog() {
+      const nama = document.getElementById('profil-nama').value.trim();
+      const no_hp = document.getElementById('profil-hp').value.trim();
+
+      if (!nama) {
+        showToast('❌ Nama tidak boleh kosong');
+        return;
+      }
+
+      try {
+        const res = await fetch('api/update_profil.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id_user: user.id_user, nama: nama, no_hp: no_hp })
+        });
+        const data = await res.json();
+        if (data.status === 'success') {
+          showToast('✅ Profil berhasil diperbarui!');
+          // Update localStorage
+          user.nama_user = nama;
+          localStorage.setItem('user', JSON.stringify(user));
+          // Update tampilan
+          document.getElementById('sidebar-nama').textContent = nama;
+          document.getElementById('welcome-nama').textContent = 'Halo, ' + nama + '! 👋';
+          const inisial = nama.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+          document.getElementById('sidebar-avatar').textContent = inisial;
+          document.querySelectorAll('.user-avatar').forEach(el => el.textContent = inisial);
+        } else {
+          showToast('❌ ' + data.message);
+        }
+      } catch (err) {
+        showToast('❌ Terjadi kesalahan. Coba lagi.');
+        console.error(err);
+      }
+    }
+
+    // Update password psikolog
+    async function updatePasswordPsikolog() {
+      const pass_lama = document.getElementById('pass-lama').value;
+      const pass_baru = document.getElementById('pass-baru').value;
+      const pass_konfirmasi = document.getElementById('pass-konfirmasi').value;
+
+      if (!pass_lama || !pass_baru || !pass_konfirmasi) {
+        showToast('❌ Semua field password wajib diisi');
+        return;
+      }
+
+      if (pass_baru !== pass_konfirmasi) {
+        showToast('❌ Password baru tidak cocok');
+        return;
+      }
+
+      if (pass_baru.length < 8) {
+        showToast('❌ Password baru minimal 8 karakter');
+        return;
+      }
+
+      try {
+        const res = await fetch('api/update_password.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id_user: user.id_user,
+            password_lama: pass_lama,
+            password_baru: pass_baru
+          })
+        });
+        const data = await res.json();
+        if (data.status === 'success') {
+          showToast('✅ Password berhasil diperbarui!');
+          // Kosongkan input
+          document.getElementById('pass-lama').value = '';
+          document.getElementById('pass-baru').value = '';
+          document.getElementById('pass-konfirmasi').value = '';
+        } else {
+          showToast('❌ ' + data.message);
+        }
+      } catch (err) {
+        showToast('❌ Terjadi kesalahan. Coba lagi.');
+        console.error(err);
+      }
+    }
+
+    async function loadDataPsikolog() {
+      try {
+        const res = await fetch('api/get_reservasi.php?id_psikolog=' + user.id_user);
+        const data = await res.json();
+        if (data.status !== 'success') return;
+
+        const reservasi = data.data;
+        const sekarang = new Date();
+        sekarang.setHours(0, 0, 0, 0);
+
+        const mendatang = reservasi.filter(r => {
+          const tgl = new Date(r.tanggal_reservasi);
+          tgl.setHours(0, 0, 0, 0);
+          return tgl >= sekarang;
+        });
+        const selesai = reservasi.filter(r => {
+          const tgl = new Date(r.tanggal_reservasi);
+          tgl.setHours(0, 0, 0, 0);
+          return tgl < sekarang;
+        });
+
+        // Update stat cards
+        const statCards = document.querySelectorAll('.stat-card');
+        if (statCards[0]) statCards[0].querySelector('.stat-val').textContent = mendatang.length;
+        if (statCards[1]) statCards[1].querySelector('.stat-val').textContent = reservasi.length;
+
+        // Isi jadwal hari ini di beranda
+        const hariIni = new Date().toISOString().split('T')[0];
+        const jadwalHariIni = reservasi.filter(r => r.tanggal_reservasi === hariIni);
+        const cardBodyJadwal = document.getElementById('beranda-jadwal');
+        if (cardBodyJadwal) {
+          if (jadwalHariIni.length === 0) {
+            cardBodyJadwal.innerHTML = '<p style="font-size:13px;color:var(--text-muted);text-align:center;padding:20px 0">Tidak ada jadwal hari ini</p>';
+          } else {
+            cardBodyJadwal.innerHTML = jadwalHariIni.map(r => {
+              const jam = r.waktu_reservasi ? r.waktu_reservasi.substring(0, 5) : '-';
+              const inisialPasien = r.nama_mahasiswa.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+              const badgeStatus = r.status_reservasi === 'terkonfirmasi'
+                ? '<span class="badge badge-success">Terkonfirmasi</span>'
+                : '<span class="badge badge-warning">Menunggu</span>';
+              return `
+                    <div class="jadwal-item">
+                        <div class="jadwal-date"><span class="day">${jam.split(':')[0]}</span><span class="month">:${jam.split(':')[1]}</span></div>
+                        <div class="jadwal-info">
+                            <div class="psikolog-name">${r.nama_mahasiswa}</div>
+                            <div class="jadwal-time">Online · ${jam} WIB</div>
+                        </div>
+                        ${badgeStatus}
+                    </div>`;
+            }).join('');
+          }
+        }
+
+        // Isi daftar pasien terbaru di beranda
+        const pasienList = document.getElementById('beranda-pasien');
+        if (pasienList) {
+          const warna = [
+            'linear-gradient(135deg,#6352c7,#4a90d9)',
+            'linear-gradient(135deg,#0f6e56,#1d9e75)',
+            'linear-gradient(135deg,#993556,#d4537e)',
+            'linear-gradient(135deg,#854f0b,#ba7517)',
+            'linear-gradient(135deg,#185fa5,#378add)'
+          ];
+          const pasienUnik = [...new Map(reservasi.map(r => [r.nama_mahasiswa, r])).values()].slice(0, 5);
+          if (pasienUnik.length === 0) {
+            pasienList.innerHTML = '<p style="font-size:13px;color:var(--text-muted);text-align:center;padding:20px 0">Belum ada pasien</p>';
+          } else {
+            pasienList.innerHTML = pasienUnik.map((r, i) => {
+              const inisialPasien = r.nama_mahasiswa.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+              return `
+                <div class="pasien-item">
+                    <div class="psikolog-avatar" style="background:${warna[i % warna.length]}">${inisialPasien}</div>
+                    <div class="pasien-item-info">
+                        <div class="pasien-item-name">${r.nama_mahasiswa}</div>
+                        <div class="psikolog-item-spec">${r.status_reservasi}</div>
+                    </div>
+                    <span class="badge badge-success">Aktif</span>
+                </div>`;
+            }).join('');
+          }
+        }
+
+        // Isi tabel jadwal konsultasi
+        const tbodyJadwal = document.querySelector('#page-jadwal tbody');
+        if (tbodyJadwal) {
+          if (mendatang.length === 0) {
+            tbodyJadwal.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:20px">Tidak ada jadwal mendatang</td></tr>';
+          } else {
+            tbodyJadwal.innerHTML = mendatang.map(r => {
+              const tgl = new Date(r.tanggal_reservasi).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+              const jam = r.waktu_reservasi ? r.waktu_reservasi.substring(0, 5) : '-';
+              const inisialPasien = r.nama_mahasiswa.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+              const badgeStatus = r.status_reservasi === 'terkonfirmasi'
+                ? '<span class="badge badge-success">Terkonfirmasi</span>'
+                : '<span class="badge badge-warning">Menunggu</span>';
+              return `<tr>
+                        <td>${tgl} · ${jam} WIB</td>
+                        <td>
+                            <div style="display:flex;align-items:center;gap:10px">
+                                <div class="psikolog-avatar" style="background:linear-gradient(135deg,#6352c7,#4a90d9);width:32px;height:32px;font-size:12px">${inisialPasien}</div>
+                                <div>
+                                    <div style="font-weight:700;font-size:13px">${r.nama_mahasiswa}</div>
+                                    <div style="font-size:11px;color:var(--text-muted)">${r.email_user || '-'}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span class="badge badge-primary">Online</span></td>
+                        <td>${badgeStatus}</td>
+                        <td><button class="card-action" onclick="mulaiSesi('${r.id_reservasi}')">Mulai Sesi</button></td>
+                    </tr>`;
+            }).join('');
+          }
+        }
+
+        // Isi tabel daftar pasien + simpan ke dataPasien
+        const tbodyPasien = document.querySelector('#page-daftar #tbody-pasien');
+        if (tbodyPasien) {
+          const pasienAll = [...new Map(reservasi.map(r => [r.nama_mahasiswa, r])).values()];
+          if (pasienAll.length === 0) {
+            tbodyPasien.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:20px">Belum ada pasien</td></tr>';
+          } else {
+            tbodyPasien.innerHTML = pasienAll.map((r, i) => {
+              const warna = ['linear-gradient(135deg,#6352c7,#4a90d9)', 'linear-gradient(135deg,#0f6e56,#1d9e75)', 'linear-gradient(135deg,#993556,#d4537e)', 'linear-gradient(135deg,#854f0b,#ba7517)', 'linear-gradient(135deg,#185fa5,#378add)'];
+              const inisialPasien = r.nama_mahasiswa.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+              const tgl = new Date(r.tanggal_reservasi).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+              const jumlahSesi = reservasi.filter(x => x.nama_mahasiswa === r.nama_mahasiswa).length;
+
+              const idPasien = 'pasien_' + i;
+              dataPasien[idPasien] = {
+                inisial: inisialPasien,
+                avatarBg: warna[i % warna.length],
+                nama: r.nama_mahasiswa,
+                keluhan: '-',
+                status: '<span class="badge badge-success">Aktif</span>',
+                totalSesi: jumlahSesi,
+                sesiTerakhir: tgl,
+                totalBayar: 'Rp ' + (jumlahSesi * 150000).toLocaleString('id-ID'),
+                catatan: '-'
+              };
+
+              return `<tr data-nama="${r.nama_mahasiswa}" data-status="Aktif">
+                        <td>
+                            <div style="display:flex;align-items:center;gap:10px">
+                                <div class="psikolog-avatar" style="background:${warna[i % warna.length]};width:32px;height:32px;font-size:12px">${inisialPasien}</div>
+                                <span style="font-weight:600">${r.nama_mahasiswa}</span>
+                            </div>
+                        </td>
+                        <td>-</td>
+                        <td>${jumlahSesi}</td>
+                        <td>${tgl}</td>
+                        <td><span class="badge badge-success">Aktif</span></td>
+                        <td><button class="card-action" onclick="bukaDetailPasien('${idPasien}')">Detail</button></td>
+                    </tr>`;
+            }).join('');
+          }
+        }
+
+      } catch (err) {
+        console.error('Gagal load data psikolog:', err);
+      }
+    }
+
+    function mulaiSesi(id_reservasi) {
+      showToast('🚀 Memulai sesi konsultasi...');
+      // Nanti bisa redirect ke halaman video call
+    }
+    function togglePassword(inputId, el) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        el.textContent = '🙈';
+      } else {
+        input.type = 'password';
+        el.textContent = '👁️';
+      }
     }
 
     // Load data saat halaman dibuka

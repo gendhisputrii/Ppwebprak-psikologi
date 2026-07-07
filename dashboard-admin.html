@@ -2208,8 +2208,8 @@
                 </select>
             </div>
             <div class="modal-footer">
-                <button class="btn-outline" onclick="closeEditModal()">Batal</button>
-                <button class="btn-primary" onclick="simpanEditModal()">Simpan Perubahan</button>
+                <button class="btn-outline" onclick="tutupModal()">Batal</button>
+                <button class="btn-primary" onclick="simpanPsikolog()">Simpan</button>
             </div>
         </div>
     </div>
@@ -2290,8 +2290,8 @@
             <div class="form-group"><label>No. STR / Lisensi</label><input type="text"
                     placeholder="Nomor lisensi psikolog"></div>
             <div class="modal-footer">
-                <button class="btn-outline" onclick="closeModal('modal-psikolog')">Batal</button>
-                <button class="btn-primary">Simpan</button>
+                <button class="btn-outline" onclick="tutupModal()">Batal</button>
+                <button class="btn-primary" onclick="simpanPsikolog()">Simpan</button>
             </div>
         </div>
     </div>
@@ -2582,12 +2582,27 @@
         // Load psikolog dari database
         async function loadPsikolog() {
             try {
+                console.log('=== MEMANGGIL loadPsikolog() ===');
+
                 const res = await fetch('api/get_psikolog.php');
+                console.log('Response status:', res.status);
+
                 const data = await res.json();
-                if (data.status !== 'success') return;
+                console.log('Response data:', data);
+
+                if (data.status !== 'success') {
+                    console.error('Gagal load psikolog:', data.message);
+                    return;
+                }
 
                 const tbody = document.getElementById('tbody-psikolog');
-                if (!tbody) return;
+                if (!tbody) {
+                    console.error('tbody-psikolog tidak ditemukan!');
+                    return;
+                }
+
+                console.log('Jumlah data:', data.data.length);
+                console.log('Data:', data.data);
 
                 const warna = [
                     'linear-gradient(135deg,#6352c7,#4a90d9)',
@@ -2597,10 +2612,16 @@
                     'linear-gradient(135deg,#185fa5,#378add)'
                 ];
 
+                if (data.data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:20px">Tidak ada psikolog</td></tr>';
+                    return;
+                }
+
                 tbody.innerHTML = data.data.map((p, i) => {
                     const inisial = p.nama_psikolog.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
                     const tarif = p.tarif ? 'Rp ' + parseInt(p.tarif).toLocaleString('id-ID') : '-';
                     return `<tr data-status="Aktif">
+                        
                 <td data-label="Nama">
                     <div class="name-cell">
                         <div class="psikolog-avatar" style="background:${warna[i % warna.length]}">${inisial}</div>
@@ -2610,16 +2631,18 @@
                 <td data-label="Email">${p.email_user || '-'}</td>
                 <td data-label="Spesialisasi">${p.spesialisasi || '-'}</td>
                 <td data-label="Tarif">${tarif}</td>
-                <td data-label="STR">-</td>
+                <td data-label="STR">${p.no_str || '-'}</td>
                 <td data-label="Status"><span class="badge badge-success">Aktif</span></td>
                 <td data-label="Aksi">
                     <div class="action-btns">
                         <button class="btn-outline btn-sm" onclick="openEditPsikolog(this)">Edit</button>
-                        <button class="btn-danger btn-sm" onclick="nonaktifkanMahasiswa(this)">Nonaktifkan</button>
+                        <button class="btn-danger btn-sm" onclick="nonaktifkanPsikolog(this)">Nonaktifkan</button>
                     </div>
                 </td>
             </tr>`;
                 }).join('');
+
+                console.log('=== loadPsikolog() SELESAI ===');
 
             } catch (err) {
                 console.error('Gagal load psikolog:', err);
@@ -2644,32 +2667,29 @@
                     'linear-gradient(135deg,#185fa5,#378add)'
                 ];
 
-                tbody.innerHTML = data.data.map((m, i) => {
-                    const inisial = m.nama_user.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-                    const statusVerif = parseInt(m.status_verifikasi);
-                    const badgeStatus = statusVerif === 1
-                        ? '<span class="badge badge-success">Aktif</span>'
-                        : '<span class="badge badge-warning">Menunggu Verifikasi</span>';
-                    const dataStatus = statusVerif === 1 ? 'Aktif' : 'Menunggu Verifikasi';
-                    const aksiBtn = statusVerif === 1
-                        ? `<button class="btn-outline btn-sm" onclick="openDetailMahasiswa(this)">Detail</button>
-                   <button class="btn-danger btn-sm" onclick="nonaktifkanMahasiswa(this)">Nonaktifkan</button>`
-                        : `<button class="btn-outline btn-sm" onclick="openDetailMahasiswa(this)">Detail</button>
-                   <button class="btn-primary btn-sm" onclick="verifikasiMahasiswa(this)">Verifikasi</button>
-                   <button class="btn-danger btn-sm" onclick="tolakMahasiswa(this)">Tolak</button>`;
-                    return `<tr data-status="${dataStatus}">
-                <td data-label="Nama">
-                    <div class="name-cell">
-                        <div class="psikolog-avatar" style="background:${warna[i % warna.length]}">${inisial}</div>
-                        ${m.nama_user}
-                    </div>
-                </td>
-                <td data-label="NIM">${m.nim_nip || '-'}</td>
-                <td data-label="Email">${m.email_user}</td>
-                <td data-label="Konsultasi">0</td>
-                <td data-label="Status">${badgeStatus}</td>
-                <td data-label="Aksi"><div class="action-btns">${aksiBtn}</div></td>
-            </tr>`;
+                tbody.innerHTML = data.data.map((p, i) => {
+                    const inisial = p.nama_mahasiswa?.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || '??';
+                    const tarif = p.tarif ? 'Rp ' + parseInt(p.tarif).toLocaleString('id-ID') : '-';
+
+                    return `<tr data-status="Aktif" data-id="${p.id_mahasiswa}">
+    <td data-label="Nama">
+        <div class="name-cell">
+            <div class="psikolog-avatar" style="background:${warna[i % warna.length]}">${inisial}</div>
+            ${p.nama_mahasiswa || '-'}
+        </div>
+    </td>
+    <td data-label="Email">-</td>
+    <td data-label="Spesialisasi">${p.spesialisasi || '-'}</td>
+    <td data-label="Tarif">${tarif}</td>
+    <td data-label="STR">-</td>
+    <td data-label="Status"><span class="badge badge-success">Aktif</span></td>
+    <td data-label="Aksi">
+        <div class="action-btns">
+            <button class="btn-outline btn-sm" onclick="openEditPsikolog(this)">Edit</button>
+            <button class="btn-danger btn-sm" onclick="nonaktifkanPsikolog(this)">Nonaktifkan</button>
+        </div>
+    </td>
+</tr>`;
                 }).join('');
 
                 document.getElementById('mahasiswa-count').textContent = data.data.length + ' mahasiswa';
@@ -2747,12 +2767,324 @@
             'Kecemasan': 'badge-warning', 'Depresi': 'badge-danger',
             'Gangguan Kepribadian': 'badge-gray', 'Gangguan Tidur': 'badge-gray'
         };
+        function togglePass(id, btn) {
+            const input = document.getElementById(id);
+            if (input.type === 'password') {
+                input.type = 'text';
+                btn.textContent = '🙈';
+            } else {
+                input.type = 'password';
+                btn.textContent = '👁';
+            }
+        }
 
+        async function updatePasswordAdmin() {
+            const passLama = document.getElementById('pass-lama').value;
+            const passBaru = document.getElementById('pass-baru').value;
+            const passKonfirm = document.getElementById('pass-konfirm').value;
+            const msgEl = document.getElementById('msg-password-admin');
+
+            if (!passLama || !passBaru || !passKonfirm) {
+                msgEl.style.display = 'block';
+                msgEl.style.background = '#fee2e2';
+                msgEl.style.color = '#991b1b';
+                msgEl.textContent = 'Semua field wajib diisi!';
+                return;
+            }
+            if (passBaru !== passKonfirm) {
+                msgEl.style.display = 'block';
+                msgEl.style.background = '#fee2e2';
+                msgEl.style.color = '#991b1b';
+                msgEl.textContent = 'Password baru tidak cocok!';
+                return;
+            }
+            if (passBaru.length < 8) {
+                msgEl.style.display = 'block';
+                msgEl.style.background = '#fee2e2';
+                msgEl.style.color = '#991b1b';
+                msgEl.textContent = 'Password baru minimal 8 karakter!';
+                return;
+            }
+
+            try {
+                const res = await fetch('api/update_password.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id_user: user.id_user,
+                        password_lama: passLama,
+                        password_baru: passBaru
+                    })
+                });
+                const data = await res.json();
+                msgEl.style.display = 'block';
+                if (data.status === 'success') {
+                    msgEl.style.background = '#dcfce7';
+                    msgEl.style.color = '#166534';
+                    msgEl.textContent = '✅ Password berhasil diperbarui!';
+                    document.getElementById('pass-lama').value = '';
+                    document.getElementById('pass-baru').value = '';
+                    document.getElementById('pass-konfirm').value = '';
+                } else {
+                    msgEl.style.background = '#fee2e2';
+                    msgEl.style.color = '#991b1b';
+                    msgEl.textContent = '❌ ' + data.message;
+                }
+            } catch (err) {
+                msgEl.style.display = 'block';
+                msgEl.style.background = '#fee2e2';
+                msgEl.style.color = '#991b1b';
+                msgEl.textContent = 'Terjadi kesalahan. Coba lagi.';
+            }
+        }
         function resetKontenModal() {
             document.getElementById('tipe-konten').value = 'artikel';
             toggleKontenForm('artikel');
         }
+        async function simpanPsikolog() {
+            console.log('=== MULAI SIMPAN PSIKOLOG ===');
 
+            // Ambil data dari form
+            const nama = document.querySelector('#modal-psikolog input[placeholder="Dr. Nama Lengkap, M.Psi"]').value.trim();
+            const email = document.querySelector('#modal-psikolog input[placeholder="email@ruangpulih.com"]').value.trim();
+            const spesialisasi = document.querySelector('#modal-psikolog select').value;
+            const tarif = document.querySelector('#modal-psikolog input[placeholder="150000"]').value;
+            const str = document.querySelector('#modal-psikolog input[placeholder="Nomor lisensi psikolog"]').value.trim();
+
+            console.log('Data:', { nama, email, spesialisasi, tarif, str });
+
+            // Validasi
+            if (!nama || !email || !spesialisasi || !tarif) {
+                showToast('❌ Semua field wajib diisi!', 'danger');
+                return;
+            }
+
+            // Loading state
+            const btn = document.querySelector('#modal-psikolog .btn-primary');
+            btn.textContent = 'Menyimpan...';
+            btn.disabled = true;
+
+            try {
+                console.log('Mengirim ke API...');
+
+                const res = await fetch('api/tambah_psikolog.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        nama_psikolog: nama,
+                        email: email,
+                        spesialisasi: spesialisasi,
+                        tarif: parseInt(tarif),
+                        no_str: str
+                    })
+                });
+
+                console.log('Response status:', res.status);
+
+                const data = await res.json();
+                console.log('Response data:', data);
+
+                if (data.status === 'success') {
+                    showToast('✅ Psikolog berhasil ditambahkan!');
+                    console.log('ID baru:', data.id);
+
+                    tutupModal();
+
+                    console.log('Memanggil loadPsikolog...');
+                    await loadPsikolog();
+                    console.log('loadPsikolog selesai');
+
+                    // Clear form
+                    document.querySelectorAll('#modal-psikolog input').forEach(i => i.value = '');
+                    document.querySelector('#modal-psikolog select').value = 'Psikologi Klinis';
+                } else {
+                    showToast('❌ ' + (data.message || 'Gagal menambahkan psikolog'), 'danger');
+                    console.error('Error dari server:', data.message);
+                }
+
+            } catch (err) {
+                console.error('Error fetch:', err);
+                showToast('❌ Terjadi kesalahan koneksi', 'danger');
+            } finally {
+                btn.textContent = 'Simpan';
+                btn.disabled = false;
+                console.log('=== SELESAI SIMPAN PSIKOLOG ===');
+            }
+        }
+
+        async function loadPsikolog() {
+            console.log('=== MULAI LOAD PSIKOLOG ===');
+
+            try {
+                const res = await fetch('api/get_psikolog.php');
+                console.log('Response status:', res.status);
+
+                const data = await res.json();
+                console.log('Response data:', data);
+
+                if (data.status !== 'success') {
+                    console.error('Gagal load:', data.message);
+                    return;
+                }
+
+                const tbody = document.getElementById('tbody-psikolog');
+                if (!tbody) {
+                    console.error('tbody-psikolog tidak ditemukan!');
+                    return;
+                }
+
+                console.log('Jumlah data:', data.data?.length || 0);
+                console.log('Data:', data.data);
+
+                const warna = [
+                    'linear-gradient(135deg,#6352c7,#4a90d9)',
+                    'linear-gradient(135deg,#0f6e56,#1d9e75)',
+                    'linear-gradient(135deg,#993556,#d4537e)',
+                    'linear-gradient(135deg,#854f0b,#ba7517)',
+                    'linear-gradient(135deg,#185fa5,#378add)'
+                ];
+
+                if (!data.data || data.data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:20px">Tidak ada psikolog</td></tr>';
+                    console.log('Data kosong');
+                    return;
+                }
+
+                tbody.innerHTML = data.data.map((p, i) => {
+                    const inisial = p.nama_psikolog?.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || '??';
+                    const tarif = p.tarif ? 'Rp ' + parseInt(p.tarif).toLocaleString('id-ID') : '-';
+
+                    return `<tr data-status="Aktif">
+                <td data-label="Nama">
+                    <div class="name-cell">
+                        <div class="psikolog-avatar" style="background:${warna[i % warna.length]}">${inisial}</div>
+                        ${p.nama_psikolog || '-'}
+                    </div>
+                </td>
+                <td data-label="Email">${p.email_user || '-'}</td>
+                <td data-label="Spesialisasi">${p.spesialisasi || '-'}</td>
+                <td data-label="Tarif">${tarif}</td>
+                <td data-label="STR">${p.no_str || '-'}</td>
+                <td data-label="Status"><span class="badge badge-success">Aktif</span></td>
+                <td data-label="Aksi">
+                    <div class="action-btns">
+                        <button class="btn-outline btn-sm" onclick="openEditPsikolog(this)">Edit</button>
+                        <button class="btn-danger btn-sm" onclick="nonaktifkanPsikolog(this)">Nonaktifkan</button>
+                    </div>
+                </td>
+            </tr>`;
+                }).join('');
+
+                console.log('=== LOAD PSIKOLOG SELESAI ===');
+
+            } catch (err) {
+                console.error('Error loadPsikolog:', err);
+            }
+        }
+
+        function tutupModal() {
+            const modal = document.getElementById('modal-psikolog');
+            if (modal) {
+                modal.classList.remove('show');
+                console.log('Modal ditutup');
+            }
+        }
+        async function nonaktifkanPsikolog(btn) {
+            const row = btn.closest('tr');
+            const nama = row.querySelector('[data-label="Nama"]').textContent.trim();
+
+            if (!confirm(`Yakin ingin menonaktifkan psikolog "${nama}"?`)) {
+                return;
+            }
+
+            // Ambil ID psikolog dari data attribute atau dari row
+            // Kita perlu tambah data-id di HTML render
+            const id = row.getAttribute('data-id');
+
+            if (!id) {
+                showToast('❌ ID psikolog tidak ditemukan', 'danger');
+                return;
+            }
+
+            try {
+                const res = await fetch('api/edit_psikolog.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id_psikolog: id,
+                        status: 'nonaktif'
+                    })
+                });
+
+                const data = await res.json();
+
+                if (data.status === 'success') {
+                    showToast(`✅ Psikolog ${nama} berhasil dinonaktifkan!`);
+
+                    // Update tampilan row
+                    row.querySelector('[data-label="Status"]').innerHTML = '<span class="badge badge-gray">Nonaktif</span>';
+                    row.setAttribute('data-status', 'Nonaktif');
+
+                    // Ganti tombol
+                    row.querySelector('[data-label="Aksi"]').innerHTML = `
+                <div class="action-btns">
+                    <button class="btn-outline btn-sm" onclick="openEditPsikolog(this)">Edit</button>
+                    <button class="btn-success btn-sm" onclick="aktifkanPsikolog(this)">Aktifkan</button>
+                </div>
+            `;
+                } else {
+                    showToast('❌ ' + (data.message || 'Gagal menonaktifkan'), 'danger');
+                }
+
+            } catch (err) {
+                console.error('Error:', err);
+                showToast('❌ Terjadi kesalahan', 'danger');
+            }
+        }
+
+        async function aktifkanPsikolog(btn) {
+            const row = btn.closest('tr');
+            const nama = row.querySelector('[data-label="Nama"]').textContent.trim();
+
+            if (!confirm(`Yakin ingin mengaktifkan psikolog "${nama}"?`)) {
+                return;
+            }
+
+            const id = row.getAttribute('data-id');
+
+            try {
+                const res = await fetch('api/edit_psikolog.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id_psikolog: id,
+                        status: 'aktif'
+                    })
+                });
+
+                const data = await res.json();
+
+                if (data.status === 'success') {
+                    showToast(`✅ Psikolog ${nama} berhasil diaktifkan!`);
+
+                    row.querySelector('[data-label="Status"]').innerHTML = '<span class="badge badge-success">Aktif</span>';
+                    row.setAttribute('data-status', 'Aktif');
+
+                    row.querySelector('[data-label="Aksi"]').innerHTML = `
+                <div class="action-btns">
+                    <button class="btn-outline btn-sm" onclick="openEditPsikolog(this)">Edit</button>
+                    <button class="btn-danger btn-sm" onclick="nonaktifkanPsikolog(this)">Nonaktifkan</button>
+                </div>
+            `;
+                } else {
+                    showToast('❌ ' + data.message, 'danger');
+                }
+
+            } catch (err) {
+                console.error('Error:', err);
+                showToast('❌ Terjadi kesalahan', 'danger');
+            }
+        }
         function simpanKonten() {
             const tipe = document.getElementById('tipe-konten').value;
             if (tipe === 'artikel') {
@@ -3043,7 +3375,19 @@
         });
 
         function openEditPsikolog(btn) {
-            document.getElementById('modal-psikolog').classList.add('show');
+            const row = btn.closest('tr');
+            const nama = row.querySelector('[data-label="Nama"]').textContent.trim();
+            const email = row.querySelector('[data-label="Email"]').textContent.trim();
+            const spesialisasi = row.querySelector('[data-label="Spesialisasi"]').textContent.trim();
+            const tarif = row.querySelector('[data-label="Tarif"]').textContent.replace('Rp', '').replace(/\./g, '').trim();
+
+            // Isi form di modal
+            const modal = document.getElementById('modal-psikolog');
+            modal.querySelector('input[placeholder="Dr. Nama Lengkap, M.Psi"]').value = nama;
+            modal.querySelector('input[placeholder="email@ruangpulih.com"]').value = email;
+            modal.querySelector('input[placeholder="150000"]').value = tarif;
+
+            modal.classList.add('show');
         }
         function simpanPsikolog() {
             document.getElementById('modal-psikolog').classList.remove('show');
