@@ -19,11 +19,17 @@ try {
         throw new Exception('JSON invalid: ' . json_last_error_msg());
     }
 
-    $id_mahasiswa = $data['id_mahasiswa'] ?? '';
-    $id_jadwal    = $data['id_jadwal'] ?? '';
-    $tanggal      = $data['tanggal_reservasi'] ?? '';
-    $waktu        = $data['waktu_reservasi'] ?? '';
-    $keluhan      = trim($data['keluhan'] ?? '');
+$id_mahasiswa = $data['id_mahasiswa'] ?? '';
+$id_jadwal    = $data['id_jadwal'] ?? '';
+$tanggal      = $data['tanggal_reservasi'] ?? '';
+$waktu        = $data['waktu_reservasi'] ?? '';
+$keluhan      = trim($data['keluhan'] ?? '');
+$jenis        = strtolower(trim($data['jenis_konsultasi'] ?? 'online'));
+
+// Validasi supaya nilainya cuma bisa 'online' atau 'offline'
+if (!in_array($jenis, ['online', 'offline'])) {
+    $jenis = 'online';
+}
 
     if (!$id_mahasiswa || !$id_jadwal || !$tanggal || !$waktu) {
         echo json_encode(['status' => 'error', 'message' => 'Data reservasi tidak lengkap']);
@@ -66,16 +72,16 @@ try {
 
     // Insert reservasi
     $status = 'menunggu';
-    $stmt = $conn->prepare("
-        INSERT INTO reservasi (id_reservasi, id_mahasiswa, id_jadwal, tanggal_reservasi, waktu_reservasi, keluhan, status_reservasi) 
-        VALUES (?, ?, ?, ?, ?, ?, ?)
-    ");
-    
-    if (!$stmt) {
-        throw new Exception('Prepare error (insert): ' . $conn->error);
-    }
-    
-    $stmt->bind_param('sssssss', $id_reservasi, $id_mahasiswa, $id_jadwal, $tanggal, $waktu, $keluhan, $status);
+   $stmt = $conn->prepare("
+    INSERT INTO reservasi (id_reservasi, id_mahasiswa, id_jadwal, tanggal_reservasi, waktu_reservasi, keluhan, status_reservasi, jenis_konsultasi) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+");
+
+if (!$stmt) {
+    throw new Exception('Prepare error (insert): ' . $conn->error);
+}
+
+$stmt->bind_param('ssssssss', $id_reservasi, $id_mahasiswa, $id_jadwal, $tanggal, $waktu, $keluhan, $status, $jenis);
 
     if ($stmt->execute()) {
         $stmt->close();

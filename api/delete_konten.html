@@ -1,0 +1,97 @@
+<?php
+header('Content-Type: application/json; charset=utf-8');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Headers: Content-Type');
+
+// Handle preflight request
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo json_encode([
+        'status' => 'error',
+        'message' => 'Method tidak diizinkan'
+    ]);
+    exit;
+}
+
+$input = json_decode(file_get_contents('php://input'), true);
+
+if (!$input || !isset($input['tipe']) || !isset($input['id'])) {
+    echo json_encode([
+        'status' => 'error',
+        'message' => 'Data tidak lengkap'
+    ]);
+    exit;
+}
+
+$tipe = $input['tipe'];
+$id = $input['id'];
+
+$file = __DIR__ . '/konten.json';
+
+if (!file_exists($file)) {
+    echo json_encode([
+        'status' => 'error',
+        'message' => 'File tidak ditemukan'
+    ]);
+    exit;
+}
+
+$json = file_get_contents($file);
+$data = json_decode($json, true);
+
+if ($data === null) {
+    echo json_encode([
+        'status' => 'error',
+        'message' => 'Gagal membaca data'
+    ]);
+    exit;
+}
+
+// Hapus item berdasarkan ID
+$found = false;
+if ($tipe === 'artikel' && isset($data['artikel'])) {
+    $data['artikel'] = array_values(array_filter($data['artikel'], function($item) use ($id, &$found) {
+        if ($item['id'] == $id) {
+            $found = true;
+            return false;
+        }
+        return true;
+    }));
+} elseif ($tipe === 'video' && isset($data['video'])) {
+    $data['video'] = array_values(array_filter($data['video'], function($item) use ($id, &$found) {
+        if ($item['id'] == $id) {
+            $found = true;
+            return false;
+        }
+        return true;
+    }));
+}
+
+if (!$found) {
+    echo json_encode([
+        'status' => 'error',
+        'message' => 'Konten tidak ditemukan'
+    ]);
+    exit;
+}
+
+// Simpan perubahan
+$result = file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+
+if ($result === false) {
+    echo json_encode([
+        'status' => 'error',
+        'message' => 'Gagal menyimpan perubahan'
+    ]);
+    exit;
+}
+
+echo json_encode([
+    'status' => 'success',
+    'message' => 'Konten berhasil dihapus'
+], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);

@@ -1145,7 +1145,7 @@
       <div class="nav-label">Menu Utama</div>
       <a class="nav-item active" onclick="showPage('beranda', this)"><span class="nav-icon"></span> Dashboard</a>
       <a class="nav-item" onclick="showPage('jadwal', this)"><span class="nav-icon"></span> Jadwal Konsultasi</a>
-      <a class="nav-item" onclick="showPage('daftar', this)"><span class="nav-icon"></span> Daftar Pasien</a>
+   <a class="nav-item" onclick="showPage('jadwalpraktik', this)"><span class="nav-icon"></span> Jadwal Praktik</a>
       <a class="nav-item" onclick="showPage('laporan', this)"><span class="nav-icon"></span> Laporan Keuangan</a>
       <div class="nav-label">Akun</div>
       <a class="nav-item" onclick="showPage('profil', this)"><span class="nav-icon"></span> Profil Saya</a>
@@ -1287,42 +1287,30 @@
       </div>
     </div>
 
-    <!-- DAFTAR PASIEN -->
-    <div class="page" id="page-daftar">
+   <!-- JADWAL PRAKTIK -->
+    <div class="page" id="page-jadwalpraktik">
       <div class="page-header">
-        <h2>Daftar Pasien</h2>
-        <p>Semua pasien yang pernah berkonsultasi dengan Anda</p>
-      </div>
-      <div class="filter-bar">
-        <input type="text" id="search-pasien" placeholder="Cari nama pasien..." oninput="filterPasien()">
-        <select id="filter-status" onchange="filterPasien()">
-          <option value="">Semua Status</option>
-          <option value="Aktif">Aktif</option>
-          <option value="Baru">Baru</option>
-          <option value="Selesai">Selesai</option>
-        </select>
+        <h2>Jadwal Praktik</h2>
+        <p>Atur hari dan jam praktik yang bisa dipilih mahasiswa</p>
       </div>
       <div class="card">
+        <div class="card-header">
+          <span class="card-title">Jadwal Praktik Saya</span>
+          <button class="card-action" onclick="bukaModalTambahJadwal()">+ Tambah Jadwal</button>
+        </div>
         <div class="card-body" style="padding:0">
           <table class="riwayat-table">
             <thead>
               <tr>
-                <th>Pasien</th>
-                <th>Keluhan</th>
-                <th>Total Sesi</th>
-                <th>Sesi Terakhir</th>
-                <th>Status</th>
+                <th>Hari</th>
+                <th>Jam Mulai</th>
+                <th>Jam Selesai</th>
                 <th>Aksi</th>
               </tr>
             </thead>
-            <tbody id="tbody-pasien">
-
+            <tbody id="tbody-jadwal-praktik">
             </tbody>
           </table>
-          <div id="empty-pasien"
-            style="display:none;text-align:center;padding:32px;color:var(--text-muted);font-size:13px;">
-            Tidak ada pasien yang sesuai dengan pencarian.
-          </div>
         </div>
       </div>
     </div>
@@ -1470,56 +1458,35 @@
     </div>
   </main>
 
-  <!-- MODAL DETAIL PASIEN -->
-  <div class="modal" id="modal-detail-pasien">
-    <div class="modal-content">
-      <div class="detail-pasien-header" id="modal-pasien-header">
-        <div class="detail-pasien-avatar" id="modal-pasien-avatar">AP</div>
-        <div class="detail-pasien-header-info">
-          <h3 id="modal-pasien-nama">Andi Pratama</h3>
-          <p id="modal-pasien-sub">Kecemasan · Aktif</p>
-        </div>
-        <button class="modal-close" style="margin-left:auto;background:rgba(255,255,255,0.2);color:white;"
-          onclick="tutupModal('modal-detail-pasien')">✕</button>
-      </div>
+ <!-- MODAL TAMBAH JADWAL -->
+  <div class="modal" id="modal-tambah-jadwal">
+    <div class="modal-content" style="max-width:420px">
       <div class="modal-body">
-        <div class="detail-section">
-          <div class="detail-section-title">Informasi Pasien</div>
-          <div class="detail-row"><span class="detail-row-label">Nama Lengkap</span><span class="detail-row-value"
-              id="detail-nama">—</span></div>
-          <div class="detail-row"><span class="detail-row-label">Keluhan Utama</span><span class="detail-row-value"
-              id="detail-keluhan">—</span></div>
-          <div class="detail-row"><span class="detail-row-label">Status</span><span class="detail-row-value"
-              id="detail-status">—</span></div>
-          <div class="detail-row"><span class="detail-row-label">Total Sesi</span><span class="detail-row-value"
-              id="detail-total-sesi">—</span></div>
-          <div class="detail-row"><span class="detail-row-label">Sesi Terakhir</span><span class="detail-row-value"
-              id="detail-sesi-terakhir">—</span></div>
-          <div class="detail-row"><span class="detail-row-label">Total Pembayaran</span><span class="detail-row-value"
-              id="detail-total-bayar" style="color:var(--success)">—</span></div>
+        <h3 style="font-size:16px;font-weight:800;margin-bottom:16px;">Tambah Jadwal Praktik</h3>
+        <div class="form-group">
+          <label>Hari</label>
+          <select id="inp-hari-baru">
+            <option value="Senin">Senin</option>
+            <option value="Selasa">Selasa</option>
+            <option value="Rabu">Rabu</option>
+            <option value="Kamis">Kamis</option>
+            <option value="Jumat">Jumat</option>
+            <option value="Sabtu">Sabtu</option>
+            <option value="Minggu">Minggu</option>
+          </select>
         </div>
-        <div class="detail-section">
-          <div class="detail-section-title">Riwayat Sesi</div>
-          <div id="detail-riwayat-sesi"></div>
+        <div class="form-group">
+          <label>Jam Mulai</label>
+          <input type="time" id="inp-jam-mulai-baru">
         </div>
-        <div class="detail-section">
-          <div class="detail-section-title">Catatan Psikolog</div>
-          <div class="catatan-box" id="detail-catatan">—</div>
+        <div class="form-group" style="margin-bottom:0">
+          <label>Jam Selesai</label>
+          <input type="time" id="inp-jam-selesai-baru">
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn-cancel" onclick="tutupModal('modal-detail-pasien')">Tutup</button>
-        <button class="btn-jadwal-baru"
-          onclick="tutupModal('modal-detail-pasien'); showToast('Fitur jadwal baru akan segera tersedia!')">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="4" width="18" height="18" rx="2" />
-            <line x1="16" y1="2" x2="16" y2="6" />
-            <line x1="8" y1="2" x2="8" y2="6" />
-            <line x1="3" y1="10" x2="21" y2="10" />
-          </svg>
-          Jadwalkan Sesi Baru
-        </button>
+        <button class="btn-cancel" onclick="tutupModal('modal-tambah-jadwal')">Batal</button>
+        <button class="btn-jadwal-baru" onclick="simpanJadwalBaru()">Simpan Jadwal</button>
       </div>
     </div>
   </div>
@@ -1547,54 +1514,108 @@
       window.location.href = 'login.html';
     }
 
-    const dataPasien = {};
-
-    function bukaDetailPasien(id) {
-      const p = dataPasien[id];
-      if (!p) return;
-      document.getElementById('modal-pasien-avatar').textContent = p.inisial;
-      document.getElementById('modal-pasien-avatar').style.background = p.avatarBg;
-      document.getElementById('modal-pasien-nama').textContent = p.nama;
-      document.getElementById('detail-nama').textContent = p.nama;
-      document.getElementById('detail-keluhan').textContent = p.keluhan;
-      document.getElementById('detail-status').innerHTML = p.status;
-      document.getElementById('detail-total-sesi').textContent = p.totalSesi;
-      document.getElementById('detail-sesi-terakhir').textContent = p.sesiTerakhir;
-      document.getElementById('detail-total-bayar').textContent = p.totalBayar;
-      document.getElementById('detail-catatan').textContent = p.catatan;
-      document.getElementById('modal-detail-pasien').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function tutupModal(id) {
+ function tutupModal(id) {
       document.getElementById(id).classList.remove('active');
       document.body.style.overflow = '';
     }
 
-    document.getElementById('modal-detail-pasien').addEventListener('click', function (e) {
-      if (e.target === this) tutupModal('modal-detail-pasien');
+    document.getElementById('modal-tambah-jadwal').addEventListener('click', function (e) {
+      if (e.target === this) tutupModal('modal-tambah-jadwal');
     });
 
-    function filterPasien() {
-      const keyword = document.getElementById('search-pasien').value.toLowerCase().trim();
-      const status = document.getElementById('filter-status').value;
-      const rows = document.querySelectorAll('#tbody-pasien tr');
-      let visible = 0;
-      rows.forEach(row => {
-        const nama = (row.getAttribute('data-nama') || '').toLowerCase();
-        const rowStatus = row.getAttribute('data-status') || '';
-        const matchNama = nama.includes(keyword);
-        const matchStatus = status === '' || rowStatus === status;
-        if (matchNama && matchStatus) { row.style.display = ''; visible++; }
-        else row.style.display = 'none';
-      });
-      document.getElementById('empty-pasien').style.display = visible === 0 ? 'block' : 'none';
+    function bukaModalTambahJadwal() {
+      document.getElementById('inp-hari-baru').value = 'Senin';
+      document.getElementById('inp-jam-mulai-baru').value = '';
+      document.getElementById('inp-jam-selesai-baru').value = '';
+      document.getElementById('modal-tambah-jadwal').classList.add('active');
+      document.body.style.overflow = 'hidden';
     }
 
-    const titles = {
+    async function simpanJadwalBaru() {
+      const hari = document.getElementById('inp-hari-baru').value;
+      const jam_mulai = document.getElementById('inp-jam-mulai-baru').value;
+      const jam_selesai = document.getElementById('inp-jam-selesai-baru').value;
+
+      if (!jam_mulai || !jam_selesai) {
+        showToast('❌ Jam mulai dan jam selesai wajib diisi');
+        return;
+      }
+      if (jam_selesai <= jam_mulai) {
+        showToast('❌ Jam selesai harus setelah jam mulai');
+        return;
+      }
+
+      try {
+        const res = await fetch('api/tambah_jadwal.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id_psikolog: user.id_user, hari, jam_mulai, jam_selesai })
+        });
+        const data = await res.json();
+        if (data.status === 'success') {
+          showToast('✅ Jadwal berhasil ditambahkan!');
+          tutupModal('modal-tambah-jadwal');
+          loadJadwalPraktik();
+        } else {
+          showToast('❌ ' + data.message);
+        }
+      } catch (err) {
+        showToast('❌ Terjadi kesalahan. Coba lagi.');
+        console.error(err);
+      }
+    }
+
+    async function loadJadwalPraktik() {
+      try {
+        const res = await fetch('api/get_jadwal.php?id_psikolog=' + user.id_user);
+        const data = await res.json();
+        if (data.status !== 'success') return;
+
+        const tbody = document.getElementById('tbody-jadwal-praktik');
+        if (!tbody) return;
+
+        if (data.data.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-muted);padding:20px">Belum ada jadwal praktik. Klik "+ Tambah Jadwal" untuk menambahkan.</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = data.data.map(j => `
+          <tr>
+            <td>${j.hari}</td>
+            <td>${j.jam_mulai ? j.jam_mulai.substring(0, 5) : '-'}</td>
+            <td>${j.jam_selesai ? j.jam_selesai.substring(0, 5) : '-'}</td>
+            <td><button class="card-action" style="background:var(--danger-light);color:#991b1b" onclick="hapusJadwal('${j.id_jadwal}')">Hapus</button></td>
+          </tr>`).join('');
+      } catch (err) {
+        console.error('Gagal load jadwal praktik:', err);
+      }
+    }
+
+    async function hapusJadwal(id_jadwal) {
+      if (!confirm('Yakin ingin menghapus jadwal ini?')) return;
+      try {
+        const res = await fetch('api/hapus_jadwal.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id_jadwal })
+        });
+        const data = await res.json();
+        if (data.status === 'success') {
+          showToast('✅ Jadwal berhasil dihapus');
+          loadJadwalPraktik();
+        } else {
+          showToast('❌ ' + data.message);
+        }
+      } catch (err) {
+        showToast('❌ Terjadi kesalahan. Coba lagi.');
+        console.error(err);
+      }
+    }
+
+const titles = {
       beranda: 'Dashboard',
       jadwal: 'Jadwal Konsultasi',
-      daftar: 'Daftar Pasien',
+      jadwalpraktik: 'Jadwal Praktik',
       laporan: 'Laporan Keuangan',
       profil: 'Profil Psikolog'
     };
@@ -1606,6 +1627,7 @@
       document.getElementById('topbar-title').textContent = titles[page];
       if (navEl) navEl.classList.add('active');
 
+      if (page === 'jadwalpraktik') loadJadwalPraktik();
       if (page === 'laporan') loadLaporan();
       if (page === 'profil') loadProfilPsikolog();
     }
@@ -1906,48 +1928,6 @@
           }
         }
 
-        // Isi tabel daftar pasien + simpan ke dataPasien
-        const tbodyPasien = document.querySelector('#page-daftar #tbody-pasien');
-        if (tbodyPasien) {
-          const pasienAll = [...new Map(reservasi.map(r => [r.nama_mahasiswa, r])).values()];
-          if (pasienAll.length === 0) {
-            tbodyPasien.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:20px">Belum ada pasien</td></tr>';
-          } else {
-            tbodyPasien.innerHTML = pasienAll.map((r, i) => {
-              const warna = ['linear-gradient(135deg,#6352c7,#4a90d9)', 'linear-gradient(135deg,#0f6e56,#1d9e75)', 'linear-gradient(135deg,#993556,#d4537e)', 'linear-gradient(135deg,#854f0b,#ba7517)', 'linear-gradient(135deg,#185fa5,#378add)'];
-              const inisialPasien = r.nama_mahasiswa.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-              const tgl = new Date(r.tanggal_reservasi).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
-              const jumlahSesi = reservasi.filter(x => x.nama_mahasiswa === r.nama_mahasiswa).length;
-
-              const idPasien = 'pasien_' + i;
-              dataPasien[idPasien] = {
-                inisial: inisialPasien,
-                avatarBg: warna[i % warna.length],
-                nama: r.nama_mahasiswa,
-                keluhan: '-',
-                status: '<span class="badge badge-success">Aktif</span>',
-                totalSesi: jumlahSesi,
-                sesiTerakhir: tgl,
-                totalBayar: 'Rp ' + (jumlahSesi * 150000).toLocaleString('id-ID'),
-                catatan: '-'
-              };
-
-              return `<tr data-nama="${r.nama_mahasiswa}" data-status="Aktif">
-                        <td>
-                            <div style="display:flex;align-items:center;gap:10px">
-                                <div class="psikolog-avatar" style="background:${warna[i % warna.length]};width:32px;height:32px;font-size:12px">${inisialPasien}</div>
-                                <span style="font-weight:600">${r.nama_mahasiswa}</span>
-                            </div>
-                        </td>
-                        <td>-</td>
-                        <td>${jumlahSesi}</td>
-                        <td>${tgl}</td>
-                        <td><span class="badge badge-success">Aktif</span></td>
-                        <td><button class="card-action" onclick="bukaDetailPasien('${idPasien}')">Detail</button></td>
-                    </tr>`;
-            }).join('');
-          }
-        }
 
       } catch (err) {
         console.error('Gagal load data psikolog:', err);

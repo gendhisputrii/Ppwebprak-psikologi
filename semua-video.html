@@ -393,109 +393,68 @@
     </footer>
 
     <script>
-        const semuaVideo = [
-            // === TAMPIL DI HALAMAN UTAMA ===
-            {
-                id: "0xV-gpKYv3k",
-                kategori: "Kecemasan",
-                channel: "Into The Light Indonesia",
-                judul: "Apa Itu Anxiety dan Bagaimana Menghadapinya?",
-                desc: "Penjelasan lengkap tentang anxiety disorder dan cara mengelolanya sehari-hari."
-            },
-            {
-                id: "Btpwu4EHhGA",
-                kategori: "Stres",
-                channel: "Maudy Ayunda",
-                judul: "Cara Menangani Stress",
-                desc: "Tips praktis mengelola stres agar tetap produktif dan sehat mental."
-            },
-            {
-                id: "bGYhibeAhB4",
-                kategori: "Depresi",
-                channel: "Siloam Hospitals",
-                judul: "Tanda-Tanda Kamu Terkena Depresi!",
-                desc: "Kenali fakta tentang depresi hingga kapan bantuan profesional dibutuhkan."
-            },
-            // === VIDEO TAMBAHAN (hanya di semua-video.html) ===
-            {
-                id: "_50igeHW7vw",
-                kategori: "Kesehatan Mental",
-                channel: "TED",
-                judul: "Mental Health and Social Media",
-                desc: "Bagaimana media sosial mempengaruhi kesehatan mental kita sehari-hari."
-            },
-            {
-                id: "-QDjx_spkwI",
-                kategori: "Kesehatan Mental",
-                channel: "Psych2Go",
-                judul: "Mental Health Wellness Tips",
-                desc: "Tips menjaga kesehatan mental agar tetap seimbang dan bahagia."
-            },
-            {
-                id: "NQcYZplTXnQ",
-                kategori: "Kesehatan Mental",
-                channel: "Mental Health Foundation",
-                judul: "Mental Health Wellness Tips",
-                desc: "Panduan praktis menjaga kesejahteraan mental untuk kehidupan sehari-hari."
-            },
-            {
-                id: "k_aFpRPwF3o",
-                kategori: "Kecemasan",
-                channel: "Therapy in a Nutshell",
-                judul: "How to Cope with Anxiety",
-                desc: "Teknik dan strategi efektif untuk mengelola kecemasan dalam kehidupan sehari-hari."
-            }
-        ];
+       let semuaVideo = [];
+let kategoriList = ['Semua'];
+let aktif = 'Semua';
 
-        const kategoriList = ['Semua', 'Kesehatan Mental', 'Stres', 'Kecemasan', 'Depresi'];
-        let aktif = 'Semua';
+function renderFilter() {
+    const bar = document.getElementById('filterBar');
+    bar.innerHTML = '';
+    kategoriList.forEach(k => {
+        const btn = document.createElement('button');
+        btn.className = 'tab-item' + (k === aktif ? ' active' : '');
+        btn.textContent = k;
+        btn.onclick = () => { aktif = k; renderFilter(); renderGrid(); };
+        bar.appendChild(btn);
+    });
+}
 
-        function renderFilter() {
-            const bar = document.getElementById('filterBar');
-            bar.innerHTML = '';
-            kategoriList.forEach(k => {
-                const btn = document.createElement('button');
-                btn.className = 'tab-item' + (k === aktif ? ' active' : '');
-                btn.textContent = k;
-                btn.onclick = () => { aktif = k; renderFilter(); renderGrid(); };
-                bar.appendChild(btn);
-            });
-        }
+function renderGrid() {
+    const grid = document.getElementById('videoGrid');
+    const filtered = aktif === 'Semua' ? semuaVideo : semuaVideo.filter(v => v.kategori === aktif);
 
-        function renderGrid() {
-            const grid = document.getElementById('videoGrid');
-            const filtered = aktif === 'Semua' ? semuaVideo : semuaVideo.filter(v => v.kategori === aktif);
+    if (filtered.length === 0) {
+        grid.innerHTML = `<div class="empty-state"><span>📭</span>Belum ada video untuk kategori ini.</div>`;
+        return;
+    }
 
-            if (filtered.length === 0) {
-                grid.innerHTML = `<div class="empty-state"><span>📭</span>Belum ada video untuk kategori ini.</div>`;
-                return;
-            }
-
-            grid.innerHTML = filtered.map(v => `
+    grid.innerHTML = filtered.map(v => `
         <div class="video-card">
-            <a href="https://www.youtube.com/watch?v=${v.id}" target="_blank">
+            <a href="https://www.youtube.com/watch?v=${v.videoId}" target="_blank">
                 <div class="video-wrapper">
-                    <img 
-                        src="https://img.youtube.com/vi/${v.id}/hqdefault.jpg" 
-                        class="video-thumbnail" 
-                        alt="${v.judul}"
-                        onerror="this.src='https://img.youtube.com/vi/${v.id}/mqdefault.jpg'"
-                    >
+                    <img src="https://img.youtube.com/vi/${v.videoId}/hqdefault.jpg" class="video-thumbnail"
+                        alt="${v.judul}" onerror="this.src='https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg'">
                     <div class="play-button">▶</div>
                 </div>
             </a>
             <div class="video-info">
-                <span class="video-channel">${v.channel}</span>
+                <span class="video-channel">${v.channel || ''}</span>
                 <div class="video-kategori">${v.kategori}</div>
                 <h4>${v.judul}</h4>
-                <p>${v.desc}</p>
             </div>
         </div>
     `).join('');
-        }
+}
+
+async function loadSemuaVideo() {
+    try {
+        const res = await fetch('api/get_konten.php?_=' + Date.now());
+        const data = await res.json();
+        if (data.status !== 'success') throw new Error(data.message);
+
+        semuaVideo = data.data.video || [];
+        const kategoriUnik = [...new Set(semuaVideo.map(v => v.kategori).filter(Boolean))];
+        kategoriList = ['Semua', ...kategoriUnik];
 
         renderFilter();
         renderGrid();
+    } catch (err) {
+        console.error('Gagal load video:', err);
+        document.getElementById('videoGrid').innerHTML = '<div class="empty-state"><span>⚠️</span>Gagal memuat video.</div>';
+    }
+}
+
+loadSemuaVideo();
     </script>
 
 </body>

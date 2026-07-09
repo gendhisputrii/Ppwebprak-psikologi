@@ -1270,7 +1270,38 @@
                 margin: 16px;
             }
         }
+    .modal-box {
+                margin: 16px;
+            }
+        
+
+     .status-opsi {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+    transition: background 0.2s;
+}
+
+.status-opsi:hover {
+    background: var(--bg);
+}
+
+.status-opsi .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
     </style>
+    
+<base target="_blank">
 </head>
 
 <body>
@@ -1290,7 +1321,7 @@
         <nav class="sidebar-nav">
             <div class="nav-label">Menu Utama</div>
             <a class="nav-item active" onclick="showPage('dashboard',this)"><span class="nav-icon"></span> Dashboard</a>
-            <a class="nav-item" onclick="showPage('jadwal',this)"><span class="nav-icon"></span> Kelola Jadwal</a>
+            <a class="nav-item" onclick="showPage('jadwal',this)"><span class="nav-icon"></span> Semua Reservasi </a>
             <a class="nav-item" onclick="showPage('psikolog',this)"><span class="nav-icon"></span> Kelola Psikolog</a>
             <a class="nav-item" onclick="showPage('mahasiswa',this)"><span class="nav-icon"></span> Kelola Mahasiswa</a>
             <a class="nav-item" onclick="showPage('konten',this)"><span class="nav-icon"></span> Kelola Konten</a>
@@ -1444,8 +1475,8 @@
             <div class="page" id="page-jadwal">
                 <div class="page-header">
                     <div>
-                        <h2>Kelola Jadwal</h2>
-                        <p>Pantau dan kelola semua jadwal konsultasi</p>
+                        <h2>Semua Reservasi</h2>
+                        <p>Pantau dan kelola semua reservasi konsultasi</p>
                     </div>
                 </div>
                 <div class="filter-bar">
@@ -1468,7 +1499,7 @@
                 </div>
                 <div class="table-wrap">
                     <div class="table-head">
-                        <h3>Daftar Jadwal Konsultasi</h3>
+                        <h3>Daftar Reservasi</h3>
                         <span id="jadwal-count" style="font-size:13px;color:var(--text-muted)">5 jadwal</span>
                     </div>
                     <table>
@@ -1479,7 +1510,7 @@
                                 <th>Psikolog</th>
                                 <th>Tanggal &amp; Waktu</th>
                                 <th>Tipe</th>
-                                <th>Status</th>
+                             
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -1580,13 +1611,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div class="pagination">
-                        <button class="page-btn">«</button>
-                        <button class="page-btn active">1</button>
-                        <button class="page-btn">2</button>
-                        <button class="page-btn">3</button>
-                        <button class="page-btn">»</button>
-                    </div>
+                   
                 </div>
             </div>
 
@@ -1597,9 +1622,6 @@
                         <h2>Kelola Psikolog</h2>
                         <p>Manajemen data psikolog terdaftar</p>
                     </div>
-                    <button class="btn-primary"
-                        onclick="document.getElementById('modal-psikolog').classList.add('show')">+ Tambah
-                        Psikolog</button>
                 </div>
                 <div class="filter-bar">
                     <div class="search-wrap">
@@ -1633,89 +1655,9 @@
                             </tr>
                         </thead>
                         <tbody id="tbody-psikolog">
-                            <tr data-status="Aktif">
-                                <td data-label="Nama">
-                                    <div class="name-cell">
-                                        <div class="psikolog-avatar"
-                                            style="background:linear-gradient(135deg,#6352c7,#4a90d9)">SA</div>Dr. Sarah
-                                        Amelia
-                                    </div>
-                                </td>
-                                <td data-label="Email">sarah@ruangpulih.com</td>
-                                <td data-label="Spesialisasi">Psikologi Klinis</td>
-                                <td data-label="Tarif">Rp 200.000</td>
-                                <td data-label="STR">PSI/2019/001</td>
-                                <td data-label="Status"><span class="badge badge-success">Aktif</span></td>
-                                <td data-label="Aksi">
-                                    <div class="action-btns">
-                                        <button class="btn-outline btn-sm" onclick="openEditPsikolog(this)">
-                                            Edit
-                                        </button>
-
-                                        <button class="btn-danger btn-sm" onclick="nonaktifkanMahasiswa(this)">
-                                            Nonaktifkan
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr data-status="Aktif">
-                                <td data-label="Nama">
-                                    <div class="name-cell">
-                                        <div class="psikolog-avatar"
-                                            style="background:linear-gradient(135deg,#0f6e56,#1d9e75)">RP</div>Reza
-                                        Pratama
-                                    </div>
-                                </td>
-                                <td data-label="Email">reza@ruangpulih.com</td>
-                                <td data-label="Spesialisasi">Konseling Remaja</td>
-                                <td data-label="Tarif">Rp 150.000</td>
-                                <td data-label="STR">PSI/2020/045</td>
-                                <td data-label="Status"><span class="badge badge-success">Aktif</span></td>
-                                <td data-label="Aksi">
-                                    <div class="action-btns">
-                                        <button class="btn-outline btn-sm" onclick="openEditPsikolog(this)">
-                                            Edit
-                                        </button>
-
-                                        <button class="btn-danger btn-sm" onclick="nonaktifkanMahasiswa(this)">
-                                            Nonaktifkan
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr data-status="Aktif">
-                                <td data-label="Nama">
-                                    <div class="name-cell">
-                                        <div class="psikolog-avatar"
-                                            style="background:linear-gradient(135deg,#993556,#d4537e)">NA</div>Nadia
-                                        Aulia
-                                    </div>
-                                </td>
-                                <td data-label="Email">nadia@ruangpulih.com</td>
-                                <td data-label="Spesialisasi">Manajemen Stres</td>
-                                <td data-label="Tarif">Rp 175.000</td>
-                                <td data-label="STR">PSI/2021/078</td>
-                                <td data-label="Status"><span class="badge badge-success">Aktif</span></td>
-                                <td data-label="Aksi">
-                                    <div class="action-btns">
-                                        <button class="btn-outline btn-sm" onclick="openEditPsikolog(this)">
-                                            Edit
-                                        </button>
-
-                                        <button class="btn-danger btn-sm" onclick="nonaktifkanMahasiswa(this)">
-                                            Nonaktifkan
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
+</tbody>
                     </table>
-                    <div class="pagination">
-                        <button class="page-btn">«</button>
-                        <button class="page-btn active">1</button>
-                        <button class="page-btn">2</button>
-                        <button class="page-btn">»</button>
-                    </div>
+                    
                 </div>
             </div>
 
@@ -1730,15 +1672,10 @@
                 <div class="filter-bar">
                     <div class="search-wrap">
                         <span class="search-icon"></span>
-                        <input type="text" id="search-mahasiswa" placeholder="Cari nama atau NIM mahasiswa..."
+                        <input type="text" id="search-mahasiswa" placeholder="Cari nama mahasiswa..."
                             oninput="filterMahasiswa()">
                     </div>
-                    <select class="filter-select" id="filter-status-mahasiswa" onchange="filterMahasiswa()">
-                        <option value="">Semua Status</option>
-                        <option value="Aktif">Aktif</option>
-                        <option value="Menunggu Verifikasi">Menunggu Verifikasi</option>
-                        <option value="Nonaktif">Nonaktif</option>
-                    </select>
+                    
                 </div>
                 <div class="table-wrap">
                     <div class="table-head">
@@ -1749,137 +1686,18 @@
                         <thead>
                             <tr>
                                 <th>Nama</th>
-                                <th>NIM</th>
+                               
                                 <th>Email</th>
                                 <th>Total Konsultasi</th>
-                                <th>Status</th>
+                               
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody id="tbody-mahasiswa">
-                            <!-- Row: Aktif -->
-                            <tr data-status="Aktif">
-                                <td data-label="Nama">
-                                    <div class="name-cell">
-                                        <div class="psikolog-avatar"
-                                            style="background:linear-gradient(135deg,#6352c7,#4a90d9)">AP</div>Andi
-                                        Pratama
-                                    </div>
-                                </td>
-                                <td data-label="NIM">2021001001</td>
-                                <td data-label="Email">andi@mahasiswa.ac.id</td>
-                                <td data-label="Konsultasi">5</td>
-                                <td data-label="Status"><span class="badge badge-success">Aktif</span></td>
-                                <td data-label="Aksi">
-                                    <div class="action-btns">
-                                        <button class="btn-outline btn-sm"
-                                            onclick="openDetailMahasiswa(this)">Detail</button>
-                                        <button class="btn-danger btn-sm"
-                                            onclick="nonaktifkanMahasiswa(this)">Nonaktifkan</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- Row: Aktif -->
-                            <tr data-status="Aktif">
-                                <td data-label="Nama">
-                                    <div class="name-cell">
-                                        <div class="psikolog-avatar"
-                                            style="background:linear-gradient(135deg,#0f6e56,#1d9e75)">BS</div>Budi
-                                        Santoso
-                                    </div>
-                                </td>
-                                <td data-label="NIM">2021001234</td>
-                                <td data-label="Email">budi@mahasiswa.ac.id</td>
-                                <td data-label="Konsultasi">3</td>
-                                <td data-label="Status"><span class="badge badge-success">Aktif</span></td>
-                                <td data-label="Aksi">
-                                    <div class="action-btns">
-                                        <button class="btn-outline btn-sm"
-                                            onclick="openDetailMahasiswa(this)">Detail</button>
-                                        <button class="btn-danger btn-sm"
-                                            onclick="nonaktifkanMahasiswa(this)">Nonaktifkan</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- Row: Menunggu Verifikasi -->
-                            <tr data-status="Menunggu Verifikasi">
-                                <td data-label="Nama">
-                                    <div class="name-cell">
-                                        <div class="psikolog-avatar"
-                                            style="background:linear-gradient(135deg,#993556,#d4537e)">CD</div>Citra
-                                        Dewi
-                                    </div>
-                                </td>
-                                <td data-label="NIM">2022002345</td>
-                                <td data-label="Email">citra@mahasiswa.ac.id</td>
-                                <td data-label="Konsultasi">7</td>
-                                <td data-label="Status"><span class="badge badge-warning">Menunggu Verifikasi</span>
-                                </td>
-                                <td data-label="Aksi">
-                                    <div class="action-btns">
-                                        <button class="btn-outline btn-sm"
-                                            onclick="openDetailMahasiswa(this)">Detail</button>
-                                        <button class="btn-primary btn-sm"
-                                            onclick="verifikasiMahasiswa(this)">Verifikasi</button>
-                                        <button class="btn-danger btn-sm" onclick="tolakMahasiswa(this)">Tolak</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- Row: Menunggu Verifikasi -->
-                            <tr data-status="Menunggu Verifikasi">
-                                <td data-label="Nama">
-                                    <div class="name-cell">
-                                        <div class="psikolog-avatar"
-                                            style="background:linear-gradient(135deg,#854f0b,#ba7517)">DR</div>Dian
-                                        Rahma
-                                    </div>
-                                </td>
-                                <td data-label="NIM">2020003456</td>
-                                <td data-label="Email">dian@mahasiswa.ac.id</td>
-                                <td data-label="Konsultasi">2</td>
-                                <td data-label="Status"><span class="badge badge-warning">Menunggu Verifikasi</span>
-                                </td>
-                                <td data-label="Aksi">
-                                    <div class="action-btns">
-                                        <button class="btn-outline btn-sm"
-                                            onclick="openDetailMahasiswa(this)">Detail</button>
-                                        <button class="btn-primary btn-sm"
-                                            onclick="verifikasiMahasiswa(this)">Verifikasi</button>
-                                        <button class="btn-danger btn-sm" onclick="tolakMahasiswa(this)">Tolak</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- Row: Nonaktif -->
-                            <tr data-status="Nonaktif">
-                                <td data-label="Nama">
-                                    <div class="name-cell">
-                                        <div class="psikolog-avatar"
-                                            style="background:linear-gradient(135deg,#185fa5,#378add)">EP</div>Eka Putra
-                                    </div>
-                                </td>
-                                <td data-label="NIM">2019004567</td>
-                                <td data-label="Email">eka@mahasiswa.ac.id</td>
-                                <td data-label="Konsultasi">10</td>
-                                <td data-label="Status"><span class="badge badge-gray">Nonaktif</span></td>
-                                <td data-label="Aksi">
-                                    <div class="action-btns">
-                                        <button class="btn-outline btn-sm"
-                                            onclick="openDetailMahasiswa(this)">Detail</button>
-                                        <button class="btn-success btn-sm"
-                                            onclick="aktifkanMahasiswa(this)">Aktifkan</button>
-                                        <button class="btn-danger btn-sm" onclick="hapusMahasiswa(this)">Hapus</button>
-                                    </div>
-                                </td>
-                            </tr>
+                          
                         </tbody>
                     </table>
-                    <div class="pagination">
-                        <button class="page-btn">«</button>
-                        <button class="page-btn active">1</button>
-                        <button class="page-btn">2</button>
-                        <button class="page-btn">3</button>
-                        <button class="page-btn">»</button>
-                    </div>
+                    
                 </div>
             </div>
 
@@ -2148,35 +1966,29 @@
                         <p id="profil-email">admin@ruangpulih.com · Super Admin</p>
                     </div>
                 </div>
-                <div class="profil-grid">
-                    <div class="card">
-                        <div class="card-header"><span class="card-title">Data Admin</span></div>
-                        <div class="card-body">
-                            <div class="form-group"><label>Nama Lengkap</label><input type="text"
-                                    value="Admin RuangPulih"></div>
-                            <div class="form-group"><label>Email</label><input type="email"
-                                    value="admin@ruangpulih.com"></div>
-                            <div class="form-group"><label>Nomor HP</label><input type="tel" value="08123456789"></div>
-                            <div class="form-group"><label>Role</label><input type="text" value="Super Admin" disabled
-                                    style="opacity:0.6"></div>
-                            <button class="btn-primary">Simpan Perubahan</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header"><span class="card-title">Ubah Password</span></div>
-                        <div class="card-body">
-                            <div class="form-group"><label>Password Lama</label><input type="password"
-                                    placeholder="••••••••"></div>
-                            <div class="form-group"><label>Password Baru</label><input type="password"
-                                    placeholder="••••••••"></div>
-                            <div class="form-group"><label>Konfirmasi Password Baru</label><input type="password"
-                                    placeholder="••••••••"></div>
-                            <button class="btn-primary">Update Password</button>
-                        </div>
-                    </div>
-                </div>
+               <div class="profil-grid">
+        <div class="card">
+            <div class="card-header"><span class="card-title">Data Admin</span></div>
+            <div class="card-body">
+                <div id="msg-profil-admin" style="display:none;padding:10px 14px;border-radius:8px;font-size:12px;font-weight:600;margin-bottom:14px"></div>
+                <div class="form-group"><label>Nama Lengkap</label><input type="text" id="profil-input-nama"></div>
+               <div class="form-group"><label>Email</label><input type="email" id="profil-input-email" disabled style="opacity:0.6"></div>
+                <div class="form-group"><label>Nomor HP</label><input type="tel" id="profil-input-hp"></div>
+                <div class="form-group"><label>Role</label><input type="text" id="profil-input-role" disabled style="opacity:0.6"></div>
+                <button class="btn-primary" onclick="simpanProfilAdmin()">Simpan Perubahan</button>
             </div>
-
+        </div>
+        <div class="card">
+            <div class="card-header"><span class="card-title">Ubah Password</span></div>
+            <div class="card-body">
+                <div id="msg-password-admin" style="display:none;padding:10px 14px;border-radius:8px;font-size:12px;font-weight:600;margin-bottom:14px"></div>
+                <div class="form-group"><label>Password Lama</label><input type="password" id="pass-lama" placeholder="••••••••"></div>
+                <div class="form-group"><label>Password Baru</label><input type="password" id="pass-baru" placeholder="••••••••"></div>
+                <div class="form-group"><label>Konfirmasi Password Baru</label><input type="password" id="pass-konfirm" placeholder="••••••••"></div>
+                <button class="btn-primary" onclick="updatePasswordAdmin()">Update Password</button>
+            </div>
+        </div>
+    </div>
         </div><!-- end .content -->
     </main>
 
@@ -2229,32 +2041,24 @@
                 </div>
             </div>
 
-            <div class="detail-grid">
-                <div class="detail-item">
-                    <div class="detail-lbl">NIM</div>
-                    <div class="detail-val" id="detail-mhs-nim">2021001001</div>
-                </div>
-                <div class="detail-item">
-                    <div class="detail-lbl">Status Akun</div>
-                    <div class="detail-val" id="detail-mhs-status">Aktif</div>
-                </div>
-                <div class="detail-item">
-                    <div class="detail-lbl">Total Konsultasi</div>
-                    <div class="detail-val" id="detail-mhs-konsultasi">5 sesi</div>
-                </div>
-                <div class="detail-item">
-                    <div class="detail-lbl">Bergabung</div>
-                    <div class="detail-val" id="detail-mhs-join">1 Jan 2024</div>
-                </div>
-                <div class="detail-item">
-                    <div class="detail-lbl">Terakhir Login</div>
-                    <div class="detail-val" id="detail-mhs-last-login">27 Apr 2026</div>
-                </div>
-                <div class="detail-item">
-                    <div class="detail-lbl">Psikolog Terakhir</div>
-                    <div class="detail-val" id="detail-mhs-psikolog">Dr. Sarah Amelia</div>
-                </div>
-            </div>
+          <div class="detail-grid">
+    <div class="detail-item">
+        <div class="detail-lbl">ID Mahasiswa</div>
+        <div class="detail-val" id="detail-mhs-nim">-</div>
+    </div>
+    <div class="detail-item">
+        <div class="detail-lbl">Status Akun</div>
+        <div class="detail-val" id="detail-mhs-status">-</div>
+    </div>
+    <div class="detail-item">
+        <div class="detail-lbl">No HP</div>
+        <div class="detail-val" id="detail-mhs-hp">-</div>
+    </div>
+    <div class="detail-item">
+        <div class="detail-lbl">Total Konsultasi</div>
+        <div class="detail-val" id="detail-mhs-konsultasi">-</div>
+    </div>
+</div>
 
             <div class="detail-riwayat">
                 <h4>📋 Riwayat Konsultasi</h4>
@@ -2312,7 +2116,7 @@
             </div>
 
             <form id="formPsikolog">
-                <input type="hidden" id="edit-index">
+                <input type="hidden" id="edit-id-psikolog" value="">
 
                 <label>Nama Psikolog</label>
                 <input type="text" id="nama-psikolog" required>
@@ -2464,6 +2268,39 @@
         </div>
     </div>
 
+    <!-- MODAL UBAH STATUS RESERVASI -->
+    <div class="modal-overlay" id="modal-ubah-status">
+        <div class="modal-box">
+            <button class="modal-close-btn" onclick="closeModal('modal-ubah-status')">✕</button>
+            <div class="modal-title">Ubah Status Reservasi</div>
+            <div class="modal-subtitle">Status sekarang: <b id="status-sekarang-text">menunggu</b></div>
+            <div id="pilihan-status">
+                <div class="status-opsi" onclick="pilihStatusBaru('menunggu')"><span class="dot" style="background:#d97706"></span> menunggu</div>
+                <div class="status-opsi" onclick="pilihStatusBaru('dikonfirmasi')"><span class="dot" style="background:#16a34a"></span> dikonfirmasi</div>
+                <div class="status-opsi" onclick="pilihStatusBaru('selesai')"><span class="dot" style="background:#4a90d9"></span> selesai</div>
+                <div class="status-opsi" onclick="pilihStatusBaru('dibatalkan')"><span class="dot" style="background:#dc2626"></span> dibatalkan</div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-outline" onclick="closeModal('modal-ubah-status')">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL KONFIRMASI (Zoom / Lokasi) -->
+    <div class="modal-overlay" id="modal-konfirmasi-detail">
+        <div class="modal-box">
+            <button class="modal-close-btn" onclick="closeModal('modal-konfirmasi-detail')">✕</button>
+            <div class="modal-title" id="konfirmasi-detail-title">Konfirmasi — Link Zoom</div>
+            <div class="form-group">
+                <input type="text" id="input-konfirmasi-detail" placeholder="https://zoom.us/j/...">
+            </div>
+            <div class="modal-footer">
+                <button class="btn-outline" onclick="closeModal('modal-konfirmasi-detail')">Batal</button>
+                <button class="btn-primary" onclick="simpanKonfirmasiDetail()">Konfirmasi</button>
+            </div>
+        </div>
+    </div>
+
     <!-- TOAST -->
     <div class="toast" id="toast"></div>
 
@@ -2482,6 +2319,10 @@
             document.getElementById('profil-avatar').textContent = inisial;
             document.getElementById('profil-nama').textContent = user.nama_user;
             document.getElementById('profil-email').textContent = user.email_user + ' · Admin';
+            document.getElementById('profil-input-nama').value = user.nama_user || '';
+    document.getElementById('profil-input-email').value = user.email_user || '';
+    document.getElementById('profil-input-hp').value = user.no_hp || '';
+    document.getElementById('profil-input-role').value = user.role_user === 'admin' ? 'Super Admin' : user.role_user;
         }
 
         function logout() {
@@ -2491,66 +2332,100 @@
 
         // Load stats dari database
         async function loadStats() {
-            try {
-                const res = await fetch('api/get_stats_admin.php');
-                const data = await res.json();
-                if (data.status !== 'success') return;
-                const d = data.data;
-                const statVals = document.querySelectorAll('.stat-val');
-                if (statVals[0]) statVals[0].textContent = d.total_psikolog;
-                if (statVals[1]) statVals[1].textContent = d.total_mahasiswa;
-                if (statVals[2]) statVals[2].textContent = d.total_jadwal;
-                if (statVals[3]) statVals[3].textContent = d.total_reservasi;
-            } catch (err) {
-                console.error('Gagal load stats:', err);
-            }
+    try {
+        const res = await fetch('api/get_stats_admin.php');
+        const data = await res.json();
+        if (data.status !== 'success') return;
+        const d = data.data;
+        const statVals = document.querySelectorAll('.stat-val');
+        if (statVals[0]) statVals[0].textContent = d.total_psikolog;
+        if (statVals[1]) statVals[1].textContent = d.total_mahasiswa;
+        if (statVals[2]) statVals[2].textContent = d.jadwal_bulan_ini;
+        if (statVals[3]) statVals[3].textContent = d.total_konten;
+    } catch (err) {
+        console.error('Gagal load stats:', err);
+    }
+}
+
+async function loadAktivitasTerbaru() {
+    try {
+        const res = await fetch('api/get_aktivitas_terbaru.php');
+        const data = await res.json();
+        if (data.status !== 'success') return;
+
+        const container = document.querySelector('#page-dashboard .two-col .card:last-child .card-body');
+        if (!container) return;
+
+        if (data.data.length === 0) {
+            container.innerHTML = '<p style="color:var(--text-muted);font-size:13px">Belum ada aktivitas terbaru.</p>';
+            return;
         }
 
-        // Load reservasi untuk tabel jadwal terbaru di beranda & kelola jadwal
+        container.innerHTML = data.data.map(a => `
+            <div class="activity-item">
+                <div class="activity-dot" style="background:${a.color}"></div>
+                <div>
+                    <div class="activity-text">${a.text}</div>
+                    <div class="activity-time">${a.time_label}</div>
+                </div>
+            </div>
+        `).join('');
+    } catch (err) {
+        console.error('Gagal load aktivitas:', err);
+    }
+}
+
+        // Load reservasi untuk tabel jadwal terbaru di beranda & Semua Reservasi
         async function loadReservasi() {
             try {
-                const res = await fetch('api/get_reservasi_admin.php');
+                const res = await fetch('api/get_all_reservasi.php');
                 const data = await res.json();
                 if (data.status !== 'success') return;
 
                 const reservasi = data.data;
+
+                const statusBadgeHTML = (status) => status === 'dikonfirmasi'
+                    ? '<span class="badge badge-success">Dikonfirmasi</span>'
+                    : status === 'dibatalkan'
+                        ? '<span class="badge badge-danger">Dibatalkan</span>'
+                        : status === 'selesai'
+                            ? '<span class="badge badge-gray">Selesai</span>'
+                            : '<span class="badge badge-warning">Menunggu</span>';
 
                 // Isi tabel jadwal terbaru di beranda (max 4)
                 const tbodyDashboard = document.querySelector('#page-dashboard table tbody');
                 if (tbodyDashboard && reservasi.length > 0) {
                     tbodyDashboard.innerHTML = reservasi.slice(0, 4).map(r => {
                         const tgl = new Date(r.tanggal_reservasi).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
-                        const badgeStatus = r.status_reservasi === 'terkonfirmasi'
-                            ? '<span class="badge badge-success">Terkonfirmasi</span>'
-                            : r.status_reservasi === 'dibatalkan'
-                                ? '<span class="badge badge-danger">Dibatalkan</span>'
-                                : r.status_reservasi === 'selesai'
-                                    ? '<span class="badge badge-gray">Selesai</span>'
-                                    : '<span class="badge badge-warning">Menunggu</span>';
                         return `<tr>
                     <td data-label="Mahasiswa">${r.nama_mahasiswa}</td>
                     <td data-label="Psikolog">${r.nama_psikolog}</td>
                     <td data-label="Tanggal">${tgl}</td>
-                    <td data-label="Status">${badgeStatus}</td>
+                    <td data-label="Status">${statusBadgeHTML(r.status_reservasi)}</td>
                 </tr>`;
                     }).join('');
                 }
 
-                // Isi tabel kelola jadwal (semua)
+                // Isi tabel Semua Reservasi
                 const tbodyJadwal = document.getElementById('tbody-jadwal');
-                if (tbodyJadwal && reservasi.length > 0) {
-                    tbodyJadwal.innerHTML = reservasi.map((r, i) => {
-                        const tgl = new Date(r.tanggal_reservasi).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
-                        const jam = r.waktu_reservasi ? r.waktu_reservasi.substring(0, 5) : '-';
-                        const inisial = r.nama_mahasiswa.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-                        const badgeStatus = r.status_reservasi === 'terkonfirmasi'
-                            ? '<span class="badge badge-success">Terkonfirmasi</span>'
-                            : r.status_reservasi === 'dibatalkan'
-                                ? '<span class="badge badge-danger">Dibatalkan</span>'
-                                : r.status_reservasi === 'selesai'
-                                    ? '<span class="badge badge-gray">Selesai</span>'
-                                    : '<span class="badge badge-warning">Menunggu</span>';
-                        return `<tr>
+                if (!tbodyJadwal) return;
+
+                if (reservasi.length === 0) {
+                    tbodyJadwal.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:20px">Tidak ada reservasi</td></tr>';
+                    document.getElementById('jadwal-count').textContent = '0 reservasi';
+                    return;
+                }
+
+                tbodyJadwal.innerHTML = reservasi.map((r, i) => {
+                    const tgl = new Date(r.tanggal_reservasi).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+                    const jam = r.waktu_reservasi ? r.waktu_reservasi.substring(0, 5) : '-';
+                    const inisial = r.nama_mahasiswa.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                    const jenis = r.jenis_konsultasi || 'online';
+                    const badgeTipe = jenis === 'offline'
+                        ? '<span class="badge badge-warning">Offline</span>'
+                        : '<span class="badge badge-primary">Online</span>';
+
+                    return `<tr data-id="${r.id_reservasi}" data-tipe="${jenis}" data-status="${r.status_reservasi}">
                     <td data-label="No">${i + 1}</td>
                     <td data-label="Mahasiswa">
                         <div class="name-cell">
@@ -2560,143 +2435,80 @@
                     </td>
                     <td data-label="Psikolog">${r.nama_psikolog}</td>
                     <td data-label="Tanggal">${tgl} · ${jam}</td>
-                    <td data-label="Tipe"><span class="badge badge-primary">Online</span></td>
-                    <td data-label="Status">${badgeStatus}</td>
+                    <td data-label="Tipe">${badgeTipe}</td>
+                    <td data-label="Status">${statusBadgeHTML(r.status_reservasi)}</td>
                     <td data-label="Aksi">
                         <div class="action-btns">
-                            <button class="btn-outline btn-sm" onclick="openEditModal(this)">Edit</button>
-                            <button class="btn-danger btn-sm" onclick="hapusJadwal(this)">Hapus</button>
+                            <button class="btn-outline btn-sm" onclick="openUbahStatusModal(this)">Ubah Status</button>
                         </div>
                     </td>
                 </tr>`;
-                    }).join('');
-                    document.getElementById('jadwal-count').textContent = reservasi.length + ' jadwal';
-                }
+                }).join('');
+                document.getElementById('jadwal-count').textContent = reservasi.length + ' reservasi';
 
             } catch (err) {
                 console.error('Gagal load reservasi:', err);
             }
         }
-
-        // Load psikolog dari database
-        async function loadPsikolog() {
-            try {
-                console.log('=== MEMANGGIL loadPsikolog() ===');
-
-                const res = await fetch('api/get_psikolog.php');
-                console.log('Response status:', res.status);
-
-                const data = await res.json();
-                console.log('Response data:', data);
-
-                if (data.status !== 'success') {
-                    console.error('Gagal load psikolog:', data.message);
-                    return;
-                }
-
-                const tbody = document.getElementById('tbody-psikolog');
-                if (!tbody) {
-                    console.error('tbody-psikolog tidak ditemukan!');
-                    return;
-                }
-
-                console.log('Jumlah data:', data.data.length);
-                console.log('Data:', data.data);
-
-                const warna = [
-                    'linear-gradient(135deg,#6352c7,#4a90d9)',
-                    'linear-gradient(135deg,#0f6e56,#1d9e75)',
-                    'linear-gradient(135deg,#993556,#d4537e)',
-                    'linear-gradient(135deg,#854f0b,#ba7517)',
-                    'linear-gradient(135deg,#185fa5,#378add)'
-                ];
-
-                if (data.data.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:20px">Tidak ada psikolog</td></tr>';
-                    return;
-                }
-
-                tbody.innerHTML = data.data.map((p, i) => {
-                    const inisial = p.nama_psikolog.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-                    const tarif = p.tarif ? 'Rp ' + parseInt(p.tarif).toLocaleString('id-ID') : '-';
-                    return `<tr data-status="Aktif">
-                        
-                <td data-label="Nama">
-                    <div class="name-cell">
-                        <div class="psikolog-avatar" style="background:${warna[i % warna.length]}">${inisial}</div>
-                        ${p.nama_psikolog}
-                    </div>
-                </td>
-                <td data-label="Email">${p.email_user || '-'}</td>
-                <td data-label="Spesialisasi">${p.spesialisasi || '-'}</td>
-                <td data-label="Tarif">${tarif}</td>
-                <td data-label="STR">${p.no_str || '-'}</td>
-                <td data-label="Status"><span class="badge badge-success">Aktif</span></td>
-                <td data-label="Aksi">
-                    <div class="action-btns">
-                        <button class="btn-outline btn-sm" onclick="openEditPsikolog(this)">Edit</button>
-                        <button class="btn-danger btn-sm" onclick="nonaktifkanPsikolog(this)">Nonaktifkan</button>
-                    </div>
-                </td>
-            </tr>`;
-                }).join('');
-
-                console.log('=== loadPsikolog() SELESAI ===');
-
-            } catch (err) {
-                console.error('Gagal load psikolog:', err);
-            }
-        }
+        loadStats();
+loadReservasi();
+loadAktivitasTerbaru();
 
         // Load mahasiswa dari database
-        async function loadMahasiswa() {
-            try {
-                const res = await fetch('api/get_mahasiswa.php');
-                const data = await res.json();
-                if (data.status !== 'success') return;
+let mahasiswaData = [];
 
-                const tbody = document.getElementById('tbody-mahasiswa');
-                if (!tbody) return;
+async function loadMahasiswa() {
+    try {
+        const res = await fetch('api/get_all_mahasiswa.php');
+        const data = await res.json();
+        if (data.status !== 'success') return;
 
-                const warna = [
-                    'linear-gradient(135deg,#6352c7,#4a90d9)',
-                    'linear-gradient(135deg,#0f6e56,#1d9e75)',
-                    'linear-gradient(135deg,#993556,#d4537e)',
-                    'linear-gradient(135deg,#854f0b,#ba7517)',
-                    'linear-gradient(135deg,#185fa5,#378add)'
-                ];
+        mahasiswaData = data.data;
 
-                tbody.innerHTML = data.data.map((p, i) => {
-                    const inisial = p.nama_mahasiswa?.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || '??';
-                    const tarif = p.tarif ? 'Rp ' + parseInt(p.tarif).toLocaleString('id-ID') : '-';
+        const tbody = document.getElementById('tbody-mahasiswa');
+        if (!tbody) return;
 
-                    return `<tr data-status="Aktif" data-id="${p.id_mahasiswa}">
+        const warna = [
+            'linear-gradient(135deg,#6352c7,#4a90d9)',
+            'linear-gradient(135deg,#0f6e56,#1d9e75)',
+            'linear-gradient(135deg,#993556,#d4537e)',
+            'linear-gradient(135deg,#854f0b,#ba7517)',
+            'linear-gradient(135deg,#185fa5,#378add)'
+        ];
+
+        if (data.data.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:20px">Tidak ada mahasiswa</td></tr>';
+            document.getElementById('mahasiswa-count').textContent = '0 mahasiswa';
+            return;
+        }
+
+        tbody.innerHTML = data.data.map((p, i) => {
+            const inisial = p.nama_user?.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || '??';
+
+            return `<tr data-id="${p.id_user}">
     <td data-label="Nama">
         <div class="name-cell">
             <div class="psikolog-avatar" style="background:${warna[i % warna.length]}">${inisial}</div>
-            ${p.nama_mahasiswa || '-'}
+            ${p.nama_user || '-'}
         </div>
     </td>
-    <td data-label="Email">-</td>
-    <td data-label="Spesialisasi">${p.spesialisasi || '-'}</td>
-    <td data-label="Tarif">${tarif}</td>
-    <td data-label="STR">-</td>
-    <td data-label="Status"><span class="badge badge-success">Aktif</span></td>
+    <td data-label="Email">${p.email_user || '-'}</td>
+    <td data-label="Konsultasi">${p.total_sesi ?? 0}</td>
     <td data-label="Aksi">
         <div class="action-btns">
-            <button class="btn-outline btn-sm" onclick="openEditPsikolog(this)">Edit</button>
-            <button class="btn-danger btn-sm" onclick="nonaktifkanPsikolog(this)">Nonaktifkan</button>
+            <button class="btn-outline btn-sm" onclick="openDetailMahasiswa(this)">Detail</button>
+            <button class="btn-danger btn-sm" onclick="hapusMahasiswa(this)" title="Hapus">🗑️</button>
         </div>
     </td>
 </tr>`;
-                }).join('');
+        }).join('');
 
-                document.getElementById('mahasiswa-count').textContent = data.data.length + ' mahasiswa';
+        document.getElementById('mahasiswa-count').textContent = data.data.length + ' mahasiswa';
 
-            } catch (err) {
-                console.error('Gagal load mahasiswa:', err);
-            }
-        }
+    } catch (err) {
+        console.error('Gagal load mahasiswa:', err);
+    }
+}
 
         /* ===== TOAST ===== */
         function showToast(msg, type = 'success') {
@@ -2715,7 +2527,7 @@
         const titles = {
             dashboard: 'Dashboard Admin',
             jadwal: 'Kelola Jadwal',
-            psikolog: 'Kelola Psikolog',
+            jadwal: 'Semua Reservasi',
             mahasiswa: 'Kelola Mahasiswa',
             konten: 'Kelola Konten',
             profil: 'Profil Admin'
@@ -2747,25 +2559,7 @@
 
         function bukaArtikel(url) { if (url) window.open(url, '_blank'); }
 
-        function hapusKonten(btn) {
-            if (confirm('Hapus konten ini?')) {
-                btn.closest('.konten-card').remove();
-                showToast('Artikel berhasil dihapus', 'danger');
-            }
-        }
-
-        function hapusVideo(btn) {
-            if (confirm('Hapus video ini?')) {
-                btn.closest('tr').remove();
-                showToast('Video berhasil dihapus', 'danger');
-            }
-        }
-
-        const badgeMap = {
-            'Kesehatan Mental': 'badge-primary', 'Stres': 'badge-danger',
-            'Kecemasan': 'badge-warning', 'Depresi': 'badge-danger',
-            'Gangguan Kepribadian': 'badge-gray', 'Gangguan Tidur': 'badge-gray'
-        };
+        
         function togglePass(id, btn) {
             const input = document.getElementById(id);
             if (input.type === 'password') {
@@ -2840,74 +2634,108 @@
             document.getElementById('tipe-konten').value = 'artikel';
             toggleKontenForm('artikel');
         }
-        async function simpanPsikolog() {
-            console.log('=== MULAI SIMPAN PSIKOLOG ===');
+       async function simpanProfilAdmin() {
+    const nama = document.getElementById('profil-input-nama').value.trim();
+    const hp = document.getElementById('profil-input-hp').value.trim();
+    const msgEl = document.getElementById('msg-profil-admin');
 
-            // Ambil data dari form
+    if (!nama) {
+        msgEl.style.display = 'block';
+        msgEl.style.background = '#fee2e2';
+        msgEl.style.color = '#991b1b';
+        msgEl.textContent = 'Nama wajib diisi!';
+        return;
+    }
+
+    try {
+        const res = await fetch('api/update_profil.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                id_user: user.id_user,
+                nama: nama,
+                no_hp: hp
+            })
+        });
+        const data = await res.json();
+
+        msgEl.style.display = 'block';
+        if (data.status === 'success') {
+            msgEl.style.background = '#dcfce7';
+            msgEl.style.color = '#166534';
+            msgEl.textContent = '✅ ' + (data.message || 'Profil berhasil diperbarui!');
+
+            // Update data di localStorage & tampilan sidebar/header
+            user.nama_user = nama;
+            user.no_hp = hp;
+            localStorage.setItem('user', JSON.stringify(user));
+
+            const inisial = nama.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+            document.getElementById('sidebar-nama').textContent = nama;
+            document.getElementById('profil-nama').textContent = nama;
+            document.querySelectorAll('.user-avatar').forEach(el => el.textContent = inisial);
+            document.getElementById('sidebar-avatar').textContent = inisial;
+            document.getElementById('profil-avatar').textContent = inisial;
+        } else {
+            msgEl.style.background = '#fee2e2';
+            msgEl.style.color = '#991b1b';
+            msgEl.textContent = '❌ ' + (data.message || 'Gagal menyimpan profil');
+        }
+    } catch (err) {
+        console.error(err);
+        msgEl.style.display = 'block';
+        msgEl.style.background = '#fee2e2';
+        msgEl.style.color = '#991b1b';
+        msgEl.textContent = 'Terjadi kesalahan koneksi.';
+    }
+}
+       async function simpanPsikolog() {
+            const idEdit = document.getElementById('edit-id-psikolog').value;
+
             const nama = document.querySelector('#modal-psikolog input[placeholder="Dr. Nama Lengkap, M.Psi"]').value.trim();
             const email = document.querySelector('#modal-psikolog input[placeholder="email@ruangpulih.com"]').value.trim();
             const spesialisasi = document.querySelector('#modal-psikolog select').value;
             const tarif = document.querySelector('#modal-psikolog input[placeholder="150000"]').value;
             const str = document.querySelector('#modal-psikolog input[placeholder="Nomor lisensi psikolog"]').value.trim();
 
-            console.log('Data:', { nama, email, spesialisasi, tarif, str });
-
-            // Validasi
             if (!nama || !email || !spesialisasi || !tarif) {
                 showToast('❌ Semua field wajib diisi!', 'danger');
                 return;
             }
 
-            // Loading state
             const btn = document.querySelector('#modal-psikolog .btn-primary');
             btn.textContent = 'Menyimpan...';
             btn.disabled = true;
 
-            try {
-                console.log('Mengirim ke API...');
+            const urlAPI = idEdit ? 'api/edit_psikolog.php' : 'api/tambah_psikolog.php';
+            const payload = idEdit
+    ? { id_psikolog: idEdit, nama_psikolog: nama, email: email, spesialisasi: spesialisasi, tarif: parseInt(tarif), no_str: str }
+    : { nama_psikolog: nama, email: email, spesialisasi: spesialisasi, tarif: parseInt(tarif), no_str: str };
 
-                const res = await fetch('api/tambah_psikolog.php', {
+            try {
+                const res = await fetch(urlAPI, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        nama_psikolog: nama,
-                        email: email,
-                        spesialisasi: spesialisasi,
-                        tarif: parseInt(tarif),
-                        no_str: str
-                    })
+                    body: JSON.stringify(payload)
                 });
-
-                console.log('Response status:', res.status);
-
                 const data = await res.json();
-                console.log('Response data:', data);
 
                 if (data.status === 'success') {
-                    showToast('✅ Psikolog berhasil ditambahkan!');
-                    console.log('ID baru:', data.id);
-
+                    showToast(idEdit ? '✅ Psikolog berhasil diperbarui!' : '✅ Psikolog berhasil ditambahkan!');
                     tutupModal();
-
-                    console.log('Memanggil loadPsikolog...');
                     await loadPsikolog();
-                    console.log('loadPsikolog selesai');
-
-                    // Clear form
                     document.querySelectorAll('#modal-psikolog input').forEach(i => i.value = '');
                     document.querySelector('#modal-psikolog select').value = 'Psikologi Klinis';
+                    document.getElementById('edit-id-psikolog').value = '';
                 } else {
-                    showToast('❌ ' + (data.message || 'Gagal menambahkan psikolog'), 'danger');
-                    console.error('Error dari server:', data.message);
+                    showToast('❌ ' + (data.message || 'Gagal menyimpan psikolog'), 'danger');
                 }
-
             } catch (err) {
                 console.error('Error fetch:', err);
                 showToast('❌ Terjadi kesalahan koneksi', 'danger');
             } finally {
                 btn.textContent = 'Simpan';
                 btn.disabled = false;
-                console.log('=== SELESAI SIMPAN PSIKOLOG ===');
             }
         }
 
@@ -2953,14 +2781,14 @@
                     const inisial = p.nama_psikolog?.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || '??';
                     const tarif = p.tarif ? 'Rp ' + parseInt(p.tarif).toLocaleString('id-ID') : '-';
 
-                    return `<tr data-status="Aktif">
+                   return `<tr data-status="Aktif" data-id="${p.id_psikolog}">
                 <td data-label="Nama">
                     <div class="name-cell">
                         <div class="psikolog-avatar" style="background:${warna[i % warna.length]}">${inisial}</div>
                         ${p.nama_psikolog || '-'}
                     </div>
                 </td>
-                <td data-label="Email">${p.email_user || '-'}</td>
+                <td data-label="Email">${p.email || '-'}</td>
                 <td data-label="Spesialisasi">${p.spesialisasi || '-'}</td>
                 <td data-label="Tarif">${tarif}</td>
                 <td data-label="STR">${p.no_str || '-'}</td>
@@ -2968,7 +2796,7 @@
                 <td data-label="Aksi">
                     <div class="action-btns">
                         <button class="btn-outline btn-sm" onclick="openEditPsikolog(this)">Edit</button>
-                        <button class="btn-danger btn-sm" onclick="nonaktifkanPsikolog(this)">Nonaktifkan</button>
+                        
                     </div>
                 </td>
             </tr>`;
@@ -2988,178 +2816,320 @@
                 console.log('Modal ditutup');
             }
         }
-        async function nonaktifkanPsikolog(btn) {
-            const row = btn.closest('tr');
-            const nama = row.querySelector('[data-label="Nama"]').textContent.trim();
+       
+        
+/* ===== RENDER KONTEN DARI API (PHP + JSON) ===== */
 
-            if (!confirm(`Yakin ingin menonaktifkan psikolog "${nama}"?`)) {
-                return;
-            }
+let kontenData = { artikel: [], video: [] };
+let editingArtikelId = null;
+let editingVideoId = null;
 
-            // Ambil ID psikolog dari data attribute atau dari row
-            // Kita perlu tambah data-id di HTML render
-            const id = row.getAttribute('data-id');
+const badgeMap = {
+    'Kesehatan Mental': 'badge-primary', 'Stres': 'badge-danger',
+    'Kecemasan': 'badge-warning', 'Depresi': 'badge-danger',
+    'Gangguan Kepribadian': 'badge-gray', 'Gangguan Tidur': 'badge-gray'
+};
 
-            if (!id) {
-                showToast('❌ ID psikolog tidak ditemukan', 'danger');
-                return;
-            }
-
-            try {
-                const res = await fetch('api/edit_psikolog.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        id_psikolog: id,
-                        status: 'nonaktif'
-                    })
-                });
-
-                const data = await res.json();
-
-                if (data.status === 'success') {
-                    showToast(`✅ Psikolog ${nama} berhasil dinonaktifkan!`);
-
-                    // Update tampilan row
-                    row.querySelector('[data-label="Status"]').innerHTML = '<span class="badge badge-gray">Nonaktif</span>';
-                    row.setAttribute('data-status', 'Nonaktif');
-
-                    // Ganti tombol
-                    row.querySelector('[data-label="Aksi"]').innerHTML = `
-                <div class="action-btns">
-                    <button class="btn-outline btn-sm" onclick="openEditPsikolog(this)">Edit</button>
-                    <button class="btn-success btn-sm" onclick="aktifkanPsikolog(this)">Aktifkan</button>
-                </div>
-            `;
-                } else {
-                    showToast('❌ ' + (data.message || 'Gagal menonaktifkan'), 'danger');
-                }
-
-            } catch (err) {
-                console.error('Error:', err);
-                showToast('❌ Terjadi kesalahan', 'danger');
-            }
+async function loadKontenFromAPI() {
+    try {
+        const res = await fetch('api/get_konten.php');
+        const data = await res.json();
+        if (data.status === 'success') {
+            kontenData = data.data;
+            renderArtikelGridAdmin();
+            renderVideoTableAdmin();
         }
+    } catch (err) {
+        console.error('Gagal load konten:', err);
+    }
+}
 
-        async function aktifkanPsikolog(btn) {
-            const row = btn.closest('tr');
-            const nama = row.querySelector('[data-label="Nama"]').textContent.trim();
+function renderArtikelGridAdmin() {
+    const grid = document.getElementById('artikel-grid');
+    const list = kontenData.artikel || [];
 
-            if (!confirm(`Yakin ingin mengaktifkan psikolog "${nama}"?`)) {
-                return;
-            }
+    if (list.length === 0) {
+        grid.innerHTML = '<p style="color:var(--text-muted);padding:20px">Belum ada artikel</p>';
+        return;
+    }
 
-            const id = row.getAttribute('data-id');
-
-            try {
-                const res = await fetch('api/edit_psikolog.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        id_psikolog: id,
-                        status: 'aktif'
-                    })
-                });
-
-                const data = await res.json();
-
-                if (data.status === 'success') {
-                    showToast(`✅ Psikolog ${nama} berhasil diaktifkan!`);
-
-                    row.querySelector('[data-label="Status"]').innerHTML = '<span class="badge badge-success">Aktif</span>';
-                    row.setAttribute('data-status', 'Aktif');
-
-                    row.querySelector('[data-label="Aksi"]').innerHTML = `
-                <div class="action-btns">
-                    <button class="btn-outline btn-sm" onclick="openEditPsikolog(this)">Edit</button>
-                    <button class="btn-danger btn-sm" onclick="nonaktifkanPsikolog(this)">Nonaktifkan</button>
-                </div>
-            `;
-                } else {
-                    showToast('❌ ' + data.message, 'danger');
-                }
-
-            } catch (err) {
-                console.error('Error:', err);
-                showToast('❌ Terjadi kesalahan', 'danger');
-            }
-        }
-        function simpanKonten() {
-            const tipe = document.getElementById('tipe-konten').value;
-            if (tipe === 'artikel') {
-                const judul = document.getElementById('input-judul-artikel').value.trim();
-                const kategori = document.getElementById('input-kategori-artikel').value;
-                const link = document.getElementById('input-link-artikel').value.trim();
-                const gambar = document.getElementById('input-gambar-artikel').value.trim();
-                if (!judul || !link) { alert('Judul dan link wajib diisi!'); return; }
-                const today = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
-                const card = document.createElement('div');
-                card.className = 'konten-card has-link';
-                card.onclick = () => bukaArtikel(link);
-                card.innerHTML = `
-            <div class="konten-img" style="padding:0"><img src="${gambar || 'a2.jpg'}" style="width:100%;height:100%;object-fit:cover;"></div>
+    grid.innerHTML = list.map(item => `
+        <div class="konten-card has-link" onclick="bukaArtikel('${item.link}')">
+            <div class="konten-img" style="padding:0">
+                <img src="${item.gambar}" style="width:100%;height:100%;object-fit:cover;"
+                     onerror="this.parentElement.innerHTML='<div style=width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px>📄</div>'">
+            </div>
             <div class="konten-body">
-                <h4>${judul}</h4>
-                <p>${today} · 0 dibaca · <span class="link-tag">Buka Artikel</span></p>
+                <h4>${item.judul}</h4>
+                <p>${item.tanggal || ''} · ${item.dibaca || 0} dibaca · <span class="link-tag">Buka Artikel</span></p>
                 <div class="konten-meta">
-                    <span class="badge ${badgeMap[kategori] || 'badge-gray'}">${kategori}</span>
+                    <span class="badge ${badgeMap[item.kategori] || 'badge-gray'}">${item.kategori}</span>
                     <div class="action-btns">
-                        <button class="btn-outline btn-sm" onclick="event.stopPropagation();openEditArtikel(this)">Edit</button>
-                        <button class="btn-danger btn-sm" onclick="event.stopPropagation();hapusKonten(this)">Hapus</button>
+                        <button class="btn-outline btn-sm" onclick="event.stopPropagation();openEditArtikel(this)" data-id="${item.id}">Edit</button>
+                        <button class="btn-danger btn-sm" onclick="event.stopPropagation();hapusKontenAdmin(this)" data-id="${item.id}">Hapus</button>
                     </div>
                 </div>
-            </div>`;
-                document.getElementById('artikel-grid').prepend(card);
+            </div>
+        </div>`).join('');
+}
+
+function renderVideoTableAdmin() {
+    const tbody = document.getElementById('video-tbody');
+    const list = kontenData.video || [];
+
+    if (list.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:20px">Belum ada video</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = list.map(item => `
+        <tr data-id="${item.id}">
+            <td data-label="Thumbnail"><img src="https://img.youtube.com/vi/${item.videoId}/mqdefault.jpg"
+                style="width:80px;height:50px;object-fit:cover;border-radius:6px;"></td>
+            <td data-label="Judul" style="font-weight:600">${item.judul}</td>
+            <td data-label="Channel">${item.channel || ''}</td>
+            <td data-label="Kategori"><span class="badge ${badgeMap[item.kategori] || 'badge-gray'}">${item.kategori}</span></td>
+            <td data-label="Link"><a href="https://www.youtube.com/watch?v=${item.videoId}"
+                target="_blank" style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
+            <td data-label="Aksi">
+                <div class="action-btns">
+                    <button class="btn-outline btn-sm" onclick="openEditVideo(this)" data-id="${item.id}">Edit</button>
+                    <button class="btn-danger btn-sm" onclick="hapusVideoAdmin(this)" data-id="${item.id}">Hapus</button>
+                </div>
+            </td>
+        </tr>`).join('');
+}
+
+async function hapusKontenAdmin(btn) {
+    if (!confirm('Hapus artikel ini?')) return;
+    const id = btn.getAttribute('data-id');
+
+    try {
+        const res = await fetch('api/delete_konten.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ tipe: 'artikel', id: id })
+        });
+        const result = await res.json();
+        if (result.status === 'success') {
+            await loadKontenFromAPI();
+            showToast('Artikel berhasil dihapus', 'danger');
+        } else {
+            showToast('Gagal: ' + result.message, 'danger');
+        }
+    } catch (err) {
+        console.error(err);
+        showToast('Gagal menghapus artikel', 'danger');
+    }
+}
+
+async function hapusVideoAdmin(btn) {
+    if (!confirm('Hapus video ini?')) return;
+    const id = btn.getAttribute('data-id');
+
+    try {
+        const res = await fetch('api/delete_konten.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ tipe: 'video', id: id })
+        });
+        const result = await res.json();
+        if (result.status === 'success') {
+            await loadKontenFromAPI();
+            showToast('Video berhasil dihapus', 'danger');
+        } else {
+            showToast('Gagal: ' + result.message, 'danger');
+        }
+    } catch (err) {
+        console.error(err);
+        showToast('Gagal menghapus video', 'danger');
+    }
+}
+
+function extractYoutubeId(input) {
+    input = input.trim();
+    if (/^[a-zA-Z0-9_-]{11}$/.test(input)) return input;
+    const patterns = [
+        /youtu\.be\/([a-zA-Z0-9_-]{11})/,
+        /youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/,
+        /youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/
+    ];
+    for (const p of patterns) {
+        const match = input.match(p);
+        if (match) return match[1];
+    }
+    return input;
+}
+
+async function simpanKonten() {
+    const tipe = document.getElementById('tipe-konten').value;
+
+    if (tipe === 'artikel') {
+        const judul = document.getElementById('input-judul-artikel').value.trim();
+        const kategori = document.getElementById('input-kategori-artikel').value;
+        const link = document.getElementById('input-link-artikel').value.trim();
+        const gambar = document.getElementById('input-gambar-artikel').value.trim();
+
+        if (!judul || !link) { alert('Judul dan link wajib diisi!'); return; }
+
+        const today = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+        const dataBaru = { judul, kategori, link, gambar: gambar || 'a2.jpg', tanggal: today, dibaca: 0 };
+
+        try {
+            const res = await fetch('api/save_konten.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ tipe: 'artikel', data: dataBaru })
+            });
+            const result = await res.json();
+            if (result.status === 'success') {
+                await loadKontenFromAPI();
+                showToast('Artikel berhasil ditambahkan!');
             } else {
-                const judul = document.getElementById('input-judul-video').value.trim();
-                const channel = document.getElementById('input-channel-video').value.trim();
-                const videoId = document.getElementById('input-id-video').value.trim();
-                const kategori = document.getElementById('input-kategori-video').value;
-                if (!judul || !videoId) { alert('Judul dan ID video wajib diisi!'); return; }
-                const row = document.createElement('tr');
-                row.innerHTML = `
-            <td><img src="https://img.youtube.com/vi/${videoId}/mqdefault.jpg" style="width:80px;height:50px;object-fit:cover;border-radius:6px;"></td>
-            <td style="font-weight:600">${judul}</td>
-            <td>${channel}</td>
-            <td><span class="badge ${badgeMap[kategori] || 'badge-gray'}">${kategori}</span></td>
-            <td><a href="https://www.youtube.com/watch?v=${videoId}" target="_blank" style="color:var(--primary);font-size:12px">Lihat ↗</a></td>
-            <td><div class="action-btns"><button class="btn-outline btn-sm" onclick="openEditVideo(this)">Edit</button><button class="btn-danger btn-sm" onclick="hapusVideo(this)">Hapus</button></div></td>`;
-                document.getElementById('video-tbody').prepend(row);
+                showToast('Gagal: ' + result.message, 'danger');
+                return;
             }
-            closeModal('modal-konten');
-            resetKontenModal();
-            showToast('Konten berhasil ditambahkan!');
+        } catch (err) {
+            console.error(err);
+            showToast('Gagal menyimpan artikel', 'danger');
+            return;
         }
 
-        let activeArtikelCard = null;
-        function openEditArtikel(btn) {
-            activeArtikelCard = btn.closest('.konten-card');
-            document.getElementById('edit-judul-artikel').value = activeArtikelCard.querySelector('h4').textContent;
-            document.getElementById('modal-edit-artikel').classList.add('show');
+    } else {
+        const judul = document.getElementById('input-judul-video').value.trim();
+        const channel = document.getElementById('input-channel-video').value.trim();
+        const videoId = extractYoutubeId(document.getElementById('input-id-video').value);
+        const kategori = document.getElementById('input-kategori-video').value;
+
+        if (!judul || !videoId) { alert('Judul dan ID video wajib diisi!'); return; }
+
+        const dataBaru = { judul, channel, videoId, kategori };
+
+        try {
+            const res = await fetch('api/save_konten.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ tipe: 'video', data: dataBaru })
+            });
+            const result = await res.json();
+            if (result.status === 'success') {
+                await loadKontenFromAPI();
+                showToast('Video berhasil ditambahkan!');
+            } else {
+                showToast('Gagal: ' + result.message, 'danger');
+                return;
+            }
+        } catch (err) {
+            console.error(err);
+            showToast('Gagal menyimpan video', 'danger');
+            return;
         }
-        function simpanEditArtikel() {
-            if (!activeArtikelCard) return;
-            activeArtikelCard.querySelector('h4').textContent = document.getElementById('edit-judul-artikel').value.trim();
+    }
+
+    closeModal('modal-konten');
+    resetKontenModal();
+}
+
+function openEditArtikel(btn) {
+    const id = btn.getAttribute('data-id');
+    const item = (kontenData.artikel || []).find(a => String(a.id) === String(id));
+    if (!item) { showToast('Data artikel tidak ditemukan', 'danger'); return; }
+
+    editingArtikelId = item.id;
+    document.getElementById('edit-judul-artikel').value = item.judul;
+    document.getElementById('edit-kategori-artikel').value = item.kategori;
+    document.getElementById('edit-link-artikel').value = item.link;
+    document.getElementById('edit-gambar-artikel').value = item.gambar;
+
+    document.getElementById('modal-edit-artikel').classList.add('show');
+}
+
+async function simpanEditArtikel() {
+    if (!editingArtikelId) return;
+
+    const judul = document.getElementById('edit-judul-artikel').value.trim();
+    const kategori = document.getElementById('edit-kategori-artikel').value;
+    const link = document.getElementById('edit-link-artikel').value.trim();
+    const gambar = document.getElementById('edit-gambar-artikel').value.trim();
+
+    if (!judul || !link) { alert('Judul dan link wajib diisi!'); return; }
+
+    try {
+        const res = await fetch('api/update_konten.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ tipe: 'artikel', id: editingArtikelId, data: { judul, kategori, link, gambar } })
+        });
+        const result = await res.json();
+        if (result.status === 'success') {
+            await loadKontenFromAPI();
             closeModal('modal-edit-artikel');
             showToast('Artikel berhasil diperbarui!');
-            activeArtikelCard = null;
+        } else {
+            showToast('Gagal: ' + result.message, 'danger');
         }
+    } catch (err) {
+        console.error(err);
+        showToast('Gagal memperbarui artikel', 'danger');
+    }
+    editingArtikelId = null;
+}
 
-        let activeVideoRow = null;
-        function openEditVideo(btn) {
-            activeVideoRow = btn.closest('tr');
-            document.getElementById('edit-judul-video').value = activeVideoRow.cells[1].textContent.trim();
-            document.getElementById('edit-channel-video').value = activeVideoRow.cells[2].textContent.trim();
-            document.getElementById('modal-edit-video').classList.add('show');
-        }
-        function simpanEditVideo() {
-            if (!activeVideoRow) return;
-            activeVideoRow.cells[1].textContent = document.getElementById('edit-judul-video').value.trim();
-            activeVideoRow.cells[2].textContent = document.getElementById('edit-channel-video').value.trim();
+function openEditVideo(btn) {
+    const id = btn.getAttribute('data-id');
+    const item = (kontenData.video || []).find(v => String(v.id) === String(id));
+    if (!item) { showToast('Data video tidak ditemukan', 'danger'); return; }
+
+    editingVideoId = item.id;
+    document.getElementById('edit-judul-video').value = item.judul;
+    document.getElementById('edit-channel-video').value = item.channel;
+    document.getElementById('edit-id-video').value = item.videoId;
+    document.getElementById('edit-kategori-video').value = item.kategori;
+
+    document.getElementById('modal-edit-video').classList.add('show');
+}
+
+async function simpanEditVideo() {
+    if (!editingVideoId) return;
+
+    const judul = document.getElementById('edit-judul-video').value.trim();
+    const channel = document.getElementById('edit-channel-video').value.trim();
+    const videoId = extractYoutubeId(document.getElementById('edit-id-video').value);
+    const kategori = document.getElementById('edit-kategori-video').value;
+
+    if (!judul || !videoId) { alert('Judul dan ID video wajib diisi!'); return; }
+
+    try {
+        const res = await fetch('api/update_konten.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ tipe: 'video', id: editingVideoId, data: { judul, channel, videoId, kategori } })
+        });
+        const result = await res.json();
+        if (result.status === 'success') {
+            await loadKontenFromAPI();
             closeModal('modal-edit-video');
             showToast('Video berhasil diperbarui!');
-            activeVideoRow = null;
+        } else {
+            showToast('Gagal: ' + result.message, 'danger');
         }
+    } catch (err) {
+        console.error(err);
+        showToast('Gagal memperbarui video', 'danger');
+    }
+    editingVideoId = null;
+}
+
+function resetKontenModal() {
+    document.getElementById('tipe-konten').value = 'artikel';
+    toggleKontenForm('artikel');
+    document.getElementById('input-judul-artikel').value = '';
+    document.getElementById('input-link-artikel').value = '';
+    document.getElementById('input-gambar-artikel').value = '';
+    document.getElementById('input-judul-video').value = '';
+    document.getElementById('input-channel-video').value = '';
+    document.getElementById('input-id-video').value = '';
+}
 
         /* ===== FILTER JADWAL ===== */
         function filterJadwal() {
@@ -3200,22 +3170,17 @@
         }
 
         /* ===== FILTER MAHASISWA ===== */
-        function filterMahasiswa() {
-            const keyword = document.getElementById('search-mahasiswa').value.toLowerCase();
-            const status = document.getElementById('filter-status-mahasiswa').value;
-            let visible = 0;
-            document.querySelectorAll('#tbody-mahasiswa tr').forEach(row => {
-                const nama = row.querySelector('[data-label="Nama"]')?.textContent.toLowerCase() || '';
-                const nim = row.querySelector('[data-label="NIM"]')?.textContent.toLowerCase() || '';
-                const sts = row.querySelector('[data-label="Status"]')?.textContent.trim() || '';
-                const matchKeyword = nama.includes(keyword) || nim.includes(keyword);
-                const matchStatus = status === '' || sts.includes(status);
-                const show = matchKeyword && matchStatus;
-                row.style.display = show ? '' : 'none';
-                if (show) visible++;
-            });
-            document.getElementById('mahasiswa-count').textContent = visible + ' mahasiswa';
-        }
+ function filterMahasiswa() {
+    const keyword = document.getElementById('search-mahasiswa').value.toLowerCase();
+    let visible = 0;
+    document.querySelectorAll('#tbody-mahasiswa tr').forEach(row => {
+        const nama = row.querySelector('[data-label="Nama"]')?.textContent.toLowerCase() || '';
+        const show = nama.includes(keyword);
+        row.style.display = show ? '' : 'none';
+        if (show) visible++;
+    });
+    document.getElementById('mahasiswa-count').textContent = visible + ' mahasiswa';
+}
 
         /* ===== HAPUS JADWAL ===== */
         function hapusJadwal(btn) {
@@ -3226,13 +3191,33 @@
             }
         }
 
-        function hapusMahasiswa(btn) {
-            if (confirm('Yakin ingin menghapus akun mahasiswa ini?')) {
-                btn.closest('tr').remove();
-                filterMahasiswa();
-                showToast('Mahasiswa berhasil dihapus', 'danger');
-            }
+       async function hapusMahasiswa(btn) {
+    const row = btn.closest('tr');
+    const idUser = row.getAttribute('data-id');
+    const nama = row.querySelector('[data-label="Nama"]').textContent.trim();
+
+    if (!confirm(`Yakin ingin menghapus akun "${nama}"? Tindakan ini tidak bisa dibatalkan.`)) return;
+
+    try {
+        const res = await fetch('api/hapus_mahasiswa.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id_user: idUser })
+        });
+        const data = await res.json();
+
+        if (data.status === 'success') {
+            row.remove();
+            filterMahasiswa();
+            showToast(`Akun ${nama} berhasil dihapus`, 'danger');
+        } else {
+            showToast('Gagal: ' + (data.message || 'Terjadi kesalahan'), 'danger');
         }
+    } catch (err) {
+        console.error(err);
+        showToast('Gagal menghapus mahasiswa', 'danger');
+    }
+}
 
         function verifikasiMahasiswa(btn) {
             const row = btn.closest('tr');
@@ -3242,70 +3227,139 @@
                 row.setAttribute('data-status', 'Aktif');
                 row.querySelector('[data-label="Aksi"]').innerHTML = `<div class="action-btns">
             <button class="btn-outline btn-sm" onclick="openDetailMahasiswa(this)">Detail</button>
-            <button class="btn-danger btn-sm" onclick="nonaktifkanMahasiswa(this)">Nonaktifkan</button>
+            
         </div>`;
                 showToast(`Akun ${nama} berhasil diverifikasi!`);
             }
         }
 
-        function tolakMahasiswa(btn) {
-            const row = btn.closest('tr');
-            const nama = row.querySelector('[data-label="Nama"]').textContent.trim();
-            if (confirm(`Tolak pendaftaran "${nama}"?`)) {
-                row.remove();
-                filterMahasiswa();
-                showToast(`Pendaftaran ${nama} ditolak`, 'warning');
+     
+
+     
+
+        async function openDetailMahasiswa(btn) {
+    const row = btn.closest('tr');
+    const idUser = row.getAttribute('data-id');
+    const mhs = mahasiswaData.find(m => String(m.id_user) === String(idUser));
+    if (!mhs) return;
+
+    const inisial = mhs.nama_user.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+
+    document.getElementById('detail-mhs-avatar').textContent = inisial;
+    document.getElementById('detail-mhs-nama').textContent = mhs.nama_user;
+    document.getElementById('detail-mhs-email').textContent = mhs.email_user || '-';
+    document.getElementById('detail-mhs-subtitle').textContent = `ID ${mhs.id_user}`;
+    document.getElementById('detail-mhs-nim').textContent = mhs.id_user;
+    document.getElementById('detail-mhs-status').textContent = mhs.status === 'aktif' ? 'Aktif' : 'Baru';
+    document.getElementById('detail-mhs-hp').textContent = mhs.no_hp || '-';
+    document.getElementById('detail-mhs-konsultasi').textContent = (mhs.total_sesi ?? 0) + ' sesi';
+
+    document.getElementById('detail-riwayat-list').innerHTML = '<p style="font-size:13px;color:var(--text-muted);text-align:center;padding:20px 0">Memuat riwayat...</p>';
+    document.getElementById('modal-detail-mahasiswa').classList.add('show');
+
+    try {
+        const res = await fetch('api/get_reservasi_mahasiswa.php?id_mahasiswa=' + encodeURIComponent(idUser));
+        const data = await res.json();
+        const listEl = document.getElementById('detail-riwayat-list');
+
+        if (data.status !== 'success' || !data.data || data.data.length === 0) {
+            listEl.innerHTML = '<p style="font-size:13px;color:var(--text-muted);text-align:center;padding:20px 0">Belum ada riwayat reservasi</p>';
+            return;
+        }
+
+        const statusBadgeHTML = (s) => s === 'dikonfirmasi'
+            ? '<span class="badge badge-success">Dikonfirmasi</span>'
+            : s === 'dibatalkan'
+                ? '<span class="badge badge-danger">Dibatalkan</span>'
+                : s === 'selesai'
+                    ? '<span class="badge badge-gray">Selesai</span>'
+                    : '<span class="badge badge-warning">Menunggu</span>';
+
+        listEl.innerHTML = data.data.map(r => {
+            const tgl = new Date(r.tanggal_reservasi).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+            const jam = r.waktu_reservasi ? r.waktu_reservasi.substring(0, 5) : '';
+            return `<div class="riwayat-item">
+                <div>
+                    <div>${r.nama_psikolog}</div>
+                    <div style="color:var(--text-muted)">${tgl}${jam ? ' · ' + jam : ''}</div>
+                </div>
+                ${statusBadgeHTML(r.status_reservasi)}
+            </div>`;
+        }).join('');
+    } catch (err) {
+        console.error('Gagal load riwayat:', err);
+        document.getElementById('detail-riwayat-list').innerHTML = '<p style="font-size:13px;color:var(--text-muted);text-align:center;padding:20px 0">Gagal memuat riwayat</p>';
+    }
+}
+        
+        /* ===== UBAH STATUS RESERVASI ===== */
+        let activeReservasiRow = null;
+
+        function openUbahStatusModal(btn) {
+            activeReservasiRow = btn.closest('tr');
+            document.getElementById('status-sekarang-text').textContent = activeReservasiRow.getAttribute('data-status') || 'menunggu';
+            document.getElementById('modal-ubah-status').classList.add('show');
+        }
+
+        function pilihStatusBaru(statusBaru) {
+            if (!activeReservasiRow) return;
+            const tipe = activeReservasiRow.getAttribute('data-tipe') || 'online';
+            closeModal('modal-ubah-status');
+
+            if (statusBaru === 'dikonfirmasi') {
+                const titleEl = document.getElementById('konfirmasi-detail-title');
+                const inputEl = document.getElementById('input-konfirmasi-detail');
+                inputEl.value = '';
+                if (tipe === 'offline') {
+                    titleEl.textContent = 'Konfirmasi — Lokasi';
+                    inputEl.placeholder = 'mis. Ruang BK Lantai 2';
+                } else {
+                    titleEl.textContent = 'Konfirmasi — Link Zoom';
+                    inputEl.placeholder = 'https://zoom.us/j/...';
+                }
+                document.getElementById('modal-konfirmasi-detail').classList.add('show');
+            } else {
+                updateStatusReservasi(statusBaru, null);
             }
         }
 
-        function nonaktifkanMahasiswa(btn) {
-            const row = btn.closest('tr');
-            const nama = row.querySelector('[data-label="Nama"]').textContent.trim();
-            if (confirm(`Nonaktifkan akun "${nama}"?`)) {
-                row.querySelector('[data-label="Status"]').innerHTML = '<span class="badge badge-gray">Nonaktif</span>';
-                row.setAttribute('data-status', 'Nonaktif');
-                row.querySelector('[data-label="Aksi"]').innerHTML = `<div class="action-btns">
-            <button class="btn-outline btn-sm" onclick="openDetailMahasiswa(this)">Detail</button>
-            <button class="btn-success btn-sm" onclick="aktifkanMahasiswa(this)">Aktifkan</button>
-            <button class="btn-danger btn-sm" onclick="hapusMahasiswa(this)">Hapus</button>
-        </div>`;
-                showToast(`Akun ${nama} dinonaktifkan`, 'warning');
-            }
+        async function simpanKonfirmasiDetail() {
+            const detail = document.getElementById('input-konfirmasi-detail').value.trim();
+            if (!detail) { alert('Wajib diisi!'); return; }
+            await updateStatusReservasi('dikonfirmasi', detail);
+            closeModal('modal-konfirmasi-detail');
         }
 
-        function aktifkanMahasiswa(btn) {
-            const row = btn.closest('tr');
-            const nama = row.querySelector('[data-label="Nama"]').textContent.trim();
-            if (confirm(`Aktifkan kembali akun "${nama}"?`)) {
-                row.querySelector('[data-label="Status"]').innerHTML = '<span class="badge badge-success">Aktif</span>';
-                row.setAttribute('data-status', 'Aktif');
-                row.querySelector('[data-label="Aksi"]').innerHTML = `<div class="action-btns">
-            <button class="btn-outline btn-sm" onclick="openDetailMahasiswa(this)">Detail</button>
-            <button class="btn-danger btn-sm" onclick="nonaktifkanMahasiswa(this)">Nonaktifkan</button>
-        </div>`;
-                showToast(`Akun ${nama} berhasil diaktifkan!`);
+        async function updateStatusReservasi(statusBaru, detail) {
+            if (!activeReservasiRow) return;
+            const id = activeReservasiRow.getAttribute('data-id');
+            const tipe = activeReservasiRow.getAttribute('data-tipe') || 'online';
+
+            const payload = { id_reservasi: id, status_reservasi: statusBaru };
+            if (statusBaru === 'dikonfirmasi' && detail) {
+                if (tipe === 'offline') payload.lokasi = detail;
+                else payload.link_meeting = detail;
             }
-        }
 
-        function openDetailMahasiswa(btn) {
-            const row = btn.closest('tr');
-            const nama = row.querySelector('[data-label="Nama"]').textContent.trim();
-            const nim = row.querySelector('[data-label="NIM"]').textContent.trim();
-            const email = row.querySelector('[data-label="Email"]').textContent.trim();
-            const konsultasi = row.querySelector('[data-label="Konsultasi"]').textContent.trim();
-            const status = row.querySelector('[data-label="Status"]').textContent.trim();
-            const inisial = nama.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
-
-            document.getElementById('detail-mhs-avatar').textContent = inisial;
-            document.getElementById('detail-mhs-nama').textContent = nama;
-            document.getElementById('detail-mhs-email').textContent = email;
-            document.getElementById('detail-mhs-subtitle').textContent = `NIM ${nim} · ${email}`;
-            document.getElementById('detail-mhs-nim').textContent = nim;
-            document.getElementById('detail-mhs-status').textContent = status;
-            document.getElementById('detail-mhs-konsultasi').textContent = konsultasi + ' sesi';
-            document.getElementById('detail-riwayat-list').innerHTML = '<p style="font-size:13px;color:var(--text-muted);text-align:center;padding:20px 0">Memuat riwayat...</p>';
-
-            document.getElementById('modal-detail-mahasiswa').classList.add('show');
+            try {
+                const res = await fetch('api/update_status_reservasi.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                if (data.status === 'success') {
+                    showToast('Status berhasil diubah menjadi ' + statusBaru);
+                    await loadReservasi();
+                } else {
+                    showToast('Gagal: ' + (data.message || 'Terjadi kesalahan'), 'danger');
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('Gagal update status', 'danger');
+            } finally {
+                activeReservasiRow = null;
+            }
         }
 
         /* ===== MODAL EDIT JADWAL ===== */
@@ -3375,27 +3429,27 @@
 
         function openEditPsikolog(btn) {
             const row = btn.closest('tr');
+            const id = row.getAttribute('data-id');
             const nama = row.querySelector('[data-label="Nama"]').textContent.trim();
             const email = row.querySelector('[data-label="Email"]').textContent.trim();
-            const spesialisasi = row.querySelector('[data-label="Spesialisasi"]').textContent.trim();
             const tarif = row.querySelector('[data-label="Tarif"]').textContent.replace('Rp', '').replace(/\./g, '').trim();
 
-            // Isi form di modal
             const modal = document.getElementById('modal-psikolog');
+            document.getElementById('edit-id-psikolog').value = id || '';
             modal.querySelector('input[placeholder="Dr. Nama Lengkap, M.Psi"]').value = nama;
             modal.querySelector('input[placeholder="email@ruangpulih.com"]').value = email;
             modal.querySelector('input[placeholder="150000"]').value = tarif;
 
             modal.classList.add('show');
         }
-        function simpanPsikolog() {
-            document.getElementById('modal-psikolog').classList.remove('show');
-            showToast('Data psikolog berhasil disimpan!');
-        }
+        
 
-        // Load semua data saat halaman dibuka
-        loadStats();
-        loadReservasi();
+      
+
+        // Load konten dari API saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            loadKontenFromAPI();
+        });
     </script>
 
 </body>

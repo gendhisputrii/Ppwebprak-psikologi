@@ -17,7 +17,6 @@ if (!$nama || !$email || !$password) {
     exit;
 }
 
-// Cek email sudah ada atau belum
 $cek = $conn->prepare("SELECT id_user FROM pengguna WHERE email_user = ?");
 $cek->bind_param('s', $email);
 $cek->execute();
@@ -28,14 +27,10 @@ if ($cek->num_rows > 0) {
     exit;
 }
 
-// Generate ID unik
 $prefix  = ($role === 'mahasiswa') ? 'USR' : 'PSI';
 $id_user = $prefix . rand(1000000, 9999999);
+$hashed  = password_hash($password, PASSWORD_BCRYPT);
 
-// Hash password
-$hashed = password_hash($password, PASSWORD_BCRYPT);
-
-// Insert ke tabel pengguna
 $stmt = $conn->prepare("INSERT INTO pengguna (id_user, nama_user, email_user, password_user, no_hp, role_user, status_verifikasi) VALUES (?, ?, ?, ?, ?, ?, 0)");
 $stmt->bind_param('ssssss', $id_user, $nama, $email, $hashed, $no_hp, $role);
 
@@ -44,7 +39,6 @@ if (!$stmt->execute()) {
     exit;
 }
 
-// Insert ke tabel mahasiswa atau psikolog
 if ($role === 'mahasiswa') {
     $conn->query("INSERT INTO mahasiswa (id_mahasiswa) VALUES ('$id_user')");
 } else {

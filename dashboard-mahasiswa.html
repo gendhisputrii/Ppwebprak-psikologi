@@ -1428,7 +1428,7 @@
                                     <th>Durasi</th>
                                     <th>Tipe</th>
                                     <th>Status</th>
-                                    <th>Rating</th>
+                                  
                                 </tr>
                             </thead>
                             <tbody>
@@ -1576,6 +1576,10 @@
                 <div class="detail-row">
                     <span class="label">Tipe Sesi</span>
                     <span class="value" id="detail-tipe">—</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label" id="detail-link-label">Link Zoom</span>
+                    <span class="value" id="detail-link">—</span>
                 </div>
                 <div class="detail-row">
                     <span class="label">Status</span>
@@ -1771,17 +1775,17 @@
                 console.error('Gagal load psikolog:', err);
             }
         }
-
+let semuaReservasi = [];
         // Load reservasi dari database
         async function loadReservasi() {
             try {
                 const res = await fetch('api/get_reservasi.php?id_mahasiswa=' + user.id_user);
                 const data = await res.json();
                 if (data.status !== 'success') return;
+                semuaReservasi = data.data;
 
-                const hariIni = new Date().toISOString().split('T')[0]; // format YYYY-MM-DD
-                const mendatang = data.data.filter(r => r.tanggal_reservasi >= hariIni);
-                const riwayat = data.data.filter(r => r.tanggal_reservasi < hariIni);
+                const mendatang = data.data.filter(r => r.status_reservasi !== 'selesai' && r.status_reservasi !== 'dibatalkan');
+                const riwayat = data.data.filter(r => r.status_reservasi === 'selesai' || r.status_reservasi === 'dibatalkan');
 
 
                 // Isi tabel jadwal mendatang
@@ -1792,9 +1796,11 @@
                         : mendatang.map(r => {
                             const tgl = new Date(r.tanggal_reservasi).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
                             const inisial = r.nama_psikolog.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-                            const badgeStatus = r.status_reservasi === 'menunggu'
-                                ? '<span class="badge badge-warning">Menunggu</span>'
-                                : '<span class="badge badge-success">Terkonfirmasi</span>';
+                           const statusMapJadwal = {
+                                menunggu: '<span class="badge badge-warning">Menunggu</span>',
+                                dikonfirmasi: '<span class="badge badge-success">Terkonfirmasi</span>'
+                            };
+                            const badgeStatus = statusMapJadwal[r.status_reservasi] || '<span class="badge badge-success">Terkonfirmasi</span>';
                             return `<tr>
                         <td>
                             <div style="display:flex;align-items:center;gap:10px">
@@ -1806,9 +1812,9 @@
                             </div>
                         </td>
                         <td>${tgl} · ${r.waktu_reservasi ? r.waktu_reservasi.substring(0, 5) : '-'} WIB</td>
-                        <td><span class="badge badge-primary">-</span></td>
+                        <td>${r.jenis_konsultasi === 'offline' ? '<span class="badge badge-warning">Offline</span>' : '<span class="badge badge-primary">Online</span>'}</td>
                         <td>${badgeStatus}</td>
-                        <td><button class="card-action">Detail</button></td>
+                        <td><button class="card-action" onclick="openDetailModal('${r.id_reservasi}')">Detail</button></td>
                     </tr>`;
                         }).join('');
                 }
@@ -1817,7 +1823,7 @@
                 const tbodyRiwayat = document.querySelector('#page-riwayat tbody');
                 if (tbodyRiwayat) {
                     tbodyRiwayat.innerHTML = riwayat.length === 0
-                        ? '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:20px">Belum ada riwayat konsultasi</td></tr>'
+                      ? '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:20px">Belum ada riwayat konsultasi</td></tr>'
                         : riwayat.map(r => {
                             const tgl = new Date(r.tanggal_reservasi).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
                             const inisial = r.nama_psikolog.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
@@ -1830,9 +1836,8 @@
                         </td>
                         <td>${tgl}</td>
                         <td>60 menit</td>
-                        <td><span class="badge badge-primary">-</span></td>
-                        <td><span class="badge badge-success">${r.status_reservasi}</span></td>
-                        <td>—</td>
+                        <td>${r.jenis_konsultasi === 'offline' ? '<span class="badge badge-warning">Offline</span>' : '<span class="badge badge-primary">Online</span>'}</td>
+                        <td>${r.status_reservasi === 'dibatalkan' ? '<span class="badge badge-danger">Dibatalkan</span>' : '<span class="badge badge-success">Selesai</span>'}</td>
                     </tr>`;
                         }).join('');
                 }
@@ -1852,15 +1857,18 @@
                             const day = tgl.getDate();
                             const month = tgl.toLocaleDateString('id-ID', { month: 'short' });
                             const jam = r.waktu_reservasi ? r.waktu_reservasi.substring(0, 5) : '-';
-                            const badgeStatus = r.status_reservasi === 'menunggu'
-                                ? '<span class="badge badge-warning">Menunggu</span>'
-                                : '<span class="badge badge-success">Terkonfirmasi</span>';
+                            const statusMap = {
+    menunggu: '<span class="badge badge-warning">Menunggu</span>',
+    dikonfirmasi: '<span class="badge badge-success">Terkonfirmasi</span>',
+    dibatalkan: '<span class="badge badge-danger">Dibatalkan</span>'
+};
+const badgeStatus = statusMap[r.status_reservasi] || '<span class="badge badge-success">Terkonfirmasi</span>';
                             return `
             <div class="jadwal-item">
                 <div class="jadwal-date"><span class="day">${day}</span><span class="month">${month}</span></div>
                 <div class="jadwal-info">
                     <div class="psikolog-name">${r.nama_psikolog}</div>
-                    <div class="jadwal-time">🖥️ Online · ${jam} WIB</div>
+                    <div class="jadwal-time">${r.jenis_konsultasi === 'offline' ? '📍 Offline' : '🖥️ Online'} · ${jam} WIB</div>
                 </div>
                 ${badgeStatus}
             </div>`;
@@ -1892,30 +1900,46 @@
         sesiFilter.addEventListener('change', filterPsikolog);
         tipeFilter.addEventListener('change', filterPsikolog);
 
-        const jadwalData = [
-            {
-                nama: 'Dr. Sarah Amelia, M.Psi', spesialis: 'Psikologi Klinis',
-                avatarText: 'SA', avatarBg: 'linear-gradient(135deg,#6352c7,#4a90d9)',
-                tanggal: 'Sabtu, 28 Maret 2026', waktu: '10:00 – 11:00 WIB',
-                durasi: '60 menit', tipe: 'Online (Video Call)',
-                status: '<span class="badge badge-success">Terkonfirmasi</span>',
-                catatan: 'Konsultasi manajemen stres akademik'
-            }
-        ];
-
-        function openDetailModal(idx) {
-            const d = jadwalData[idx];
+        function openDetailModal(idReservasi) {
+            const d = semuaReservasi.find(r => String(r.id_reservasi) === String(idReservasi));
             if (!d) return;
-            document.getElementById('detail-avatar').textContent = d.avatarText;
-            document.getElementById('detail-avatar').style.background = d.avatarBg;
-            document.getElementById('detail-nama').textContent = d.nama;
-            document.getElementById('detail-spesialis').textContent = d.spesialis;
-            document.getElementById('detail-tanggal').textContent = d.tanggal;
-            document.getElementById('detail-waktu').textContent = d.waktu;
-            document.getElementById('detail-durasi').textContent = d.durasi;
-            document.getElementById('detail-tipe').textContent = d.tipe;
-            document.getElementById('detail-status').innerHTML = d.status;
-            document.getElementById('detail-catatan').textContent = d.catatan;
+
+            const inisial = d.nama_psikolog.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+            const tgl = new Date(d.tanggal_reservasi).toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+            const jam = d.waktu_reservasi ? d.waktu_reservasi.substring(0, 5) + ' WIB' : '-';
+            const isOnline = d.jenis_konsultasi !== 'offline';
+
+            const statusMap = {
+                menunggu: '<span class="badge badge-warning">Menunggu</span>',
+                dikonfirmasi: '<span class="badge badge-success">Terkonfirmasi</span>',
+                selesai: '<span class="badge badge-success">Selesai</span>',
+                dibatalkan: '<span class="badge badge-danger">Dibatalkan</span>'
+            };
+
+            document.getElementById('detail-avatar').textContent = inisial;
+            document.getElementById('detail-avatar').style.background = 'linear-gradient(135deg,#6352c7,#4a90d9)';
+            document.getElementById('detail-nama').textContent = d.nama_psikolog;
+            document.getElementById('detail-spesialis').textContent = d.spesialisasi || '-';
+            document.getElementById('detail-tanggal').textContent = tgl;
+            document.getElementById('detail-waktu').textContent = jam;
+            document.getElementById('detail-durasi').textContent = '60 menit';
+            document.getElementById('detail-tipe').textContent = isOnline ? 'Online (Video Call)' : 'Offline (Tatap Muka)';
+            document.getElementById('detail-status').innerHTML = statusMap[d.status_reservasi] || d.status_reservasi;
+
+            const linkLabel = document.getElementById('detail-link-label');
+            const linkValue = document.getElementById('detail-link');
+
+            if (isOnline) {
+                linkLabel.textContent = 'Link Zoom';
+                linkValue.innerHTML = d.link_meeting
+                    ? `<a href="${d.link_meeting}" target="_blank" style="color:var(--primary)">Buka Link Zoom</a>`
+                    : 'Belum tersedia';
+            } else {
+                linkLabel.textContent = 'Lokasi';
+                linkValue.textContent = d.lokasi || 'Belum tersedia';
+            }
+
+            document.getElementById('detail-catatan').textContent = '-';
             document.getElementById('modalDetail').classList.add('active');
         }
 

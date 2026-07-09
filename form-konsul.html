@@ -881,12 +881,14 @@
         const res = await fetch('api/buat_reservasi.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            id_mahasiswa: user.id_user,
-            id_jadwal: state.id_jadwal,
-            tanggal_reservasi: state.tanggal,
-            waktu_reservasi: state.waktu
-          })
+         body: JSON.stringify({
+  id_mahasiswa: user.id_user,
+  id_jadwal: state.id_jadwal,
+  tanggal_reservasi: state.tanggal,
+  waktu_reservasi: state.waktu,
+  jenis_konsultasi: state.tipe.toLowerCase(),
+  keluhan: state.keluhan
+})
         });
         const data = await res.json();
 
